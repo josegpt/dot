@@ -1,0 +1,19 @@
+# Homepage that vimb opens if started without a URI
+set home-page=about:blank
+
+# Download folder
+set download-path=~/tmp/
+
+# Autohide input box
+set input-autohide=true
+
+# Show matches when typing commands
+set incsearch=true
+
+# GUI Theming
+set completion-css=color:#F7F7F7;background-color:#0D0C0C;font:12pt FiraCode;
+set completion-hover-css=color:#111010;background-color:#D0021B;font:12pt FiraCode;
+set input-css=color:#F7F7F7;background-color:#0D0C0C;font:12pt FiraCode;
+set status-css=color:#D0021B;background-color:#111010;font:12pt FiraCode;
+set status-ssl-css=color:#F7F7F7;background-color:#0D0C0C;font:12pt FiraCode;
+set status-ssl-invalid-css=color:#F7F7F7;background-color:#D0021B;font:12pt FiraCode;

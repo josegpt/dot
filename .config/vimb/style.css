@@ -1,0 +1,27 @@
+span[vimbhint^='label'] {
+  align-items: center;
+  background-color: #0D0C0C !important;
+  border: 1px solid #D0021B !important;
+  border-radius: 3px;
+  color: #F7F7F7 !important;
+  display: flex;
+  font: bold 10pt monospace !important;
+  justify-content: center;
+  opacity: .8 !important;
+  padding: .1em .4em !important;
+  text-transform: uppercase !important;
+}
+
+span[vimbhint='label focus'] {
+  font: bold 13pt monospace !important;
+}
+
+*[vimbhint^='hint'] {
+  background-color: #0D0C0C !important;
+  color: #F7F7F7 !important;
+}
+
+*[vimbhint='hint focus'] {
+  background-color: #D0021B !important;
+  color: #111010 !important;
+}
