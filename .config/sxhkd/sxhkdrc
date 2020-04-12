@@ -8,7 +8,7 @@ super + w
 
 # terminal emulator
 super + Return
-	alacritty
+	urxvt
 
 # program launcher
 super + @space

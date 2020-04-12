@@ -1,22 +1,26 @@
 #!/bin/sh
 
-# PANEL CONFIGGURATIONS
-PANEL_HEIGHT=24
-PANEL_WIDTH=920
-PANEL_HORIZONTAL=180
-PANEL_VERTICAL=12
+Clock() {
+  TIME=$(date "+%H:%M:%S")
+  echo "$TIME"
+}
 
-clock() {
-  while true; do
-    data +"S%a %-d %b %H:%M"
-    sleep 30
-  done
+Date() {
+  DATE=$(date "+%a, %m %B %Y")
+  echo "$DATE"
+}
+
+Battery() {
+  BATTPRCT=$(acpiconf -i 1 | grep -i 'Remaining c')
+  BATTTIME=$(acpiconf -i 1 | grep -i 'Remaining t')
+  echo "$BATTPRCT | $BATTTIME"
 }
 
 # kill all process
 #killall -9 lemonbar xtitle xdo clock
 
-
-echo $(clock)
-
+while true; do
+  echo -e "%{c}$(Clock) - $(Date)" "%{r}$(Battery)"
+  sleep 1
+done
 

@@ -3,6 +3,9 @@
 # options, key bindings, etc.
 #
 
+# Exporting colors
+# export TERM=xterm-16color
+
 # Printing System Info
 pfetch
 
