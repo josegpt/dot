@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# PANEL CONFIGGURATIONS
+PANEL_HEIGHT=24
+PANEL_WIDTH=920
+PANEL_HORIZONTAL=180
+PANEL_VERTICAL=12
+
+clock() {
+  while true; do
+    data +"S%a %-d %b %H:%M"
+    sleep 30
+  done
+}
+
+# kill all process
+#killall -9 lemonbar xtitle xdo clock
+
+
+echo $(clock)
+
+

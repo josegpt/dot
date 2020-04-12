@@ -1,0 +1,21 @@
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.autohint: true
+
+Xterm*renderFont: true
+Xterm*faceName: xft:FiraCode
+Xterm*faceSize: 12
+Xterm*utf8: 2
+Xterm*locale: true
+
+Xterm*loginshell: true
+Xterm*savelines: 16384
+
+URxvt*imLocale: en_US.UTF-8
+URxvt.font: xft:FiraCode:size=12
+URxvt.scrollBar: false
+URxvt.cursorColor: #F7F7F7
+URxvt.transparent: true
+URxvt.shading: 20
+
