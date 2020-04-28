@@ -20,7 +20,7 @@ filetype plugin indent on       " Required
 " => Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap ESC ii
-:imap jk <ESC>
+:imap ii <ESC>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
