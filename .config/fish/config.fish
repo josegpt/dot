@@ -7,3 +7,6 @@ end
 
 # vi mode
 fish_vi_key_bindings
+
+# alias for dotfiles
+alias dot="which git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
