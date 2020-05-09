@@ -1,26 +1,21 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vundle for managing plugins
+" => Vim-Plug for managing plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible                " Enable Vim mode (instead of vi emulation)
-filetype off                    " Required
+" set the runtime path to include vim-plug and initialize it
+set nocompatible                          " required
+filetype off                              " required
 
-" set the runtime path to include Vundle and initialize it
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin('~/.config/nvim/plugged') " required all plugins must appear after this line
 
-call vundle#begin() " required all plugins must appear after this line
+Plug 'itchyny/lightline.vim'  " Bottom status line
+Plug 'scrooloose/nerdtree'    " Nerdtree
 
-Plugin 'VundleVim/Vundle.vim'   " Initializing Vundle
-Plugin 'itchyny/lightline.vim'  " Bottom status line
-Plugin 'scrooloose/nerdtree'    " Nerdtree
-
-call vundle#end()
-filetype plugin indent on       " Required
-
+call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap ESC ii
-:imap ii <ESC>
+" Remap ESC
+:imap jk <ESC>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
@@ -31,7 +26,6 @@ let NERDTreeMinimalUI=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntax Styling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=16                    " Uses Xresources colors
 try                   
   syntax on                     " Enable syntax highlighting
 catch | endtry                  " vim-tiny is installed without the syntax files
@@ -64,16 +58,9 @@ set hlsearch                    " Highlight search results
 set incsearch                   " Highlight search matches as you type them
 set ttyfast                     " Redraw faster for smoother scrolling
 set wildmenu                    " Show menu for tab completion in command mode
-set relativenumber
+set number relativenumber
+set nu rnu
 
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
   set fileencodings=ucs-bom,utf-8
 endif
-
-augroup FreeBSD
-  autocmd!
-    autocmd BufNewFile /usr/ports/*/*/Makefile 0r /usr/ports/Templates/Makefile
-    if !empty($PORTSDIR)
-      autocmd BufNewFile $PORTSDIR/*/*/Makefile 0r $PORTSDIR/Templates/Makefile
-    endif
-augroup END
