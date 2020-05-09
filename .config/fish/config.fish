@@ -6,4 +6,4 @@ if not functions -q fisher
 end
 
 # vi mode
-fish_vi_key_bind
+fish_vi_key_bindings
