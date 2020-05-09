@@ -9,4 +9,4 @@ end
 fish_vi_key_bindings
 
 # alias for dotfiles
-alias dot="which git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias dot="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
