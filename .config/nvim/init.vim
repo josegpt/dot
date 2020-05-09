@@ -20,36 +20,48 @@ if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
 endif
 
 " => my plugins
+Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'  " Bottom status line
+Plug 'jremmen/vim-ripgrep'
 Plug 'scrooloose/nerdtree'    " Nerdtree
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap ESC
-:imap jk <ESC>
-
+:imap jk <ESC>                   " Remap ESC
+let mapleader = " "              " Leader Key
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+nnoremap <leader>ps :Rg<SPACE>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI=1
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Theming
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+colorscheme nord
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntax Styling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try                   
   syntax on                     " Enable syntax highlighting
 catch | endtry                  " vim-tiny is installed without the syntax files
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Powerline
+" => Lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2                " Bottom status line
 set noshowmode                  " Remove default status line
 set shortmess=F                 " Remove filename
-
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ }
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tabs and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -57,15 +69,13 @@ set tabstop=2                   " Show existing tab with 2 spaces width
 set shiftwidth=2                " When indenting with ->, use 2 spaces width
 set softtabstop=2               " Determines how many spaces to use
 set expandtab                   " Change tabs for spaces
-
+set smartindent                 " Set smartindent
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hidden
 set autoread                    " Update the file if it's changed externally
-set backspace=indent,eol,start  " Allow backspacing over anything
-set belloff=all                 " Turn off bells
-set display=truncate            " Show '@@@' when the last screen line overflows
-set formatoptions+=j            " Delete comment char when joining lines
+set noerrorbells                " Turn off bells
 set history=100                 " Undo up to this many commands
 set hlsearch                    " Highlight search results
 set incsearch                   " Highlight search matches as you type them
@@ -73,7 +83,11 @@ set ttyfast                     " Redraw faster for smoother scrolling
 set wildmenu                    " Show menu for tab completion in command mode
 set number relativenumber
 set nu rnu
-
-if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-  set fileencodings=ucs-bom,utf-8
-endif
+set nowrap                      " no truncate
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.config/nvim/undodir
+set undofile
+set incsearch
+set colorcolumn=80
