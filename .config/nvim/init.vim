@@ -1,12 +1,25 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim-Plug for managing plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Boostrap Installation
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source ~/.config/nvim/init.vim
+endif
+
 " set the runtime path to include vim-plug and initialize it
 set nocompatible                          " required
 filetype off                              " required
 
 call plug#begin('~/.config/nvim/plugged') " required all plugins must appear after this line
 
+" => automatically install missing plugins on startup
+if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+  autocmd VimEnter * PlugInstall | q
+endif
+
+" => my plugins
 Plug 'itchyny/lightline.vim'  " Bottom status line
 Plug 'scrooloose/nerdtree'    " Nerdtree
 
