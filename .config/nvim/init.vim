@@ -2,10 +2,22 @@
 " => Vim-Plug for managing plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Boostrap Installation
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source ~/.config/nvim/init.vim
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+
+let g:vim_bootstrap_langs = "go,html,javascript,python,typescript"
+let g:vim_bootstrap_editor = "nvim"				" nvim or vim
+
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
 endif
 
 " set the runtime path to include vim-plug and initialize it
@@ -19,14 +31,44 @@ if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
   autocmd VimEnter * PlugInstall | q
 endif
 
-" => my plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => My Pluggins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'  " Bottom status line
 Plug 'jremmen/vim-ripgrep'
 Plug 'scrooloose/nerdtree'    " Nerdtree
 Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
+
+" go
+"" Go Lang Bundle
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+
+" html
+"" HTML Bundle
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-haml'
+Plug 'mattn/emmet-vim'
+
+" javascript
+"" Javascript Bundle
+Plug 'jelera/vim-javascript-syntax'
+
+" typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+
+
+" vuejs
+Plug 'posva/vim-vue'
+Plug 'leafOfTree/vim-vue-plugin'
 
 call plug#end()
+
+
+filetype plugin indent on        " Required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -46,6 +88,8 @@ let NERDTreeMinimalUI=1
 " => Theming
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
+set guioptions=egmrti
+set gfn=Monospace\ 10
 colorscheme nord
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntax Styling
@@ -73,6 +117,10 @@ set smartindent                 " Set smartindent
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set backspace=indent,eol,start
 set hidden
 set autoread                    " Update the file if it's changed externally
 set noerrorbells                " Turn off bells
@@ -91,3 +139,8 @@ set undodir=~/.config/nvim/undodir
 set undofile
 set incsearch
 set colorcolumn=80
+
+"" Copy/Paste/Cut
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
