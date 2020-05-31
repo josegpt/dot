@@ -38,6 +38,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'luochen1990/rainbow'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'sheerun/vim-polyglot'
 Plug 'takac/vim-hardtime'
 Plug 'tpope/vim-fugitive'
