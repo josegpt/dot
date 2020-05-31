@@ -5,6 +5,10 @@ if not functions -q fisher
   fish -c fisher
 end
 
+# set path for stack
+set -g PATH "$HOME"/.local/bin $PATH
+set -g PATH /usr/local/bin $PATH
+
 # vi mode
 fish_vi_key_bindings
 
