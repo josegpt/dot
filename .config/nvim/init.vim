@@ -3,9 +3,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Boostrap Installation
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-
-let g:vim_bootstrap_langs = "go,html,javascript,python,typescript"
-let g:vim_bootstrap_editor = "nvim"				" nvim or vim
+let g:vim_bootstrap_editor = "nvim"
 
 if !filereadable(vimplug_exists)
   if !executable("curl")
@@ -21,8 +19,8 @@ if !filereadable(vimplug_exists)
 endif
 
 " set the runtime path to include vim-plug and initialize it
-set nocompatible                          " required
-filetype off                              " required
+set nocompatible
+filetype off
 
 call plug#begin('~/.config/nvim/plugged') " required all plugins must appear after this line
 
@@ -34,111 +32,124 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => My Pluggins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'arcticicestudio/nord-vim'
-Plug 'itchyny/lightline.vim'  " Bottom status line
-Plug 'jremmen/vim-ripgrep'
-Plug 'scrooloose/nerdtree'    " Nerdtree
+Plug 'airblade/vim-gitgutter'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'gruvbox-community/gruvbox'
+Plug 'luochen1990/rainbow'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
+Plug 'takac/vim-hardtime'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
-
-" go
-"" Go Lang Bundle
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-
-" html
-"" HTML Bundle
-Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
-
-" javascript
-"" Javascript Bundle
-Plug 'jelera/vim-javascript-syntax'
-
-" typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'HerringtonDarkholme/yats.vim'
-
-
-" vuejs
-Plug 'posva/vim-vue'
-Plug 'leafOfTree/vim-vue-plugin'
 
 call plug#end()
 
+filetype plugin indent on        
 
-filetype plugin indent on        " Required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:imap jk <ESC>                   " Remap ESC
-let mapleader = " "              " Leader Key
+imap kk <ESC>
+let mapleader = " " 
+
+" source file
+nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
+
+" move lines in v-mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Disable arrow keys (Vim don't need this)
+let g:hardtime_default_on = 1
+
+" GoTo code navigation.
+inoremap <silent><expr> <C-space> coc#refresh()
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+nmap <leader>g] <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
+nnoremap <leader>cr :CocRestart<CR>
+
+" Git Fugitive 
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gu :diffget //2<CR>
+nmap <leader>gs :G<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-nnoremap <leader>ps :Rg<SPACE>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDTree
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeMinimalUI=1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Theming
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256
-set guioptions=egmrti
-set gfn=Monospace\ 10
-colorscheme nord
+set termguicolors
+colorscheme gruvbox
+set background=dark
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntax Styling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try                   
-  syntax on                     " Enable syntax highlighting
-catch | endtry                  " vim-tiny is installed without the syntax files
+  syntax on
+catch | endtry
+let g:rainbow_active = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Lightline
+" => Airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set laststatus=2                " Bottom status line
-set noshowmode                  " Remove default status line
-set shortmess=F                 " Remove filename
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ }
+set laststatus=0
+set noshowmode
+set shortmess+=c
+set noshowcmd
+set noruler
+set cmdheight=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='gruvbox'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tabs and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set tabstop=2                   " Show existing tab with 2 spaces width
-set shiftwidth=2                " When indenting with ->, use 2 spaces width
-set softtabstop=2               " Determines how many spaces to use
-set expandtab                   " Change tabs for spaces
-set smartindent                 " Set smartindent
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set smartindent
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
 set backspace=indent,eol,start
 set hidden
-set autoread                    " Update the file if it's changed externally
-set noerrorbells                " Turn off bells
-set history=100                 " Undo up to this many commands
-set hlsearch                    " Highlight search results
-set incsearch                   " Highlight search matches as you type them
-set ttyfast                     " Redraw faster for smoother scrolling
-set wildmenu                    " Show menu for tab completion in command mode
+set autoread
+set noerrorbells
+set history=100
+set hlsearch
+set incsearch
+set ttyfast
+set wildmenu
 set number relativenumber
 set nu rnu
-set nowrap                      " no truncate
+set nowrap 
 set smartcase
 set noswapfile
-set nobackup
 set undodir=~/.config/nvim/undodir
 set undofile
 set incsearch
 set colorcolumn=80
+set nobackup
+set nowritebackup
+set updatetime=50
 
 "" Copy/Paste/Cut
 if has('unnamedplus')
