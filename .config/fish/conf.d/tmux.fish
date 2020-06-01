@@ -1,4 +1,5 @@
 if not set -q TMUX
-  set -g TMUX tmux -f "$HOME"/.config/tmux/session.tmux attach
+  set -g TMUX tmux new-session -d -s dev
   eval $TMUX
+  tmux attach-session -d -t dev
 end
