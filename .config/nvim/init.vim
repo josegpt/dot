@@ -3,17 +3,17 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Boostrap Installation
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-let g:vim_bootstrap_editor = "nvim"
+let g:vim_bootstrap_editor = 'nvim'
 
 if !filereadable(vimplug_exists)
   if !executable("curl")
     echoerr "You have to install curl or first install vim-plug yourself!"
-    execute "q!"
+    execute 'q!'
   endif
   echo "Installing Vim-Plug..."
   echo ""
-  silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  let g:not_finish_vimplug = "yes"
+  silent exec "!\curl -fLo " . vimplug_exists . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  let g:not_finish_vimplug = 'yes'
 
   autocmd VimEnter * PlugInstall
 endif
@@ -32,29 +32,39 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => My Pluggins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'luochen1990/rainbow'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'sheerun/vim-polyglot'
-Plug 'takac/vim-hardtime'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
+Plug 'metakirby5/codi.vim'
 
 call plug#end()
+
+let g:coc_global_extensions = [
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-html',
+  \ 'coc-css',
+  \ 'coc-prettier',
+  \ 'coc-json',
+  \ 'coc-tailwindcss'
+  \ ]
 
 filetype plugin indent on        
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-imap kk <ESC>
 let mapleader = " " 
 
 " source file
@@ -64,9 +74,25 @@ nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" Disable arrow keys (Vim don't need this)
-let g:hardtime_default_on = 1
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Git Fugitive 
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gu :diffget //2<CR>
+nmap <leader>gs :G<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Packages Config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GoTo code navigation.
 inoremap <silent><expr> <C-space> coc#refresh()
 nmap <leader>gd <Plug>(coc-definition)
@@ -79,15 +105,6 @@ nmap <leader>g] <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
 nnoremap <leader>cr :CocRestart<CR>
-
-" Git Fugitive 
-nmap <leader>gh :diffget //3<CR>
-nmap <leader>gu :diffget //2<CR>
-nmap <leader>gs :G<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Theming
@@ -150,7 +167,7 @@ set incsearch
 set colorcolumn=80
 set nobackup
 set nowritebackup
-set updatetime=50
+set updatetime=300
 
 "" Copy/Paste/Cut
 if has('unnamedplus')

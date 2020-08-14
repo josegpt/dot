@@ -5,9 +5,6 @@ if not functions -q fisher
   fish -c fisher
 end
 
-# set path for cabal bin
-set --universal fish_user_paths $fish_user_paths "$HOME"/.cabal/bin
-
 # vi mode
 fish_vi_key_bindings
 
