@@ -5,6 +5,12 @@ if not functions -q fisher
   fish -c fisher
 end
 
+# pfetch
+pfetch
+
+# PATH
+set --universal fish_user_paths $fish_user_paths ~/.gem/ruby/2.7.0/bin
+
 # vi mode
 fish_vi_key_bindings
 
