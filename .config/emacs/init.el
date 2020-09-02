@@ -1,11 +1,11 @@
-(require 'exwm)
-(require 'exwm-config)
-(exwm-config-default)
-
 (require 'org)
 (org-babel-load-file
  (expand-file-name "settings.org"
 		   user-emacs-directory))
+
+(require 'exwm)
+(require 'exwm-config)
+(exwm-config-default)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
