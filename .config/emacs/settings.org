@@ -1,4 +1,4 @@
-#+TITLE: emacs settings
+#+TITLE: Emacs Config
 
 * Initialize
 #+begin_src emacs-lisp
@@ -96,6 +96,7 @@ smartparens
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 #+end_src
+* Smartparens
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook #'smartparens-strict-mode)
 #+end_src
@@ -110,9 +111,4 @@ smartparens
 #+begin_src emacs-lisp
 (setq backup-directory-alist '(("." . "~/.cache/emacs/undodir")))
 (setq backup-by-copying t)
-#+end_src
-* Babel
-#+begin_src emacs-lisp
-(org-babel-do-load-languages
- 'org-babel-load-languages '((C . t)))
 #+end_src
