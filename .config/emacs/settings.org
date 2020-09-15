@@ -105,7 +105,7 @@ web-mode
 #+end_src
 * Smartparens
 #+begin_src emacs-lisp
-(smartparens-strict-mode)
+(smartparens-global-strict-mode)
 #+end_src
 * Tide
 #+begin_src emacs-lisp

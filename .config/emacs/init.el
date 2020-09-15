@@ -3,6 +3,14 @@
  (expand-file-name "settings.org"
 		   user-emacs-directory))
 
+(require 'exwm-randr)
+(setq exwm-randr-workspace-output-plist '(1 "DP-6"))
+(add-hook 'exwm-randr-screen-change-hook
+          (lambda ()
+            (start-process-shell-command
+             "xrandr" nil "xrandr --output DP-4 --rotate left --left-of DP-6")))
+(exwm-randr-enable)
+
 (require 'exwm)
 (require 'exwm-config)
 (exwm-config-default)
