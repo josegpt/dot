@@ -9,10 +9,10 @@
   (file-system (cons*
                   (file-system
                     (mount-point "/boot/efi")
-                    (device (uuid "E1D9-0EE2" 'fat32))
+                    (device (uuid "1234-ABCD" 'fat32))
                     (type "vfat"))
                   (file-system
                     (mount-point "/")
-                    (device (uuid "eaba53d9-d7e5-4129-82c8-df28bfeaa772" 'ext4))
+                    (device (file-system-label "system-root"))
                     (type "ext4"))
                   %base-file-system)))
