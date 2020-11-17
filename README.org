@@ -1,0 +1,5 @@
+#+TITLE: dotfiles
+
+* Inspiration
+
+- [[https://github.com/daviwil/dotfiles][daviwil' dotfiles]]
