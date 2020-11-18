@@ -10,7 +10,7 @@
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd))
 
-(use-service-modules desktop xorg)
+(use-service-modules desktop networking xorg)
 
 (define-public base-operating-system
   (operating-system

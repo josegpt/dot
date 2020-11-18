@@ -6,7 +6,7 @@
   (inherit base-operating-system)
   (host-name "guts")
   
-  (file-system (cons*
+  (file-systems (cons*
                   (file-system
                     (mount-point "/boot/efi")
                     (device (uuid "1234-ABCD" 'fat32))
@@ -15,4 +15,4 @@
                     (mount-point "/")
                     (device (file-system-label "system-root"))
                     (type "ext4"))
-                  %base-file-system)))
+                  %base-file-systems)))
