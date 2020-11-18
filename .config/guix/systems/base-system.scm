@@ -36,11 +36,10 @@
                    (comment "Jose G Perez Taveras")
                    (group "users")
                    (home-directory "/home/josegpt")
-                   (supplementary-groups '(
-                                          "wheel"
-                                          "netdev"
-                                          "audio"
-                                          "video")))
+                   (supplementary-groups '("wheel"
+                                           "netdev"
+                                           "audio"
+                                           "video")))
                    %base-user-accounts))
 
     ;; Install bare-minimum system packages
