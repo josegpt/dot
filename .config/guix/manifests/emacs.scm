@@ -1,0 +1,18 @@
+(specifications->manifest
+  '("emacs"
+    "emacs-use-package"
+    "emacs-exwm"
+    "emacs-desktop-environment"
+    "emacs-which-key"
+    "emacs-doom-themes"
+    "emacs-ivy"
+    "emacs-ivy-rich"
+    "emacs-expand-region"
+    "emacs-org"
+    "emacs-magit"
+    "emacs-smartparens"
+    "emacs-rainbow-delimiters"
+    "emacs-diminish"
+    "emacs-counsel"
+    "emacs-company"
+    "emacs-move-text"))
