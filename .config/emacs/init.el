@@ -25,7 +25,11 @@
   (when (string-equal system-name name)
     (apply fn args)))
 
-;;;; ===> Emacs Settings <===
+;;;; ===> Per System Config <===
+;; activate battery mode
+(if-pc "griffith" 'display-battery-mode)
+
+;;;; ===> Emacs Config <===
 (use-package emacs
   :config
   ;; configure font size
