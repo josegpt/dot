@@ -88,6 +88,12 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
+;;; Desktop Env
+(use-package desktop-environment
+  :diminish
+  :after exwm
+  :init (desktop-environment-mode))
+
 ;;; Expand Region
 (use-package expand-region
   :diminish
@@ -178,6 +184,7 @@
   (webjump-sites '(("Google" . [simple-query "www.google.com" "www.google.com/search?q=" ""])
 		  ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
 		  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
+		  ("WhatsApp Web" . "web.whatsapp.com")
 		  ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
 
 ;;; Which Key
@@ -262,7 +269,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(exwm which-key smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region company doom-themes use-package)))
+   '(desktop-environment exwm which-key smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region company doom-themes use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
