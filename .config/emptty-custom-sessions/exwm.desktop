@@ -1,0 +1,3 @@
+Name=exwm
+Exec=/bin/emacs
+Environment=xorg
