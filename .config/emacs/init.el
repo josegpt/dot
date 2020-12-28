@@ -196,10 +196,18 @@
 ;;;; ===> EXWM <===
 (use-package exwm
   :if is-linux-p
+  :init (exwm-enable)
   :bind (:map exwm-mode-map
 	      ([?\C-q] . 'exwm-input-send-next-key))
   :config
-  (exwm-enable)
+  ;; Make class name the buffer name
+  (add-hook 'exwm-update-class-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-class-name)))
+  (add-hook 'exwm-update-title-hook
+            (lambda ()
+              (pcase exwm-class-name
+                ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
   :custom
   (exwm-workspace-number 4)
   (exwm-input-prefix-keys
