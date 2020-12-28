@@ -16,84 +16,63 @@
 (setq use-package-always-ensure t)
 
 ;;;; ===> Utils <===
+;;; check if linux is running
 (defvar is-linux-p 
   (string-equal system-type "gnu/linux") "detect if linux is running")
 
+;;; apply settings base of hostname
 (defun if-pc (name fn &optional args) "call function per system base"
   (when (string-equal system-name name)
     (apply fn args)))
 
-;;;; ===> Settings <===
-;;; configure font size
-(set-face-attribute 'default nil :height 110)
-
-;;; Theme
-(use-package doom-themes
+;;;; ===> Emacs Settings <===
+(use-package emacs
   :config
-  (load-theme 'doom-Iosvkem t))
-
-;;; Display time
-(display-time-mode)
-
-;;; Web Jump
-(setq webjump-sites '(("Google" . [simple-query "www.google.com" "www.google.com/search?q=" ""])
-		  ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
-		  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
-		  ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])))
-
-;;; matching paren
-(show-paren-mode 1)
-
-;;; no blinking
-(blink-cursor-mode 0)
-
-;;; disable menu bar
-(menu-bar-mode -1)
-
-;;; disable tool bar
-(tool-bar-mode -1)
-
-;;; more space
-(set-fringe-mode 8)
-
-;;; disbale tooltip
-(tooltip-mode -1)
-
-;;; disable scroll bars
-(scroll-bar-mode -1)
-(toggle-scroll-bar -1)
-
-;;; auto refresh changed file
-(global-auto-revert-mode t)
-
-;;; disable statup messages
-(setq initial-scratch-message nil)
-(setq inhibit-startup-message t)
-
-;;; activate line number
-(column-number-mode)
-(global-display-line-numbers-mode t)
-
-;;; initial load elisp-mode
-(setq initial-major-mode 'emacs-lisp-mode)
-
-;;; Don't clutter up directories with files~
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-
-;;; Don't clutter with #files either
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+  ;; configure font size
+  (set-face-attribute 'default nil :height 110)
+  ;; activate line number
+  (column-number-mode t)
+  (global-display-line-numbers-mode t)
+  ;; no blinking
+  (blink-cursor-mode 0)
+  ;; disable menu bar
+  (menu-bar-mode 0)
+  ;; matching paren
+  (show-paren-mode t)
+  ;; disable tool bar
+  (tool-bar-mode 0)
+  ;; more space
+  (set-fringe-mode 8)
+  ;; disbale tooltip
+  (tooltip-mode 0)
+  ;; disable scroll bars
+  (scroll-bar-mode 0)
+  (toggle-scroll-bar 0)
+  ;; auto refresh changed file
+  (global-auto-revert-mode t)
+  ;; Display time
+  (display-time-mode t)
+  ;; Enable Emacs Daemon
+  (server-mode)
+  :custom
+  ;; disable statup messages
+  (initial-scratch-message nil)
+  (inhibit-startup-message t)
+  ;; initial load elisp-mode
+  (initial-major-mode 'emacs-lisp-mode)
+  ;; Don't clutter up directories with files~
+  (backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  ;; Don't clutter with #files either
+  (auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t))))
 
 ;;; disable line numbers for some modes
 (dolist (mode '(org-mode-hook
-		term-mode-hook
-		shell-mode-hook
-		eshell-mode-hook))
+                term-mode-hook
+                shell-mode-hook
+                eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;;; Enable Emacs Daemon
-(server-mode)
 
 ;;;; ===> Package Config <===
 ;;; Company
@@ -184,6 +163,19 @@
   :diminish
   :hook (prog-mode . smartparens-mode))
 
+;;; Theme
+(use-package doom-themes
+  :config
+  (load-theme 'doom-Iosvkem t))
+
+;;; Web Jump
+(use-package webjump
+  :custom
+  (webjump-sites '(("Google" . [simple-query "www.google.com" "www.google.com/search?q=" ""])
+		  ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
+		  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
+		  ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
+
 ;;; Which Key
 (use-package which-key
   :diminish
@@ -192,9 +184,10 @@
   (which-key-idle-delay 0.5 "include delay to defer its execution"))   
 
 ;;;; ===> Language Config <===
-;;; Elisp
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+;;; Eldoc
+(use-package eldoc
+  :diminish
+  :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
 ;;;; ===> EXWM <===
 (use-package exwm
@@ -250,6 +243,7 @@
       ([?\C-d] . [delete])
       ([?\C-k] . [S-end delete])
       ([?\M-d] . [C-S-right delete]))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
