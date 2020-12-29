@@ -64,10 +64,10 @@
   (inhibit-startup-message t)
   ;; initial load elisp-mode
   (initial-major-mode 'emacs-lisp-mode)
-  ;; Don't clutter up directories with files~
+  ;; don't clutter up directories with files~
   (backup-directory-alist
         `((".*" . ,temporary-file-directory)))
-  ;; Don't clutter with #files either
+  ;; don't clutter with #files either
   (auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t))))
 
@@ -82,8 +82,7 @@
 ;;; Company
 (use-package company
   :diminish
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
+  :hook (prog-mode . company-mode)
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
@@ -111,7 +110,9 @@
 
 ;;; Ivy Rich
 (use-package ivy-rich
-  :init (ivy-rich-mode t)
+  :after counsel
+  :config
+  (ivy-rich-mode t)
   :custom
   (ivy-format-function #'ivy-format-function-line)
   (ivy-rich-display-transformer-list
@@ -195,7 +196,7 @@
   (which-key-idle-delay 0.5 "include delay to defer its execution"))   
 
 ;;;; ===> Language Config <===
-;;; Eldoc
+;;; Elisp
 (use-package eldoc
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
@@ -269,7 +270,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(desktop-environment exwm which-key smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region company doom-themes use-package)))
+   '(exwm which-key doom-themes smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
