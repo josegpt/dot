@@ -209,68 +209,77 @@
 (use-package exwm
   :if is-linux-p
   :init (exwm-enable)
-  :bind (:map exwm-mode-map
-	      ([?\C-q] . 'exwm-input-send-next-key))
-  :config
+  :hook
   ;; Make class name the buffer name
-  (add-hook 'exwm-update-class-hook
-            (lambda ()
-              (exwm-workspace-rename-buffer exwm-class-name)))
-  (add-hook 'exwm-update-title-hook
-            (lambda ()
-              (pcase exwm-class-name
-                ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+  (exwm-update-class . (lambda ()
+			 (exwm-workspace-rename-buffer exwm-class-name)))
+  (exwm-update-title . (lambda ()
+			 (pcase exwm-class-name
+			   ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+  ;; send window to workspace
+  (exwm-manage-finish . (lambda ()
+			  (pcase exwm-class-name
+			    ("Chromium" (exwm-workspace-move-window 1)))))
+  :bind
+  (:map exwm-mode-map
+	("C-q" . exwm-input-send-next-key))
   :custom
   (exwm-workspace-number 4)
+  (mouse-autoselect-window 0)
   (exwm-workspace-warp-cursor t)
   (exwm-input-prefix-keys
-    '(?\C-x
-      ?\C-u
-      ?\C-h
-      ?\C-g
-      ?\M-x
-      ?\M-:))
+   '(?\C-x
+     ?\C-u
+     ?\C-h
+     ?\C-g
+     ?\M-x
+     ?\M-:
+     ?\M-!
+     ?\s-p
+     ?\s-n
+     ?\s-f
+     ?\s-b))
   (exwm-input-global-keys
-    `(([?\s-r] . exwm-reset)
-      ([?\s-w] . exwm-workspace-switch)
-      ([?\s-j] . webjump)
-      ([?\s-&] . (lambda (command)
-		   (interactive (list (read-shell-command "$ ")))
-		   (start-process-shell-command command nil command)))
-      ,@(mapcar (lambda (i)
-		  `(,(kbd (format "s-%d" i)) .
-		     (lambda ()
-		       (interactive)
-		       (exwm-workspace-switch-create ,i))))
-		(number-sequence 0 9))))
+   `(([?\s-r] . exwm-reset)
+     ([?\s-w] . exwm-workspace-switch)
+     ([?\s-j] . webjump)
+     ([?\s-&] . (lambda (command)
+		  (interactive (list (read-shell-command "$ ")))
+		  (start-process-shell-command command nil command)))
+     ,@(mapcar (lambda (i)
+		 `(,(kbd (format "s-%d" (1+ i))) .
+		   (lambda ()
+		     (interactive)
+		     (exwm-workspace-switch-create ,i))))
+	       (number-sequence 0 3))))
   (exwm-input-simulation-keys
-    '(([?\C-b] . [left])
-      ([?\C-f] . [right])
-      ([?\C-p] . [up])
-      ([?\C-n] . [down])
-      ([?\C-a] . [home])
-      ([?\C-e] . [end])
-      ([?\C-v] . [next])
-      ([?\M-h] . [?\C-a])
-      ([?\M-v] . [prior])
-      ([?\M-b] . [C-left])
-      ([?\M-f] . [C-right])
-      ([?\M-<] . [home])
-      ([?\M->] . [end])
-      ([?\C-d] . [delete])
-      ([?\C-w] . [?\C-x])
-      ([?\M-w] . [?\C-c])
-      ([?\C-y] . [?\C-v])
-      ([?\C-s] . [?\C-f])
-      ([?\C-c ?f] . [?\C-l])
-      ([?\C-c ?n] . [?\C-t])
-      ([?\C-c ?g] . [escape])
-      ([?\C-c ?k] . [?\C-w])
-      ([?\C-\M-b] . [M-left])
-      ([?\C-\M-f] . [M-right])
-      ([?\C-k] . [S-end delete])
-      ([M-backspace] . [C-backspace])
-      ([?\M-d] . [C-S-right delete]))))
+   '(([?\C-b] . [left])
+     ([?\C-f] . [right])
+     ([?\C-p] . [up])
+     ([?\C-n] . [down])
+     ([?\C-a] . [home])
+     ([?\C-e] . [end])
+     ([?\C-v] . [next])
+     ([?\M-h] . [?\C-a])
+     ([?\M-v] . [prior])
+     ([?\M-b] . [C-left])
+     ([?\M-f] . [C-right])
+     ([?\M-<] . [home])
+     ([?\M->] . [end])
+     ([?\C-d] . [delete])
+     ([?\C-w] . [?\C-x])
+     ([?\M-w] . [?\C-c])
+     ([?\C-y] . [?\C-v])
+     ([?\C-s] . [?\C-f])
+     ([?\C-c ?f] . [?\C-l])
+     ([?\C-c ?n] . [?\C-t])
+     ([?\C-c ?g] . [escape])
+     ([?\C-c ?k] . [?\C-w])     
+     ([?\C-\M-b] . [M-left])
+     ([?\C-\M-f] . [M-right])
+     ([?\C-k] . [S-end delete])
+     ([M-backspace] . [C-backspace])
+     ([?\M-d] . [C-S-right delete]))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
