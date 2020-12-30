@@ -72,6 +72,8 @@
   ;; Enable Emacs Daemon
   (server-mode)
   :custom
+  ;; bell
+  (ring-bell-function 'ignore)
   ;; disable statup messages
   (initial-scratch-message nil)
   (inhibit-startup-message t)
@@ -150,8 +152,6 @@
 
 ;;; Magit
 (use-package magit
-  :bind
-  ("C-c m s" . magit)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
   
@@ -277,6 +277,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auth-source-save-behavior nil)
  '(package-selected-packages
    '(multiple-cursors exwm which-key doom-themes smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
 (custom-set-faces
