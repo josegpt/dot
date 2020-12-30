@@ -32,6 +32,19 @@
 ;;;; ===> Emacs Config <===
 (use-package emacs
   :hook (prog-mode . display-line-numbers-mode)
+  :bind
+  ("s-p" . windmove-up)
+  ("s-n" . windmove-down)
+  ("s-b" . windmove-left)
+  ("s-f" . windmove-right)
+  ("s-P" . windmove-swap-states-up)
+  ("s-N" . windmove-swap-states-down)
+  ("s-B" . windmove-swap-states-left)
+  ("s-F" . windmove-swap-states-right)
+  ("C-s-p" . windmove-delete-up)
+  ("C-s-n" . windmove-delete-down)
+  ("C-s-b" . windmove-delete-left)
+  ("C-s-f" . windmove-delete-right)
   :config
   ;; configure font size
   (set-face-attribute 'default nil :height 110)
@@ -89,14 +102,15 @@
 ;;; Expand Region
 (use-package expand-region
   :diminish
-  :bind (("C-=" . er/expand-region)))
+  :bind
+  ("C-=" . er/expand-region))
 
 ;;; Ivy
 (use-package ivy
   :diminish
   :init (ivy-mode t)
   :bind
-  (("C-s" . swiper))
+  ("C-s" . swiper)
   :custom
   (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t))
@@ -125,11 +139,9 @@
 ;;; Counsel
 (use-package counsel
   :bind
-  (("M-x" . counsel-M-x)
-   ("C-x b" . counsel-ibuffer)
-   ("C-x C-f" . counsel-find-file)
-   :map minibuffer-local-map
-   ("C-r" . 'counsel-minibuffer-history))
+  ("M-x" . counsel-M-x)
+  ("C-x b" . counsel-ibuffer)
+  ("C-x C-f" . counsel-find-file)
   :custom
   (ivy-initial-inputs-alist nil))
 
@@ -138,6 +150,8 @@
 
 ;;; Magit
 (use-package magit
+  :bind
+  ("C-c m s" . magit)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
   
@@ -147,15 +161,11 @@
   (("M-p" . move-text-up)
    ("M-n" . move-text-down)))
 
-;;; Org
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)))
-
-(require 'org-tempo)
-
-(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(use-package multiple-cursors
+  :bind
+  ("C->" . 'mc/mark-next-like-this)
+  ("C-<" . 'mc/mark-previous-like-this)
+  ("C-c C-<" . 'mc/mark-all-like-this))
 
 ;;; Rainbow Delimiters
 (use-package rainbow-delimiters
@@ -212,6 +222,7 @@
                 ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
   :custom
   (exwm-workspace-number 4)
+  (exwm-workspace-warp-cursor t)
   (exwm-input-prefix-keys
     '(?\C-x
       ?\C-u
@@ -267,7 +278,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(exwm which-key doom-themes smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
+   '(multiple-cursors exwm which-key doom-themes smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
