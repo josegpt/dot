@@ -197,10 +197,10 @@
   (which-key-idle-delay 0.5 "include delay to defer its execution"))   
 
 ;;;; ===> Language Config <===
-;;; Elisp
+;;; Eldoc
 (use-package eldoc
   :diminish
-  :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
+  :hook (prog-mode . eldoc-mode))
 
 ;;;; ===> EXWM <===
 (use-package exwm
