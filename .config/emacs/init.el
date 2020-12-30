@@ -31,12 +31,12 @@
 
 ;;;; ===> Emacs Config <===
 (use-package emacs
+  :hook (prog-mode . display-line-numbers-mode)
   :config
   ;; configure font size
   (set-face-attribute 'default nil :height 110)
   ;; activate line number
   (column-number-mode t)
-  (global-display-line-numbers-mode t)
   ;; no blinking
   (blink-cursor-mode 0)
   ;; disable menu bar
@@ -70,13 +70,6 @@
   ;; don't clutter with #files either
   (auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t))))
-
-;;; disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;;;; ===> Package Config <===
 ;;; Company
@@ -200,7 +193,7 @@
 ;;; Eldoc
 (use-package eldoc
   :diminish
-  :hook (prog-mode . eldoc-mode))
+  :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
 ;;;; ===> EXWM <===
 (use-package exwm
