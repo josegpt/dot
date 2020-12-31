@@ -190,6 +190,7 @@
 		  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
 		  ("WhatsApp" . "web.whatsapp.com")
 		  ("Discord" . "discord.com/app")
+		  ("Gmail" . "mail.google.com")
 		  ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
 
 ;;; Which Key
