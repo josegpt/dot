@@ -75,6 +75,8 @@
   ;; Display time
   (display-time-mode t)
   :custom
+  ;; gpg password minibuffer
+  (epg-pinentry-mode 'loopback)
   ;; bell
   (ring-bell-function 'ignore)
   ;; disable statup messages
