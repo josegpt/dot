@@ -1,6 +1,6 @@
 alias ll ls -l
 alias la ls -la
-alias rt sudo reboot
+alias rb sudo reboot
 alias po sudo poweroff
 alias sd sudo shutdown
 alias xqi xbps-query -m
