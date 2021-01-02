@@ -31,8 +31,12 @@
 
 ;;;; ===> Emacs Config <===
 (use-package emacs
+  ;; Enable Emacs Daemon
+  :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
+  ("s-m" . mu4e)
+  ("<s-return>" . eshell)
   ("s-p" . windmove-up)
   ("s-n" . windmove-down)
   ("s-b" . windmove-left)
@@ -45,6 +49,7 @@
   ("C-s-n" . windmove-delete-down)
   ("C-s-b" . windmove-delete-left)
   ("C-s-f" . windmove-delete-right)
+  ("M-!" . eshell-command)
   :config
   ;; configure font size
   (set-face-attribute 'default nil :height 110)
@@ -69,8 +74,6 @@
   (global-auto-revert-mode t)
   ;; Display time
   (display-time-mode t)
-  ;; Enable Emacs Daemon
-  (server-mode)
   :custom
   ;; bell
   (ring-bell-function 'ignore)
@@ -161,11 +164,46 @@
   (("M-p" . move-text-up)
    ("M-n" . move-text-down)))
 
+;;; Mu4e
+(use-package mu4e
+  :ensure nil
+  :custom
+  (mu4e-change-filenames-when-moving t)
+  (mu4e-view-show-addresses t)
+  (mu4e-update-interval (* 10 60))
+  (mu4e-get-mail-command "mbsync -a")
+  ;; enable inline images
+  (mu4e-view-show-images t)
+  (mu4e-sent-messages-behavior 'delete)
+  (mu4e-confirm-quit nil)
+  (mu4e-attachment-dir "~/Downloads")
+  (user-full-name "Jose G Perez Taveras")
+  (user-mail-address "josegpt27@gmail.com")
+  (mu4e-maildir "~/Mail")
+  (mu4e-sent-folder "/Sent Mail")
+  (mu4e-drafts-folder "/Drafts")
+  (mu4e-trash-folder "/Trash")
+  (mu4e-maildir-shortcuts
+   '((:maildir "/INBOX" :key ?i)
+     (:maildir "/Sent Mail" :key ?s)
+     (:maildir "/Starred" :key ?r)
+     (:maildir "/Spam" :key ?p)
+     (:maildir "/Drafts" :key ?d)
+     (:maildir "/Trash" :key ?t)))
+  :config
+  ;; use imagemagick, if available
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types)))
+
+;;; Multiple Cursors
 (use-package multiple-cursors
   :bind
   ("C->" . 'mc/mark-next-like-this)
   ("C-<" . 'mc/mark-previous-like-this)
   ("C-c C-<" . 'mc/mark-all-like-this))
+
+;;; Pass
+(use-package pass)
 
 ;;; Rainbow Delimiters
 (use-package rainbow-delimiters
@@ -226,7 +264,6 @@
 	("C-q" . exwm-input-send-next-key))
   :custom
   (exwm-workspace-number 4)
-  (mouse-autoselect-window 0)
   (exwm-workspace-warp-cursor t)
   (exwm-input-prefix-keys
    '(?\C-x
@@ -289,7 +326,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(multiple-cursors exwm which-key doom-themes smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
+   '(pass mu4e multiple-cursors exwm which-key doom-themes smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
