@@ -1,5 +1,8 @@
 alias ll ls -l
 alias la ls -la
+alias rt sudo reboot
+alias po sudo poweroff
+alias sd sudo shutdown
 alias xqi xbps-query -m
 alias xqo xbps-query -O
 alias xqs xbps-query -s $1
