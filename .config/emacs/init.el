@@ -46,8 +46,6 @@
   ("s-N" . windmove-swap-states-down)
   ("s-B" . windmove-swap-states-left)
   ("s-F" . windmove-swap-states-right)
-  ("C-c p" . pass)
-  ("C-c m" . mu4e)
   ("C-c w p" . windmove-delete-up)
   ("C-c w n" . windmove-delete-down)
   ("C-c w b" . windmove-delete-left)
@@ -172,6 +170,8 @@
 (use-package mu4e
   :if is-linux-p
   :ensure nil
+  :bind
+  ("C-c m" . mu4e)
   :custom
   (mu4e-change-filenames-when-moving t)
   (mu4e-view-show-addresses t)
@@ -209,7 +209,9 @@
 
 ;;; Pass
 (use-package pass
-  :if is-linux-p)
+  :if is-linux-p
+  :bind
+  ("C-c p" . pass))
 
 ;;; Rainbow Delimiters
 (use-package rainbow-delimiters
