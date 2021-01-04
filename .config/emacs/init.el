@@ -26,10 +26,11 @@
 				 (string= "*scratch*" (buffer-name))
 				 (string= "*Messages*" (buffer-name))))
 	(no-windows (count-windows)))
-    (when (not is-essential-buffers-p)
-      (if (> no-windows 1)
-	  (kill-buffer-and-window)
-	(kill-current-buffer)))))
+    (if (not is-essential-buffers-p)
+	(if (> no-windows 1)
+	    (kill-buffer-and-window)
+	  (kill-current-buffer))
+      (message "Trying to kill/remove essential buffer/window."))))
 
 ;;; apply settings base of hostname
 (defun if-pc (name fn &optional args) "call function per system base"
