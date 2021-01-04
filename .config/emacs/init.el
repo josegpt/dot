@@ -27,7 +27,7 @@
 
 ;;;; ===> Per System Config <===
 ;; activate battery mode
-(if-pc "griffith" 'display-battery-mode)
+(if-pc "morty" 'display-battery-mode)
 
 ;;;; ===> Emacs Config <===
 (use-package emacs
