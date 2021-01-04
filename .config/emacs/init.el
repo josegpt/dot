@@ -17,8 +17,7 @@
 
 ;;;; ===> Utils <===
 ;;; check if linux is running
-(defvar is-linux-p 
-  (string-equal system-type "gnu/linux") "detect if linux is running")
+(defvar is-linux-p (string-equal system-type "gnu/linux") "detect if linux is running")
 
 ;;; apply settings base of hostname
 (defun if-pc (name fn &optional args) "call function per system base"
@@ -101,10 +100,12 @@
   (company-idle-delay 0.0))
 
 ;;; Desktop Env
-(use-package desktop-environment
-  :diminish
-  :after exwm
-  :init (desktop-environment-mode))
+(when is-linux-p
+  (use-package desktop-environment
+    :diminish
+    :after exwm
+    :init (desktop-environment-mode)))
+
 
 ;;; Expand Region
 (use-package expand-region
@@ -167,38 +168,38 @@
    ("M-n" . move-text-down)))
 
 ;;; Mu4e
-(use-package mu4e
-  :if is-linux-p
-  :ensure nil
-  :bind
-  ("C-c m" . mu4e)
-  :custom
-  (mu4e-change-filenames-when-moving t)
-  (mu4e-view-show-addresses t)
-  (mu4e-update-interval (* 10 60))
-  (mu4e-get-mail-command "mbsync -a")
-  ;; enable inline images
-  (mu4e-view-show-images t)
-  (mu4e-sent-messages-behavior 'delete)
-  (mu4e-confirm-quit nil)
-  (mu4e-attachment-dir "~/Downloads")
-  (user-full-name "Jose G Perez Taveras")
-  (user-mail-address "josegpt27@gmail.com")
-  (mu4e-maildir "~/Mail")
-  (mu4e-sent-folder "/Sent Mail")
-  (mu4e-drafts-folder "/Drafts")
-  (mu4e-trash-folder "/Trash")
-  (mu4e-maildir-shortcuts
-   '((:maildir "/INBOX" :key ?i)
-     (:maildir "/Sent Mail" :key ?s)
-     (:maildir "/Starred" :key ?r)
-     (:maildir "/Spam" :key ?p)
-     (:maildir "/Drafts" :key ?d)
-     (:maildir "/Trash" :key ?t)))
-  :config
-  ;; use imagemagick, if available
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types)))
+(when is-linux-p
+  (use-package mu4e
+    :ensure nil
+    :bind
+    ("C-c m" . mu4e)
+    :custom
+    (mu4e-change-filenames-when-moving t)
+    (mu4e-view-show-addresses t)
+    (mu4e-update-interval (* 10 60))
+    (mu4e-get-mail-command "mbsync -a")
+    ;; enable inline images
+    (mu4e-view-show-images t)
+    (mu4e-sent-messages-behavior 'delete)
+    (mu4e-confirm-quit nil)
+    (mu4e-attachment-dir "~/Downloads")
+    (user-full-name "Jose G Perez Taveras")
+    (user-mail-address "josegpt27@gmail.com")
+    (mu4e-maildir "~/Mail")
+    (mu4e-sent-folder "/Sent Mail")
+    (mu4e-drafts-folder "/Drafts")
+    (mu4e-trash-folder "/Trash")
+    (mu4e-maildir-shortcuts
+     '((:maildir "/INBOX" :key ?i)
+       (:maildir "/Sent Mail" :key ?s)
+       (:maildir "/Starred" :key ?r)
+       (:maildir "/Spam" :key ?p)
+       (:maildir "/Drafts" :key ?d)
+       (:maildir "/Trash" :key ?t)))
+    :config
+    ;; use imagemagick, if available
+    (when (fboundp 'imagemagick-register-types)
+      (imagemagick-register-types))))
 
 ;;; Multiple Cursors
 (use-package multiple-cursors
@@ -208,10 +209,10 @@
   ("C-c C-<" . 'mc/mark-all-like-this))
 
 ;;; Pass
-(use-package pass
-  :if is-linux-p
+(when is-linux-p
+  (use-package pass
   :bind
-  ("C-c p" . pass))
+  ("C-c p" . pass)))
 
 ;;; Rainbow Delimiters
 (use-package rainbow-delimiters
@@ -224,9 +225,9 @@
   :hook (prog-mode . smartparens-mode))
 
 ;;; Theme
-(use-package doom-themes
+(use-package monokai-theme
   :config
-  (load-theme 'doom-Iosvkem t))
+  (load-theme 'monokai t))
 
 ;;; Web Jump
 (use-package webjump
@@ -253,89 +254,74 @@
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
 ;;;; ===> EXWM <===
-(use-package exwm
-  :if is-linux-p
-  :init (exwm-enable)
-  :hook
-  ;; Make class name the buffer name
-  (exwm-update-class . (lambda ()
-			 (exwm-workspace-rename-buffer exwm-class-name)))
-  (exwm-update-title . (lambda ()
-			 (pcase exwm-class-name
-			   ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
-  ;; send window to workspace
-  (exwm-manage-finish . (lambda ()
-			  (pcase exwm-class-name
-			    ("Chromium" (exwm-workspace-move-window 1)))))
-  :bind
-  (:map exwm-mode-map
-	("C-q" . exwm-input-send-next-key))
-  :custom
-  (exwm-workspace-number 4)
-  (exwm-workspace-warp-cursor t)
-  (exwm-input-prefix-keys
-   '(?\C-x
-     ?\C-c
-     ?\C-u
-     ?\C-h
-     ?\C-g
-     ?\M-x
-     ?\M-:
-     ?\M-!
-     ?\s-c
-     ?\s-p
-     ?\s-n
-     ?\s-f
-     ?\s-b))
-  (exwm-input-global-keys
-   `(([?\s-r] . exwm-reset)
-     ([?\s-w] . exwm-workspace-switch)
-     ([?\s-j] . webjump)
-     ([?\s-&] . (lambda (command)
-		  (interactive (list (read-shell-command "$ ")))
-		  (start-process-shell-command command nil command)))
-     ,@(mapcar (lambda (i)
-		 `(,(kbd (format "s-%d" (1+ i))) .
-		   (lambda ()
-		     (interactive)
-		     (exwm-workspace-switch-create ,i))))
-	       (number-sequence 0 3))))
-  (exwm-input-simulation-keys
-   '(([?\C-b] . [left])
-     ([?\C-f] . [right])
-     ([?\C-p] . [up])
-     ([?\C-n] . [down])
-     ([?\C-a] . [home])
-     ([?\C-e] . [end])
-     ([?\C-v] . [next])
-     ([?\M-h] . [?\C-a])
-     ([?\M-v] . [prior])
-     ([?\M-b] . [C-left])
-     ([?\M-f] . [C-right])
-     ([?\M-<] . [home])
-     ([?\M->] . [end])
-     ([?\C-d] . [delete])
-     ([?\C-w] . [?\C-x])
-     ([?\M-w] . [?\C-c])
-     ([?\C-y] . [?\C-v])
-     ([?\C-s] . [?\C-f])     
-     ([?\C-\M-b] . [M-left])
-     ([?\C-\M-f] . [M-right])
-     ([?\C-k] . [S-end delete])
-     ([M-backspace] . [C-backspace])
-     ([?\M-d] . [C-S-right delete]))))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auth-source-save-behavior nil)
- '(package-selected-packages
-   '(pass mu4e multiple-cursors exwm which-key doom-themes smartparens rainbow-delimiters move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(when is-linux-p
+  (use-package exwm
+    :init (exwm-enable)
+    :hook
+    ;; Make class name the buffer name
+    (exwm-update-class . (lambda ()
+			   (exwm-workspace-rename-buffer exwm-class-name)))
+    (exwm-update-title . (lambda ()
+			   (pcase exwm-class-name
+			     ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+    ;; send window to workspace
+    (exwm-manage-finish . (lambda ()
+			    (pcase exwm-class-name
+			      ("Chromium" (exwm-workspace-move-window 1)))))
+    :bind
+    (:map exwm-mode-map
+	  ("C-q" . exwm-input-send-next-key))
+    :custom
+    (exwm-workspace-number 4)
+    (exwm-workspace-warp-cursor t)
+    (exwm-input-prefix-keys
+     '(?\C-x
+       ?\C-c
+       ?\C-u
+       ?\C-h
+       ?\C-g
+       ?\M-x
+       ?\M-:
+       ?\M-!
+       ?\s-c
+       ?\s-p
+       ?\s-n
+       ?\s-f
+       ?\s-b))
+    (exwm-input-global-keys
+     `(([?\s-r] . exwm-reset)
+       ([?\s-w] . exwm-workspace-switch)
+       ([?\s-j] . webjump)
+       ([?\s-&] . (lambda (command)
+		    (interactive (list (read-shell-command "$ ")))
+		    (start-process-shell-command command nil command)))
+       ,@(mapcar (lambda (i)
+		   `(,(kbd (format "s-%d" (1+ i))) .
+		     (lambda ()
+		       (interactive)
+		       (exwm-workspace-switch-create ,i))))
+		 (number-sequence 0 3))))
+    (exwm-input-simulation-keys
+     '(([?\C-b] . [left])
+       ([?\C-f] . [right])
+       ([?\C-p] . [up])
+       ([?\C-n] . [down])
+       ([?\C-a] . [home])
+       ([?\C-e] . [end])
+       ([?\C-v] . [next])
+       ([?\M-h] . [?\C-a])
+       ([?\M-v] . [prior])
+       ([?\M-b] . [C-left])
+       ([?\M-f] . [C-right])
+       ([?\M-<] . [home])
+       ([?\M->] . [end])
+       ([?\C-d] . [delete])
+       ([?\C-w] . [?\C-x])
+       ([?\M-w] . [?\C-c])
+       ([?\C-y] . [?\C-v])
+       ([?\C-s] . [?\C-f])     
+       ([?\C-\M-b] . [M-left])
+       ([?\C-\M-f] . [M-right])
+       ([?\C-k] . [S-end delete])
+       ([M-backspace] . [C-backspace])
+       ([?\M-d] . [C-S-right delete])))))
