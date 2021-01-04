@@ -170,6 +170,7 @@
 
 ;;; Mu4e
 (use-package mu4e
+  :if is-linux-p
   :ensure nil
   :custom
   (mu4e-change-filenames-when-moving t)
@@ -207,7 +208,8 @@
   ("C-c C-<" . 'mc/mark-all-like-this))
 
 ;;; Pass
-(use-package pass)
+(use-package pass
+  :if is-linux-p)
 
 ;;; Rainbow Delimiters
 (use-package rainbow-delimiters
