@@ -17,7 +17,19 @@
 
 ;;;; ===> Utils <===
 ;;; check if linux is running
-(defvar is-linux-p (string-equal system-type "gnu/linux") "detect if linux is running")
+(defvar is-linux-p (string= system-type "gnu/linux") "detect if linux is running")
+
+;;; kill and remove window
+(defun k-r-buffer ()
+  (interactive)
+  (let ((is-essential-buffers-p (or
+				 (string= "*scratch*" (buffer-name))
+				 (string= "*Messages*" (buffer-name))))
+	(no-windows (count-windows)))
+    (when (not is-essential-buffers-p)
+      (if (> no-windows 1)
+	  (kill-buffer-and-window)
+	(kill-current-buffer)))))
 
 ;;; apply settings base of hostname
 (defun if-pc (name fn &optional args) "call function per system base"
@@ -36,7 +48,7 @@
   :bind
   ("<s-return>" . eshell)
   ("M-!" . eshell-command)
-  ("s-c" . kill-buffer-and-window)
+  ("s-c" . k-r-buffer)
   ("s-p" . windmove-up)
   ("s-n" . windmove-down)
   ("s-b" . windmove-left)
@@ -233,6 +245,7 @@
 (use-package webjump
   :custom
   (webjump-sites '(("Google" . [simple-query "www.google.com" "www.google.com/search?q=" ""])
+		  ("Github" . [simple-query "www.github.com" "www.github.com/search?q=" ""])
 		  ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
 		  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
 		  ("WhatsApp" . "web.whatsapp.com")
@@ -320,8 +333,24 @@
        ([?\M-w] . [?\C-c])
        ([?\C-y] . [?\C-v])
        ([?\C-s] . [?\C-f])     
+       ([?\C-c ?f] . [?\C-l])
+       ([?\C-c ?k] . [?\C-w])
+       ([?\C-c ?g] . [escape])
        ([?\C-\M-b] . [M-left])
        ([?\C-\M-f] . [M-right])
        ([?\C-k] . [S-end delete])
        ([M-backspace] . [C-backspace])
        ([?\M-d] . [C-S-right delete])))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(exwm which-key monokai-theme smartparens rainbow-delimiters pass multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
