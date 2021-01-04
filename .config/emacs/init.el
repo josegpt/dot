@@ -35,8 +35,9 @@
   :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
-  ("s-m" . mu4e)
   ("<s-return>" . eshell)
+  ("M-!" . eshell-command)
+  ("s-c" . kill-buffer-and-window)
   ("s-p" . windmove-up)
   ("s-n" . windmove-down)
   ("s-b" . windmove-left)
@@ -45,11 +46,12 @@
   ("s-N" . windmove-swap-states-down)
   ("s-B" . windmove-swap-states-left)
   ("s-F" . windmove-swap-states-right)
-  ("C-s-p" . windmove-delete-up)
-  ("C-s-n" . windmove-delete-down)
-  ("C-s-b" . windmove-delete-left)
-  ("C-s-f" . windmove-delete-right)
-  ("M-!" . eshell-command)
+  ("C-c p" . pass)
+  ("C-c m" . mu4e)
+  ("C-c w p" . windmove-delete-up)
+  ("C-c w n" . windmove-delete-down)
+  ("C-c w b" . windmove-delete-left)
+  ("C-c w f" . windmove-delete-right)
   :config
   ;; configure font size
   (set-face-attribute 'default nil :height 110)
@@ -269,12 +271,14 @@
   (exwm-workspace-warp-cursor t)
   (exwm-input-prefix-keys
    '(?\C-x
+     ?\C-c
      ?\C-u
      ?\C-h
      ?\C-g
      ?\M-x
      ?\M-:
      ?\M-!
+     ?\s-c
      ?\s-p
      ?\s-n
      ?\s-f
@@ -310,11 +314,7 @@
      ([?\C-w] . [?\C-x])
      ([?\M-w] . [?\C-c])
      ([?\C-y] . [?\C-v])
-     ([?\C-s] . [?\C-f])
-     ([?\C-c ?f] . [?\C-l])
-     ([?\C-c ?n] . [?\C-t])
-     ([?\C-c ?g] . [escape])
-     ([?\C-c ?k] . [?\C-w])     
+     ([?\C-s] . [?\C-f])     
      ([?\C-\M-b] . [M-left])
      ([?\C-\M-f] . [M-right])
      ([?\C-k] . [S-end delete])
