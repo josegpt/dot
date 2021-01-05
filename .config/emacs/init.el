@@ -104,7 +104,29 @@
   (auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t))))
 
+;;;; ===> Org Config <===
+;;; Enable programming languages
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (python . t)))
+
+;;; Enable Templates
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+
 ;;;; ===> Package Config <===
+;;; Company
+(use-package company
+  :diminish
+  :hook (prog-mode . company-mode)
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+
 ;;; Desktop Env
 (when is-linux-p
   (use-package desktop-environment
@@ -223,6 +245,13 @@
 (use-package rainbow-delimiters
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
+
+;;; Smartparens
+(use-package smartparens
+  :diminish
+  :hook (prog-mode . smartparens-mode)
+  :config
+  (sp-use-paredit-bindings))
 
 ;;; Theme
 (use-package monokai-theme
