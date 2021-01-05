@@ -63,6 +63,7 @@
   ("C-c w b" . windmove-delete-left)
   ("C-c w f" . windmove-delete-right)
   :config
+  (defalias 'yes-or-no-p 'y-or-n-p)
   ;; configure font size
   (set-face-attribute 'default nil :height 110)
   ;; activate line number
@@ -104,21 +105,12 @@
         `((".*" ,temporary-file-directory t))))
 
 ;;;; ===> Package Config <===
-;;; Company
-(use-package company
-  :diminish
-  :hook (prog-mode . company-mode)
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
-
 ;;; Desktop Env
 (when is-linux-p
   (use-package desktop-environment
     :diminish
     :after exwm
     :init (desktop-environment-mode)))
-
 
 ;;; Expand Region
 (use-package expand-region
@@ -232,11 +224,6 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;; Smartparens
-(use-package smartparens
-  :diminish
-  :hook (prog-mode . smartparens-mode))
-
 ;;; Theme
 (use-package monokai-theme
   :config
@@ -348,7 +335,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(exwm which-key monokai-theme smartparens rainbow-delimiters pass multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment company use-package)))
+   '(exwm which-key monokai-theme rainbow-delimiters pass multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
