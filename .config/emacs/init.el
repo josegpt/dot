@@ -2,8 +2,8 @@
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/elpa/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 (unless package-archive-contents
@@ -23,13 +23,13 @@
 (defun k-r-buffer ()
   (interactive)
   (let ((is-essential-buffers-p (or
-				 (string= "*scratch*" (buffer-name))
-				 (string= "*Messages*" (buffer-name))))
-	(no-windows (count-windows)))
+                                 (string= "*scratch*" (buffer-name))
+                                 (string= "*Messages*" (buffer-name))))
+        (no-windows (count-windows)))
     (if (not is-essential-buffers-p)
-	(if (> no-windows 1)
-	    (kill-buffer-and-window)
-	  (kill-current-buffer))
+        (if (> no-windows 1)
+            (kill-buffer-and-window)
+          (kill-current-buffer))
       (message "Trying to kill/remove essential buffer/window."))))
 
 ;;; apply settings base of hostname
@@ -67,27 +67,29 @@
   ;; configure font size
   (set-face-attribute 'default nil :height 110)
   ;; activate line number
-  (column-number-mode t)
-  ;; no blinking
-  (blink-cursor-mode 0)
+  (column-number-mode -1)
   ;; disable menu bar
-  (menu-bar-mode 0)
+  (menu-bar-mode -1)
   ;; matching paren
   (show-paren-mode t)
   ;; disable tool bar
-  (tool-bar-mode 0)
+  (tool-bar-mode -1)
   ;; more space
-  (set-fringe-mode 8)
+  (set-fringe-mode 1)
   ;; disbale tooltip
-  (tooltip-mode 0)
+  (tooltip-mode -1)
   ;; disable scroll bars
-  (scroll-bar-mode 0)
-  (toggle-scroll-bar 0)
+  (scroll-bar-mode -1)
+  (toggle-scroll-bar -1)
   ;; auto refresh changed file
   (global-auto-revert-mode t)
-  ;; Display time
+  ;; no blinking
+  (blink-cursor-mode -1)
+  ;; display time
   (display-time-mode t)
   :custom
+  ;; tabs mode
+  (indent-tabs-mode nil)
   ;; gpg password minibuffer
   (epg-pinentry-mode 'loopback)
   ;; bell
@@ -127,6 +129,15 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
+;;; Counsel
+(use-package counsel
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x b" . counsel-ibuffer)
+  ("C-x C-f" . counsel-find-file)
+  :custom
+  (ivy-initial-inputs-alist nil))
+
 ;;; Desktop Env
 (when is-linux-p
   (use-package desktop-environment
@@ -139,6 +150,9 @@
   :diminish
   :bind
   ("C-=" . er/expand-region))
+
+;;; Diminish
+(use-package diminish)
 
 ;;; Ivy
 (use-package ivy
@@ -167,27 +181,15 @@
        (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3)))))
        :predicate
        (lambda (cand)
-	 (if-let ((buffer (get-buffer cand)))
-	     (with-current-buffer buffer
-	       (not (derived-mode-p 'exwm-mode))))))))))
-
-;;; Counsel
-(use-package counsel
-  :bind
-  ("M-x" . counsel-M-x)
-  ("C-x b" . counsel-ibuffer)
-  ("C-x C-f" . counsel-find-file)
-  :custom
-  (ivy-initial-inputs-alist nil))
-
-;;; Diminish
-(use-package diminish)
+         (if-let ((buffer (get-buffer cand)))
+             (with-current-buffer buffer
+               (not (derived-mode-p 'exwm-mode))))))))))
 
 ;;; Magit
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-  
+
 ;;; Move Text
 (use-package move-text
   :bind
@@ -262,20 +264,33 @@
 (use-package webjump
   :custom
   (webjump-sites '(("Google" . [simple-query "www.google.com" "www.google.com/search?q=" ""])
-		  ("Github" . [simple-query "www.github.com" "www.github.com/search?q=" ""])
-		  ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
-		  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
-		  ("WhatsApp" . "web.whatsapp.com")
-		  ("Discord" . "discord.com/app")
-		  ("Gmail" . "mail.google.com")
-		  ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
+                  ("Github" . [simple-query "www.github.com" "www.github.com/search?q=" ""])
+                  ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
+                  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
+                  ("WhatsApp" . "web.whatsapp.com")
+                  ("Discord" . "discord.com/app")
+                  ("Gmail" . "mail.google.com")
+                  ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
+
+;; whitespace
+(use-package whitespace
+  :diminish
+  :hook (prog-mode . whitespace-mode)
+  :custom
+  (whitespace-style '(face
+                      tabs
+                      empty
+                      space-mark
+                      tab-mark
+                      spaces
+                      trailing)))
 
 ;;; Which Key
 (use-package which-key
   :diminish
   :init (which-key-mode)
   :custom
-  (which-key-idle-delay 0.5 "include delay to defer its execution"))   
+  (which-key-idle-delay 0.5 "include delay to defer its execution"))
 
 ;;;; ===> Language Config <===
 ;;; Eldoc
@@ -290,17 +305,17 @@
     :hook
     ;; Make class name the buffer name
     (exwm-update-class . (lambda ()
-			   (exwm-workspace-rename-buffer exwm-class-name)))
+                           (exwm-workspace-rename-buffer exwm-class-name)))
     (exwm-update-title . (lambda ()
-			   (pcase exwm-class-name
-			     ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+                           (pcase exwm-class-name
+                             ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
     ;; send window to workspace
     (exwm-manage-finish . (lambda ()
-			    (pcase exwm-class-name
-			      ("Chromium" (exwm-workspace-move-window 1)))))
+                            (pcase exwm-class-name
+                              ("Chromium" (exwm-workspace-move-window 1)))))
     :bind
     (:map exwm-mode-map
-	  ("C-q" . exwm-input-send-next-key))
+          ("C-q" . exwm-input-send-next-key))
     :custom
     (exwm-workspace-number 4)
     (exwm-workspace-warp-cursor t)
@@ -323,14 +338,14 @@
        ([?\s-w] . exwm-workspace-switch)
        ([?\s-j] . webjump)
        ([?\s-&] . (lambda (command)
-		    (interactive (list (read-shell-command "$ ")))
-		    (start-process-shell-command command nil command)))
+                    (interactive (list (read-shell-command "$ ")))
+                    (start-process-shell-command command nil command)))
        ,@(mapcar (lambda (i)
-		   `(,(kbd (format "s-%d" (1+ i))) .
-		     (lambda ()
-		       (interactive)
-		       (exwm-workspace-switch-create ,i))))
-		 (number-sequence 0 3))))
+                   `(,(kbd (format "s-%d" (1+ i))) .
+                     (lambda ()
+                       (interactive)
+                       (exwm-workspace-switch-create ,i))))
+                 (number-sequence 0 3))))
     (exwm-input-simulation-keys
      '(([?\C-b] . [left])
        ([?\C-f] . [right])
@@ -349,7 +364,7 @@
        ([?\C-w] . [?\C-x])
        ([?\M-w] . [?\C-c])
        ([?\C-y] . [?\C-v])
-       ([?\C-s] . [?\C-f])     
+       ([?\C-s] . [?\C-f])
        ([?\C-c ?f] . [?\C-l])
        ([?\C-c ?k] . [?\C-w])
        ([?\C-c ?g] . [escape])
