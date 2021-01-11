@@ -87,10 +87,12 @@
   (blink-cursor-mode -1)
   ;; display time
   (display-time-mode t)
+  ;; pinentry
+  (pinentry-start)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
-  ;; gpg password minibuffer
+  ;; epg pinentry
   (epg-pinentry-mode 'loopback)
   ;; bell
   (ring-bell-function 'ignore)
@@ -121,6 +123,11 @@
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 
 ;;;; ===> Package Config <===
+;;; Auth source pass
+(use-package auth-source-pass
+  :config
+  (auth-source-pass-enable))
+
 ;;; Company
 (use-package company
   :diminish
@@ -200,6 +207,7 @@
 (when is-linux-p
   (use-package mu4e
     :ensure nil
+    :defer 10
     :bind
     ("C-c m" . mu4e)
     :custom
@@ -226,6 +234,8 @@
        (:maildir "/Drafts" :key ?d)
        (:maildir "/Trash" :key ?t)))
     :config
+    ;; init mu4e
+    (mu4e t)
     ;; use imagemagick, if available
     (when (fboundp 'imagemagick-register-types)
       (imagemagick-register-types))))
@@ -240,8 +250,8 @@
 ;;; Pass
 (when is-linux-p
   (use-package pass
-  :bind
-  ("C-c p" . pass)))
+    :bind
+    ("C-c p" . pass)))
 
 ;;; Rainbow Delimiters
 (use-package rainbow-delimiters
@@ -379,7 +389,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(exwm which-key monokai-theme rainbow-delimiters pass multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
+   '(pinentry pass keycast exwm which-key monokai-theme rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

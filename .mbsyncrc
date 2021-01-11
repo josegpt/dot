@@ -1,7 +1,8 @@
 IMAPAccount gmail
 Host imap.gmail.com
+Port 993
 User josegpt27@gmail.com
-PassCmd "pass gmail"
+PassCmd "pass Gmail/josegpt27"
 AuthMechs LOGIN
 SSLType IMAPS
 SSLVersions TLSv1.2
