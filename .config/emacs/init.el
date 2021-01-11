@@ -65,7 +65,7 @@
   :config
   (defalias 'yes-or-no-p 'y-or-n-p)
   ;; configure font size
-  (set-face-attribute 'default nil :height 110)
+  (set-face-attribute 'default nil :family "Iosevka" :height 130)
   ;; activate line number
   (column-number-mode -1)
   ;; disable menu bar
@@ -383,13 +383,14 @@
        ([?\C-k] . [S-end delete])
        ([M-backspace] . [C-backspace])
        ([?\M-d] . [C-S-right delete])))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(pinentry pass keycast exwm which-key monokai-theme rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
+   '(pass keycast exwm which-key monokai-theme rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
