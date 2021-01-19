@@ -19,6 +19,17 @@
 ;;; check if linux is running
 (defvar is-linux-p (string= system-type "gnu/linux") "detect if linux is running")
 
+;;; Duplicate line
+;;; Taken from https://github.com/rexim/dotfiles/blob/master/.emacs.rc/misc-rc.el
+(defun duplicate-line ()
+  "Duplicate current line"
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (newline)
+  (yank))
+
 ;;; kill and remove window
 (defun k-r-buffer ()
   (interactive)
@@ -50,6 +61,7 @@
   ("<s-return>" . eshell)
   ("M-!" . eshell-command)
   ("s-c" . k-r-buffer)
+  ("C-," . duplicate-line)
   ("s-p" . windmove-up)
   ("s-n" . windmove-down)
   ("s-b" . windmove-left)
@@ -88,7 +100,8 @@
   ;; display time
   (display-time-mode t)
   ;; pinentry
-  (pinentry-start)
+  (when is-linux-p
+      (pinentry-start))
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -272,12 +285,15 @@
 
 ;;; Web Jump
 (use-package webjump
+  :bind
+  ("C-c j" . webjump)
   :custom
   (webjump-sites '(("Google" . [simple-query "www.google.com" "www.google.com/search?q=" ""])
                   ("Github" . [simple-query "www.github.com" "www.github.com/search?q=" ""])
                   ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
                   ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
                   ("WhatsApp" . "web.whatsapp.com")
+                  ("Telegram" . "web.telegram.org")
                   ("Discord" . "discord.com/app")
                   ("Gmail" . "mail.google.com")
                   ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
@@ -346,7 +362,6 @@
     (exwm-input-global-keys
      `(([?\s-r] . exwm-reset)
        ([?\s-w] . exwm-workspace-switch)
-       ([?\s-j] . webjump)
        ([?\s-&] . (lambda (command)
                     (interactive (list (read-shell-command "$ ")))
                     (start-process-shell-command command nil command)))
