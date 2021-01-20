@@ -1,5 +1,5 @@
-alias ll ls -l
-alias la ls -la
+alias ll ls -lh
+alias la ls -lah
 alias rb sudo reboot
 alias po sudo poweroff
 alias sd sudo shutdown
