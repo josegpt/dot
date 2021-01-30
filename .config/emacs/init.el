@@ -19,8 +19,8 @@
 ;;; check if linux is running
 (defvar is-linux-p (string= system-type "gnu/linux") "detect if linux is running")
 
-;;; Duplicate line
-;;; Taken from https://github.com/rexim/dotfiles/blob/master/.emacs.rc/misc-rc.el
+;;; duplicate line
+;;; taken from https://github.com/rexim/dotfiles/blob/master/.emacs.rc/misc-rc.el
 (defun duplicate-line ()
   "Duplicate current line"
   (interactive)
@@ -45,8 +45,8 @@
 
 ;;; apply settings base of hostname
 (defun if-pc (name fn &optional args) "call function per system base"
-  (when (string-equal system-name name)
-    (apply fn args)))
+       (when (string-equal system-name name)
+         (apply fn args)))
 
 ;;;; ===> Per System Config <===
 ;; activate battery mode
@@ -54,7 +54,7 @@
 
 ;;;; ===> Emacs Config <===
 (use-package emacs
-  ;; Enable Emacs Daemon
+  ;; enable emacs daemon
   :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
@@ -62,18 +62,6 @@
   ("M-!" . eshell-command)
   ("s-c" . k-r-buffer)
   ("C-," . duplicate-line)
-  ("s-p" . windmove-up)
-  ("s-n" . windmove-down)
-  ("s-b" . windmove-left)
-  ("s-f" . windmove-right)
-  ("s-P" . windmove-swap-states-up)
-  ("s-N" . windmove-swap-states-down)
-  ("s-B" . windmove-swap-states-left)
-  ("s-F" . windmove-swap-states-right)
-  ("C-c w p" . windmove-delete-up)
-  ("C-c w n" . windmove-delete-down)
-  ("C-c w b" . windmove-delete-left)
-  ("C-c w f" . windmove-delete-right)
   :config
   (defalias 'yes-or-no-p 'y-or-n-p)
   ;; configure font size
@@ -101,7 +89,7 @@
   (display-time-mode t)
   ;; pinentry
   (when is-linux-p
-      (pinentry-start))
+    (pinentry-start))
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -116,19 +104,19 @@
   (initial-major-mode 'emacs-lisp-mode)
   ;; don't clutter up directories with files~
   (backup-directory-alist
-        `((".*" . ,temporary-file-directory)))
+   `((".*" . ,temporary-file-directory)))
   ;; don't clutter with #files either
   (auto-save-file-name-transforms
-        `((".*" ,temporary-file-directory t))))
+   `((".*" ,temporary-file-directory t))))
 
 ;;;; ===> Org Config <===
-;;; Enable programming languages
+;;; enable programming languages
 (org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)
-    (python . t)))
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)))
 
-;;; Enable Templates
+;;; enable templates
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
@@ -136,12 +124,12 @@
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 
 ;;;; ===> Package Config <===
-;;; Auth source pass
+;;; auth source pass
 (use-package auth-source-pass
   :config
   (auth-source-pass-enable))
 
-;;; Company
+;;; company
 (use-package company
   :diminish
   :hook (prog-mode . company-mode)
@@ -149,7 +137,7 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
-;;; Counsel
+;;; counsel
 (use-package counsel
   :bind
   ("M-x" . counsel-M-x)
@@ -158,23 +146,23 @@
   :custom
   (ivy-initial-inputs-alist nil))
 
-;;; Desktop Env
+;;; desktop env
 (when is-linux-p
   (use-package desktop-environment
     :diminish
     :after exwm
     :init (desktop-environment-mode)))
 
-;;; Expand Region
+;;; expand region
 (use-package expand-region
   :diminish
   :bind
   ("C-=" . er/expand-region))
 
-;;; Diminish
+;;; diminish
 (use-package diminish)
 
-;;; Ivy
+;;; ivy
 (use-package ivy
   :diminish
   :init (ivy-mode t)
@@ -184,7 +172,7 @@
   (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t))
 
-;;; Ivy Rich
+;;; ivy rich
 (use-package ivy-rich
   :after counsel
   :config
@@ -205,18 +193,18 @@
              (with-current-buffer buffer
                (not (derived-mode-p 'exwm-mode))))))))))
 
-;;; Magit
+;;; magit
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-;;; Move Text
+;;; move Text
 (use-package move-text
   :bind
   (("M-p" . move-text-up)
    ("M-n" . move-text-down)))
 
-;;; Mu4e
+;;; mu4e
 (when is-linux-p
   (use-package mu4e
     :ensure nil
@@ -253,50 +241,53 @@
     (when (fboundp 'imagemagick-register-types)
       (imagemagick-register-types))))
 
-;;; Multiple Cursors
+;;; multiple Cursors
 (use-package multiple-cursors
   :bind
   ("C->" . 'mc/mark-next-like-this)
   ("C-<" . 'mc/mark-previous-like-this)
   ("C-c C-<" . 'mc/mark-all-like-this))
 
-;;; Pass
+;;; pass
 (when is-linux-p
   (use-package pass
     :bind
     ("C-c p" . pass)))
 
-;;; Rainbow Delimiters
+;;; rainbow delimiters
 (use-package rainbow-delimiters
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;; Smartparens
+;;; smartparens
 (use-package smartparens
   :diminish
   :hook (prog-mode . smartparens-mode)
   :config
   (sp-use-paredit-bindings))
 
-;;; Theme
+;;; theme
 (use-package monokai-theme
   :config
   (load-theme 'monokai t))
 
-;;; Web Jump
+;;; web jump
 (use-package webjump
   :bind
   ("C-c j" . webjump)
   :custom
-  (webjump-sites '(("Google" . [simple-query "www.google.com" "www.google.com/search?q=" ""])
-                  ("Github" . [simple-query "www.github.com" "www.github.com/search?q=" ""])
-                  ("Youtube" . [simple-query "www.youtube.com" "www.youtube.com/results?search_query=" ""])
-                  ("AnimeFLV" . [simple-query "www.animeflv.net" "www.animeflv.net/browse?q=" ""])
-                  ("WhatsApp" . "web.whatsapp.com")
-                  ("Telegram" . "web.telegram.org")
-                  ("Discord" . "discord.com/app")
-                  ("Gmail" . "mail.google.com")
-                  ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
+  (webjump-sites '(("URL" . [simple-query "about:blank" "www." ""])
+                   ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
+                   ("Google" . [simple-query "google.com" "www.google.com/search?q=" ""])
+                   ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
+                   ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
+                   ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
+                   ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
+                   ("WhatsApp" . "web.whatsapp.com")
+                   ("Telegram" . "web.telegram.org")
+                   ("Discord" . "discord.com/app")
+                   ("Gmail" . "mail.google.com")
+                   ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
 
 ;; whitespace
 (use-package whitespace
@@ -311,15 +302,31 @@
                       spaces
                       trailing)))
 
-;;; Which Key
+;;; which key
 (use-package which-key
   :diminish
   :init (which-key-mode)
   :custom
   (which-key-idle-delay 0.5 "include delay to defer its execution"))
 
+;; windmove
+(use-package windmove
+  :bind
+  ("s-p" . windmove-up)
+  ("s-n" . windmove-down)
+  ("s-b" . windmove-left)
+  ("s-f" . windmove-right)
+  ("s-P" . windmove-swap-states-up)
+  ("s-N" . windmove-swap-states-down)
+  ("s-B" . windmove-swap-states-left)
+  ("s-F" . windmove-swap-states-right)
+  ("C-c w p" . windmove-delete-up)
+  ("C-c w n" . windmove-delete-down)
+  ("C-c w b" . windmove-delete-left)
+  ("C-c w f" . windmove-delete-right))
+
 ;;;; ===> Language Config <===
-;;; Eldoc
+;;; eldoc
 (use-package eldoc
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
