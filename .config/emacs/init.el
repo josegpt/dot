@@ -162,6 +162,21 @@
 ;;; diminish
 (use-package diminish)
 
+;;; elfeed
+(use-package elfeed
+  :hook
+  (elfeed-new-entry . (lambda ()
+                        (elfeed-make-tagger :before "2 weeks ago"
+                                            :remove 'unread)))
+  :bind
+  ("C-c e" . elfeed)
+  :custom
+  (elfeed-search-title-max-width 100)
+  (elfeed-search-title-min-width 100)
+  (elfeed-search-filter "@2-days-ago +unread")
+  (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
+                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" crunchyroll anime))))
+
 ;;; ivy
 (use-package ivy
   :diminish
@@ -412,7 +427,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(pass exwm which-key monokai-theme rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
+   '(elfeed pass exwm which-key monokai-theme rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
