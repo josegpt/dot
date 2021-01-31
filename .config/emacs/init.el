@@ -85,8 +85,6 @@
   (global-auto-revert-mode t)
   ;; no blinking
   (blink-cursor-mode -1)
-  ;; display time
-  (display-time-mode t)
   ;; pinentry
   (when is-linux-p
     (pinentry-start))
@@ -164,18 +162,22 @@
 
 ;;; elfeed
 (use-package elfeed
-  :hook
-  (elfeed-new-entry . (lambda ()
-                        (elfeed-make-tagger :before "2 weeks ago"
-                                            :remove 'unread)))
   :bind
-  ("C-c e" . elfeed)
+  ("C-c f" . elfeed)
+  (:map elfeed-search-mode-map
+        ("g" . elfeed-update))
   :custom
+  (elfeed-use-curl t)
+  (elfeed-db-directory "~/.cache/elfeed")
   (elfeed-search-title-max-width 100)
   (elfeed-search-title-min-width 100)
-  (elfeed-search-filter "@2-days-ago +unread")
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
-                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" crunchyroll anime))))
+                  ("https://reddit.com/r/guix.rss" linux)
+                  ("https://reddit.com/r/unixporn.rss" ui)
+                  ("https://reddit.com/r/unraid.rss" linux)
+                  ("https://reddit.com/r/voidlinux.rss" linux)
+                  ("https://reddit.com/r/orgmode.rss" emacs org)
+                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
 
 ;;; ivy
 (use-package ivy
@@ -281,6 +283,14 @@
   :config
   (sp-use-paredit-bindings))
 
+;; time
+(use-package time
+  :config
+  (display-time-mode t)
+  :custom
+  (display-time-default-load-average nil)
+  (display-time-format "%I:%M%P  %B %d, %Y(%a)"))
+
 ;;; theme
 (use-package monokai-theme
   :config
@@ -366,7 +376,6 @@
           ("C-q" . exwm-input-send-next-key))
     :custom
     (exwm-workspace-number 4)
-    (exwm-workspace-warp-cursor t)
     (exwm-input-prefix-keys
      '(?\C-x
        ?\C-c
