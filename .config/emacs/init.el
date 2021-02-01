@@ -322,10 +322,14 @@
   (whitespace-style '(face
                       tabs
                       empty
-                      space-mark
-                      tab-mark
                       spaces
-                      trailing)))
+                      newline
+                      tab-mark
+                      trailing
+                      space-mark
+                      indentation
+                      space-after-tab
+                      space-before-tab)))
 
 ;;; which key
 (use-package which-key
