@@ -48,6 +48,12 @@
        (when (string-equal system-name name)
          (apply fn args)))
 
+;;; set wallpaper
+(defun set-wallpaper ()
+  (interactive)
+  (start-process-shell-command
+   "feh" nil "feh --bg-scale ~/.backgrounds/1.jpg"))
+
 ;;;; ===> Per System Config <===
 ;; activate battery mode
 (if-pc "morty" 'display-battery-mode)
@@ -83,6 +89,9 @@
   (toggle-scroll-bar -1)
   ;; auto refresh changed file
   (global-auto-revert-mode t)
+  ;; transparency
+  (set-frame-parameter (selected-frame) 'alpha '(85 50))
+  (add-to-list 'default-frame-alist '(alpha 85 50))
   ;; no blinking
   (blink-cursor-mode -1)
   ;; pinentry
@@ -378,6 +387,8 @@
     :bind
     (:map exwm-mode-map
           ("C-q" . exwm-input-send-next-key))
+    :config
+    (set-wallpaper)
     :custom
     (exwm-workspace-number 4)
     (exwm-input-prefix-keys
