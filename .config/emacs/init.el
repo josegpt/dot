@@ -15,6 +15,21 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;;; debug purposes
+;; (setq use-package-verbose t)
+
+;;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;;; Profile emacs startup
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "---> Emacs loaded in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
 ;;;; ===> Utils <===
 ;;; check if linux is running
 (defvar is-linux-p (string= system-type "gnu/linux") "detect if linux is running")
@@ -74,6 +89,8 @@
   (set-face-attribute 'default nil :family "Iosevka" :height 130)
   ;; activate line number
   (column-number-mode -1)
+  ;; theme
+  (load-theme 'wombat t)
   ;; disable menu bar
   (menu-bar-mode -1)
   ;; matching paren
@@ -94,14 +111,9 @@
   (add-to-list 'default-frame-alist '(alpha 85 50))
   ;; no blinking
   (blink-cursor-mode -1)
-  ;; pinentry
-  (when is-linux-p
-    (pinentry-start))
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
-  ;; epg pinentry
-  (epg-pinentry-mode 'loopback)
   ;; bell
   (ring-bell-function 'ignore)
   ;; disable statup messages
@@ -117,22 +129,24 @@
    `((".*" ,temporary-file-directory t))))
 
 ;;;; ===> Org Config <===
+(with-eval-after-load 'org
 ;;; enable programming languages
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (python . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t))))
 
-;;; enable templates
-(require 'org-tempo)
-
-(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("py" . "src python"))
+(with-eval-after-load 'org
+  (require 'org-tempo)
+  ;; templates
+  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python")))
 
 ;;;; ===> Package Config <===
 ;;; auth source pass
 (use-package auth-source-pass
+  :after pass
   :config
   (auth-source-pass-enable))
 
@@ -146,6 +160,7 @@
 
 ;;; counsel
 (use-package counsel
+  :after ivy
   :bind
   ("M-x" . counsel-M-x)
   ("C-x b" . counsel-ibuffer)
@@ -182,7 +197,8 @@
   (elfeed-search-title-min-width 100)
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("https://reddit.com/r/guix.rss" linux)
-                  ("https://reddit.com/r/unixporn.rss" ui)
+                  ("https://reddit.com/r/unixporn.rss" linux)
+                  ("https://www.wired.com/feed/rss" tech)
                   ("https://reddit.com/r/unraid.rss" linux)
                   ("https://reddit.com/r/voidlinux.rss" linux)
                   ("https://reddit.com/r/orgmode.rss" emacs org)
@@ -200,7 +216,7 @@
 
 ;;; ivy rich
 (use-package ivy-rich
-  :after counsel
+  :after ivy
   :config
   (ivy-rich-mode t)
   :custom
@@ -221,6 +237,8 @@
 
 ;;; magit
 (use-package magit
+  :bind
+  ("C-x g" . magit-status)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
@@ -280,6 +298,14 @@
     :bind
     ("C-c p" . pass)))
 
+;;; pinentry
+(when is-linux-p
+  (use-package pinentry
+    :init (pinentry-start)
+    :custom
+    ;; epg pinentry
+    (epg-pinentry-mode 'loopback)))
+
 ;;; rainbow delimiters
 (use-package rainbow-delimiters
   :diminish
@@ -299,11 +325,6 @@
   :custom
   (display-time-default-load-average nil)
   (display-time-format "%I:%M%P  %B %d, %Y(%a)"))
-
-;;; theme
-(use-package monokai-theme
-  :config
-  (load-theme 'monokai t))
 
 ;;; web jump
 (use-package webjump
@@ -451,7 +472,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(elfeed pass exwm which-key monokai-theme rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
+   '(pinentry elfeed pass exwm which-key rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

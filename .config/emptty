@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# remap win_alt_ctrl
-setxkbmap -option altwin:ctrl_alt_win
-
 # x compositor
 picom &
 
