@@ -15,7 +15,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;;; debug purposes
+;;; debugging purposes
 ;; (setq use-package-verbose t)
 
 ;;; The default is 800 kilobytes.  Measured in bytes.
@@ -32,10 +32,11 @@
 
 ;;;; ===> Utils <===
 ;;; check if linux is running
-(defvar is-linux-p (string= system-type "gnu/linux") "detect if linux is running")
+(defvar is-linux-p
+  (string= system-type "gnu/linux")
+  "detect if linux is running")
 
 ;;; duplicate line
-;;; taken from https://github.com/rexim/dotfiles/blob/master/.emacs.rc/misc-rc.el
 (defun duplicate-line ()
   "Duplicate current line"
   (interactive)
@@ -79,18 +80,16 @@
   :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
+  ("s-c" . k-r-buffer)
   ("<s-return>" . eshell)
   ("M-!" . eshell-command)
-  ("s-c" . k-r-buffer)
   ("C-," . duplicate-line)
   :config
   (defalias 'yes-or-no-p 'y-or-n-p)
   ;; configure font size
-  (set-face-attribute 'default nil :family "Iosevka" :height 130)
-  ;; activate line number
-  (column-number-mode -1)
+  (set-face-attribute 'default nil :family "Iosevka" :height 135)
   ;; theme
-  (load-theme 'wombat t)
+  (load-theme 'achrome t)
   ;; disable menu bar
   (menu-bar-mode -1)
   ;; matching paren
@@ -98,7 +97,7 @@
   ;; disable tool bar
   (tool-bar-mode -1)
   ;; more space
-  (set-fringe-mode 1)
+  (set-fringe-mode 4)
   ;; disbale tooltip
   (tooltip-mode -1)
   ;; disable scroll bars
@@ -107,13 +106,15 @@
   ;; auto refresh changed file
   (global-auto-revert-mode t)
   ;; transparency
-  (set-frame-parameter (selected-frame) 'alpha '(85 50))
   (add-to-list 'default-frame-alist '(alpha 85 50))
+  (set-frame-parameter (selected-frame) 'alpha '(85 50))
   ;; no blinking
-  (blink-cursor-mode -1)
+  (blink-cursor-mode 0)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
+  ;; relative line number
+  (display-line-numbers-type (quote relative))
   ;; bell
   (ring-bell-function 'ignore)
   ;; disable statup messages
@@ -158,16 +159,6 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
-;;; counsel
-(use-package counsel
-  :after ivy
-  :bind
-  ("M-x" . counsel-M-x)
-  ("C-x b" . counsel-ibuffer)
-  ("C-x C-f" . counsel-find-file)
-  :custom
-  (ivy-initial-inputs-alist nil))
-
 ;;; desktop env
 (when is-linux-p
   (use-package desktop-environment
@@ -204,36 +195,13 @@
                   ("https://reddit.com/r/orgmode.rss" emacs org)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
 
-;;; ivy
-(use-package ivy
-  :diminish
-  :init (ivy-mode t)
-  :bind
-  ("C-s" . swiper)
+;;; ido
+(use-package ido
+  :init (ido-mode)
   :custom
-  (ivy-use-virtual-buffers t)
-  (enable-recursive-minibuffers t))
-
-;;; ivy rich
-(use-package ivy-rich
-  :after ivy
-  :config
-  (ivy-rich-mode t)
-  :custom
-  (ivy-format-function #'ivy-format-function-line)
-  (ivy-rich-display-transformer-list
-   '(ivy-switch-buffer
-     (:columns
-      ((ivy-rich-candidate (:width 40))
-       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-       (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-       (ivy-rich-switch-buffer-project (:width 15 :face success))
-       (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3)))))
-       :predicate
-       (lambda (cand)
-         (if-let ((buffer (get-buffer cand)))
-             (with-current-buffer buffer
-               (not (derived-mode-p 'exwm-mode))))))))))
+  (ido-everywhere t)
+  (ido-use-virtual-buffers t)
+  (ido-enable-flex-matching t))
 
 ;;; magit
 (use-package magit
@@ -306,17 +274,25 @@
     ;; epg pinentry
     (epg-pinentry-mode 'loopback)))
 
+;;; rainbow mode
+(use-package rainbow-mode
+  :diminish
+  :hook (prog-mode . rainbow-mode)
+  :custom
+  (rainbow-ansi-colors nil)
+  (rainbow-x-colors nil))
+
 ;;; rainbow delimiters
 (use-package rainbow-delimiters
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;; smartparens
-(use-package smartparens
-  :diminish
-  :hook (prog-mode . smartparens-mode)
-  :config
-  (sp-use-paredit-bindings))
+;;; smex
+(use-package smex
+  :bind
+  ("M-x" . smex)
+  :custom
+  (smex-flex-matching t))
 
 ;; time
 (use-package time
@@ -465,14 +441,15 @@
        ([?\C-k] . [S-end delete])
        ([M-backspace] . [C-backspace])
        ([?\M-d] . [C-S-right delete])))))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("9874907d84c50fd861d31ee10bcb018128f6dd2501eb58f97c4fec87266e6066" default))
  '(package-selected-packages
-   '(pinentry elfeed pass exwm which-key rainbow-delimiters multiple-cursors move-text magit diminish counsel ivy-rich ivy expand-region desktop-environment use-package)))
+   '(smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry pass multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
