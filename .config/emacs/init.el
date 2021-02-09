@@ -200,7 +200,6 @@
   :init (ido-mode)
   :custom
   (ido-everywhere t)
-  (ido-use-virtual-buffers t)
   (ido-enable-flex-matching t))
 
 ;;; magit
