@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: usp
+# key: usp
+# --
+(use-package $1
+  ${2::config}
+  ($0))

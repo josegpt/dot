@@ -319,7 +319,7 @@
                    ("Gmail" . "mail.google.com")
                    ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
 
-;; whitespace
+;;; whitespace
 (use-package whitespace
   :diminish
   :hook (prog-mode . whitespace-mode)
@@ -343,7 +343,7 @@
   :custom
   (which-key-idle-delay 0.5 "include delay to defer its execution"))
 
-;; windmove
+;;; windmove
 (use-package windmove
   :bind
   ("s-p" . windmove-up)
@@ -358,6 +358,13 @@
   ("C-c w n" . windmove-delete-down)
   ("C-c w b" . windmove-delete-left)
   ("C-c w f" . windmove-delete-right))
+
+;;; yasnippet
+(use-package yasnippet
+  :diminish (yas-minor-mode)
+  :hook ((prog-mode text-mode) . yas-minor-mode)
+  :config
+  (yas-reload-all))
 
 ;;;; ===> Language Config <===
 ;;; eldoc
@@ -440,6 +447,7 @@
        ([?\C-k] . [S-end delete])
        ([M-backspace] . [C-backspace])
        ([?\M-d] . [C-S-right delete])))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -448,7 +456,7 @@
  '(custom-safe-themes
    '("9874907d84c50fd861d31ee10bcb018128f6dd2501eb58f97c4fec87266e6066" default))
  '(package-selected-packages
-   '(smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry pass multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
+   '(yasnippet smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry pass multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
