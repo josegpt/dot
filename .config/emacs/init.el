@@ -146,10 +146,11 @@
 
 ;;;; ===> Package Config <===
 ;;; auth source pass
-(use-package auth-source-pass
-  :after pass
-  :config
-  (auth-source-pass-enable))
+(when is-linux-p
+  (use-package auth-source-pass
+    :after password-store
+    :config
+    (auth-source-pass-enable)))
 
 ;;; company
 (use-package company
@@ -259,11 +260,18 @@
   ("C-<" . 'mc/mark-previous-like-this)
   ("C-c C-<" . 'mc/mark-all-like-this))
 
-;;; pass
+;;; password-store
 (when is-linux-p
-  (use-package pass
+  (use-package password-store
     :bind
-    ("C-c p" . pass)))
+    ("C-c p e" . password-store-edit)
+    ("C-c p w" . password-store-copy)
+    ("C-c p c" . password-store-clear)
+    ("C-c p i" . password-store-insert)
+    ("C-c p r" . password-store-rename)
+    ("C-c p k" . password-store-remove)
+    ("C-c p g" . password-store-generate)
+    ("C-c p f" . password-store-copy-field)))
 
 ;;; pinentry
 (when is-linux-p
@@ -456,7 +464,7 @@
  '(custom-safe-themes
    '("9874907d84c50fd861d31ee10bcb018128f6dd2501eb58f97c4fec87266e6066" default))
  '(package-selected-packages
-   '(yasnippet smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry pass multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
+   '(yasnippet smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry  multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
