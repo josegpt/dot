@@ -380,6 +380,11 @@
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
+;;; markdown
+(use-package markdown-mode
+  :mode
+  ("\\.md\\'" . markdown-mode))
+
 ;;;; ===> EXWM <===
 (when is-linux-p
   (use-package exwm
@@ -464,7 +469,7 @@
  '(custom-safe-themes
    '("9874907d84c50fd861d31ee10bcb018128f6dd2501eb58f97c4fec87266e6066" default))
  '(package-selected-packages
-   '(yasnippet smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry  multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
+   '(markdown-mode yasnippet smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
