@@ -2,9 +2,7 @@
 
 # requirements
 
-```sh
-stow
-```
+- [stow](https://linux.die.net/man/8/stow)
 
 # installation
 
