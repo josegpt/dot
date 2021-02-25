@@ -2,5 +2,4 @@
 # name: #define ... ...
 # key: def
 # --
-#define ${1:CONSTANT$(upcase yas-text)} ${2:value}
-$0
+#define ${1:CONSTANT$(upcase yas-text)} $0
