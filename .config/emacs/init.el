@@ -278,6 +278,7 @@
 
 ;;; time
 (use-package time
+  :straight nil
   :config
   (display-time-mode t)
   :custom
@@ -286,6 +287,7 @@
 
 ;;; web jump
 (use-package webjump
+  :straight nil
   :bind
   ("C-c j" . webjump)
   :custom
@@ -304,6 +306,7 @@
 
 ;;; whitespace
 (use-package whitespace
+  :straight nil
   :diminish
   :hook (prog-mode . whitespace-mode)
   :custom
@@ -336,6 +339,7 @@
 ;;;; ===> Language Config <===
 ;;; eldoc
 (use-package eldoc
+  :straight nil
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
