@@ -191,7 +191,7 @@
 ;;; mu4e
 (when is-linux-p
   (use-package mu4e
-    :ensure nil
+    :straight nil
     :defer 10
     :bind
     ("C-c m" . mu4e)
