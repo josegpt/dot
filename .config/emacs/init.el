@@ -1,19 +1,22 @@
-;;;; Initialize package sources
-(require 'package)
+;;;; Initialize straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;;; make use-package use straight
+(straight-use-package 'use-package)
 
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
+;;; set straight as default
+(setq straight-use-package-by-default 1)
 
 ;;; debugging purposes
 ;; (setq use-package-verbose t)
@@ -46,19 +49,6 @@
   (newline)
   (yank))
 
-;;; kill and remove window
-(defun k-r-buffer ()
-  (interactive)
-  (let ((is-essential-buffers-p (or
-                                 (string= "*scratch*" (buffer-name))
-                                 (string= "*Messages*" (buffer-name))))
-        (no-windows (count-windows)))
-    (if (not is-essential-buffers-p)
-        (if (> no-windows 1)
-            (kill-buffer-and-window)
-          (kill-current-buffer))
-      (message "Trying to kill/remove essential buffer/window."))))
-
 ;;; apply settings base of hostname
 (defun if-pc (name fn &optional args) "call function per system base"
        (when (string-equal system-name name)
@@ -80,29 +70,10 @@
   :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
-  ("s-c" . k-r-buffer)
   ("<s-return>" . eshell)
   ("M-!" . eshell-command)
   ("C-," . duplicate-line)
   :config
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  ;; configure font size
-  (set-face-attribute 'default nil :family "Iosevka" :height 135)
-  ;; theme
-  (load-theme 'achrome t)
-  ;; disable menu bar
-  (menu-bar-mode -1)
-  ;; matching paren
-  (show-paren-mode t)
-  ;; disable tool bar
-  (tool-bar-mode -1)
-  ;; more space
-  (set-fringe-mode 4)
-  ;; disbale tooltip
-  (tooltip-mode -1)
-  ;; disable scroll bars
-  (scroll-bar-mode -1)
-  (toggle-scroll-bar -1)
   ;; auto refresh changed file
   (global-auto-revert-mode t)
   ;; transparency
@@ -110,6 +81,8 @@
   (set-frame-parameter (selected-frame) 'alpha '(85 50))
   ;; no blinking
   (blink-cursor-mode 0)
+  ;; disable menu bar
+  (menu-bar-mode -1)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -145,6 +118,12 @@
   (add-to-list 'org-structure-template-alist '("py" . "src python")))
 
 ;;;; ===> Package Config <===
+;;; achrome theme
+(use-package achrome-theme
+  :straight (achrome-theme :type git :host github :repo "josegpt/achrome-theme")
+  :config
+  (load-theme 'achrome t))
+
 ;;; auth source pass
 (when is-linux-p
   (use-package auth-source-pass
@@ -196,13 +175,6 @@
                   ("https://reddit.com/r/orgmode.rss" emacs org)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
 
-;;; ido
-(use-package ido
-  :init (ido-mode)
-  :custom
-  (ido-everywhere t)
-  (ido-enable-flex-matching t))
-
 ;;; magit
 (use-package magit
   :bind
@@ -210,7 +182,7 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-;;; move Text
+;;; move text
 (use-package move-text
   :bind
   (("M-p" . move-text-up)
@@ -294,14 +266,17 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;; smex
-(use-package smex
-  :bind
-  ("M-x" . smex)
-  :custom
-  (smex-flex-matching t))
+;;; selectrum
+(use-package selectrum
+  :after selectrum-prescient
+  :config
+  (selectrum-mode 1)
+  (selectrum-prescient-mode 1))
 
-;; time
+;;; selectrum for better filtering
+(use-package selectrum-prescient)
+
+;;; time
 (use-package time
   :config
   (display-time-mode t)
@@ -350,22 +325,6 @@
   :init (which-key-mode)
   :custom
   (which-key-idle-delay 0.5 "include delay to defer its execution"))
-
-;;; windmove
-(use-package windmove
-  :bind
-  ("s-p" . windmove-up)
-  ("s-n" . windmove-down)
-  ("s-b" . windmove-left)
-  ("s-f" . windmove-right)
-  ("s-P" . windmove-swap-states-up)
-  ("s-N" . windmove-swap-states-down)
-  ("s-B" . windmove-swap-states-left)
-  ("s-F" . windmove-swap-states-right)
-  ("C-c w p" . windmove-delete-up)
-  ("C-c w n" . windmove-delete-down)
-  ("C-c w b" . windmove-delete-left)
-  ("C-c w f" . windmove-delete-right))
 
 ;;; yasnippet
 (use-package yasnippet
@@ -419,12 +378,7 @@
        ?\C-g
        ?\M-x
        ?\M-:
-       ?\M-!
-       ?\s-c
-       ?\s-p
-       ?\s-n
-       ?\s-f
-       ?\s-b))
+       ?\M-!))
     (exwm-input-global-keys
      `(([?\s-r] . exwm-reset)
        ([?\s-w] . exwm-workspace-switch)
@@ -464,19 +418,3 @@
        ([?\C-k] . [S-end delete])
        ([M-backspace] . [C-backspace])
        ([?\M-d] . [C-S-right delete])))))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("9874907d84c50fd861d31ee10bcb018128f6dd2501eb58f97c4fec87266e6066" default))
- '(package-selected-packages
-   '(prettier-js markdown-mode yasnippet smex exwm which-key smartparens rainbow-delimiters rainbow-mode pinentry multiple-cursors move-text magit elfeed diminish expand-region desktop-environment counsel company use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
