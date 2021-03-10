@@ -354,6 +354,12 @@
 (use-package alchemist
   :after elixir-mode)
 
+;;; elm mode
+(use-package elm-mode
+  :mode
+  ("\\.elm\\'" . elm-mode)
+  :hook (elm-mode . elm-format-on-save))
+
 ;;; markdown
 (use-package markdown-mode
   :mode
