@@ -343,6 +343,17 @@
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
+;;; elixir mode
+(use-package elixir-mode
+  :mode
+  ("\\.ex\\'" . elixir-mode)
+  :hook (elixir-mode . (lambda ()
+                        (add-hook 'before-save-hook 'elixir-format nil t))))
+
+;;; elixir tooling
+(use-package alchemist
+  :after elixir-mode)
+
 ;;; markdown
 (use-package markdown-mode
   :mode
