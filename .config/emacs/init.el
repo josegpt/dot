@@ -54,12 +54,6 @@
        (when (string-equal system-name name)
          (apply fn args)))
 
-;;; set wallpaper
-(defun set-wallpaper ()
-  (interactive)
-  (start-process-shell-command
-   "feh" nil "feh --bg-scale ~/.backgrounds/1.jpg"))
-
 ;;;; ===> Per System Config <===
 ;; activate battery mode
 (if-pc "morty" 'display-battery-mode)
@@ -76,9 +70,6 @@
   :config
   ;; auto refresh changed file
   (global-auto-revert-mode t)
-  ;; transparency
-  (add-to-list 'default-frame-alist '(alpha 85 50))
-  (set-frame-parameter (selected-frame) 'alpha '(85 50))
   ;; no blinking
   (blink-cursor-mode 0)
   ;; disable menu bar
@@ -352,6 +343,7 @@
 
 ;;; elixir tooling
 (use-package alchemist
+  :diminish
   :after elixir-mode)
 
 ;;; elm mode
