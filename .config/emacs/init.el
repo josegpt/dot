@@ -379,8 +379,6 @@
     :bind
     (:map exwm-mode-map
           ("C-q" . exwm-input-send-next-key))
-    :config
-    (set-wallpaper)
     :custom
     (exwm-workspace-number 4)
     (exwm-input-prefix-keys
