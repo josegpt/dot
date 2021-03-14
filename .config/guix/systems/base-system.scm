@@ -13,7 +13,7 @@
 
 (define-public base-operating-system
   (operating-system
-   (host-name "casca")
+   (host-name "base")
    (timezone "America/New_York")
    (locale "en_US.utf8")
 

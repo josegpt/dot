@@ -1,0 +1,12 @@
+(specifications->manifest
+  '("emacs"
+    "emacs-use-package"
+    "emacs-exwm"
+    "emacs-desktop-environment"
+    "emacs-which-key"
+    "emacs-expand-region"
+    "emacs-magit"
+    "emacs-rainbow-delimiters"
+    "emacs-diminish"
+    "emacs-company"
+    "emacs-move-text"))
