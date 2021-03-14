@@ -364,6 +364,7 @@
 ;;;; ===> EXWM <===
 (when is-linux-p
   (use-package exwm
+    :straight nil
     :init (exwm-enable)
     :hook
     ;; Make class name the buffer name
