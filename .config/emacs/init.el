@@ -371,11 +371,11 @@
                            (exwm-workspace-rename-buffer exwm-class-name)))
     (exwm-update-title . (lambda ()
                            (pcase exwm-class-name
-                             ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+                             ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title))))))
     ;; send window to workspace
     (exwm-manage-finish . (lambda ()
                             (pcase exwm-class-name
-                              ("Chromium" (exwm-workspace-move-window 1)))))
+                              ("Firefox" (exwm-workspace-move-window 1)))))
     :bind
     (:map exwm-mode-map
           ("C-q" . exwm-input-send-next-key))
