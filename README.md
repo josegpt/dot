@@ -1,10 +1,15 @@
 # dotfiles
 
-# Requirements
+# requirements
 
 - [stow](https://linux.die.net/man/8/stow)
 
-# Installation
+# installation
+
+## void linux
+```sh
+xbps-install -Syu stow
+```
 
 ```sh
 git clone https://github.com/josegpt/dotfiles.git .dotfiles
@@ -13,3 +18,5 @@ stow .
 ```
 
 # Enjoy!
+
+
