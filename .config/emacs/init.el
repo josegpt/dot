@@ -362,6 +362,18 @@
   :hook ((js-mode web-mode) . prettier-js))
 
 ;;;; ===> EXWM <===
+(use-package exwm-randr
+  :straight nil
+  :after exwm
+  :hook
+  (exwm-randr-screen-change . (lambda ()
+                                (start-process-shell-command
+                                 "xrandr" nil "xrandr --output DP-1-1 --primary --left-of DP-1-2-2-2 --output DP-1-2-1 --above DP-1-1 --rotate inverted --output DP-1-2-2-1 --right-of DP-1-2-1 --rotate inverted")))
+  :config
+  (exwm-randr-enable)
+  :custom
+  (exwm-randr-workspace-monitor-plist '(0 "DP-1-1" 1 "DP-1-2-1" 2 "DP-1-2-2-1" 3 "DP-1-2-2-2")))
+
 (when is-linux-p
   (use-package exwm
     :init (exwm-enable)
