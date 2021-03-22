@@ -344,7 +344,9 @@
 ;;; elixir tooling
 (use-package alchemist
   :diminish
-  :after elixir-mode)
+  :after elixir-mode
+  :custom
+  (alchemist-hooks-test-on-save t))
 
 ;;; elm mode
 (use-package elm-mode
