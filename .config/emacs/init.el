@@ -33,30 +33,9 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-;;;; ===> Utils <===
-;;; check if linux is running
-(defvar is-linux-p
-  (string= system-type "gnu/linux")
-  "detect if linux is running")
-
-;;; duplicate line
-(defun duplicate-line ()
-  "Duplicate current line"
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (newline)
-  (yank))
-
-;;; apply settings base of hostname
-(defun if-pc (name fn &optional args) "call function per system base"
-       (when (string-equal system-name name)
-         (apply fn args)))
-
 ;;;; ===> Per System Config <===
 ;; activate battery mode
-(if-pc "morty" 'display-battery-mode)
+(if-pc "griffith" 'display-battery-mode)
 
 ;;;; ===> Emacs Config <===
 (use-package emacs
@@ -93,21 +72,6 @@
   (auto-save-file-name-transforms
    `((".*" ,temporary-file-directory t))))
 
-;;;; ===> Org Config <===
-(with-eval-after-load 'org
-;;; enable programming languages
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t))))
-
-(with-eval-after-load 'org
-  (require 'org-tempo)
-  ;; templates
-  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python")))
-
 ;;;; ===> Package Config <===
 ;;; achrome theme
 (use-package achrome-theme
@@ -129,6 +93,13 @@
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
+
+;;; counsel
+(use-package counsel
+  :after ivy
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file))
 
 ;;; desktop env
 (when is-linux-p
@@ -257,15 +228,15 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;; selectrum
-(use-package selectrum
-  :after selectrum-prescient
-  :config
-  (selectrum-mode 1)
-  (selectrum-prescient-mode 1))
-
-;;; selectrum for better filtering
-(use-package selectrum-prescient)
+;;; ivy
+(use-package ivy
+  :diminish
+  :init (ivy-mode t)
+  :bind
+  ("C-s" . swiper)
+  :custom
+  (ivy-use-virtual-buffers t)
+  (enable-recursive-minibuffers t))
 
 ;;; time
 (use-package time
@@ -365,6 +336,7 @@
 
 ;;;; ===> EXWM <===
 (use-package exwm-randr
+  :if (check-hostname "guts")
   :straight nil
   :after exwm
   :hook
