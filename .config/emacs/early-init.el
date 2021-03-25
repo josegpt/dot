@@ -22,3 +22,27 @@
 ;; disable scroll bars
 (scroll-bar-mode -1)
 (toggle-scroll-bar -1)
+
+;;;; ===> Utils <===
+;;; check if linux is running
+(defvar is-linux-p
+  (string= system-type "gnu/linux")
+  "detect if linux is running")
+
+;;; duplicate line
+(defun duplicate-line ()
+  "Duplicate current line"
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (newline)
+  (yank))
+
+;;; apply settings base of hostname
+(defun if-pc (name fn &optional args) "call function per system base"
+       (when (string-equal system-name name)
+         (apply fn args)))
+
+(defun check-hostname (name)
+  (string= system-name name))
