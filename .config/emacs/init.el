@@ -43,8 +43,6 @@
   :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
-  ("<s-return>" . eshell)
-  ("M-!" . eshell-command)
   ("C-," . duplicate-line)
   :config
   ;; auto refresh changed file
@@ -323,7 +321,7 @@
 (use-package elm-mode
   :mode
   ("\\.elm\\'" . elm-mode)
-  :hook (elm-mode . elm-format-on-save))
+  :hook (elm-mode . elm-format-on-save-mode))
 
 ;;; markdown
 (use-package markdown-mode
