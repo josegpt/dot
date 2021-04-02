@@ -23,6 +23,9 @@
 (scroll-bar-mode -1)
 (toggle-scroll-bar -1)
 
+;; theme
+(load-theme 'dichromacy t)
+
 ;;;; ===> Utils <===
 ;;; check if linux is running
 (defvar is-linux-p

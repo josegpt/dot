@@ -5,5 +5,7 @@
 
 # Default programs
 export EDITOR='emacs'
+export VISUAL='emacs'
+export BROWSER='firefox'
 
 startx

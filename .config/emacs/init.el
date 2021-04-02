@@ -51,6 +51,7 @@
   (blink-cursor-mode 0)
   ;; disable menu bar
   (menu-bar-mode -1)
+
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -71,12 +72,6 @@
    `((".*" ,temporary-file-directory t))))
 
 ;;;; ===> Package Config <===
-;;; achrome theme
-(use-package achrome-theme
-  :straight (achrome-theme :type git :host github :repo "josegpt/achrome-theme")
-  :config
-  (load-theme 'achrome t))
-
 ;;; auth source pass
 (when is-linux-p
   (use-package auth-source-pass
@@ -98,6 +93,11 @@
   :bind
   ("M-x" . counsel-M-x)
   ("C-x C-f" . counsel-find-file))
+
+;;; dired sidebar
+(use-package dired-sidebar
+  :bind
+  ("C-c b" . dired-sidebar-toggle-sidebar))
 
 ;;; desktop env
 (when is-linux-p
@@ -330,7 +330,8 @@
 
 ;;; prettier
 (use-package prettier-js
-  :hook ((js-mode web-mode) . prettier-js))
+  :diminish
+  :hook ((js-mode web-mode css-mode) . prettier-js-mode))
 
 ;;;; ===> EXWM <===
 (use-package exwm-randr
