@@ -2,9 +2,14 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("emacs-config"
+(("emacs-early"
+ (filename . "~/.dotfiles/.config/emacs/early-init.el")
+ (front-context-string . ";;   ___ _ __ __")
+ (rear-context-string)
+ (position . 1))
+("emacs-config"
  (filename . "~/.dotfiles/.config/emacs/init.el")
- (front-context-string . ";;;; Initialize ")
+ (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
  (position . 1))
 )
