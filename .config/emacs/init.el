@@ -1,3 +1,11 @@
+;;   ___ _ __ ___   __ _  ___ ___ 
+;;  / _ \ '_ ` _ \ / _` |/ __/ __|
+;; |  __/ | | | | | (_| | (__\__ \
+;;  \___|_| |_| |_|\__,_|\___|___/
+
+;; ============================================================
+;; Straight
+;; ============================================================
 ;;;; Initialize straight
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -33,17 +41,16 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-;;;; ===> Per System Config <===
-;; activate battery mode
-(if-pc "griffith" 'display-battery-mode)
-
-;;;; ===> Emacs Config <===
+;; ============================================================
+;; Config
+;; ============================================================
 (use-package emacs
   ;; enable emacs daemon
   :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
   ("C-," . duplicate-line)
+  ("C-c s" . powersettings)
   :config
   ;; auto refresh changed file
   (global-auto-revert-mode t)
@@ -51,7 +58,6 @@
   (blink-cursor-mode 0)
   ;; disable menu bar
   (menu-bar-mode -1)
-
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -71,7 +77,13 @@
   (auto-save-file-name-transforms
    `((".*" ,temporary-file-directory t))))
 
-;;;; ===> Package Config <===
+;; ============================================================
+;; Packages
+;; ============================================================
+;;; theme
+(use-package nord-theme
+  :config
+  (load-theme 'nord t))
 ;;; auth source pass
 (when is-linux-p
   (use-package auth-source-pass
@@ -333,7 +345,12 @@
   :diminish
   :hook ((js-mode web-mode css-mode) . prettier-js-mode))
 
-;;;; ===> EXWM <===
+;; ============================================================
+;;   _____  ____      ___ __ ___  
+;;  / _ \ \/ /\ \ /\ / / '_ ` _ \ 
+;; |  __/>  <  \ V  V /| | | | | |
+;;  \___/_/\_\  \_/\_/ |_| |_| |_|
+;; ============================================================
 (use-package exwm-randr
   :if (check-hostname "guts")
   :straight nil
@@ -356,16 +373,17 @@
                            (exwm-workspace-rename-buffer exwm-class-name)))
     (exwm-update-title . (lambda ()
                            (pcase exwm-class-name
-                             ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title))))))
+                             ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
     ;; send window to workspace
     (exwm-manage-finish . (lambda ()
                             (pcase exwm-class-name
-                              ("Firefox" (exwm-workspace-move-window 1)))))
+                              ("Chromium" (exwm-workspace-move-window 1)))))
     :bind
     (:map exwm-mode-map
           ("C-q" . exwm-input-send-next-key))
     :custom
     (exwm-workspace-number 4)
+    (exwm-workspace-warp-cursor t)
     (exwm-input-prefix-keys
      '(?\C-x
        ?\C-c

@@ -1,3 +1,9 @@
+;;   ___ _ __ ___   __ _  ___ ___    ___  __ _ _ __| |_   _ 
+;;  / _ \ '_ ` _ \ / _` |/ __/ __|  / _ \/ _` | '__| | | | |
+;; |  __/ | | | | | (_| | (__\__ \ |  __/ (_| | |  | | |_| |
+;;  \___|_| |_| |_|\__,_|\___|___/  \___|\__,_|_|  |_|\__, |
+;;                                                    |___/ 
+;; ============================================================
 ;;; disable package.el at startup
 (setq package-enable-at-startup nil)
 
@@ -23,16 +29,13 @@
 (scroll-bar-mode -1)
 (toggle-scroll-bar -1)
 
-;; theme
-(load-theme 'dichromacy t)
-
-;;;; ===> Utils <===
-;;; check if linux is running
+;; ============================================================
+;; Functions
+;; ============================================================
 (defvar is-linux-p
   (string= system-type "gnu/linux")
   "detect if linux is running")
 
-;;; duplicate line
 (defun duplicate-line ()
   "Duplicate current line"
   (interactive)
@@ -42,10 +45,21 @@
   (newline)
   (yank))
 
-;;; apply settings base of hostname
-(defun if-pc (name fn &optional args) "call function per system base"
-       (when (string-equal system-name name)
-         (apply fn args)))
-
 (defun check-hostname (name)
+  "Check hostname of pc"
   (string= system-name name))
+
+(defvar powersettings-menu
+  '(("Reboot" . "doas reboot")
+    ("Poweroff" . "doas poweroff"))
+  "define options for powersettings fn")
+
+(defun powersettings ()
+  "execute powersettings base on selection"
+  (interactive)
+  (let* ((completion-ignore t)
+         (item (assoc-string
+                (completing-read "Power Settings: " powersettings-menu  nil t)
+                powersettings-menu t))
+         (cmd (cdr item)))
+    (shell-command cmd)))
