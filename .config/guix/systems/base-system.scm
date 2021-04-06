@@ -4,8 +4,6 @@
   #:use-module (gnu services networking)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages certs)
-  #:use-module (gnu packages emacs)
-  #:use-module (gnu packages emacs-xyz)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages package-management)
   #:use-module (nongnu packages linux)
@@ -48,8 +46,6 @@
    (packages (append (list
                       git
                       stow
-                      emacs
-                      emacs-exwm
                       nss-certs)
                      %base-packages))
 

@@ -32,10 +32,6 @@
 ;; ============================================================
 ;; Functions
 ;; ============================================================
-(defvar is-linux-p
-  (string= system-type "gnu/linux")
-  "detect if linux is running")
-
 (defun duplicate-line ()
   "Duplicate current line"
   (interactive)
@@ -50,8 +46,8 @@
   (string= system-name name))
 
 (defvar powersettings-menu
-  '(("Reboot" . "doas reboot")
-    ("Poweroff" . "doas poweroff"))
+  '(("Reboot" . "sudo reboot")
+    ("Poweroff" . "sudo poweroff"))
   "define options for powersettings fn")
 
 (defun powersettings ()

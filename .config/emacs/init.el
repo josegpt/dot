@@ -4,28 +4,8 @@
 ;;  \___|_| |_| |_|\__,_|\___|___/
 
 ;; ============================================================
-;; Straight
+;; Startup
 ;; ============================================================
-;;;; Initialize straight
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;;; make use-package use straight
-(straight-use-package 'use-package)
-
-;;; set straight as default
-(setq straight-use-package-by-default 1)
-
 ;;; debugging purposes
 ;; (setq use-package-verbose t)
 
@@ -84,12 +64,12 @@
 (use-package nord-theme
   :config
   (load-theme 'nord t))
+
 ;;; auth source pass
-(when is-linux-p
-  (use-package auth-source-pass
-    :after password-store
-    :config
-    (auth-source-pass-enable)))
+(use-package auth-source-pass
+  :after password-store
+  :config
+  (auth-source-pass-enable))
 
 ;;; company
 (use-package company
@@ -112,11 +92,10 @@
   ("C-c b" . dired-sidebar-toggle-sidebar))
 
 ;;; desktop env
-(when is-linux-p
-  (use-package desktop-environment
-    :diminish
-    :after exwm
-    :init (desktop-environment-mode)))
+(use-package desktop-environment
+  :diminish
+  :after exwm
+  :init (desktop-environment-mode))
 
 ;;; expand region
 (use-package expand-region
@@ -141,10 +120,6 @@
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("https://reddit.com/r/guix.rss" linux)
                   ("https://reddit.com/r/unixporn.rss" linux)
-                  ("https://www.wired.com/feed/rss" tech)
-                  ("https://reddit.com/r/unraid.rss" linux)
-                  ("https://reddit.com/r/voidlinux.rss" linux)
-                  ("https://reddit.com/r/orgmode.rss" emacs org)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
 
 ;;; magit
@@ -161,41 +136,39 @@
    ("M-n" . move-text-down)))
 
 ;;; mu4e
-(when is-linux-p
-  (use-package mu4e
-    :straight nil
-    :defer 10
-    :bind
-    ("C-c m" . mu4e)
-    :custom
-    (mu4e-change-filenames-when-moving t)
-    (mu4e-view-show-addresses t)
-    (mu4e-update-interval (* 10 60))
-    (mu4e-get-mail-command "mbsync -a")
-    ;; enable inline images
-    (mu4e-view-show-images t)
-    (mu4e-sent-messages-behavior 'delete)
-    (mu4e-confirm-quit nil)
-    (mu4e-attachment-dir "~/Downloads")
-    (user-full-name "Jose G Perez Taveras")
-    (user-mail-address "josegpt27@gmail.com")
-    (mu4e-maildir "~/Mail")
-    (mu4e-sent-folder "/Sent Mail")
-    (mu4e-drafts-folder "/Drafts")
-    (mu4e-trash-folder "/Trash")
-    (mu4e-maildir-shortcuts
-     '((:maildir "/INBOX" :key ?i)
-       (:maildir "/Sent Mail" :key ?s)
-       (:maildir "/Starred" :key ?r)
-       (:maildir "/Spam" :key ?p)
-       (:maildir "/Drafts" :key ?d)
-       (:maildir "/Trash" :key ?t)))
-    :config
-    ;; init mu4e
-    (mu4e t)
-    ;; use imagemagick, if available
-    (when (fboundp 'imagemagick-register-types)
-      (imagemagick-register-types))))
+;;   (use-package mu4e
+;;     :defer 10
+;;     :bind
+;;     ("C-c m" . mu4e)
+;;     :custom
+;;     (mu4e-change-filenames-when-moving t)
+;;     (mu4e-view-show-addresses t)
+;;     (mu4e-update-interval (* 10 60))
+;;     (mu4e-get-mail-command "mbsync -a")
+;;     ;; enable inline images
+;;     (mu4e-view-show-images t)
+;;     (mu4e-sent-messages-behavior 'delete)
+;;     (mu4e-confirm-quit nil)
+;;     (mu4e-attachment-dir "~/Downloads")
+;;     (user-full-name "Jose G Perez Taveras")
+;;     (user-mail-address "josegpt27@gmail.com")
+;;     (mu4e-maildir "~/Mail")
+;;     (mu4e-sent-folder "/Sent Mail")
+;;     (mu4e-drafts-folder "/Drafts")
+;;     (mu4e-trash-folder "/Trash")
+;;     (mu4e-maildir-shortcuts
+;;      '((:maildir "/INBOX" :key ?i)
+;;        (:maildir "/Sent Mail" :key ?s)
+;;        (:maildir "/Starred" :key ?r)
+;;        (:maildir "/Spam" :key ?p)
+;;        (:maildir "/Drafts" :key ?d)
+;;        (:maildir "/Trash" :key ?t)))
+;;     :config
+;;     ;; init mu4e
+;;     (mu4e t)
+;;     ;; use imagemagick, if available
+;;     (when (fboundp 'imagemagick-register-types)
+;;       (imagemagick-register-types)))
 
 ;;; multiple Cursors
 (use-package multiple-cursors
@@ -205,25 +178,23 @@
   ("C-c C-<" . 'mc/mark-all-like-this))
 
 ;;; password-store
-(when is-linux-p
-  (use-package password-store
-    :bind
-    ("C-c p e" . password-store-edit)
-    ("C-c p w" . password-store-copy)
-    ("C-c p c" . password-store-clear)
-    ("C-c p i" . password-store-insert)
-    ("C-c p r" . password-store-rename)
-    ("C-c p k" . password-store-remove)
-    ("C-c p g" . password-store-generate)
-    ("C-c p f" . password-store-copy-field)))
+(use-package password-store
+  :bind
+  ("C-c p e" . password-store-edit)
+  ("C-c p w" . password-store-copy)
+  ("C-c p c" . password-store-clear)
+  ("C-c p i" . password-store-insert)
+  ("C-c p r" . password-store-rename)
+  ("C-c p k" . password-store-remove)
+  ("C-c p g" . password-store-generate)
+  ("C-c p f" . password-store-copy-field))
 
 ;;; pinentry
-(when is-linux-p
-  (use-package pinentry
-    :init (pinentry-start)
-    :custom
-    ;; epg pinentry
-    (epg-pinentry-mode 'loopback)))
+(use-package pinentry
+  :init (pinentry-start)
+  :custom
+  ;; epg pinentry
+  (epg-pinentry-mode 'loopback))
 
 ;;; rainbow mode
 (use-package rainbow-mode
@@ -250,7 +221,6 @@
 
 ;;; time
 (use-package time
-  :straight nil
   :config
   (display-time-mode t)
   :custom
@@ -259,7 +229,6 @@
 
 ;;; web jump
 (use-package webjump
-  :straight nil
   :bind
   ("C-c j" . webjump)
   :custom
@@ -278,7 +247,6 @@
 
 ;;; whitespace
 (use-package whitespace
-  :straight nil
   :diminish
   :hook (prog-mode . whitespace-mode)
   :custom
@@ -311,39 +279,38 @@
 ;;;; ===> Language Config <===
 ;;; eldoc
 (use-package eldoc
-  :straight nil
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
-;;; elixir mode
-(use-package elixir-mode
-  :mode
-  ("\\.ex\\'" . elixir-mode)
-  :hook (elixir-mode . (lambda ()
-                        (add-hook 'before-save-hook 'elixir-format nil t))))
+;; ;;; elixir mode
+;; (use-package elixir-mode
+;;   :mode
+;;   ("\\.ex\\'" . elixir-mode)
+;;   :hook (elixir-mode . (lambda ()
+;;                         (add-hook 'before-save-hook 'elixir-format nil t))))
 
-;;; elixir tooling
-(use-package alchemist
-  :diminish
-  :after elixir-mode
-  :custom
-  (alchemist-hooks-test-on-save t))
+;; ;;; elixir tooling
+;; (use-package alchemist
+;;   :diminish
+;;   :after elixir-mode
+;;   :custom
+;;   (alchemist-hooks-test-on-save t))
 
-;;; elm mode
-(use-package elm-mode
-  :mode
-  ("\\.elm\\'" . elm-mode)
-  :hook (elm-mode . elm-format-on-save-mode))
+;; ;;; elm mode
+;; (use-package elm-mode
+;;   :mode
+;;   ("\\.elm\\'" . elm-mode)
+;;   :hook (elm-mode . elm-format-on-save-mode))
 
-;;; markdown
-(use-package markdown-mode
-  :mode
-  ("\\.md\\'" . markdown-mode))
+;; ;;; markdown
+;; (use-package markdown-mode
+;;   :mode
+;;   ("\\.md\\'" . markdown-mode))
 
-;;; prettier
-(use-package prettier-js
-  :diminish
-  :hook ((js-mode web-mode css-mode) . prettier-js-mode))
+;; ;;; prettier
+;; (use-package prettier-js
+;;   :diminish
+;;   :hook ((js-mode web-mode css-mode) . prettier-js-mode))
 
 ;; ============================================================
 ;;   _____  ____      ___ __ ___  
@@ -353,7 +320,6 @@
 ;; ============================================================
 (use-package exwm-randr
   :if (check-hostname "guts")
-  :straight nil
   :after exwm
   :hook
   (exwm-randr-screen-change . (lambda ()
@@ -364,71 +330,70 @@
   :custom
   (exwm-randr-workspace-monitor-plist '(0 "DP-1-1" 1 "DP-1-2-1" 2 "DP-1-2-2-1" 3 "DP-1-2-2-2")))
 
-(when is-linux-p
-  (use-package exwm
-    :init (exwm-enable)
-    :hook
-    ;; Make class name the buffer name
-    (exwm-update-class . (lambda ()
-                           (exwm-workspace-rename-buffer exwm-class-name)))
-    (exwm-update-title . (lambda ()
-                           (pcase exwm-class-name
-                             ("Chromium" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
-    ;; send window to workspace
-    (exwm-manage-finish . (lambda ()
-                            (pcase exwm-class-name
-                              ("Chromium" (exwm-workspace-move-window 1)))))
-    :bind
-    (:map exwm-mode-map
-          ("C-q" . exwm-input-send-next-key))
-    :custom
-    (exwm-workspace-number 4)
-    (exwm-workspace-warp-cursor t)
-    (exwm-input-prefix-keys
-     '(?\C-x
-       ?\C-c
-       ?\C-u
-       ?\C-h
-       ?\C-g
-       ?\M-x
-       ?\M-:
-       ?\M-!))
-    (exwm-input-global-keys
-     `(([?\s-r] . exwm-reset)
-       ([?\s-w] . exwm-workspace-switch)
-       ([?\s-&] . (lambda (command)
-                    (interactive (list (read-shell-command "$ ")))
-                    (start-process-shell-command command nil command)))
-       ,@(mapcar (lambda (i)
-                   `(,(kbd (format "s-%d" (1+ i))) .
-                     (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create ,i))))
-                 (number-sequence 0 3))))
-    (exwm-input-simulation-keys
-     '(([?\C-b] . [left])
-       ([?\C-f] . [right])
-       ([?\C-p] . [up])
-       ([?\C-n] . [down])
-       ([?\C-a] . [home])
-       ([?\C-e] . [end])
-       ([?\C-v] . [next])
-       ([?\M-h] . [?\C-a])
-       ([?\M-v] . [prior])
-       ([?\M-b] . [C-left])
-       ([?\M-f] . [C-right])
-       ([?\M-<] . [home])
-       ([?\M->] . [end])
-       ([?\C-d] . [delete])
-       ([?\C-w] . [?\C-x])
-       ([?\M-w] . [?\C-c])
-       ([?\C-y] . [?\C-v])
-       ([?\C-s] . [?\C-f])
-       ([?\C-c ?f] . [?\C-l])
-       ([?\C-c ?k] . [?\C-w])
-       ([?\C-c ?g] . [escape])
-       ([?\C-\M-b] . [M-left])
-       ([?\C-\M-f] . [M-right])
-       ([?\C-k] . [S-end delete])
-       ([M-backspace] . [C-backspace])
-       ([?\M-d] . [C-S-right delete])))))
+(use-package exwm
+  :init (exwm-enable)
+  :hook
+  ;; Make class name the buffer name
+  (exwm-update-class . (lambda ()
+			 (exwm-workspace-rename-buffer exwm-class-name)))
+  (exwm-update-title . (lambda ()
+			 (pcase exwm-class-name
+			   ("Chromium-browser" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+  ;; send window to workspace
+  (exwm-manage-finish . (lambda ()
+			  (pcase exwm-class-name
+			    ("Chromium-browser" (exwm-workspace-move-window 1)))))
+  :bind
+  (:map exwm-mode-map
+	("C-q" . exwm-input-send-next-key))
+  :custom
+  (exwm-workspace-number 4)
+  (exwm-workspace-warp-cursor t)
+  (exwm-input-prefix-keys
+   '(?\C-x
+     ?\C-c
+     ?\C-u
+     ?\C-h
+     ?\C-g
+     ?\M-x
+     ?\M-:
+     ?\M-!))
+  (exwm-input-global-keys
+   `(([?\s-r] . exwm-reset)
+     ([?\s-w] . exwm-workspace-switch)
+     ([?\s-&] . (lambda (command)
+		  (interactive (list (read-shell-command "$ ")))
+		  (start-process-shell-command command nil command)))
+     ,@(mapcar (lambda (i)
+		 `(,(kbd (format "s-%d" (1+ i))) .
+		   (lambda ()
+		     (interactive)
+		     (exwm-workspace-switch-create ,i))))
+	       (number-sequence 0 3))))
+  (exwm-input-simulation-keys
+   '(([?\C-b] . [left])
+     ([?\C-f] . [right])
+     ([?\C-p] . [up])
+     ([?\C-n] . [down])
+     ([?\C-a] . [home])
+     ([?\C-e] . [end])
+     ([?\C-v] . [next])
+     ([?\M-h] . [?\C-a])
+     ([?\M-v] . [prior])
+     ([?\M-b] . [C-left])
+     ([?\M-f] . [C-right])
+     ([?\M-<] . [home])
+     ([?\M->] . [end])
+     ([?\C-d] . [delete])
+     ([?\C-w] . [?\C-x])
+     ([?\M-w] . [?\C-c])
+     ([?\C-y] . [?\C-v])
+     ([?\C-s] . [?\C-f])
+     ([?\C-c ?f] . [?\C-l])
+     ([?\C-c ?k] . [?\C-w])
+     ([?\C-c ?g] . [escape])
+     ([?\C-\M-b] . [M-left])
+     ([?\C-\M-f] . [M-right])
+     ([?\C-k] . [S-end delete])
+     ([M-backspace] . [C-backspace])
+     ([?\M-d] . [C-S-right delete]))))
