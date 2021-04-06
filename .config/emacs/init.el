@@ -225,25 +225,24 @@
   (display-time-mode t)
   :custom
   (display-time-default-load-average nil)
-  (display-time-format "%I:%M%P  %B %d, %Y(%a)"))
+  (display-time-format "%a %B %d, %Y - %I:%M%P"))
 
 ;;; web jump
 (use-package webjump
   :bind
   ("C-c j" . webjump)
   :custom
-  (webjump-sites '(("URL" . [simple-query "about:blank" "www." ""])
+  (webjump-sites '(("Gmail" . "mail.google.com")
+                   ("Discord" . "discord.com/app")
+                   ("Telegram" . "web.telegram.org")
+                   ("WhatsApp" . "web.whatsapp.com")
+                   ("Guix Packages" . "https://hpc.guix.info/browse")
+                   ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
                    ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
                    ("Google" . [simple-query "google.com" "www.google.com/search?q=" ""])
-                   ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
                    ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
                    ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
-                   ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
-                   ("WhatsApp" . "web.whatsapp.com")
-                   ("Telegram" . "web.telegram.org")
-                   ("Discord" . "discord.com/app")
-                   ("Gmail" . "mail.google.com")
-                   ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""]))))
+                   ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
 
 ;;; whitespace
 (use-package whitespace
@@ -362,14 +361,14 @@
    `(([?\s-r] . exwm-reset)
      ([?\s-w] . exwm-workspace-switch)
      ([?\s-&] . (lambda (command)
-		  (interactive (list (read-shell-command "$ ")))
-		  (start-process-shell-command command nil command)))
+                  (interactive (list (read-shell-command "$ ")))
+                  (start-process-shell-command command nil command)))
      ,@(mapcar (lambda (i)
-		 `(,(kbd (format "s-%d" (1+ i))) .
-		   (lambda ()
-		     (interactive)
-		     (exwm-workspace-switch-create ,i))))
-	       (number-sequence 0 3))))
+                 `(,(kbd (format "s-%d" (1+ i))) .
+                   (lambda ()
+                     (interactive)
+                     (exwm-workspace-switch-create ,i))))
+               (number-sequence 0 3))))
   (exwm-input-simulation-keys
    '(([?\C-b] . [left])
      ([?\C-f] . [right])
