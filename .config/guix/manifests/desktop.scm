@@ -1,7 +1,8 @@
 (specifications->manifest
- '("curl"
+ '("mu"
+   "curl"
    "isync"
    "xhost"
+   "isync"
    "alsa-utils"
-   "font-iosevka"
-   "brightnessctl"))
+   "font-iosevka"))

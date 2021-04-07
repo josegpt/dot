@@ -49,8 +49,7 @@
                       nss-certs)
                      %base-packages))
 
-   ;; Guix doesn't like it when there isn't a file-systems
-   ;; entry, so add one that is meant to be overridden
+   ;; Dummy filesystem
    (file-systems (cons*
                   (file-system
                    (mount-point "/tmp")

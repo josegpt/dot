@@ -1,6 +1,3 @@
-# Honor per-interactive-shell startup file
-if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
-
 export PATH=$PATH:"~/.local/bin"
 
 GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
@@ -12,3 +9,6 @@ for i in $GUIX_EXTRA_PROFILES/*; do
     fi
     unset profile
 done
+
+# Honor per-interactive-shell startup file
+if [ -f ~/.bashrc ]; then . ~/.bashrc; fi

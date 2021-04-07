@@ -20,12 +20,10 @@ fi
 source /etc/bashrc
 
 # Adjust the prompt depending on whether we're in 'guix environment'.
-if [ -n "$GUIX_ENVIRONMENT" ]
-then
-    PS1='\W [env]\$ '
-else
-    PS1='\W \$ '
-fi
+[ -n "$GUIX_ENVIRONMENT" ] && PS1='\W [dev] \$ ' || PS1='\W \$ '
+
+# Aliases
 alias ls='ls -p --color=auto'
-alias ll='ls -l'
+alias ll='ls -lh'
+alias la='ls -lah'
 alias grep='grep --color=auto'

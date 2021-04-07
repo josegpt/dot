@@ -1,4 +1,4 @@
-;;   ___ _ __ ___   __ _  ___ ___ 
+;;   ___ _ __ ___   __ _  ___ ___
 ;;  / _ \ '_ ` _ \ / _` |/ __/ __|
 ;; |  __/ | | | | | (_| | (__\__ \
 ;;  \___|_| |_| |_|\__,_|\___|___/
@@ -310,8 +310,8 @@
   :hook ((js-mode web-mode css-mode) . prettier-js-mode))
 
 ;; ============================================================
-;;   _____  ____      ___ __ ___  
-;;  / _ \ \/ /\ \ /\ / / '_ ` _ \ 
+;;   _____  ____      ___ __ ___
+;;  / _ \ \/ /\ \ /\ / / '_ ` _ \
 ;; |  __/>  <  \ V  V /| | | | | |
 ;;  \___/_/\_\  \_/\_/ |_| |_| |_|
 ;; ============================================================
@@ -332,17 +332,17 @@
   :hook
   ;; Make class name the buffer name
   (exwm-update-class . (lambda ()
-			 (exwm-workspace-rename-buffer exwm-class-name)))
+                         (exwm-workspace-rename-buffer exwm-class-name)))
   (exwm-update-title . (lambda ()
-			 (pcase exwm-class-name
-			   ("Chromium-browser" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+                         (pcase exwm-class-name
+                           ("Chromium-browser" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
   ;; send window to workspace
   (exwm-manage-finish . (lambda ()
-			  (pcase exwm-class-name
-			    ("Chromium-browser" (exwm-workspace-move-window 1)))))
+                          (pcase exwm-class-name
+                            ("Chromium-browser" (exwm-workspace-move-window 0)))))
   :bind
   (:map exwm-mode-map
-	("C-q" . exwm-input-send-next-key))
+        ("C-q" . exwm-input-send-next-key))
   :custom
   (exwm-workspace-number 4)
   (exwm-workspace-warp-cursor t)
