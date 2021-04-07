@@ -1,0 +1,20 @@
+#!/bin/sh
+
+GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
+
+profiles=$*
+
+[ $# -eq 0 ] && profiles="$GUIX_EXTRA_PROFILES/*"
+
+for profile in $profiles; do
+    profile_name=$(basename $profile)
+    profile_path="$GUIX_EXTRA_PROFILES/$profile_name"
+    manifest_path="$HOME/.config/guix/manifests/$profile_name.scm"
+
+    echo "##############################"
+    echo "updating profile: $profile_name"
+    echo "##############################"
+    echo
+
+    guix package -p "$profile_path/$profile_name" -m "$manifest_path"
+done
