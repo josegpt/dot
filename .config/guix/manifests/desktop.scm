@@ -5,4 +5,5 @@
    "xhost"
    "isync"
    "alsa-utils"
-   "font-iosevka"))
+   "font-iosevka"
+   "pinentry-emacs"))
