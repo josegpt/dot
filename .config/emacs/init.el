@@ -60,11 +60,6 @@
 ;; ============================================================
 ;; Packages
 ;; ============================================================
-;;; theme
-(use-package nord-theme
-  :config
-  (load-theme 'nord t))
-
 ;;; auth source pass
 (use-package auth-source-pass
   :after password-store
@@ -121,6 +116,9 @@
                   ("https://reddit.com/r/guix.rss" linux)
                   ("https://reddit.com/r/unixporn.rss" linux)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
+
+;;; guix
+(use-package guix)
 
 ;;; magit
 (use-package magit
@@ -219,6 +217,11 @@
   (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t))
 
+;;; theme
+(use-package almost-mono-themes
+  :config
+  (load-theme 'almost-mono-white t))
+
 ;;; time
 (use-package time
   :config
@@ -275,41 +278,36 @@
   :config
   (yas-reload-all))
 
-;;;; ===> Language Config <===
+;; ============================================================
+;; Language Configs
+;; ============================================================
 ;;; eldoc
 (use-package eldoc
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
-;; ;;; elixir mode
-;; (use-package elixir-mode
-;;   :mode
-;;   ("\\.ex\\'" . elixir-mode)
-;;   :hook (elixir-mode . (lambda ()
-;;                         (add-hook 'before-save-hook 'elixir-format nil t))))
+;;; elixir mode
+(use-package elixir-mode
+  :mode
+  ("\\.ex\\'" . elixir-mode)
+  :hook (elixir-mode . (lambda ()
+                        (add-hook 'before-save-hook 'elixir-format nil t))))
 
-;; ;;; elixir tooling
-;; (use-package alchemist
-;;   :diminish
-;;   :after elixir-mode
-;;   :custom
-;;   (alchemist-hooks-test-on-save t))
+;;; elm mode
+(use-package elm-mode
+  :mode
+  ("\\.elm\\'" . elm-mode)
+  :hook (elm-mode . elm-format-on-save-mode))
 
-;; ;;; elm mode
-;; (use-package elm-mode
-;;   :mode
-;;   ("\\.elm\\'" . elm-mode)
-;;   :hook (elm-mode . elm-format-on-save-mode))
+;;; markdown
+(use-package markdown-mode
+  :mode
+  ("\\.md\\'" . markdown-mode))
 
-;; ;;; markdown
-;; (use-package markdown-mode
-;;   :mode
-;;   ("\\.md\\'" . markdown-mode))
-
-;; ;;; prettier
-;; (use-package prettier-js
-;;   :diminish
-;;   :hook ((js-mode web-mode css-mode) . prettier-js-mode))
+;;; prettier
+(use-package prettier-js
+  :diminish
+  :hook ((js-mode web-mode css-mode) . prettier-js-mode))
 
 ;; ============================================================
 ;;   _____  ____      ___ __ ___  
