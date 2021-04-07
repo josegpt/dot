@@ -339,7 +339,7 @@
   ;; send window to workspace
   (exwm-manage-finish . (lambda ()
                           (pcase exwm-class-name
-                            ("Chromium-browser" (exwm-workspace-move-window 0)))))
+                            ("Chromium-browser" (exwm-workspace-move-window 3)))))
   :bind
   (:map exwm-mode-map
         ("C-q" . exwm-input-send-next-key))
