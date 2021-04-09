@@ -1,10 +1,20 @@
 (define-module (guts)
+  #:use-module (gnu)
   #:use-module (base-system)
-  #:use-module (gnu))
+  #:use-module (udev-rules)
+  #:use-module (gnu services docker)
+  #:use-module (gnu services desktop)
+  #:use-module (gnu services networking)
+  #:use-module (gnu packages xorg))
+
+(use-service-modules desktop networking xorg)
 
 (operating-system
  (inherit base-operating-system)
  (host-name "guts")
+
+ (services (cons (service docker-service-type)
+                 %desktop-services))
 
  (file-systems (cons*
                 (file-system

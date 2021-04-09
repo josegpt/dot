@@ -98,9 +98,6 @@
   :bind
   ("C-=" . er/expand-region))
 
-;;; diminish
-(use-package diminish)
-
 ;;; elfeed
 (use-package elfeed
   :bind

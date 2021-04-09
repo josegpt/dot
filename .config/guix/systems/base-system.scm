@@ -1,15 +1,10 @@
 (define-module (base-system)
   #:use-module (gnu)
-  #:use-module (gnu services desktop)
-  #:use-module (gnu services networking)
-  #:use-module (gnu packages xorg)
   #:use-module (gnu packages certs)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages package-management)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd))
-
-(use-service-modules desktop networking xorg)
 
 (define-public base-operating-system
   (operating-system
@@ -21,15 +16,10 @@
    (firmware (list linux-firmware))
    (initrd microcode-initrd)
 
-   (keyboard-layout (keyboard-layout "us"))
-
-   (services %desktop-services)
-
    (bootloader
     (bootloader-configuration
      (bootloader grub-efi-bootloader)
-     (target "/boot/efi")
-     (keyboard-layout keyboard-layout)))
+     (target "/boot/efi")))
 
    (users (cons (user-account
                  (name "josegpt")
@@ -38,6 +28,7 @@
                  (home-directory "/home/josegpt")
                  (supplementary-groups '("wheel"
                                          "netdev"
+                                         "docker"
                                          "audio"
                                          "video")))
                 %base-user-accounts))

@@ -4,6 +4,7 @@
    "emacs-guix"
    "emacs-exwm"
    "emacs-magit"
+   "emacs-geiser"
    "emacs-elfeed"
    "emacs-company"
    "emacs-counsel"
