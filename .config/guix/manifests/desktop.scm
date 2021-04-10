@@ -5,6 +5,7 @@
    "xhost"
    "isync"
    "xrandr"
+   "direnv"
    "alsa-utils"
    "font-iosevka"
    "pinentry-emacs"))

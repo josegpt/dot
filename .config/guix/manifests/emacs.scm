@@ -5,6 +5,7 @@
    "emacs-exwm"
    "emacs-magit"
    "emacs-geiser"
+   "emacs-direnv"
    "emacs-elfeed"
    "emacs-company"
    "emacs-counsel"

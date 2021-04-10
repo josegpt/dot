@@ -2,7 +2,6 @@
 ;;  / _ \ '_ ` _ \ / _` |/ __/ __|
 ;; |  __/ | | | | | (_| | (__\__ \
 ;;  \___|_| |_| |_|\__,_|\___|___/
-
 ;; ============================================================
 ;; Startup
 ;; ============================================================
@@ -20,7 +19,6 @@
                              (float-time
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
-
 ;; ============================================================
 ;; Config
 ;; ============================================================
@@ -85,6 +83,11 @@
 (use-package dired-sidebar
   :bind
   ("C-c b" . dired-sidebar-toggle-sidebar))
+
+;;; direnv
+(use-package direnv
+ :config
+ (direnv-mode))
 
 ;;; desktop env
 (use-package desktop-environment
