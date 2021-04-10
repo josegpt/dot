@@ -39,8 +39,6 @@
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
-  ;; relative line number
-  (display-line-numbers-type (quote relative))
   ;; bell
   (ring-bell-function 'ignore)
   ;; disable statup messages
@@ -63,6 +61,11 @@
   :after password-store
   :config
   (auth-source-pass-enable))
+
+;;; avy
+(use-package avy
+  :bind
+  ("C-." . avy-goto-char))
 
 ;;; company
 (use-package company
@@ -206,13 +209,6 @@
 (use-package rainbow-delimiters
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
-
-;;; smartparens
-(use-package smartparens
-  :diminish
-  :hook (prog-mode . smartparens-global-strict-mode)
-  :config
-  (sp-use-smartparens-bindings))
 
 ;;; ivy
 (use-package ivy

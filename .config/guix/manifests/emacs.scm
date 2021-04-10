@@ -1,6 +1,7 @@
 (specifications->manifest
  '("emacs"
    "emacs-ivy"
+   "emacs-avy"
    "emacs-guix"
    "emacs-exwm"
    "emacs-magit"
@@ -16,8 +17,8 @@
    "emacs-move-text"
    "emacs-which-key"
    "emacs-yasnippet"
+   "emacs-restclient"
    "emacs-elixir-mode"
-   "emacs-smartparens"
    "emacs-use-package"
    "emacs-rainbow-mode"
    "emacs-markdown-mode"
