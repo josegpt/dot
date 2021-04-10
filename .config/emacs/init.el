@@ -207,6 +207,13 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;;; smartparens
+(use-package smartparens
+  :diminish
+  :hook (prog-mode . smartparens-global-strict-mode)
+  :config
+  (sp-use-smartparens-bindings))
+
 ;;; ivy
 (use-package ivy
   :diminish
@@ -214,7 +221,6 @@
   :bind
   ("C-s" . swiper)
   :custom
-  (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t))
 
 ;;; theme

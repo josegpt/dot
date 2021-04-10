@@ -17,6 +17,7 @@
    "emacs-which-key"
    "emacs-yasnippet"
    "emacs-elixir-mode"
+   "emacs-smartparens"
    "emacs-use-package"
    "emacs-rainbow-mode"
    "emacs-markdown-mode"
