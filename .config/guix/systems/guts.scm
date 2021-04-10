@@ -19,7 +19,7 @@
  (file-systems (cons*
                 (file-system
                  (mount-point "/boot/efi")
-                 (device (uuid "1234-ABCD" 'fat32))
+                 (device (uuid "45CD-1679" 'fat32))
                  (type "vfat"))
                 (file-system
                  (mount-point "/")
