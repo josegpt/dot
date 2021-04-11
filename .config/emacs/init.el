@@ -210,6 +210,11 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;;; subword
+(use-package subword
+  :diminish
+  :init (global-subword-mode t))
+
 ;;; ivy
 (use-package ivy
   :diminish
