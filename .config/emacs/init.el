@@ -194,7 +194,7 @@
 ;;     (when (fboundp 'imagemagick-register-types)
 ;;       (imagemagick-register-types)))
 
-;;; multiple Cursors
+;;; multiple cursors
 (use-package multiple-cursors
   :bind
   ("C->" . 'mc/mark-next-like-this)
@@ -333,6 +333,12 @@
   :mode
   ("\\.elm\\'" . elm-mode)
   :hook (elm-mode . elm-format-on-save-mode))
+
+;;; js-mode
+(use-package js
+  :straight nil
+  :custom
+  (js-indent-level 2))
 
 ;;; markdown
 (use-package markdown-mode
