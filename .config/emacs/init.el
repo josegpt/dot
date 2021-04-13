@@ -141,8 +141,8 @@
   (elfeed-search-title-max-width 100)
   (elfeed-search-title-min-width 100)
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
-                  ("https://reddit.com/r/guix.rss" linux)
                   ("https://reddit.com/r/unixporn.rss" linux)
+                  ("https://reddit.com/r/voidlinux.rss" linux)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
 
 ;;; guix
