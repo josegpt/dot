@@ -272,6 +272,7 @@
                    ("Discord" . "discord.com/app")
                    ("Telegram" . "web.telegram.org")
                    ("WhatsApp" . "web.whatsapp.com")
+                   ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
                    ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
                    ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
                    ("Google" . [simple-query "google.com" "www.google.com/search?q=" ""])
