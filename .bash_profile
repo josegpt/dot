@@ -1,14 +1,11 @@
-export PATH=$PATH:"~/.local/bin"
+# .bash_profile
 
-GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
-for i in $GUIX_EXTRA_PROFILES/*; do
-    profile=$i/$(basename "$i")
-    if [ -f "$profile"/etc/profile ]; then
-        GUIX_PROFILE="$profile"
-        . "$GUIX_PROFILE"/etc/profile
-    fi
-    unset profile
-done
+# Get the aliases and functions
+[ -f $HOME/.bashrc ] && . $HOME/.bashrc
 
-# Honor per-interactive-shell startup file
-if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
+# Default programs
+export EDITOR='emacs'
+export VISUAL='emacs'
+export BROWSER='firefox'
+
+startx

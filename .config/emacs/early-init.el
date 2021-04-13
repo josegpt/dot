@@ -45,8 +45,8 @@
   (string= system-name name))
 
 (defvar powersettings-menu
-  '(("Reboot" . "sudo reboot")
-    ("Poweroff" . "sudo poweroff"))
+  '(("Reboot" . "doas reboot")
+    ("Poweroff" . "doas poweroff"))
   "define options for powersettings fn")
 
 (defun powersettings ()

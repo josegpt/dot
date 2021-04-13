@@ -3,8 +3,28 @@
 ;; |  __/ | | | | | (_| | (__\__ \
 ;;  \___|_| |_| |_|\__,_|\___|___/
 ;; ============================================================
-;; Startup
+;; Straight
 ;; ============================================================
+;;;; Initialize straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;;; make use-package use straight
+(straight-use-package 'use-package)
+
+;;; set straight as default
+(setq straight-use-package-by-default 1)
+
 ;;; debugging purposes
 ;; (setq use-package-verbose t)
 
@@ -82,6 +102,9 @@
   ("M-x" . counsel-M-x)
   ("C-x C-f" . counsel-find-file))
 
+;;; diminish
+(use-package diminish)
+
 ;;; dired sidebar
 (use-package dired-sidebar
   :bind
@@ -96,7 +119,9 @@
 (use-package desktop-environment
   :diminish
   :after exwm
-  :init (desktop-environment-mode))
+  :init (desktop-environment-mode)
+  :config
+  (desktop-environment-exwm-set-global-keybindings :global))
 
 ;;; expand region
 (use-package expand-region
@@ -138,6 +163,7 @@
 
 ;;; mu4e
 ;;   (use-package mu4e
+;;     :straight nil
 ;;     :defer 10
 ;;     :bind
 ;;     ("C-c m" . mu4e)
@@ -212,6 +238,7 @@
 
 ;;; subword
 (use-package subword
+  :straight nil
   :diminish
   :init (global-subword-mode t))
 
@@ -225,12 +252,13 @@
   (enable-recursive-minibuffers t))
 
 ;;; theme
-(use-package almost-mono-themes
+(use-package gruvbox-theme
   :config
-  (load-theme 'almost-mono-white t))
+  (load-theme 'gruvbox t))
 
 ;;; time
 (use-package time
+  :straight nil
   :config
   (display-time-mode t)
   :custom
@@ -239,6 +267,7 @@
 
 ;;; web jump
 (use-package webjump
+  :straight nil
   :bind
   ("C-c j" . webjump)
   :custom
@@ -256,6 +285,7 @@
 
 ;;; whitespace
 (use-package whitespace
+  :straight nil
   :diminish
   :hook (prog-mode . whitespace-mode)
   :custom
@@ -290,6 +320,7 @@
 ;; ============================================================
 ;;; eldoc
 (use-package eldoc
+  :straight nil
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
@@ -323,6 +354,7 @@
 ;;  \___/_/\_\  \_/\_/ |_| |_| |_|
 ;; ============================================================
 (use-package exwm-randr
+  :straight nil
   :if (check-hostname "guts")
   :after exwm
   :hook
@@ -342,11 +374,11 @@
                          (exwm-workspace-rename-buffer exwm-class-name)))
   (exwm-update-title . (lambda ()
                          (pcase exwm-class-name
-                           ("Chromium-browser" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title))))))
+                           ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title))))))
   ;; send window to workspace
   (exwm-manage-finish . (lambda ()
                           (pcase exwm-class-name
-                            ("Chromium-browser" (exwm-workspace-move-window 3)))))
+                            ("Firefox" (exwm-workspace-move-window 3)))))
   :bind
   (:map exwm-mode-map
         ("C-q" . exwm-input-send-next-key))

@@ -1,29 +1,16 @@
-# Bash initialization for interactive non-login shells and
-# for remote shells (info "(bash) Bash Startup Files").
-
-# Export 'SHELL' to child processes.  Programs such as 'screen'
-# honor it and otherwise use /bin/sh.
-export SHELL
-
-if [[ $- != *i* ]]
-then
-    # We are being invoked from a non-interactive shell.  If this
-    # is an SSH session (as in "ssh host command"), source
-    # /etc/profile so we get PATH and other essential variables.
-    [[ -n "$SSH_CLIENT" ]] && source /etc/profile
-
-    # Don't do anything else.
-    return
-fi
-
-# Source the system-wide file.
-source /etc/bashrc
-
-# Adjust the prompt depending on whether we're in 'guix environment'.
-[ -n "$GUIX_ENVIRONMENT" ] && PS1='\W [dev] \$ ' || PS1='\W \$ '
-
-# Aliases
-alias ls='ls -p --color=auto'
+# aliases
+alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ls -lah'
-alias grep='grep --color=auto'
+alias rb='doas reboot'
+alias po='doas poweroff'
+alias xqi='xbps-query -m'
+alias xqo='xbps-query -O'
+alias xqs='xbps-query -s'
+alias xq='xbps-query -Rs'
+alias xi='doas xbps-install -Su'
+alias xr='doas xbps-remove -R'
+alias xro='doas xbps-remove -o'
+alias c='clear'
+
+PS1='\W $ '
