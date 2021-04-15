@@ -315,6 +315,11 @@
 ;; ============================================================
 ;; Language Configs
 ;; ============================================================
+;;; dockerfile mode
+(use-package dockerfile-mode
+  :mode
+  ("\\Dockerfile\\'" . dockerfile-mode))
+
 ;;; eldoc
 (use-package eldoc
   :straight nil
@@ -349,6 +354,11 @@
 (use-package prettier-js
   :diminish
   :hook ((js-mode web-mode css-mode) . prettier-js-mode))
+
+;;; yaml
+(use-package yaml-mode
+  :mode
+  ("\\.ylm\\'" . yaml-mode))
 
 ;; ============================================================
 ;;   _____  ____      ___ __ ___
