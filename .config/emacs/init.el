@@ -353,13 +353,7 @@
 ;;; prettier
 (use-package prettier-js
   :diminish
-  :hook ((js-mode web-mode css-mode typescript-mode) . prettier-js-mode))
-
-;;; typescript mode
-(use-package typescript-mode
-  :mode ("\\.\\(ts\\|tsx\\)\\'" . typescript-mode)
-  :config
-  (setq typescript-indent-level 2))
+  :hook ((js-mode web-mode css-mode) . prettier-js-mode))
 
 ;;; yaml
 (use-package yaml-mode
