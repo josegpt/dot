@@ -11,7 +11,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; configure font size
-(set-face-attribute 'default nil :family "Iosevka" :height 135)
+(set-face-attribute 'default nil :family "Iosevka" :height 120)
 
 ;; matching paren
 (show-paren-mode t)
@@ -28,6 +28,7 @@
 ;; disable scroll bars
 (scroll-bar-mode -1)
 (toggle-scroll-bar -1)
+
 ;; ============================================================
 ;; Functions
 ;; ============================================================

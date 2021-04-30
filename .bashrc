@@ -14,3 +14,5 @@ alias xro='doas xbps-remove -o'
 alias c='clear'
 
 PS1='\W $ '
+
+eval "$(direnv hook bash)"

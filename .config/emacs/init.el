@@ -8,7 +8,9 @@
 ;;;; Initialize straight
 (defvar bootstrap-version)
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        user-emacs-directory))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
@@ -39,6 +41,7 @@
                              (float-time
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
+
 ;; ============================================================
 ;; Config
 ;; ============================================================
@@ -55,12 +58,16 @@
   ;; no blinking
   (blink-cursor-mode 0)
   ;; disable menu bar
-  (menu-bar-mode -1)
+  (menu-bar-mode 0)
+  ;; column indicator
+  (global-display-fill-column-indicator-mode t)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
   ;; bell
   (ring-bell-function 'ignore)
+  ;; fill column
+  (fill-column 80)
   ;; disable statup messages
   (initial-scratch-message nil)
   (inhibit-startup-message t)
@@ -82,18 +89,13 @@
   :config
   (auth-source-pass-enable))
 
-;;; avy
-(use-package avy
-  :bind
-  ("C-." . avy-goto-char))
-
 ;;; company
 (use-package company
   :diminish
   :hook (prog-mode . company-mode)
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-idle-delay 1))
 
 ;;; counsel
 (use-package counsel
@@ -123,6 +125,12 @@
   :config
   (desktop-environment-exwm-set-global-keybindings :global))
 
+;;; doom modeline
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-modal-icon t))
+
 ;;; expand region
 (use-package expand-region
   :diminish
@@ -141,8 +149,6 @@
   (elfeed-search-title-max-width 100)
   (elfeed-search-title-min-width 100)
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
-                  ("https://reddit.com/r/unixporn.rss" linux)
-                  ("https://reddit.com/r/voidlinux.rss" linux)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
 
 ;;; magit
@@ -315,6 +321,7 @@
 ;; ============================================================
 ;; Language Configs
 ;; ============================================================
+
 ;;; dockerfile mode
 (use-package dockerfile-mode
   :mode
@@ -353,13 +360,17 @@
 ;;; prettier
 (use-package prettier-js
   :diminish
-  :hook ((js-mode web-mode css-mode typescript-mode) . prettier-js-mode))
+  :hook ((js-mode web-mode css-mode typescript-mode vue-mode) . prettier-js-mode))
 
 ;;; typescript mode
 (use-package typescript-mode
   :mode ("\\.\\(ts\\|tsx\\)\\'" . typescript-mode)
   :config
   (setq typescript-indent-level 2))
+
+;;; vue mode
+(use-package vue-mode
+  :mode ("\\.vue\\'" . vue-mode))
 
 ;;; yaml
 (use-package yaml-mode
