@@ -95,13 +95,14 @@
   :hook (prog-mode . company-mode)
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 1))
+  (company-idle-delay 0))
 
 ;;; counsel
 (use-package counsel
   :after ivy
   :bind
   ("M-x" . counsel-M-x)
+  ("C-c g" . counsel-git)
   ("C-x C-f" . counsel-find-file))
 
 ;;; diminish
@@ -131,6 +132,17 @@
   :custom
   (doom-modeline-modal-icon t))
 
+;;; eglot
+(use-package eglot
+  :hook ((js-mode ts-mode sh-mode) . eglot-ensure)
+  :bind
+  ("C-c e RET" . eglot)
+  (:map eglot-mode-map
+        ("C-c e h" . eldoc)
+        ("C-c e r" . eglot-rename)
+        ("C-c e f" . eldoc-format-buffer)
+        ("C-c e o" . eglot-code-action-organize-imports)))
+
 ;;; expand region
 (use-package expand-region
   :diminish
@@ -153,8 +165,6 @@
 
 ;;; magit
 (use-package magit
-  :bind
-  ("C-x g" . magit-status)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
@@ -166,7 +176,7 @@
 
 ;;; mu4e
 ;;   (use-package mu4e
-;;     :straight nil
+;;     :straight nilv
 ;;     :defer 10
 ;;     :bind
 ;;     ("C-c m" . mu4e)
@@ -254,10 +264,21 @@
   :custom
   (enable-recursive-minibuffers t))
 
+;;; ivy postframe
+(use-package ivy-posframe
+  :after (ivy)
+  :init (ivy-posframe-mode 1)
+  :custom
+  (ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+  (ivy-posframe-parameters
+   '((left-fringe . 8)
+     (right-fringe . 8))))
+
 ;;; theme
-(use-package gruvbox-theme
+(use-package achrome-theme
+  :straight (achrome-theme :type git :host github :repo "josegpt/achrome-theme")
   :config
-  (load-theme 'gruvbox t))
+  (load-theme 'achrome t))
 
 ;;; time
 (use-package time

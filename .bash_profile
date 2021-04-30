@@ -1,5 +1,6 @@
 # .bash_profile
 
+export PATH=$PATH:"~/.yarn/bin"
 export HISTFILE=$HOME/.cache/.bash_history
 
 # Get the aliases and functions
