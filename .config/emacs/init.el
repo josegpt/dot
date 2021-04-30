@@ -349,6 +349,8 @@
 ;;; js-mode
 (use-package js
   :straight nil
+  :mode
+  ("\\.js\\'" . js-mode)
   :custom
   (js-indent-level 2))
 
