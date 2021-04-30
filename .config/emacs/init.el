@@ -126,11 +126,6 @@
   :config
   (desktop-environment-exwm-set-global-keybindings :global))
 
-;;; doom modeline
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom
-  (doom-modeline-modal-icon t))
 
 ;;; eglot
 (use-package eglot
@@ -266,6 +261,7 @@
 
 ;;; ivy postframe
 (use-package ivy-posframe
+  :diminish
   :after (ivy)
   :init (ivy-posframe-mode 1)
   :custom
@@ -279,6 +275,10 @@
   :straight (achrome-theme :type git :host github :repo "josegpt/achrome-theme")
   :config
   (load-theme 'achrome t))
+
+;;; telephone line
+(use-package telephone-line
+  :init (telephone-line-mode t))
 
 ;;; time
 (use-package time
