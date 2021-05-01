@@ -71,8 +71,6 @@
   ;; disable statup messages
   (initial-scratch-message nil)
   (inhibit-startup-message t)
-  ;; initial load elisp-mode
-  (initial-major-mode 'emacs-lisp-mode)
   ;; don't clutter up directories with files~
   (backup-directory-alist
    `((".*" . ,temporary-file-directory)))
@@ -110,8 +108,7 @@
 
 ;;; direnv
 (use-package direnv
- :config
- (direnv-mode))
+  :hook (prog-mode . direnv-mode))
 
 ;;; desktop env
 (use-package desktop-environment
@@ -152,6 +149,11 @@
   (elfeed-search-title-min-width 100)
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
+
+;;; git gutter
+(use-package git-gutter
+  :diminish
+  :hook (prog-mode . git-gutter-mode))
 
 ;;; magit
 (use-package magit
@@ -258,7 +260,7 @@
 ;;; ivy postframe
 (use-package ivy-posframe
   :diminish
-  :after (ivy)
+  :after ivy
   :init (ivy-posframe-mode 1)
   :custom
   (ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
