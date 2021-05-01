@@ -10,24 +10,27 @@
 ;;; set alias to y-or-n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; configure font size
+;;; configure font size
 (set-face-attribute 'default nil :family "Iosevka" :height 120)
 
-;; matching paren
+;;; matching paren
 (show-paren-mode t)
 
-;; disable tool bar
-(tool-bar-mode -1)
+;;; highlight current line
+(global-hl-line-mode t)
 
-;; more space
-(set-fringe-mode 4)
+;;; disable tool bar
+(tool-bar-mode 0)
 
-;; disbale tooltip
-(tooltip-mode -1)
+;;; more space
+(set-fringe-mode 8)
 
-;; disable scroll bars
-(scroll-bar-mode -1)
-(toggle-scroll-bar -1)
+;;; disbale tooltip
+(tooltip-mode 0)
+
+;;; disable scroll bars
+(scroll-bar-mode 0)
+(toggle-scroll-bar 0)
 
 ;; ============================================================
 ;; Functions

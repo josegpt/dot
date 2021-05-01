@@ -108,11 +108,6 @@
 ;;; diminish
 (use-package diminish)
 
-;;; dired sidebar
-(use-package dired-sidebar
-  :bind
-  ("C-c b" . dired-sidebar-toggle-sidebar))
-
 ;;; direnv
 (use-package direnv
  :config
@@ -271,10 +266,9 @@
      (right-fringe . 8))))
 
 ;;; theme
-(use-package achrome-theme
-  :straight (achrome-theme :type git :host github :repo "josegpt/achrome-theme")
+(use-package gruvbox-theme
   :config
-  (load-theme 'achrome t))
+  (load-theme 'gruvbox t))
 
 ;;; telephone line
 (use-package telephone-line
@@ -486,3 +480,4 @@
      ([?\C-k] . [S-end delete])
      ([M-backspace] . [C-backspace])
      ([?\M-d] . [C-S-right delete]))))
+
