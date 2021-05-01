@@ -251,6 +251,7 @@
   :init (ivy-mode t)
   :bind
   ("C-s" . swiper)
+  ("C-r" . swiper)
   :custom
   (enable-recursive-minibuffers t))
 
@@ -325,6 +326,19 @@
   :init (which-key-mode)
   :custom
   (which-key-idle-delay 0.5 "include delay to defer its execution"))
+
+;;; windmove
+(use-package windmove
+  :straight nil
+  :bind
+  ("s-f" . windmove-right)
+  ("s-b" . windmove-left)
+  ("s-p" . windmove-up)
+  ("s-n" . windmove-down)
+  ("s-F" . windmove-swap-states-right)
+  ("s-B" . windmove-swap-states-left)
+  ("s-P" . windmove-swap-states-up)
+  ("s-N" . windmove-swapstates-down))
 
 ;;; yasnippet
 (use-package yasnippet
