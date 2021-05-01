@@ -261,7 +261,8 @@
 (use-package ivy-posframe
   :diminish
   :after ivy
-  :init (ivy-posframe-mode 1)
+  :config
+  (ivy-posframe-mode t)
   :custom
   (ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
   (ivy-posframe-parameters
