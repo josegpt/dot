@@ -68,6 +68,8 @@
   (ring-bell-function 'ignore)
   ;; fill column
   (fill-column 80)
+  ;; truncate lines
+  (truncate-lines t)
   ;; disable statup messages
   (initial-scratch-message nil)
   (inhibit-startup-message t)
@@ -92,8 +94,8 @@
   :diminish
   :hook (prog-mode . company-mode)
   :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0))
+  (company-idle-delay 0)
+  (company-minimum-prefix-length 1))
 
 ;;; counsel
 (use-package counsel
@@ -264,7 +266,8 @@
   :config
   (ivy-posframe-mode t)
   :custom
-  (ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+  (ivy-posframe-display-functions-alist
+   '((t . ivy-posframe-display)))
   (ivy-posframe-parameters
    '((left-fringe . 8)
      (right-fringe . 8))))
