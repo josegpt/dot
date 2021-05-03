@@ -2,19 +2,19 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("xinitrc"
+(("profile"
+ (filename . "~/.profile")
+ (front-context-string . "#!/bin/sh\n\n# GET")
+ (rear-context-string)
+ (position . 1))
+("clean-theme"
+ (filename . "~/.dotfiles/.config/emacs/clean-theme.el")
+ (front-context-string . ";;; clean-theme.")
+ (rear-context-string)
+ (position . 1))
+("xinitrc"
  (filename . "~/.dotfiles/.xinitrc")
  (front-context-string . "#!/bin/sh\n\nexec ")
- (rear-context-string)
- (position . 1))
-("bashrc"
- (filename . "~/.dotfiles/.bashrc")
- (front-context-string . "# aliases\nalias ")
- (rear-context-string)
- (position . 1))
-("bash-profile"
- (filename . "~/.dotfiles/.bash_profile")
- (front-context-string . "# .bash_profile\n")
  (rear-context-string)
  (position . 1))
 ("emacs-early"

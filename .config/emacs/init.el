@@ -45,11 +45,13 @@
 ;; ============================================================
 ;; Config
 ;; ============================================================
+
 (use-package emacs
   ;; enable emacs daemon
   :init (server-mode)
   :hook (prog-mode . display-line-numbers-mode)
   :bind
+  ("<s-return>" . eshell)
   ("C-," . duplicate-line)
   ("C-c s" . powersettings)
   :config
@@ -61,6 +63,9 @@
   (menu-bar-mode 0)
   ;; column indicator
   (global-display-fill-column-indicator-mode t)
+  ;; transparency
+  (set-frame-parameter (selected-frame) 'alpha '(85 50))
+  (add-to-list 'default-frame-alist '(alpha 85 50))
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -97,13 +102,10 @@
   (company-idle-delay 0)
   (company-minimum-prefix-length 1))
 
-;;; counsel
-(use-package counsel
-  :after ivy
-  :bind
-  ("M-x" . counsel-M-x)
-  ("C-c g" . counsel-git)
-  ("C-x C-f" . counsel-find-file))
+;;; ctrlf
+(use-package ctrlf
+  :config
+  (ctrlf-mode t))
 
 ;;; diminish
 (use-package diminish)
@@ -111,15 +113,6 @@
 ;;; direnv
 (use-package direnv
   :hook (prog-mode . direnv-mode))
-
-;;; desktop env
-(use-package desktop-environment
-  :diminish
-  :after exwm
-  :init (desktop-environment-mode)
-  :config
-  (desktop-environment-exwm-set-global-keybindings :global))
-
 
 ;;; eglot
 (use-package eglot
@@ -141,7 +134,7 @@
 ;;; elfeed
 (use-package elfeed
   :bind
-  ("C-c f" . elfeed)
+  ("C-c r" . elfeed)
   (:map elfeed-search-mode-map
         ("g" . elfeed-update))
   :custom
@@ -151,6 +144,13 @@
   (elfeed-search-title-min-width 100)
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
+
+;;; fzf
+(use-package fzf
+  :bind
+  ("C-c f f" . fzf)
+  ("C-c f l" . fzf-git-grep)
+  ("C-c f g" . fzf-git-files))
 
 ;;; git gutter
 (use-package git-gutter
@@ -207,9 +207,9 @@
 ;;; multiple cursors
 (use-package multiple-cursors
   :bind
+  ("C-c C->" . 'mc/mark-all-like-this)
   ("C->" . 'mc/mark-next-like-this)
-  ("C-<" . 'mc/mark-previous-like-this)
-  ("C-c C-<" . 'mc/mark-all-like-this))
+  ("C-<" . 'mc/mark-previous-like-this))
 
 ;;; password-store
 (use-package password-store
@@ -222,6 +222,14 @@
   ("C-c p k" . password-store-remove)
   ("C-c p g" . password-store-generate)
   ("C-c p f" . password-store-copy-field))
+
+;;; pulseaudio control
+(use-package pulseaudio-control
+  :bind
+  ("<XF86AudioLowerVolume>" . pulseaudio-control-decrease-volume)
+  ("<XF86AudioRaiseVolume>" . pulseaudio-control-increase-volume)
+  ("<XF86AudioMute>" . pulseaudio-control-toggle-current-sink-mute)
+  ("<XF86AudioMicMute>" . pulseaudio-control-toggle-current-source-mute))
 
 ;;; pinentry
 (use-package pinentry
@@ -243,43 +251,26 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;;; selectrum
+(use-package selectrum
+  :config
+  (selectrum-mode t))
+
+;;; selectrum prescient
+(use-package selectrum-prescient
+  :config
+  (selectrum-prescient-mode t))
+
 ;;; subword
 (use-package subword
   :straight nil
   :diminish
   :init (global-subword-mode t))
 
-;;; ivy
-(use-package ivy
-  :diminish
-  :init (ivy-mode t)
-  :bind
-  ("C-s" . swiper)
-  ("C-r" . swiper)
-  :custom
-  (enable-recursive-minibuffers t))
-
-;;; ivy postframe
-(use-package ivy-posframe
-  :diminish
-  :after ivy
-  :config
-  (ivy-posframe-mode t)
-  :custom
-  (ivy-posframe-display-functions-alist
-   '((t . ivy-posframe-display)))
-  (ivy-posframe-parameters
-   '((left-fringe . 8)
-     (right-fringe . 8))))
-
 ;;; theme
 (use-package gruvbox-theme
   :config
   (load-theme 'gruvbox t))
-
-;;; telephone line
-(use-package telephone-line
-  :init (telephone-line-mode t))
 
 ;;; time
 (use-package time
@@ -500,4 +491,3 @@
      ([?\C-k] . [S-end delete])
      ([M-backspace] . [C-backspace])
      ([?\M-d] . [C-S-right delete]))))
-
