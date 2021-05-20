@@ -7,11 +7,6 @@
  (front-context-string . "#!/bin/sh\n\n# GET")
  (rear-context-string)
  (position . 1))
-("clean-theme"
- (filename . "~/.dotfiles/.config/emacs/clean-theme.el")
- (front-context-string . ";;; clean-theme.")
- (rear-context-string)
- (position . 1))
 ("xinitrc"
  (filename . "~/.dotfiles/.xinitrc")
  (front-context-string . "#!/bin/sh\n\nexec ")
