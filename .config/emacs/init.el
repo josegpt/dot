@@ -107,10 +107,6 @@
 ;;; diminish
 (use-package diminish)
 
-;;; direnv
-(use-package direnv
-  :hook (prog-mode . direnv-mode))
-
 ;;; eglot
 (use-package eglot
   :hook ((js-mode ts-mode sh-mode) . eglot-ensure)
@@ -381,11 +377,6 @@
 (use-package markdown-mode
   :mode
   ("\\.md\\'" . markdown-mode))
-
-;;; prettier
-(use-package prettier-js
-  :diminish
-  :hook ((js-mode web-mode css-mode typescript-mode vue-mode) . prettier-js-mode))
 
 ;;; typescript mode
 (use-package typescript-mode
