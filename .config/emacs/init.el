@@ -63,9 +63,6 @@
   (menu-bar-mode 0)
   ;; column indicator
   (global-display-fill-column-indicator-mode t)
-  ;; transparency
-  (set-frame-parameter (selected-frame) 'alpha '(85 50))
-  (add-to-list 'default-frame-alist '(alpha 85 50))
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
