@@ -99,11 +99,6 @@
   (company-idle-delay 0)
   (company-minimum-prefix-length 1))
 
-;;; ctrlf
-(use-package ctrlf
-  :config
-  (ctrlf-mode t))
-
 ;;; diminish
 (use-package diminish)
 
@@ -155,6 +150,14 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+;;; marginalia
+(use-package marginalia
+  :after vertico
+  :init
+  (marginalia-mode)
+  :custom
+  (marginalia-margin-threshold 150))
+
 ;;; move text
 (use-package move-text
   :bind
@@ -204,6 +207,13 @@
   ("C->" . 'mc/mark-next-like-this)
   ("C-<" . 'mc/mark-previous-like-this))
 
+;;; orderless
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles . (partial-completion))))))
+
 ;;; password-store
 (use-package password-store
   :bind
@@ -243,16 +253,6 @@
 (use-package rainbow-delimiters
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
-
-;;; selectrum
-(use-package selectrum
-  :config
-  (selectrum-mode t))
-
-;;; selectrum prescient
-(use-package selectrum-prescient
-  :config
-  (selectrum-prescient-mode t))
 
 ;;; subword
 (use-package subword
@@ -316,6 +316,12 @@
   :init (which-key-mode)
   :custom
   (which-key-idle-delay 0.5 "include delay to defer its execution"))
+
+;;; vertico
+(use-package vertico
+  :init (vertico-mode)
+  :custom
+  (vertico-cycle t))
 
 ;;; windmove
 (use-package windmove
