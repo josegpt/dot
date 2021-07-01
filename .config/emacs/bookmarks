@@ -2,9 +2,14 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("profile"
- (filename . "~/.profile")
- (front-context-string . "#!/bin/sh\n\n# GET")
+((".bash_profile"
+ (filename . "~/.bash_profile")
+ (front-context-string . "[ -f $HOME/.bash")
+ (rear-context-string)
+ (position . 1))
+(".bashrc"
+ (filename . "~/.bashrc")
+ (front-context-string . "# If not running")
  (rear-context-string)
  (position . 1))
 ("xinitrc"

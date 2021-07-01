@@ -1,4 +1,4 @@
-#!/bin/sh
+[ -f $HOME/.bashrc ] && . $HOME/.bashrc
 
 export PATH=$PATH:"~/.yarn/bin"
 export HISTFILE=$HOME/.cache/.bash_history
@@ -9,3 +9,4 @@ export VISUAL='emacs'
 export BROWSER='firefox'
 
 startx
+

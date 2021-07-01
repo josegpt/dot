@@ -85,6 +85,7 @@
 ;; ============================================================
 ;; Packages
 ;; ============================================================
+
 ;;; auth source pass
 (use-package auth-source-pass
   :after password-store
@@ -132,13 +133,6 @@
   (elfeed-search-title-min-width 100)
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
-
-;;; fzf
-(use-package fzf
-  :bind
-  ("C-c f f" . fzf)
-  ("C-c f l" . fzf-git-grep)
-  ("C-c f g" . fzf-git-files))
 
 ;;; git gutter
 (use-package git-gutter
@@ -254,16 +248,10 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;; subword
-(use-package subword
-  :straight nil
-  :diminish
-  :init (global-subword-mode t))
-
 ;;; theme
 (use-package gruvbox-theme
   :config
-  (load-theme 'gruvbox t))
+  (load-theme 'gruvbox-dark-hard t))
 
 ;;; time
 (use-package time
