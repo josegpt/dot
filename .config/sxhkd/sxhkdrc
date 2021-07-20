@@ -1,0 +1,29 @@
+#
+# independent hotkeys
+#
+
+# program launcher
+super + p
+  dmenu_run
+
+# make sxhkd reload its configuration files:
+super + q
+  kill -USR1 -x sxhkd
+
+# browser
+super + {_,shift +,alt +} w
+  firefox --{new-tab,new-window,private-window} https://google.com
+
+# brightness
+XF86MonBrightnessUp
+  brightnessctl s +10%
+
+XF86MonBrightnessDown
+  brightnessctl s 10%-
+
+# volume
+XF86Audio{Lower,Raise}Volume
+  pactl -- set-sink-volume 0 {-,+}10%
+
+XF86Audio{_,Mic}Mute
+  pactl -- set-{sink,source}-mute {0,1} toggle

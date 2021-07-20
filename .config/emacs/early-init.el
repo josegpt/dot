@@ -16,14 +16,11 @@
 ;;; matching paren
 (show-paren-mode t)
 
-;;; highlight current line
-(global-hl-line-mode t)
-
 ;;; disable tool bar
 (tool-bar-mode 0)
 
-;;; more space
-(set-fringe-mode 8)
+;;; fringe
+(set-fringe-mode 4)
 
 ;;; disbale tooltip
 (tooltip-mode 0)

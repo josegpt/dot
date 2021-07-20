@@ -5,7 +5,6 @@
 ;; ============================================================
 ;; Straight
 ;; ============================================================
-;;;; Initialize straight
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -28,12 +27,12 @@
 (setq straight-use-package-by-default 1)
 
 ;;; debugging purposes
-;; (setq use-package-verbose t)
+(setq use-package-verbose t)
 
-;;; The default is 800 kilobytes.  Measured in bytes.
+;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
-;;; Profile emacs startup
+;;; profile emacs startup
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "---> Emacs loaded in %s with %d garbage collections."
@@ -61,17 +60,11 @@
   (blink-cursor-mode 0)
   ;; disable menu bar
   (menu-bar-mode 0)
-  ;; column indicator
-  (global-display-fill-column-indicator-mode t)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
   ;; bell
   (ring-bell-function 'ignore)
-  ;; fill column
-  (fill-column 80)
-  ;; truncate lines
-  (truncate-lines t)
   ;; disable statup messages
   (initial-scratch-message nil)
   (inhibit-startup-message t)
@@ -86,13 +79,11 @@
 ;; Packages
 ;; ============================================================
 
-;;; auth source pass
 (use-package auth-source-pass
   :after password-store
   :config
   (auth-source-pass-enable))
 
-;;; company
 (use-package company
   :diminish
   :hook (prog-mode . company-mode)
@@ -100,10 +91,15 @@
   (company-idle-delay 0)
   (company-minimum-prefix-length 1))
 
-;;; diminish
 (use-package diminish)
 
-;;; eglot
+(use-package diff-hl
+  :diminish
+  :hook
+  (prog-mode . global-diff-hl-mode)
+  (magit-pre-pre-refresh . diff-hl-magit-pre-refresh)
+  (magit-pre-post-refresh . diff-hl-magit-post-refresh))
+
 (use-package eglot
   :hook ((js-mode ts-mode sh-mode) . eglot-ensure)
   :bind
@@ -114,13 +110,11 @@
         ("C-c e f" . eldoc-format-buffer)
         ("C-c e o" . eglot-code-action-organize-imports)))
 
-;;; expand region
 (use-package expand-region
   :diminish
   :bind
   ("C-=" . er/expand-region))
 
-;;; elfeed
 (use-package elfeed
   :bind
   ("C-c r" . elfeed)
@@ -134,25 +128,18 @@
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
 
-;;; git gutter
-(use-package git-gutter
-  :diminish
-  :hook (prog-mode . git-gutter-mode))
+(use-package gruvbox-theme
+  :config
+  (load-theme 'gruvbox-dark-hard t))
 
-;;; magit
+(use-package icomplete
+  :straight nil
+  :init (icomplete-mode))
+
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-;;; marginalia
-(use-package marginalia
-  :after vertico
-  :init
-  (marginalia-mode)
-  :custom
-  (marginalia-margin-threshold 150))
-
-;;; move text
 (use-package move-text
   :bind
   (("M-p" . move-text-up)
@@ -194,21 +181,6 @@
 ;;     (when (fboundp 'imagemagick-register-types)
 ;;       (imagemagick-register-types)))
 
-;;; multiple cursors
-(use-package multiple-cursors
-  :bind
-  ("C-c C->" . 'mc/mark-all-like-this)
-  ("C->" . 'mc/mark-next-like-this)
-  ("C-<" . 'mc/mark-previous-like-this))
-
-;;; orderless
-(use-package orderless
-  :init
-  (setq completion-styles '(orderless)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion))))))
-
-;;; password-store
 (use-package password-store
   :bind
   ("C-c p e" . password-store-edit)
@@ -220,49 +192,11 @@
   ("C-c p g" . password-store-generate)
   ("C-c p f" . password-store-copy-field))
 
-;;; pulseaudio control
-(use-package pulseaudio-control
-  :bind
-  ("<XF86AudioLowerVolume>" . pulseaudio-control-decrease-volume)
-  ("<XF86AudioRaiseVolume>" . pulseaudio-control-increase-volume)
-  ("<XF86AudioMute>" . pulseaudio-control-toggle-current-sink-mute)
-  ("<XF86AudioMicMute>" . pulseaudio-control-toggle-current-source-mute))
-
-;;; pinentry
 (use-package pinentry
   :init (pinentry-start)
   :custom
-  ;; epg pinentry
   (epg-pinentry-mode 'loopback))
 
-;;; rainbow mode
-(use-package rainbow-mode
-  :diminish
-  :hook (prog-mode . rainbow-mode)
-  :custom
-  (rainbow-ansi-colors nil)
-  (rainbow-x-colors nil))
-
-;;; rainbow delimiters
-(use-package rainbow-delimiters
-  :diminish
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-;;; theme
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-hard t))
-
-;;; time
-(use-package time
-  :straight nil
-  :config
-  (display-time-mode t)
-  :custom
-  (display-time-default-load-average nil)
-  (display-time-format "%a %B %d, %Y - %I:%M%P"))
-
-;;; web jump
 (use-package webjump
   :straight nil
   :bind
@@ -280,7 +214,6 @@
                    ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
                    ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
 
-;;; whitespace
 (use-package whitespace
   :straight nil
   :diminish
@@ -298,20 +231,12 @@
                       space-after-tab
                       space-before-tab)))
 
-;;; which key
 (use-package which-key
   :diminish
   :init (which-key-mode)
   :custom
   (which-key-idle-delay 0.5 "include delay to defer its execution"))
 
-;;; vertico
-(use-package vertico
-  :init (vertico-mode)
-  :custom
-  (vertico-cycle t))
-
-;;; windmove
 (use-package windmove
   :straight nil
   :bind
@@ -324,7 +249,6 @@
   ("s-P" . windmove-swap-states-up)
   ("s-N" . windmove-swapstates-down))
 
-;;; yasnippet
 (use-package yasnippet
   :diminish (yas-minor-mode)
   :hook ((prog-mode text-mode) . yas-minor-mode)
@@ -335,31 +259,11 @@
 ;; Language Configs
 ;; ============================================================
 
-;;; dockerfile mode
-(use-package dockerfile-mode
-  :mode
-  ("\\Dockerfile\\'" . dockerfile-mode))
-
-;;; eldoc
 (use-package eldoc
   :straight nil
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
-;;; elixir mode
-(use-package elixir-mode
-  :mode
-  ("\\.ex\\'" . elixir-mode)
-  :hook (elixir-mode . (lambda ()
-                        (add-hook 'before-save-hook 'elixir-format nil t))))
-
-;;; elm mode
-(use-package elm-mode
-  :mode
-  ("\\.elm\\'" . elm-mode)
-  :hook (elm-mode . elm-format-on-save-mode))
-
-;;; js-mode
 (use-package js
   :straight nil
   :mode
@@ -367,25 +271,12 @@
   :custom
   (js-indent-level 2))
 
-;;; markdown
 (use-package markdown-mode
   :mode
   ("\\.md\\'" . markdown-mode))
 
-;;; typescript mode
-(use-package typescript-mode
-  :mode ("\\.\\(ts\\|tsx\\)\\'" . typescript-mode)
-  :config
-  (setq typescript-indent-level 2))
-
-;;; vue mode
 (use-package vue-mode
   :mode ("\\.vue\\'" . vue-mode))
-
-;;; yaml
-(use-package yaml-mode
-  :mode
-  ("\\.ylm\\'" . yaml-mode))
 
 ;; ============================================================
 ;;   _____  ____      ___ __ ___
@@ -433,7 +324,8 @@
      ?\C-g
      ?\M-x
      ?\M-:
-     ?\M-!))
+     ?\M-!
+     ?\s-q))
   (exwm-input-global-keys
    `(([?\s-r] . exwm-reset)
      ([?\s-w] . exwm-workspace-switch)

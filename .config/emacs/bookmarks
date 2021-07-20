@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".bash_profile"
+(("sxhkdrc"
+ (filename . "~/.config/sxhkd/sxhkdrc")
+ (front-context-string . "#\n# independent ")
+ (rear-context-string)
+ (position . 1))
+(".bash_profile"
  (filename . "~/.bash_profile")
  (front-context-string . "[ -f $HOME/.bash")
  (rear-context-string)
@@ -22,7 +27,8 @@
  (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
  (position . 1))
-("emacs-config"
+(#("emacs-config" 0 12
+   (face nil))
  (filename . "~/.dotfiles/.config/emacs/init.el")
  (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
