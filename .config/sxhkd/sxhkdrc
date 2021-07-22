@@ -2,10 +2,6 @@
 # independent hotkeys
 #
 
-# program launcher
-super + p
-  dmenu_run
-
 # make sxhkd reload its configuration files:
 super + q
   kill -USR1 -x sxhkd

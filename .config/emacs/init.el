@@ -161,9 +161,7 @@
 
 (use-package marginalia
   :after vertico
-  :init (marginalia-mode)
-  :custom
-  (marginalia-margin-threshold 150))
+  :init (marginalia-mode))
 
 (use-package modus-themes
   :config
@@ -341,16 +339,25 @@
 
 (use-package exwm-randr
   :straight nil
-  :if (check-hostname "guts")
+  :if (check-hostname "josegpt-desktop")
   :after exwm
   :hook
   (exwm-randr-screen-change . (lambda ()
                                 (start-process-shell-command
-                                 "xrandr" nil "xrandr --output DP-1-1 --primary --left-of DP-1-2-2-2 --output DP-1-2-1 --above DP-1-1 --rotate inverted --output DP-1-2-2-1 --right-of DP-1-2-1 --rotate inverted")))
+                                 "xrandr" nil "xrandr --setmonitor HDMI-1-1 1080/286x2160/572+1380+0 HDMI-1")
+                                (start-process-shell-command
+                                 "xrandr" nil "xrandr --setmonitor HDMI-1-2 1380/368x1080/286+0+1080 none")
+                                (start-process-shell-command
+                                 "xrandr" nil "xrandr --setmonitor HDMI-1-3 1380/368x1080/286+0+0 none")
+                                (start-process-shell-command
+                                 "xrandr" nil "xrandr --setmonitor HDMI-1-4 1380/368x1080/286+2460+0 none")
+                                (start-process-shell-command
+                                 "xrandr" nil "xrandr --setmonitor HDMI-1-5 1380/368x1080/286+2460+1080 none")
+                                ))
   :config
   (exwm-randr-enable)
   :custom
-  (exwm-randr-workspace-monitor-plist '(0 "DP-1-1" 1 "DP-1-2-1" 2 "DP-1-2-2-1" 3 "DP-1-2-2-2")))
+  (exwm-randr-workspace-monitor-plist '(0 "HDMI-1-1" 1 "HDMI-1-2" 2 "HDMI-1-3" 3 "HDMI-1-4" 4 "HDMI-1-5")))
 
 (use-package exwm
   :init (exwm-enable)
@@ -364,13 +371,13 @@
   ;; send window to workspace
   (exwm-manage-finish . (lambda ()
                           (pcase exwm-class-name
-                            ("Firefox" (exwm-workspace-move-window 3))
-                            ("mpv" (exwm-workspace-move-window 2)))))
+                            ("Firefox" (exwm-workspace-move-window 4))
+                            ("mpv" (exwm-workspace-move-window 3)))))
   :bind
   (:map exwm-mode-map
         ("C-q" . exwm-input-send-next-key))
   :custom
-  (exwm-workspace-number 4)
+  (exwm-workspace-number 5)
   (exwm-workspace-warp-cursor t)
   (exwm-input-prefix-keys
    '(?\C-x
@@ -393,7 +400,7 @@
                    (lambda ()
                      (interactive)
                      (exwm-workspace-switch-create ,i))))
-               (number-sequence 0 3))))
+               (number-sequence 0 4))))
   (exwm-input-simulation-keys
    '(([?\C-b] . [left])
      ([?\C-f] . [right])

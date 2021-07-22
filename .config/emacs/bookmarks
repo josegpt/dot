@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("sxhkdrc"
+(("lemonbar"
+ (filename . "~/.dotfiles/.config/lemonbar/bar")
+ (front-context-string . "#!/usr/bin/env b")
+ (rear-context-string)
+ (position . 1))
+("sxhkdrc"
  (filename . "~/.config/sxhkd/sxhkdrc")
  (front-context-string . "#\n# independent ")
  (rear-context-string)
@@ -17,7 +22,8 @@
  (front-context-string . "# If not running")
  (rear-context-string)
  (position . 1))
-("xinitrc"
+(#("xinitrc" 0 7
+   (face nil))
  (filename . "~/.dotfiles/.xinitrc")
  (front-context-string . "#!/bin/sh\n\nexec ")
  (rear-context-string)

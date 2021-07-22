@@ -3,7 +3,7 @@
 # sxhkd
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-# polybar
-pgrep -x polybar > /dev/null || polybar panel &
+# lemonbar
+pgrep -x lemonbar > /dev/null || ~/.config/lemonbar/bar | lemonbar -b -p &
 
 exec emacs
