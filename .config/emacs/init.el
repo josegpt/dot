@@ -26,8 +26,8 @@
 ;;; set straight as default
 (setq straight-use-package-by-default 1)
 
-;;; debugging purposes
-(setq use-package-verbose t)
+;; debugging purposes
+;; (setq use-package-verbose t)
 
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -115,30 +115,59 @@
   :bind
   ("C-=" . er/expand-region))
 
+(defun elfeed-play-link ()
+  "Play the selected feed youtube link with mpv."
+  (interactive)
+  (let* ((entries (elfeed-search-selected))
+         (links (mapcar #'elfeed-entry-link entries))
+         (links-str (mapconcat #'identity links " ")))
+    (when entries
+      (elfeed-untag entries 'unread)
+      (mapc (lambda (link)
+              (call-process "mpv" nil 0 nil link))
+            links)
+      (message "Playing: %s" links-str)
+      (mapc #'elfeed-search-update-entry entries)
+      (unless (or elfeed-search-remain-on-entry (use-region-p))
+        (forward-line)))))
+
 (use-package elfeed
   :bind
   ("C-c r" . elfeed)
   (:map elfeed-search-mode-map
-        ("g" . elfeed-update))
+        ("g" . elfeed-update)
+        ("w" . elfeed-play-link))
   :custom
   (elfeed-use-curl t)
   (elfeed-db-directory "~/.cache/elfeed")
   (elfeed-search-title-max-width 100)
   (elfeed-search-title-min-width 100)
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
-                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
-
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-hard t))
-
-(use-package icomplete
-  :straight nil
-  :init (icomplete-mode))
+                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ" tech)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw" funny)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA" vim rants)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCLqH-U2TXzj1h7lyYQZLNQQ" rants fitness)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg" emacs unix vim)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA" vim rants unix)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw" vim programming)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCrqM0Ym_NbK1fqeQG2VIohg" emacs programming)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" emacs exwm programming)
+                  )))
 
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package marginalia
+  :after vertico
+  :init (marginalia-mode)
+  :custom
+  (marginalia-margin-threshold 150))
+
+(use-package modus-themes
+  :config
+  (load-theme 'modus-vivendi t))
 
 (use-package move-text
   :bind
@@ -180,6 +209,12 @@
 ;;     ;; use imagemagick, if available
 ;;     (when (fboundp 'imagemagick-register-types)
 ;;       (imagemagick-register-types)))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles . (partial-completion))))))
 
 (use-package password-store
   :bind
@@ -231,6 +266,11 @@
                       space-after-tab
                       space-before-tab)))
 
+(use-package vertico
+  :init (vertico-mode)
+  :custom
+  (vertico-cycle t))
+
 (use-package which-key
   :diminish
   :init (which-key-mode)
@@ -259,10 +299,20 @@
 ;; Language Configs
 ;; ============================================================
 
+(use-package dockerfile-mode
+  :mode
+  ("\\Dockerfile\\'" . dockerfile-mode))
+
 (use-package eldoc
   :straight nil
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
+
+(use-package elixir-mode
+  :mode
+  ("\\.ex\\'" . elixir-mode)
+  :hook (elixir-mode . (lambda ()
+                         (add-hook 'before-save-hook 'elixir-format nil t))))
 
 (use-package js
   :straight nil
@@ -278,12 +328,17 @@
 (use-package vue-mode
   :mode ("\\.vue\\'" . vue-mode))
 
+(use-package yaml-mode
+  :mode
+  ("\\.ylm\\'" . yaml-mode))
+
 ;; ============================================================
 ;;   _____  ____      ___ __ ___
 ;;  / _ \ \/ /\ \ /\ / / '_ ` _ \
 ;; |  __/>  <  \ V  V /| | | | | |
 ;;  \___/_/\_\  \_/\_/ |_| |_| |_|
 ;; ============================================================
+
 (use-package exwm-randr
   :straight nil
   :if (check-hostname "guts")
@@ -309,7 +364,8 @@
   ;; send window to workspace
   (exwm-manage-finish . (lambda ()
                           (pcase exwm-class-name
-                            ("Firefox" (exwm-workspace-move-window 3)))))
+                            ("Firefox" (exwm-workspace-move-window 3))
+                            ("mpv" (exwm-workspace-move-window 2)))))
   :bind
   (:map exwm-mode-map
         ("C-q" . exwm-input-send-next-key))
