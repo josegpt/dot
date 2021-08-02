@@ -17,21 +17,18 @@
 (show-paren-mode t)
 
 ;;; disable tool bar
-(tool-bar-mode 0)
+(tool-bar-mode -1)
 
 ;;; fringe
 (set-fringe-mode 4)
 
-;;; disbale tooltip
-(tooltip-mode 0)
-
 ;;; disable scroll bars
-(scroll-bar-mode 0)
-(toggle-scroll-bar 0)
+(scroll-bar-mode -1)
 
 ;; ============================================================
 ;; Functions
 ;; ============================================================
+
 (defun duplicate-line ()
   "Duplicate current line"
   (interactive)
@@ -46,8 +43,8 @@
   (string= system-name name))
 
 (defvar powersettings-menu
-  '(("Reboot" . "doas reboot")
-    ("Poweroff" . "doas poweroff"))
+  '(("Reboot" . "sudo -S reboot")
+    ("Poweroff" . "sudo -S poweroff"))
   "define options for powersettings fn")
 
 (defun powersettings ()

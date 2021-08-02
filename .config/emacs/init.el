@@ -60,6 +60,8 @@
   (blink-cursor-mode 0)
   ;; disable menu bar
   (menu-bar-mode 0)
+  ;; disbale tooltip
+  (tooltip-mode -1)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -79,11 +81,6 @@
 ;; Packages
 ;; ============================================================
 
-(use-package auth-source-pass
-  :after password-store
-  :config
-  (auth-source-pass-enable))
-
 (use-package company
   :diminish
   :hook (prog-mode . company-mode)
@@ -93,66 +90,10 @@
 
 (use-package diminish)
 
-(use-package diff-hl
-  :diminish
-  :hook
-  (prog-mode . global-diff-hl-mode)
-  (magit-pre-pre-refresh . diff-hl-magit-pre-refresh)
-  (magit-pre-post-refresh . diff-hl-magit-post-refresh))
-
-(use-package eglot
-  :hook ((js-mode ts-mode sh-mode) . eglot-ensure)
-  :bind
-  ("C-c e RET" . eglot)
-  (:map eglot-mode-map
-        ("C-c e h" . eldoc)
-        ("C-c e r" . eglot-rename)
-        ("C-c e f" . eldoc-format-buffer)
-        ("C-c e o" . eglot-code-action-organize-imports)))
-
 (use-package expand-region
   :diminish
   :bind
   ("C-=" . er/expand-region))
-
-(defun elfeed-play-link ()
-  "Play the selected feed youtube link with mpv."
-  (interactive)
-  (let* ((entries (elfeed-search-selected))
-         (links (mapcar #'elfeed-entry-link entries))
-         (links-str (mapconcat #'identity links " ")))
-    (when entries
-      (elfeed-untag entries 'unread)
-      (mapc (lambda (link)
-              (call-process "mpv" nil 0 nil link))
-            links)
-      (message "Playing: %s" links-str)
-      (mapc #'elfeed-search-update-entry entries)
-      (unless (or elfeed-search-remain-on-entry (use-region-p))
-        (forward-line)))))
-
-(use-package elfeed
-  :bind
-  ("C-c r" . elfeed)
-  (:map elfeed-search-mode-map
-        ("g" . elfeed-update)
-        ("w" . elfeed-play-link))
-  :custom
-  (elfeed-use-curl t)
-  (elfeed-db-directory "~/.cache/elfeed")
-  (elfeed-search-title-max-width 100)
-  (elfeed-search-title-min-width 100)
-  (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
-                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ" youtube tech)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw" youtube funny)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA" youtube vim rants)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCLqH-U2TXzj1h7lyYQZLNQQ" youtube rants fitness)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg" youtube emacs unix vim)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA" youtube vim rants unix)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw" youtube vim programming)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCrqM0Ym_NbK1fqeQG2VIohg" youtube emacs programming)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" youtube emacs exwm programming))))
 
 (use-package magit
   :custom
@@ -171,58 +112,17 @@
   (("M-p" . move-text-up)
    ("M-n" . move-text-down)))
 
-;;; mu4e
-;;   (use-package mu4e
-;;     :straight nilv
-;;     :defer 10
-;;     :bind
-;;     ("C-c m" . mu4e)
-;;     :custom
-;;     (mu4e-change-filenames-when-moving t)
-;;     (mu4e-view-show-addresses t)
-;;     (mu4e-update-interval (* 10 60))
-;;     (mu4e-get-mail-command "mbsync -a")
-;;     ;; enable inline images
-;;     (mu4e-view-show-images t)
-;;     (mu4e-sent-messages-behavior 'delete)
-;;     (mu4e-confirm-quit nil)
-;;     (mu4e-attachment-dir "~/Downloads")
-;;     (user-full-name "Jose G Perez Taveras")
-;;     (user-mail-address "josegpt27@gmail.com")
-;;     (mu4e-maildir "~/Mail")
-;;     (mu4e-sent-folder "/Sent Mail")
-;;     (mu4e-drafts-folder "/Drafts")
-;;     (mu4e-trash-folder "/Trash")
-;;     (mu4e-maildir-shortcuts
-;;      '((:maildir "/INBOX" :key ?i)
-;;        (:maildir "/Sent Mail" :key ?s)
-;;        (:maildir "/Starred" :key ?r)
-;;        (:maildir "/Spam" :key ?p)
-;;        (:maildir "/Drafts" :key ?d)
-;;        (:maildir "/Trash" :key ?t)))
-;;     :config
-;;     ;; init mu4e
-;;     (mu4e t)
-;;     ;; use imagemagick, if available
-;;     (when (fboundp 'imagemagick-register-types)
-;;       (imagemagick-register-types)))
+(use-package multiple-cursors
+  :bind
+  ("C->" . mc/mark-next-like-this)
+  ("C-<" . mc/mark-previous-like-this)
+  ("C-c C-<" . mc/mark-all-like-this))
 
 (use-package orderless
   :custom
   (completion-styles '(orderless))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles . (partial-completion))))))
-
-(use-package password-store
-  :bind
-  ("C-c p e" . password-store-edit)
-  ("C-c p w" . password-store-copy)
-  ("C-c p c" . password-store-clear)
-  ("C-c p i" . password-store-insert)
-  ("C-c p r" . password-store-rename)
-  ("C-c p k" . password-store-remove)
-  ("C-c p g" . password-store-generate)
-  ("C-c p f" . password-store-copy-field))
 
 (use-package pinentry
   :init (pinentry-start)
@@ -240,6 +140,7 @@
                    ("WhatsApp" . "web.whatsapp.com")
                    ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
                    ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
+                   ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
                    ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
                    ("Google" . [simple-query "google.com" "www.google.com/search?q=" ""])
                    ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
@@ -273,18 +174,6 @@
   :init (which-key-mode)
   :custom
   (which-key-idle-delay 0.5 "include delay to defer its execution"))
-
-(use-package windmove
-  :straight nil
-  :bind
-  ("s-f" . windmove-right)
-  ("s-b" . windmove-left)
-  ("s-p" . windmove-up)
-  ("s-n" . windmove-down)
-  ("s-F" . windmove-swap-states-right)
-  ("s-B" . windmove-swap-states-left)
-  ("s-P" . windmove-swap-states-up)
-  ("s-N" . windmove-swapstates-down))
 
 (use-package yasnippet
   :diminish (yas-minor-mode)
@@ -360,6 +249,7 @@
 
 (use-package exwm
   :init (exwm-enable)
+  :if (eq window-system 'x)
   :hook
   ;; Make class name the buffer name
   (exwm-update-class . (lambda ()
