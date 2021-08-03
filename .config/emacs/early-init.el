@@ -4,26 +4,29 @@
 ;;  \___|_| |_| |_|\__,_|\___|___/  \___|\__,_|_|  |_|\__, |
 ;;                                                    |___/
 ;; ============================================================
-;;; disable package.el at startup
+
+;; disable package.el at startup
 (setq package-enable-at-startup nil)
 
-;;; set alias to y-or-n
+;; set alias to y-or-n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;;; configure font size
+;; configure font size
 (set-face-attribute 'default nil :family "Iosevka" :height 120)
 
-;;; matching paren
-(show-paren-mode t)
+;; Do not resize at early stage
+(setq frame-inhibit-implied-resize t)
 
-;;; disable tool bar
+;; Disable GUI elements
+(menu-bar-mode -1)
 (tool-bar-mode -1)
-
-;;; fringe
 (set-fringe-mode 4)
-
-;;; disable scroll bars
 (scroll-bar-mode -1)
+
+;; disable statup messages
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq inhibit-startup-buffer-menu t)
 
 ;; ============================================================
 ;; Functions
@@ -37,22 +40,3 @@
   (yank)
   (newline)
   (yank))
-
-(defun check-hostname (name)
-  "Check hostname of pc"
-  (string= system-name name))
-
-(defvar powersettings-menu
-  '(("Reboot" . "sudo -S reboot")
-    ("Poweroff" . "sudo -S poweroff"))
-  "define options for powersettings fn")
-
-(defun powersettings ()
-  "execute powersettings base on selection"
-  (interactive)
-  (let* ((completion-ignore t)
-         (item (assoc-string
-                (completing-read "Power Settings: " powersettings-menu  nil t)
-                powersettings-menu t))
-         (cmd (cdr item)))
-    (shell-command cmd)))

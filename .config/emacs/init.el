@@ -5,7 +5,9 @@
 ;; ============================================================
 ;; Straight
 ;; ============================================================
+
 (defvar bootstrap-version)
+
 (let ((bootstrap-file
        (expand-file-name
         "straight/repos/straight.el/bootstrap.el"
@@ -41,45 +43,20 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-;; ============================================================
-;; Config
-;; ============================================================
-
-(use-package emacs
-  ;; enable emacs daemon
-  :init (server-mode)
-  :hook (prog-mode . display-line-numbers-mode)
-  :bind
-  ("<s-return>" . eshell)
-  ("C-," . duplicate-line)
-  ("C-c s" . powersettings)
-  :config
-  ;; auto refresh changed file
-  (global-auto-revert-mode t)
-  ;; no blinking
-  (blink-cursor-mode 0)
-  ;; disable menu bar
-  (menu-bar-mode 0)
-  ;; disbale tooltip
-  (tooltip-mode -1)
-  :custom
-  ;; tabs mode
-  (indent-tabs-mode nil)
-  ;; bell
-  (ring-bell-function 'ignore)
-  ;; disable statup messages
-  (initial-scratch-message nil)
-  (inhibit-startup-message t)
-  ;; don't clutter up directories with files~
-  (backup-directory-alist
-   `((".*" . ,temporary-file-directory)))
-  ;; don't clutter with #files either
-  (auto-save-file-name-transforms
-   `((".*" ,temporary-file-directory t))))
+(add-to-list 'load-path (concat user-emacs-directory
+                                (convert-standard-filename "elisp/")))
 
 ;; ============================================================
 ;; Packages
 ;; ============================================================
+
+(use-package autorevert
+  :init (global-auto-revert-mode t))
+
+(use-package battery
+  :if (string= system-name "josegpt-laptop")
+  :init
+  (display-battery-mode t))
 
 (use-package company
   :diminish
@@ -90,22 +67,64 @@
 
 (use-package diminish)
 
+(use-package display-line-numbers
+  :straight (:type built-in)
+  :hook (prog-mode . display-line-numbers-mode)
+  :custom
+  (display-line-numbers-type 'relative)
+  (display-line-numbers-current-absolute t))
+
+(use-package emacs
+  ;; enable emacs daemon
+  :init (server-mode)
+  :bind
+  ("C-," . duplicate-line)
+  :custom
+  ;; tabs mode
+  (indent-tabs-mode nil)
+  (tab-width 2)
+  ;; bell
+  (ring-bell-function 'ignore)
+  ;; don't clutter up directories with files~
+  (backup-directory-alist
+   `((".*" . ,temporary-file-directory)))
+  ;; don't clutter with #files either
+  (auto-save-file-name-transforms
+   `((".*" ,temporary-file-directory t))))
+
+(use-package eshell
+  :straight (:type built-in)
+  :bind
+  ("<s-return>" . eshell))
+
 (use-package expand-region
   :diminish
   :bind
   ("C-=" . er/expand-region))
 
+(use-package frame
+  :straight (:type built-in)
+  :config
+  (blink-cursor-mode 0))
+
+(use-package icomplete
+  :init (icomplete-mode)
+  :config
+  (fido-mode t)
+  :custom
+  (icomplete-compute-delay 0)
+  (icomplete-max-delay-chars 0)
+  (icomplete-delay-completions-threshold 0))
+
 (use-package magit
+  :bind
+  ("C-x g" . magit-status)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package marginalia
-  :after vertico
-  :init (marginalia-mode))
-
-(use-package modus-themes
+(use-package gruvbox-theme
   :config
-  (load-theme 'modus-vivendi t))
+  (load-theme 'gruvbox-dark-hard t))
 
 (use-package move-text
   :bind
@@ -118,21 +137,29 @@
   ("C-<" . mc/mark-previous-like-this)
   ("C-c C-<" . mc/mark-all-like-this))
 
-(use-package orderless
-  :custom
-  (completion-styles '(orderless))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles . (partial-completion))))))
+(use-package paren
+  :straight (:type built-in)
+  :hook (prog-mode . show-paren-mode))
+
+(use-package project
+  :bind
+  ("C-x p p" . project-switch-project))
 
 (use-package pinentry
   :init (pinentry-start)
+  :after eshell
   :custom
   (epg-pinentry-mode 'loopback))
 
+(use-package tooltip
+  :straight (:type built-in)
+  :custom
+  (tooltip-mode nil))
+
 (use-package webjump
-  :straight nil
+  :straight (:type built-in)
   :bind
-  ("C-c j" . webjump)
+  ("s-j" . webjump)
   :custom
   (webjump-sites '(("Gmail" . "mail.google.com")
                    ("Discord" . "discord.com/app")
@@ -148,7 +175,7 @@
                    ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
 
 (use-package whitespace
-  :straight nil
+  :straight (:type built-in)
   :diminish
   :hook (prog-mode . whitespace-mode)
   :custom
@@ -163,11 +190,6 @@
                       indentation
                       space-after-tab
                       space-before-tab)))
-
-(use-package vertico
-  :init (vertico-mode)
-  :custom
-  (vertico-cycle t))
 
 (use-package which-key
   :diminish
@@ -190,7 +212,7 @@
   ("\\Dockerfile\\'" . dockerfile-mode))
 
 (use-package eldoc
-  :straight nil
+  :straight (:type built-in)
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
@@ -201,7 +223,7 @@
                          (add-hook 'before-save-hook 'elixir-format nil t))))
 
 (use-package js
-  :straight nil
+  :straight (:type built-in)
   :mode
   ("\\.js\\'" . js-mode)
   :custom
@@ -227,7 +249,7 @@
 
 (use-package exwm-randr
   :straight nil
-  :if (check-hostname "josegpt-desktop")
+  :if (string= system-name "josegpt-desktop")
   :after exwm
   :hook
   (exwm-randr-screen-change . (lambda ()
@@ -277,7 +299,8 @@
      ?\M-x
      ?\M-:
      ?\M-!
-     ?\s-q))
+     ?\s-q
+     ?\s-j))
   (exwm-input-global-keys
    `(([?\s-r] . exwm-reset)
      ([?\s-w] . exwm-workspace-switch)
