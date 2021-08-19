@@ -122,9 +122,10 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package gruvbox-theme
+(use-package achrome-theme
+  :straight nil
   :config
-  (load-theme 'gruvbox-dark-hard t))
+  (load-theme 'achrome t))
 
 (use-package move-text
   :bind
@@ -150,6 +151,10 @@
   :after eshell
   :custom
   (epg-pinentry-mode 'loopback))
+
+(use-package rainbow-mode
+  :diminish
+  :hook (prog-mode . rainbow-mode))
 
 (use-package tooltip
   :straight (:type built-in)
@@ -210,6 +215,10 @@
 (use-package dockerfile-mode
   :mode
   ("\\Dockerfile\\'" . dockerfile-mode))
+
+(use-package elm-mode
+  :mode
+  ("\\.elm\\'" . elm-mode))
 
 (use-package eldoc
   :straight (:type built-in)
