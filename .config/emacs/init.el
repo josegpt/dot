@@ -74,6 +74,17 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
+(use-package erc
+  :straight (:type built-in)
+  :custom
+  (erc-server "irc.us.libera.chat")
+  (erc-nick "josegpt")
+  (erc-user-full-name "Jose G Perez Taveras")
+  (erc-track-shorten-start 8)
+  (erc-kill-buffer-on-part t)
+  (erc-auto-query 'bury)
+  (erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs"))))
+
 (use-package emacs
   ;; enable emacs daemon
   :init (server-mode)
@@ -96,11 +107,6 @@
   :straight (:type built-in)
   :bind
   ("<s-return>" . eshell))
-
-(use-package expand-region
-  :diminish
-  :bind
-  ("C-=" . er/expand-region))
 
 (use-package frame
   :straight (:type built-in)
@@ -148,9 +154,11 @@
   :straight (:type built-in)
   :hook (prog-mode . show-paren-mode))
 
-(use-package project
-  :bind
-  ("C-x p p" . project-switch-project))
+(use-package projectile
+  :bind-keymap
+  ("C-x p" . projectile-command-map)
+  :custom
+  (projectile-project-search-path '("~/projects")))
 
 (use-package pinentry
   :init (pinentry-start)
@@ -330,7 +338,6 @@
      ([?\C-a] . [home])
      ([?\C-e] . [end])
      ([?\C-v] . [next])
-     ([?\M-h] . [?\C-a])
      ([?\M-v] . [prior])
      ([?\M-b] . [C-left])
      ([?\M-f] . [C-right])
@@ -341,6 +348,7 @@
      ([?\M-w] . [?\C-c])
      ([?\C-y] . [?\C-v])
      ([?\C-s] . [?\C-f])
+     ([?\C-c ?h] . [?\C-a])
      ([?\C-c ?f] . [?\C-l])
      ([?\C-c ?k] . [?\C-w])
      ([?\C-c ?g] . [escape])
