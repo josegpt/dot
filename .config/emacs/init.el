@@ -58,12 +58,12 @@
   :init
   (display-battery-mode t))
 
-(use-package company
-  :diminish
-  :hook (prog-mode . company-mode)
+(use-package corfu
   :custom
-  (company-idle-delay 0)
-  (company-minimum-prefix-length 1))
+  (corfu-cycle t)
+  :hook ((prog-mode shell-mode eshell-mode) . corfu-mode)
+  :init
+  (corfu-global-mode))
 
 (use-package diminish)
 
@@ -107,14 +107,9 @@
   :config
   (blink-cursor-mode 0))
 
-(use-package icomplete
-  :init (icomplete-mode)
+(use-package gruvbox-theme
   :config
-  (fido-mode t)
-  :custom
-  (icomplete-compute-delay 0)
-  (icomplete-max-delay-chars 0)
-  (icomplete-delay-completions-threshold 0))
+  (load-theme 'gruvbox-dark-medium t))
 
 (use-package magit
   :bind
@@ -122,10 +117,14 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package achrome-theme
-  :straight nil
-  :config
-  (load-theme 'achrome t))
+(use-package marginalia
+  :after vertico
+  :init (marginalia-mode))
+
+(use-package vertico
+  :init (vertico-mode)
+  :custom
+  (vertico-cycle t))
 
 (use-package move-text
   :bind
@@ -137,6 +136,13 @@
   ("C->" . mc/mark-next-like-this)
   ("C-<" . mc/mark-previous-like-this)
   ("C-c C-<" . mc/mark-all-like-this))
+
+(use-package orderless
+  :after vertico
+  :custom
+  (completion-styles '(orderless))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles . (partial-completion))))))
 
 (use-package paren
   :straight (:type built-in)
@@ -216,20 +222,14 @@
   :mode
   ("\\Dockerfile\\'" . dockerfile-mode))
 
-(use-package elm-mode
-  :mode
-  ("\\.elm\\'" . elm-mode))
-
 (use-package eldoc
   :straight (:type built-in)
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
-(use-package elixir-mode
+(use-package go-mode
   :mode
-  ("\\.ex\\'" . elixir-mode)
-  :hook (elixir-mode . (lambda ()
-                         (add-hook 'before-save-hook 'elixir-format nil t))))
+  ("\\.go" . go-mode))
 
 (use-package js
   :straight (:type built-in)
