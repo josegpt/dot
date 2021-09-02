@@ -250,9 +250,6 @@
   :mode
   ("\\.md\\'" . markdown-mode))
 
-(use-package vue-mode
-  :mode ("\\.vue\\'" . vue-mode))
-
 (use-package yaml-mode
   :mode
   ("\\.ylm\\'" . yaml-mode))
