@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: def name do ... end
-# key: def
-# --
-def ${1:name} do
-$0
-end

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: defmodule name do ... end
-# key: defmo
-# --
-defmodule ${1:Name$(capitalize yas-text)} do
-$0
-end

@@ -170,6 +170,9 @@
   :diminish
   :hook (prog-mode . rainbow-mode))
 
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 (use-package tooltip
   :straight (:type built-in)
   :custom
@@ -214,13 +217,11 @@
   :diminish
   :init (which-key-mode)
   :custom
-  (which-key-idle-delay 0.5 "include delay to defer its execution"))
+  (which-key-idle-delay 0.5))
 
 (use-package yasnippet
   :diminish (yas-minor-mode)
-  :hook ((prog-mode text-mode) . yas-minor-mode)
-  :config
-  (yas-reload-all))
+  :init (yas-global-mode))
 
 ;; ============================================================
 ;; Language Configs

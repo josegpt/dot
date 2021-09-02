@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: defp name do ... end
-# key: defp
-# --
-defp ${1:name} do
-$0
-end
