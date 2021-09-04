@@ -4,6 +4,6 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # set brightness
-brightnessctl s 20%
+brightnessctl s 10%
 
 exec emacs

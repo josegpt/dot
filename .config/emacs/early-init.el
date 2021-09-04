@@ -28,15 +28,3 @@
 (setq initial-scratch-message nil)
 (setq inhibit-startup-buffer-menu t)
 
-;; ============================================================
-;; Functions
-;; ============================================================
-
-(defun duplicate-line ()
-  "Duplicate current line"
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (newline)
-  (yank))

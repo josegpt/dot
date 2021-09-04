@@ -53,11 +53,6 @@
 (use-package autorevert
   :init (global-auto-revert-mode t))
 
-(use-package battery
-  :if (string= system-name "josegpt-laptop")
-  :init
-  (display-battery-mode t))
-
 (use-package corfu
   :custom
   (corfu-cycle t)
@@ -113,10 +108,6 @@
   :config
   (blink-cursor-mode 0))
 
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-medium t))
-
 (use-package magit
   :bind
   ("C-x g" . magit-status)
@@ -127,21 +118,9 @@
   :after vertico
   :init (marginalia-mode))
 
-(use-package vertico
-  :init (vertico-mode)
-  :custom
-  (vertico-cycle t))
-
-(use-package move-text
-  :bind
-  (("M-p" . move-text-up)
-   ("M-n" . move-text-down)))
-
-(use-package multiple-cursors
-  :bind
-  ("C->" . mc/mark-next-like-this)
-  ("C-<" . mc/mark-previous-like-this)
-  ("C-c C-<" . mc/mark-all-like-this))
+(use-package modus-themes
+  :config
+  (load-theme 'modus-operandi t))
 
 (use-package orderless
   :after vertico
@@ -178,6 +157,11 @@
   :custom
   (tooltip-mode nil))
 
+(use-package vertico
+  :init (vertico-mode)
+  :custom
+  (vertico-cycle t))
+
 (use-package webjump
   :straight (:type built-in)
   :bind
@@ -199,7 +183,8 @@
 (use-package whitespace
   :straight (:type built-in)
   :diminish
-  :hook (prog-mode . whitespace-mode)
+  :bind
+  ("C-c w" . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs
