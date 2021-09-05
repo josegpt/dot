@@ -3,23 +3,53 @@
 #
 
 # make sxhkd reload its configuration files:
-super + q
-  kill -USR1 -x sxhkd
+mod3 + q
+    pkill -USR1 -x sxhkd
+
+mod3 + @space
+    dmenu_run
 
 # browser
-super + {_,shift +,alt +} w
-  firefox --{new-tab,new-window,private-window} https://google.com
+mod3 + {_,shift +,alt +}j
+    firefox --{new-tab,new-window,private-window} https://duckduckgo.com
 
 # brightness
-XF86MonBrightnessUp
-  brightnessctl s +10%
-
-XF86MonBrightnessDown
-  brightnessctl s 10%-
+XF86MonBrightness{Down,Up}
+    xbacklight -{dec,inc} 10%
 
 # volume
 XF86Audio{Lower,Raise}Volume
-  pactl -- set-sink-volume 0 {-,+}10%
+    pactl -- set-sink-volume 0 {-,+}10%
 
 XF86Audio{_,Mic}Mute
-  pactl -- set-{sink,source}-mute {0,1} toggle
+    pactl -- set-{sink-mute 0,source-mute 1} toggle
+
+# emacs
+mod3 + Return
+    emacsclient -c -e "(eshell)"
+
+# herbstlufwm hotkeys
+
+mod3 + w ; {q,r}
+    herbstclient {quit,reload}
+
+# layouting
+# close window
+mod3 + {_,shift +}c
+    herbstclient {close,remove}
+
+# cycle through tags
+mod3 + {_, shift +} + {1-5}
+    herbstclient {use_index,move_index} {0-4}
+
+mod3 + {comma,period}
+    herbstclient use_index {-,+}1 --skip-visible
+
+# splitting frames
+mod3 + {semicolon,apostrophe}
+    herbstclient split {bottom,right} 0.5
+
+# focus client
+# moving clients in tiling and floating mode
+mod3 + {_,shift +,alt +} + {b,n,p,f}
+    herbstclient {focus,shift,resize} {left,down,up,right} {_,_,+0.05}

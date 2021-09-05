@@ -81,10 +81,6 @@
   (erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs"))))
 
 (use-package emacs
-  ;; enable emacs daemon
-  :init (server-mode)
-  :bind
-  ("C-," . duplicate-line)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)

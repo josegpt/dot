@@ -4,6 +4,12 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # set brightness
-brightnessctl s 10%
+xbacklight -set 20%
 
-exec emacs
+# xmodmap
+xmodmap ~/.xmodmap
+
+# emacs daemon
+emacs --daemon
+
+exec herbstluftwm
