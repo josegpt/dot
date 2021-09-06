@@ -1,55 +1,97 @@
 #
-# independent hotkeys
+# wm independent hotkeys
 #
 
 # make sxhkd reload its configuration files:
 mod3 + q
-    pkill -USR1 -x sxhkd
+ pkill -USR1 -x sxhkd
 
-mod3 + @space
-    dmenu_run
+# program launcher
+mod3 + r
+ dmenu_run
 
 # browser
 mod3 + {_,shift +,alt +}j
-    firefox --{new-tab,new-window,private-window} https://duckduckgo.com
+ firefox --{new-tab,new-window,private-window} https://duckduckgo.com
 
 # brightness
 XF86MonBrightness{Down,Up}
-    xbacklight -{dec,inc} 10%
+ xbacklight -{dec,inc} 10%
 
 # volume
 XF86Audio{Lower,Raise}Volume
-    pactl -- set-sink-volume 0 {-,+}10%
+ pactl -- set-sink-volume 0 {-,+}10%
 
 XF86Audio{_,Mic}Mute
-    pactl -- set-{sink-mute 0,source-mute 1} toggle
+ pactl -- set-{sink-mute 0,source-mute 1} toggle
 
 # emacs
 mod3 + Return
-    emacsclient -c -e "(eshell)"
+ emacsclient -c -e "(eshell)"
 
-# herbstlufwm hotkeys
+mod3 + e
+ emacsclient -n -c
 
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
 mod3 + w ; {q,r}
-    herbstclient {quit,reload}
+ bspc {quit,wm -r}
 
-# layouting
-# close window
+# close and kill
 mod3 + {_,shift +}c
-    herbstclient {close,remove}
+ bspc node -{c,k}
 
-# cycle through tags
-mod3 + {_, shift +} + {1-5}
-    herbstclient {use_index,move_index} {0-4}
+# alternate between the tiled and monocle layout
+mod3 + m
+ bspc desktop -l next
 
-mod3 + {comma,period}
-    herbstclient use_index {-,+}1 --skip-visible
+#
+# state/flags
+#
 
-# splitting frames
-mod3 + {semicolon,apostrophe}
-    herbstclient split {bottom,right} 0.5
+# set the window state
+mod3 + {t,shift + t,g,space}
+ bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-# focus client
-# moving clients in tiling and floating mode
-mod3 + {_,shift +,alt +} + {b,n,p,f}
-    herbstclient {focus,shift,resize} {left,down,up,right} {_,_,+0.05}
+# set the node flags
+mod3 + s ; {m,x,y,z}
+ bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+mod3 + {_,shift +}{b,n,p,f}
+ bspc node -{f,s} {west,south,north,east}
+
+# focus the next/previous desktop in the current monitor
+mod3 + bracket{left,right}
+ bspc desktop -f {prev,next}.local
+
+# focus or send to the given desktop
+mod3 + {_,shift +}{1-5}
+ bspc {desktop -f,node -d} '^{1-5}'
+
+#
+# preselect
+#
+
+# preselect the direction
+mod3 + d ; {b,n,p,f}
+ bspc node -p {west,south,north,east}
+
+# preselect the ratio
+mod3 + h ; {1-9}
+ bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+#mod3 + ctrl + space
+#	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+#mod3 + ctrl + shift + space
+#	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel

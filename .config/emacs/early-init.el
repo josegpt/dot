@@ -5,13 +5,13 @@
 ;;                                                    |___/
 ;; ============================================================
 
-;; disable package.el at startup
+;; Disable package.el at startup
 (setq package-enable-at-startup nil)
 
-;; set alias to y-or-n
+;; Set alias to y-or-n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; configure font size
+;; Configure font size
 (set-face-attribute 'default nil :family "Iosevka" :height 120)
 
 ;; Do not resize at early stage
@@ -23,7 +23,7 @@
 (set-fringe-mode 4)
 (scroll-bar-mode -1)
 
-;; disable statup messages
+;; Disable statup messages
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 (setq inhibit-startup-buffer-menu t)

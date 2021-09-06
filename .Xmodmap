@@ -1,9 +1,10 @@
 ! Clear the modifiers
+clear lock
 clear mod3
 clear mod4
 
-! Set Menu key to Hyper
-keycode 135 = Hyper_R
+! Set CapsLock key to Hyper
+keycode 66 = Hyper_L
 
 ! Add Hyper_R modifier to mod4 and move Hyper_L to mod3
 add mod3 = Hyper_L Hyper_R

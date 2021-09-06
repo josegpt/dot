@@ -2,9 +2,14 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("herbstluftwm"
- (filename . "~/.config/herbstluftwm/autostart")
- (front-context-string . "#!/usr/bin/env b")
+(("bspwmrc"
+ (filename . "~/.config/bspwm/bspwmrc")
+ (front-context-string . "#!/bin/sh\n\n# sxh")
+ (rear-context-string)
+ (position . 1))
+(".Xmodmap"
+ (filename . "~/.dotfiles/.Xmodmap")
+ (front-context-string . "! Clear the modi")
  (rear-context-string)
  (position . 1))
 ("emacs-early"
