@@ -2,12 +2,7 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("bspwmrc"
- (filename . "~/.config/bspwm/bspwmrc")
- (front-context-string . "#!/bin/sh\n\n# sxh")
- (rear-context-string)
- (position . 1))
-(".Xmodmap"
+((".Xmodmap"
  (filename . "~/.dotfiles/.Xmodmap")
  (front-context-string . "! Clear the modi")
  (rear-context-string)
@@ -27,12 +22,6 @@
    (face nil))
  (filename . "~/.dotfiles/.xinitrc")
  (front-context-string . "#!/bin/sh\n\n# sxh")
- (rear-context-string)
- (position . 1))
-(#("sxhkdrc" 0 7
-   (face nil))
- (filename . "~/.dotfiles/.config/sxhkd/sxhkdrc")
- (front-context-string . "#\n# independent ")
  (rear-context-string)
  (position . 1))
 )

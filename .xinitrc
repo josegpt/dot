@@ -1,3 +1,9 @@
 #!/bin/sh
 
-exec bspwm
+# set brightness
+xbacklight -set 20% &
+
+# xmodmap
+xmodmap ~/.Xmodmap &
+
+exec emacs

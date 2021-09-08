@@ -1,7 +1,3 @@
-;;   ___ _ __ ___   __ _  ___ ___
-;;  / _ \ '_ ` _ \ / _` |/ __/ __|
-;; |  __/ | | | | | (_| | (__\__ \
-;;  \___|_| |_| |_|\__,_|\___|___/
 ;; ============================================================
 ;; Init
 ;; ============================================================
@@ -34,17 +30,12 @@
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
-;;; profile emacs startup
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "---> Emacs loaded in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
-
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "elisp/")))
+
+;;; profile emacs startup
+(require 'pt-common)
+(add-hook 'emacs-startup-hook 'pt-common-print-startup-message)
 
 ;; ============================================================
 ;; Packages
@@ -83,6 +74,7 @@
 
 (use-package emacs
   :straight (:type built-in)
+  :init (server-mode)
   :custom
   ;; tabs mode
   (indent-tabs-mode nil)
@@ -137,15 +129,22 @@
   :custom
   (epg-pinentry-mode 'loopback))
 
+(use-package pt-desktop
+  :straight (:type built-in)
+  :bind
+  ("<XF86AudioRaiseVolume>" . pt-desktop-audio-volume-increment)
+  ("<XF86AudioLowerVolume>" . pt-desktop-audio-volume-decrement)
+  ("<XF86AudioMute>" . pt-desktop-audio-mute-toggle)
+  ("<s-XF86AudioRaiseVolume>" . pt-desktop-audio-mic-volume-increment)
+  ("<s-XF86AudioLowerVolume>" . pt-desktop-audio-mic-volume-decrement)
+  ("<XF86AudioMicMute>" . pt-desktop-audio-mic-mute-toggle)
+  ("<XF86MonBrightnessUp>" . pt-desktop-brightness-increment)
+  ("<XF86MonBrightnessDown>" . pt-desktop-brightness-decrement))
+
 (use-package tooltip
   :straight (:type built-in)
   :custom
   (tooltip-mode nil))
-
-(use-package vc
-  :straight (:type built-in)
-  :bind-keymap
-  ("C-x v" . vc-prefix-map))
 
 (use-package vertico
   :init (vertico-mode)
@@ -197,6 +196,7 @@
 
 (use-package window
   :straight (:type built-in)
+  :no-require t
   :custom
   (display-buffer-alist
    '(("\\`\\*Async Shell Command\\*\\'"
@@ -249,106 +249,89 @@
   :mode
   ("\\.md\\'" . markdown-mode))
 
-(use-package sxhkd-mode
-  :straight (:type git :host github :repo "xFA25E/sxhkd-mode")
-  :config
-  (add-to-list 'auto-mode-alist '("sxhkdrc" . sxhkd-mode)))
-
 (use-package yaml-mode
   :mode
   ("\\.ylm\\'" . yaml-mode))
 
-;; (use-package exwm-randr
-;;   :ensure nil
-;;   :if (string= system-name "josegpt-desktop")
-;;   :after exwm
-;;   :hook
-;;   (exwm-randr-screen-change . (lambda ()
-;;                                 (start-process-shell-command
-;;                                  "xrandr" nil "xrandr --setmonitor HDMI-1-1 1080/286x2160/572+1380+0 HDMI-1")
-;;                                 (start-process-shell-command
-;;                                  "xrandr" nil "xrandr --setmonitor HDMI-1-2 1380/368x1080/286+0+1080 none")
-;;                                 (start-process-shell-command
-;;                                  "xrandr" nil "xrandr --setmonitor HDMI-1-3 1380/368x1080/286+0+0 none")
-;;                                 (start-process-shell-command
-;;                                  "xrandr" nil "xrandr --setmonitor HDMI-1-4 1380/368x1080/286+2460+0 none")
-;;                                 (start-process-shell-command
-;;                                  "xrandr" nil "xrandr --setmonitor HDMI-1-5 1380/368x1080/286+2460+1080 none")
-;;                                 ))
-;;   :config
-;;   (exwm-randr-enable)
-;;   :custom
-;;   (exwm-randr-workspace-monitor-plist '(0 "HDMI-1-1" 1 "HDMI-1-2" 2 "HDMI-1-3" 3 "HDMI-1-4" 4 "HDMI-1-5")))
+(use-package exwm-randr
+  :straight nil
+  :if (string= system-name "josegpt-desktop")
+  :after exwm
+  :hook
+  (exwm-randr-screen-change . pt-exwm-xrandr-config)
+  :config
+  (exwm-randr-enable)
+  :custom
+  (exwm-randr-workspace-monitor-plist '(0 "HDMI-1-1" 1 "HDMI-1-2" 2 "HDMI-1-3" 3 "HDMI-1-4" 4 "HDMI-1-5")))
 
-;; (use-package exwm
-;;   :init (exwm-enable)
-;;   :if (eq window-system 'x)
-;;   :hook
-;;   ;; Make class name the buffer name
-;;   (exwm-update-class . (lambda ()
-;;                          (exwm-workspace-rename-buffer exwm-class-name)))
-;;   (exwm-update-title . (lambda ()
-;;                          (pcase exwm-class-name
-;;                            ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title))))))
-;;   ;; send window to workspace
-;;   (exwm-manage-finish . (lambda ()
-;;                           (pcase exwm-class-name
-;;                             ("Firefox" (exwm-workspace-move-window 4))
-;;                             ("mpv" (exwm-workspace-move-window 3)))))
-;;   :bind
-;;   (:map exwm-mode-map
-;;         ("C-q" . exwm-input-send-next-key))
-;;   :custom
-;;   (exwm-workspace-number 5)
-;;   (exwm-workspace-warp-cursor t)
-;;   (exwm-input-prefix-keys
-;;    '(?\C-x
-;;      ?\C-c
-;;      ?\C-u
-;;      ?\C-h
-;;      ?\C-g
-;;      ?\M-x
-;;      ?\M-:
-;;      ?\M-!
-;;      ?\s-q
-;;      ?\s-j))
-;;   (exwm-input-global-keys
-;;    `(([?\s-r] . exwm-reset)
-;;      ([?\s-w] . exwm-workspace-switch)
-;;      ([?\s-&] . (lambda (command)
-;;                   (interactive (list (read-shell-command "$ ")))
-;;                   (start-process-shell-command command nil command)))
-;;      ,@(mapcar (lambda (i)
-;;                  `(,(kbd (format "s-%d" (1+ i))) .
-;;                    (lambda ()
-;;                      (interactive)
-;;                      (exwm-workspace-switch-create ,i))))
-;;                (number-sequence 0 4))))
-;;   (exwm-input-simulation-keys
-;;    '(([?\C-b] . [left])
-;;      ([?\C-f] . [right])
-;;      ([?\C-p] . [up])
-;;      ([?\C-n] . [down])
-;;      ([?\C-a] . [home])
-;;      ([?\C-e] . [end])
-;;      ([?\C-v] . [next])
-;;      ([?\M-v] . [prior])
-;;      ([?\M-b] . [C-left])
-;;      ([?\M-f] . [C-right])
-;;      ([?\M-<] . [home])
-;;      ([?\M->] . [end])
-;;      ([?\C-d] . [delete])
-;;      ([?\C-w] . [?\C-x])
-;;      ([?\M-w] . [?\C-c])
-;;      ([?\C-y] . [?\C-v])
-;;      ([?\C-s] . [?\C-f])
-;;      ([?\C-c ?h] . [?\C-a])
-;;      ([?\C-c ?f] . [?\C-l])
-;;      ([?\C-c ?k] . [?\C-w])
-;;      ([?\C-c ?g] . [escape])
-;;      ([?\C-\M-b] . [M-left])
-;;      ([?\C-\M-f] . [M-right])
-;;      ([?\C-k] . [S-end delete])
-;;      ([M-backspace] . [C-backspace])
-;;      ([?\M-d] . [C-S-right delete]))))
-
+(use-package exwm
+  :init (exwm-enable)
+  :if (string= system-type "gnu/linux")
+  :config
+  (require 'pt-exwm)
+  :hook
+  (exwm-update-class . pt-exwm-rename-buffer-with-class-name)
+  (exwm-update-title . pt-exwm-custom-rename-buffer-with-title)
+  (exwm-manage-finish . pt-exwm-send-window-to-workspace)
+  :bind
+  (:map exwm-mode-map
+        ("C-q" . exwm-input-send-next-key))
+  :custom
+  (exwm-workspace-number 5)
+  (exwm-workspace-warp-cursor t)
+  (exwm-input-prefix-keys
+   '(?\C-x
+     ?\C-c
+     ?\C-u
+     ?\C-h
+     ?\C-g
+     ?\M-x
+     ?\M-:
+     ?\M-!
+     ?\s-q
+     ?\s-j
+     XF86AudioRaiseVolume
+     XF86AudioLowerVolume
+     s-XF86AudioRaiseVolume
+     s-XF86AudioLowerVolume
+     XF86AudioMute
+     XF86AudioMicMute
+     XF86MonBrightnessUp
+     XF86MonBrightnessDown))
+  (exwm-input-global-keys
+   `(([?\H-r] . exwm-reset)
+     ([?\H-w] . exwm-workspace-switch)
+     ([?\H-&] . pt-exwm-run-app)
+     ,@(mapcar (lambda (i)
+                 `(,(kbd (format "H-%d" (1+ i))) .
+                   (lambda ()
+                     (interactive)
+                     (exwm-workspace-switch-create ,i))))
+               (number-sequence 0 4))))
+  (exwm-input-simulation-keys
+   '(([?\C-b] . [left])
+     ([?\C-f] . [right])
+     ([?\C-p] . [up])
+     ([?\C-n] . [down])
+     ([?\C-a] . [home])
+     ([?\C-e] . [end])
+     ([?\C-v] . [next])
+     ([?\M-v] . [prior])
+     ([?\M-b] . [C-left])
+     ([?\M-f] . [C-right])
+     ([?\M-<] . [home])
+     ([?\M->] . [end])
+     ([?\C-d] . [delete])
+     ([?\C-w] . [?\C-x])
+     ([?\M-w] . [?\C-c])
+     ([?\C-y] . [?\C-v])
+     ([?\C-s] . [?\C-f])
+     ([?\C-c ?h] . [?\C-a])
+     ([?\C-c ?f] . [?\C-l])
+     ([?\C-c ?k] . [?\C-w])
+     ([?\C-c ?g] . [escape])
+     ([?\C-\M-b] . [M-left])
+     ([?\C-\M-f] . [M-right])
+     ([?\C-k] . [S-end delete])
+     ([M-backspace] . [C-backspace])
+     ([?\M-d] . [C-S-right delete]))))
