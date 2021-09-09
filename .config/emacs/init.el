@@ -98,6 +98,13 @@
   :config
   (blink-cursor-mode 0))
 
+(use-package keycast
+  :bind
+  ("C-c k" . keycast-mode)
+  :custom
+  (keycast-separator-with 1)
+  (keycast-remove-tail-elements nil))
+
 (use-package marginalia
   :after vertico
   :init (marginalia-mode))
