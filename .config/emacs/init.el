@@ -102,9 +102,9 @@
   :after vertico
   :init (marginalia-mode))
 
-(use-package modus-themes
+(use-package gruvbox-theme
   :config
-  (load-theme 'modus-operandi t))
+  (load-theme 'gruvbox-dark-medium t))
 
 (use-package magit
   :bind
