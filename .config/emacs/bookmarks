@@ -18,10 +18,4 @@
  (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
  (position . 1))
-(#(".xinitrc" 0 8
-   (face nil))
- (filename . "~/.dotfiles/.xinitrc")
- (front-context-string . "#!/bin/sh\n\n# sxh")
- (rear-context-string)
- (position . 1))
 )
