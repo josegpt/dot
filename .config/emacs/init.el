@@ -27,12 +27,20 @@
 (use-package autorevert
   :init (global-auto-revert-mode t))
 
+(use-package bookmark
+  :bind
+  ("s-l" . bookmark-jump))
+
 (use-package corfu
   :custom
   (corfu-cycle t)
   :hook ((prog-mode shell-mode eshell-mode) . corfu-mode)
   :init
   (corfu-global-mode))
+
+(use-package dired
+  :bind
+  ("s-d" . dired))
 
 (use-package direnv
   :config
@@ -268,6 +276,16 @@
 
 (use-package window
   :no-require t
+  :bind
+  ("s-0" . delete-window)
+  ("s-1" . delete-other-windows)
+  ("s-2" . split-window-below)
+  ("s-3" . split-window-right)
+  ("s-o" . other-window)
+  ("s-c" . kill-current-buffer)
+  ("s-q" . kill-buffer-and-window)
+  ("s-b" . switch-to-buffer)
+  ("s-k" . kill-buffer)
   :custom
   (display-buffer-alist
    '(("\\`\\*Async Shell Command\\*\\'"
