@@ -158,7 +158,7 @@
   ;; FIXME: Add authinfo.gpg
   (mail-user-agent 'mu4e-user-agent)
   (message-send-mail-function 'smtpmail-send-it)
-  (smtpmail-smtp-user . "josegpt27")
+  (smtpmail-smtp-user "josegpt27")
   (smtpmail-smtp-server "smtp.gmail.com")
   (smtpmail-smtp-service 465)
   (smtpmail-stream-type 'ssl)
