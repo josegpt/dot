@@ -19,8 +19,13 @@
 ;; Packages
 ;; ============================================================
 
+(use-package auth-source-pass
+  :after password-store
+  :config
+  (auth-source-pass-enable))
+
 (use-package autorevert
-   :init (global-auto-revert-mode t))
+  :init (global-auto-revert-mode t))
 
 (use-package corfu
   :custom
@@ -28,6 +33,10 @@
   :hook ((prog-mode shell-mode eshell-mode) . corfu-mode)
   :init
   (corfu-global-mode))
+
+(use-package direnv
+  :config
+  (direnv-mode))
 
 (use-package diminish)
 
@@ -37,8 +46,23 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
+(use-package elfeed
+  :bind
+  ("s-e" . elfeed)
+  (:map elfeed-search-mode-map
+        ("g" . elfeed-update))
+  :custom
+  (elfeed-use-curl t)
+  (elfeed-db-directory "~/.cache/elfeed")
+  (elfeed-search-title-max-width 100)
+  (elfeed-search-title-min-width 100)
+  (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
+                  ("https://reddit.com/r/unixporn.rss" linux)
+                  ("https://reddit.com/r/guix.rss" linux)
+                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
+
 (use-package erc
-   :custom
+  :custom
   (erc-server "irc.us.libera.chat")
   (erc-nick "josegpt")
   (erc-user-full-name "Jose G Perez Taveras")
@@ -78,7 +102,7 @@
   :bind
   ("C-c k" . keycast-mode)
   :custom
-  (keycast-separator-with 1)
+  (keycast-separator-width 1)
   (keycast-remove-tail-elements nil))
 
 (use-package marginalia
@@ -95,12 +119,78 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+(use-package move-text
+  :bind
+  ("M-p" . move-text-up)
+  ("M-n" . move-text-down))
+
+(use-package mu4e
+  :load-path "/home/josegpt/.guix-extra-profiles/base/base/share/emacs/site-lisp/"
+  :defer 20
+  :bind
+  ("s-m" . mu4e)
+  :custom
+  (mu4e-change-filenames-when-moving t)
+  (mu4e-view-show-addresses t)
+  (mu4e-update-interval (* 30 60))
+  (mu4e-get-mail-command "mbsync -a")
+  ;; enable inline images
+  (mu4e-view-show-images t)
+  (mu4e-sent-messages-behavior 'delete)
+  (mu4e-confirm-quit nil)
+  (message-kill-buffer-on-exit t)
+  (mu4e-compose-dont-reply-to-self t)
+  (mu4e-attachment-dir "~/Downloads")
+  (user-full-name "Jose G Perez Taveras")
+  (user-mail-address "josegpt27@gmail.com")
+  (mu4e-maildir "~/Mail")
+  (mu4e-sent-folder "/Sent Mail")
+  (mu4e-drafts-folder "/Drafts")
+  (mu4e-trash-folder "/Trash")
+  (mu4e-maildir-shortcuts
+   '((:maildir "/INBOX" :key ?i)
+     (:maildir "/Sent Mail" :key ?s)
+     (:maildir "/Starred" :key ?r)
+     (:maildir "/Spam" :key ?p)
+     (:maildir "/Drafts" :key ?d)
+     (:maildir "/Trash" :key ?t)))
+  ;; Send Emails
+  ;; FIXME: Add authinfo.gpg
+  (mail-user-agent 'mu4e-user-agent)
+  (message-send-mail-function 'smtpmail-send-it)
+  (smtpmail-smtp-user . "josegpt27")
+  (smtpmail-smtp-server "smtp.gmail.com")
+  (smtpmail-smtp-service 465)
+  (smtpmail-stream-type 'ssl)
+  :config
+  (mu4e t)
+  ;; use imagemagick, if available
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types)))
+
 (use-package orderless
   :after vertico
   :custom
   (completion-styles '(orderless))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles . (partial-completion))))))
+
+(use-package projectile
+  :bind-keymap
+  ("s-p" . projectile-command-map)
+  :custom
+  (projectile-project-search-path '("~/projects")))
+
+(use-package password-store
+  :bind
+  ("C-c p e" . password-store-edit)
+  ("C-c p w" . password-store-copy)
+  ("C-c p c" . password-store-clear)
+  ("C-c p i" . password-store-insert)
+  ("C-c p r" . password-store-rename)
+  ("C-c p k" . password-store-remove)
+  ("C-c p g" . password-store-generate)
+  ("C-c p f" . password-store-copy-field))
 
 (use-package paren
   :hook (prog-mode . show-paren-mode))
@@ -111,6 +201,7 @@
   (epg-pinentry-mode 'loopback))
 
 (use-package pt-desktop
+  :after exwm
   :bind
   ("<XF86AudioRaiseVolume>" . pt-desktop-audio-volume-increment)
   ("<XF86AudioLowerVolume>" . pt-desktop-audio-volume-decrement)
@@ -120,6 +211,10 @@
   ("<XF86AudioMicMute>" . pt-desktop-audio-mic-mute-toggle)
   ("<XF86MonBrightnessUp>" . pt-desktop-brightness-increment)
   ("<XF86MonBrightnessDown>" . pt-desktop-brightness-decrement))
+
+(use-package subword
+  :diminish
+  :init (global-subword-mode t))
 
 (use-package tooltip
   :custom
@@ -151,7 +246,7 @@
 (use-package whitespace
   :diminish
   :bind
-  ("C-c w" . whitespace-mode)
+  ("s-w" . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs

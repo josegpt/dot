@@ -33,54 +33,44 @@
 
 ;; Audio
 
-(defcustom pt-desktop-set-audio-volume-increment "pactl -- set-sink-volume 0 +10%"
+(defcustom pt-desktop-set-audio-volume-increment "amixer set Master 10%+"
   "Command to increment audio volume"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-set-audio-volume-decrement "pactl -- set-sink-volume 0 -10%"
+(defcustom pt-desktop-set-audio-volume-decrement "amixer set Master 10%-"
   "Command to decrement audio volume"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-set-audio-mute "pactl -- set-sink-mute 0 toggle"
+(defcustom pt-desktop-set-audio-mute "amixer set Master toggle"
   "Command to toggle audio mute"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-get-audio-volume "pactl -- get-sink-volume 0"
+(defcustom pt-desktop-get-audio-volume-status "amixer get Master"
   "Command to get audio volume"
-  :type 'string
-  :group 'pt-desktop)
-
-(defcustom pt-desktop-get-audio-mute "pactl -- get-sink-mute 0"
-  "Command to get audio mute status"
   :type 'string
   :group 'pt-desktop)
 
 ;; Audio Mic
 
-(defcustom pt-desktop-set-audio-mic-volume-increment "pactl -- set-source-volume 1 +10%"
+(defcustom pt-desktop-set-audio-mic-volume-increment "amixer set Capture 10%+"
   "Command to increment audio mic volume"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-set-audio-mic-volume-decrement "pactl -- set-source-volume 1 -10%"
+(defcustom pt-desktop-set-audio-mic-volume-decrement "amixer set Capture 10%-"
   "Command to decrement audio mic volume"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-set-audio-mic-mute "pactl -- set-source-mute 1 toggle"
+(defcustom pt-desktop-set-audio-mic-mute "amixer set Capture toggle"
   "Command to toggle mic mute"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-get-audio-mic-volume "pactl -- get-source-volume 1"
-  "Command to get audio mic volume"
-  :type 'string
-  :group 'pt-desktop)
-
-(defcustom pt-desktop-get-audio-mic-mute "pactl -- get-source-mute 1"
+(defcustom pt-desktop-get-audio-mic-volume-status "amixer get Capture"
   "Command to get audio mic volume"
   :type 'string
   :group 'pt-desktop)
@@ -113,49 +103,60 @@
   "Run commands pt-desktop commands"
   (shell-command-to-string cmd))
 
+(defun pt-desktop--func-helper (cmmd1 cmmd2 msg)
+  "Run commands pt-desktop commands"
+  (shell-command cmmd1)
+  (message "%s %s" msg (shell-command-to-string cmmd2)))
+
 ;; Interactive functions
 
 ;;;###autoload
 (defun pt-desktop-audio-volume-increment ()
   "Interactive function to increment audio volume"
   (interactive)
-  (pt-desktop--run-command pt-desktop-set-audio-volume-increment)
-  (message "Audio %s" (pt-desktop--run-command pt-desktop-get-audio-volume)))
+  (pt-desktop--func-helper
+   pt-desktop-set-audio-volume-increment
+   pt-desktop-get-audio-volume-status "Audio"))
 
 ;;;###autoload
 (defun pt-desktop-audio-volume-decrement ()
   "Interactive function to decrement audio volume"
   (interactive)
-  (pt-desktop--run-command pt-desktop-set-audio-volume-decrement)
-  (message "Audio %s" (pt-desktop--run-command pt-desktop-get-audio-volume)))
+  (pt-desktop--func-helper
+   pt-desktop-set-audio-volume-decrement
+   pt-desktop-get-audio-volume-status "Audio"))
 
 ;;;###autoload
 (defun pt-desktop-audio-mute-toggle ()
   "Interactive function to mute audio volume"
   (interactive)
-  (pt-desktop--run-command pt-desktop-set-audio-mute)
-  (message "Audio %s" (pt-desktop--run-command pt-desktop-get-audio-mute)))
+  (pt-desktop--func-helper
+   pt-desktop-set-audio-volume-mute
+   pt-desktop-get-audio-volume-status "Audio"))
 
 ;;;###autoload
 (defun pt-desktop-audio-mic-volume-increment ()
-  "Interactive function to increment audio volume"
+  "Interactive function to increment audio mic volume"
   (interactive)
-  (pt-desktop--run-command pt-desktop-set-audio-mic-volume-increment)
-  (message "Audio Mic %s" (pt-desktop--run-command pt-desktop-get-audio-mic-volume)))
+  (pt-desktop--func-helper
+   pt-desktop-set-audio-mic-volume-increment
+   pt-desktop-get-audio-mic-volume-status "Audio Mic"))
 
 ;;;###autoload
 (defun pt-desktop-audio-mic-volume-decrement ()
   "Interactive function to decrement audio mic volume"
   (interactive)
-  (pt-desktop--run-command pt-desktop-set-audio-mic-volume-decrement)
-  (message "Audio Mic %s" (pt-desktop--run-command pt-desktop-get-audio-mic-volume)))
+  (pt-desktop--func-helper
+   pt-desktop-set-audio-mic-volume-decrement
+   pt-desktop-get-audio-mic-volume-status "Audio Mic"))
 
 ;;;###autoload
 (defun pt-desktop-audio-mic-mute-toggle ()
   "Interactive function to mute audio mic volume"
   (interactive)
-  (pt-desktop--run-command pt-desktop-set-audio-mic-mute)
-  (message "Audio Mic %s" (pt-desktop--run-command pt-desktop-get-audio-mic-mute)))
+  (pt-desktop--func-helper
+   pt-desktop-set-audio-mic-mute
+   pt-desktop-get-audio-mic-volume-status "Audio Mic"))
 
 ;;;###autoload
 (defun pt-desktop-brightness-increment ()

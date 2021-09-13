@@ -1,6 +1,6 @@
 [user]
-	email = josegpt27@gmail.com
-	name = Jose G Perez Taveras
+  email = josegpt27@gmail.com
+  name = Jose G Perez Taveras
   editor = emacs
 [init]
   defaultBranch = main

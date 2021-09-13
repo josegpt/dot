@@ -1,3 +1,8 @@
 (specifications->manifest
- '("alsa-utils"
-   "font-iosevka"))
+ '("mu"
+   "curl"
+   "isync"
+   "alsa-utils"
+   "font-iosevka"
+   "password-store"
+   "pinentry-emacs"))
