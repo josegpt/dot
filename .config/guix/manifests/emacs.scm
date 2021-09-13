@@ -1,2 +1,21 @@
 (specifications->manifest
- '("emacs"))
+ '("emacs"
+   "emacs-corfu"
+   "emacs-guix"
+   "emacs-use-package"
+   "emacs-diminish"
+   "emacs-keycast"
+   "emacs-marginalia"
+   "emacs-modus-themes"
+   "emacs-magit"
+   "emacs-orderless"
+   "emacs-vertico"
+   "emacs-which-key"
+   "emacs-yasnippet"
+   "emacs-dockerfile-mode"
+   "emacs-go-mode"
+   "emacs-markdown-mode"
+   "emacs-yaml-mode"
+   "emacs-exwm"
+   "emacs-pinentry"
+   "pinentry-emacs"))

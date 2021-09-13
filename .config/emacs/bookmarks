@@ -2,7 +2,24 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".Xmodmap"
+((#("sxrc" 0 4
+   (face nil))
+ (filename . "~/.dotfiles/.config/sx/sxrc")
+ (front-context-string . "#!/bin/sh\n\n# set")
+ (rear-context-string)
+ (position . 1))
+("system-config"
+ (filename . "~/.config/guix/system/")
+ (front-context-string . "computer\n  -rw-r")
+ (rear-context-string . "96 Sep 12 14:01 ")
+ (position . 233))
+(#("manifests" 0 9
+   (face nil))
+ (filename . "~/.config/guix/manifests/")
+ (front-context-string . "base.scm\n  -rw-r")
+ (rear-context-string . "62 Sep 11 14:50 ")
+ (position . 236))
+(".Xmodmap"
  (filename . "~/.dotfiles/.Xmodmap")
  (front-context-string . "! Clear the modi")
  (rear-context-string)

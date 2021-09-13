@@ -1,0 +1,33 @@
+#!/bin/sh
+
+GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
+
+profiles=$*
+
+[ $# -eq 0 ] && profiles="$HOME/.config/guix/manifests/*.scm"
+
+for profile in $profiles; do
+    profile_name=$(basename $profile)
+    profile_name="${profile_name%.*}"
+    profile_path="$GUIX_EXTRA_PROFILES/$profile_name"
+    manifest_path="$HOME/.config/guix/manifests/$profile_name.scm"
+
+    if [ -f $manifest_path ]; then
+        echo "##############################"
+        echo "activating profile: $profile_name"
+        echo "##############################"
+        echo
+
+        mkdir -p $profile_path
+        guix package -p "$profile_path/$profile_name" -m "$manifest_path"
+
+        GUIX_PROFILE="$profile_path/$profile_name"
+        if [ -f $GUIX_PROFILE/etc/profile ]; then
+            . "$GUIX_PROFILE"/etc/profile
+        else
+            echo "could not find profile: $GUIX_PROFILE/etc/profile"
+        fi
+    else
+        echo "no profile found at path $profile_path"
+    fi
+done

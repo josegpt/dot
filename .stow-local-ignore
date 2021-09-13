@@ -1,4 +1,5 @@
 \.git
+\.config\/guix\/current
 ^/.*\.org
 ^/.*\.md
 .gitignore

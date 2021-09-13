@@ -2,28 +2,6 @@
 ;; Init
 ;; ============================================================
 
-(defvar bootstrap-version)
-
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;;; make use-package use straight
-(straight-use-package 'use-package)
-
-;;; set straight as default
-(setq straight-use-package-by-default 1)
-
 ;; debugging purposes
 ;; (setq use-package-verbose t)
 
@@ -42,8 +20,7 @@
 ;; ============================================================
 
 (use-package autorevert
-  :straight (:type built-in)
-  :init (global-auto-revert-mode t))
+   :init (global-auto-revert-mode t))
 
 (use-package corfu
   :custom
@@ -55,15 +32,13 @@
 (use-package diminish)
 
 (use-package display-line-numbers
-  :straight (:type built-in)
   :hook (prog-mode . display-line-numbers-mode)
   :custom
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
 (use-package erc
-  :straight (:type built-in)
-  :custom
+   :custom
   (erc-server "irc.us.libera.chat")
   (erc-nick "josegpt")
   (erc-user-full-name "Jose G Perez Taveras")
@@ -73,7 +48,6 @@
   (erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs"))))
 
 (use-package emacs
-  :straight (:type built-in)
   :init (server-mode)
   :custom
   ;; tabs mode
@@ -89,14 +63,16 @@
    `((".*" ,temporary-file-directory t))))
 
 (use-package eshell
-  :straight (:type built-in)
   :bind
   ("<s-return>" . eshell))
 
 (use-package frame
-  :straight (:type built-in)
   :config
   (blink-cursor-mode 0))
+
+(use-package guix
+  :bind
+  ("C-c g" . guix))
 
 (use-package keycast
   :bind
@@ -109,9 +85,9 @@
   :after vertico
   :init (marginalia-mode))
 
-(use-package gruvbox-theme
+(use-package modus-themes
   :config
-  (load-theme 'gruvbox-dark-medium t))
+  (load-theme 'modus-operandi t))
 
 (use-package magit
   :bind
@@ -127,17 +103,14 @@
   (completion-category-overrides '((file (styles . (partial-completion))))))
 
 (use-package paren
-  :straight (:type built-in)
   :hook (prog-mode . show-paren-mode))
 
 (use-package pinentry
   :init (pinentry-start)
-  :after eshell
   :custom
   (epg-pinentry-mode 'loopback))
 
 (use-package pt-desktop
-  :straight (:type built-in)
   :bind
   ("<XF86AudioRaiseVolume>" . pt-desktop-audio-volume-increment)
   ("<XF86AudioLowerVolume>" . pt-desktop-audio-volume-decrement)
@@ -149,7 +122,6 @@
   ("<XF86MonBrightnessDown>" . pt-desktop-brightness-decrement))
 
 (use-package tooltip
-  :straight (:type built-in)
   :custom
   (tooltip-mode nil))
 
@@ -159,7 +131,6 @@
   (vertico-cycle t))
 
 (use-package webjump
-  :straight (:type built-in)
   :bind
   ("s-j" . webjump)
   :custom
@@ -178,7 +149,6 @@
                    ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
 
 (use-package whitespace
-  :straight (:type built-in)
   :diminish
   :bind
   ("C-c w" . whitespace-mode)
@@ -202,7 +172,6 @@
   (which-key-idle-delay 0.5))
 
 (use-package window
-  :straight (:type built-in)
   :no-require t
   :custom
   (display-buffer-alist
@@ -218,10 +187,9 @@
       (window-width . 0.35)
       (side . right)
       (slot . 1))
-     ("\\e?shell.*"
-      (display-buffer-in-side-window)
+     ("\\*.*e?shell.*"
+      (display-buffer-reuse-mode-window display-buffer-at-bottom)
       (window-height . 0.25)
-      (side . bottom)
       (slot . -1)))))
 
 (use-package yasnippet
@@ -237,7 +205,6 @@
   ("\\Dockerfile\\'" . dockerfile-mode))
 
 (use-package eldoc
-  :straight (:type built-in)
   :diminish
   :hook ((emacs-lisp-mode lisp-interaction-mode) . eldoc-mode))
 
@@ -246,7 +213,6 @@
   ("\\.go\\'" . go-mode))
 
 (use-package js
-  :straight (:type built-in)
   :mode
   ("\\.js\\'" . js-mode)
   :custom
@@ -261,8 +227,7 @@
   ("\\.ylm\\'" . yaml-mode))
 
 (use-package exwm-randr
-  :straight nil
-  :if (string= system-name "josegpt-desktop")
+  :if (string= system-name "guts")
   :after exwm
   :hook
   (exwm-randr-screen-change . pt-exwm-xrandr-config)
