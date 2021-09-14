@@ -295,7 +295,7 @@
   (display-buffer-alist
    '(("\\`\\*Async Shell Command\\*\\'"
       (display-buffer-no-window))
-     ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
+     ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
       (display-buffer-in-side-window)
       (window-height . 0.25)
       (side . bottom)
