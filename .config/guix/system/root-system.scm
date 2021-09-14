@@ -1,10 +1,10 @@
 (define-module (root-system)
   #:use-module (gnu system)
+  #:use-module (gnu system shadow)
   #:use-module (gnu system keyboard)
   #:use-module (gnu system file-systems)
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)
-  #:use-module (gnu system shadow)
   #:use-module (gnu services)
   #:use-module (gnu services ssh)
   #:use-module (gnu services base)
@@ -15,8 +15,8 @@
   #:use-module (gnu services networking)
   #:use-module (gnu services security-token)
   #:use-module (gnu packages xorg)
-  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages certs)
+  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages package-management)
   #:use-module (nongnu packages linux)
@@ -24,7 +24,8 @@
   #:export (%root-operating-system
             %root-packages
             %root-services
-            %root-file-systems))
+            %root-file-systems
+            %backlight-udev-rule))
 
 (define %root-operating-system
   (operating-system
@@ -107,4 +108,10 @@
           (type "ext4"))
          %base-file-systems))
 
-(name-service-switch %mdns-host-lookup-nss))
+(define %backlight-udev-rule (udev-rule
+                              "90-backlight.rules"
+                              (string-append "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
+                                             "RUN+=\"/run/current-system/profile/bin/chgrp video /sys/class/backlight/%k/brightness\""
+                                             "\n"
+                                             "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
+                                             "RUN+=\"/run/current-system/profile/bin/chmod g+w /sys/class/backlight/%k/brightness\"")))

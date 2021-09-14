@@ -1,6 +1,7 @@
 (define-module (computer griffith)
   #:use-module (gnu system)
   #:use-module (gnu system file-systems)
+  #:use-module (gnu services base)
   #:use-module (root-system))
 
 (operating-system
@@ -11,5 +12,9 @@
   (list (file-system-label "swap")))
 
  (packages %root-packages)
- (services %root-services)
+
+ (services (cons*
+            (udev-rules-service 'backlight %backlight-udev-rule)
+            %root-services))
+
  (file-systems %root-file-systems))
