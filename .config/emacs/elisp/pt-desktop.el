@@ -77,17 +77,17 @@
 
 ;; Customization -- Brightness
 
-(defcustom pt-desktop-set-brightness-increment "xbacklight -inc 10%"
+(defcustom pt-desktop-set-brightness-increment "light -A 10"
   "Command to increment brightness of screen"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-set-brightness-decrement "xbacklight -dec 10%"
+(defcustom pt-desktop-set-brightness-decrement "light -U 10"
   "Command to decrement brightness of screen"
   :type 'string
   :group 'pt-desktop)
 
-(defcustom pt-desktop-get-brightness "xbacklight -get"
+(defcustom pt-desktop-get-brightness "light -G"
   "Command to lower brightness of screen"
   :type 'string
   :group 'pt-desktop)
@@ -131,7 +131,7 @@
   "Interactive function to mute audio volume"
   (interactive)
   (pt-desktop--func-helper
-   pt-desktop-set-audio-volume-mute
+   pt-desktop-set-audio-mute
    pt-desktop-get-audio-volume-status "Audio"))
 
 ;;;###autoload
