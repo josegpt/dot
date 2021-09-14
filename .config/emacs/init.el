@@ -127,8 +127,9 @@
 
 (use-package magit
   :bind
-  ("C-x g" . magit-status)
+  ("s-g" . magit-status)
   :custom
+  (magit-clone-default-directory "~/projects/")
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package move-text
