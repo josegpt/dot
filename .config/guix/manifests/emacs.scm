@@ -4,6 +4,7 @@
    "emacs-guix"
    "emacs-corfu"
    "emacs-magit"
+   "emacs-nov-el"
    "emacs-direnv"
    "emacs-elfeed"
    "emacs-keycast"

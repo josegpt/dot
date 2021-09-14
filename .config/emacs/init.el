@@ -340,6 +340,10 @@
   :mode
   ("\\.md\\'" . markdown-mode))
 
+(use-package nov
+  :mode
+  ("\\.epub\\'" . nov-mode))
+
 (use-package yaml-mode
   :mode
   ("\\.ylm\\'" . yaml-mode))
