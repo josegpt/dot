@@ -102,13 +102,17 @@
   :config
   (blink-cursor-mode 0))
 
+(use-package files
+  :bind
+  ("s-f" . find-file)
+  ("s-s" . save-buffer))
+
 (use-package guix
   :bind
   ("C-c g" . guix))
 
 (use-package keycast
-  :bind
-  ("C-c k" . keycast-mode)
+  :init (keycast-mode)
   :custom
   (keycast-separator-width 1)
   (keycast-remove-tail-elements nil))
@@ -283,7 +287,7 @@
   ("s-3" . split-window-right)
   ("s-o" . other-window)
   ("s-c" . kill-current-buffer)
-  ("s-q" . kill-buffer-and-window)
+  ("s-C" . kill-buffer-and-window)
   ("s-b" . switch-to-buffer)
   ("s-k" . kill-buffer)
   :custom
