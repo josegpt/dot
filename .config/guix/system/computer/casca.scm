@@ -24,4 +24,4 @@
             (udev-rules-service 'backlight %backlight-udev-rule)
             %root-services))
 
- (file-systems (cdr (%root-file-systems))))
+ (file-systems (cdr %root-file-systems)))
