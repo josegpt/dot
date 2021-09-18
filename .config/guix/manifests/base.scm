@@ -1,7 +1,10 @@
 (specifications->manifest
  '("mu"
+   "sx"
+   "feh"
    "curl"
    "isync"
+   "xmodmap"
    "alsa-utils"
    "font-iosevka"
    "password-store"

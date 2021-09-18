@@ -2,7 +2,7 @@
   (list
    (make <service>
      #:provides '(gpg-agent)
-     #:docstring "Run `gpg-agent`"
+     #:docstring "Gpg Daemon"
      #:respawn? #t
      #:start (make-system-constructor "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye")
      #:stop (make-system-destructor "gpgconf --kill gpg-agent"))))

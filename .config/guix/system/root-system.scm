@@ -14,9 +14,7 @@
   #:use-module (gnu services desktop)
   #:use-module (gnu services networking)
   #:use-module (gnu services security-token)
-  #:use-module (gnu packages xorg)
   #:use-module (gnu packages certs)
-  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages package-management)
   #:use-module (nongnu packages linux)
@@ -68,8 +66,6 @@
   (cons*
    git
    stow
-   sx
-   xmodmap
    nss-certs
    %base-packages))
 

@@ -7,6 +7,7 @@
    "emacs-nov-el"
    "emacs-direnv"
    "emacs-elfeed"
+   "emacs-daemons"
    "emacs-keycast"
    "emacs-vertico"
    "emacs-go-mode"
