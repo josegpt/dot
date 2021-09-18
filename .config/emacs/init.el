@@ -38,6 +38,10 @@
   :init
   (corfu-global-mode))
 
+(use-package daemons
+  :bind
+  ("C-c d" . daemons))
+
 (use-package dired
   :bind
   ("s-d" . dired))
@@ -56,9 +60,7 @@
 
 (use-package elfeed
   :bind
-  ("s-e" . elfeed)
-  (:map elfeed-search-mode-map
-        ("g" . elfeed-update))
+  ("s-r" . elfeed)
   :custom
   (elfeed-use-curl t)
   (elfeed-db-directory "~/.cache/elfeed")
@@ -82,10 +84,8 @@
 (use-package emacs
   :init (server-mode)
   :custom
-  ;; tabs mode
   (indent-tabs-mode nil)
   (tab-width 2)
-  ;; bell
   (ring-bell-function 'ignore)
   ;; don't clutter up directories with files~
   (backup-directory-alist
@@ -123,7 +123,7 @@
 
 (use-package modus-themes
   :config
-  (load-theme 'modus-operandi t))
+  (load-theme 'modus-vivendi t))
 
 (use-package magit
   :bind
@@ -299,12 +299,12 @@
       (display-buffer-in-side-window)
       (window-height . 0.25)
       (side . bottom)
-      (slot . 0))
+      (slot . 1))
      ("\\*Help.*"
       (display-buffer-in-side-window)
       (window-width . 0.35)
       (side . right)
-      (slot . 1))
+      (slot . 0))
      ("\\*.*e?shell.*"
       (display-buffer-reuse-mode-window display-buffer-at-bottom)
       (window-height . 0.25)
@@ -313,10 +313,6 @@
 (use-package yasnippet
   :diminish (yas-minor-mode)
   :init (yas-global-mode))
-
-;; ============================================================
-;; Language Configs
-;; ============================================================
 
 (use-package dockerfile-mode
   :mode
@@ -426,6 +422,7 @@
      ([?\C-c ?g] . [escape])
      ([?\C-\M-b] . [M-left])
      ([?\C-\M-f] . [M-right])
-     ([?\C-k] . [S-end delete])
-     ([M-backspace] . [C-backspace])
-     ([?\M-d] . [C-S-right delete]))))
+     ([?\C-k] . [S-end C-x])
+     ([?\M-d] . [C-S-right C-x])
+     ([?\C-0 ?\C-k] . [C-S-home C-x])
+     ([M-backspace] . [C-S-left C-x]))))
