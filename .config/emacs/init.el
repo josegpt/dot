@@ -61,6 +61,10 @@
 (use-package elfeed
   :bind
   ("s-r" . elfeed)
+  (:map elfeed-search-mode-map
+        ("w" . pt-elfeed-play-youtube-link))
+  :config
+  (require 'pt-elfeed)
   :custom
   (elfeed-use-curl t)
   (elfeed-db-directory "~/.cache/elfeed")
@@ -69,7 +73,16 @@
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("https://reddit.com/r/unixporn.rss" linux)
                   ("https://reddit.com/r/guix.rss" linux)
-                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime))))
+                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ" youtube tech)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw" youtube funny)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA" youtube vim)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCLqH-U2TXzj1h7lyYQZLNQQ" youtube fitness)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg" youtube emacs unix vim)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA" youtube vim unix)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw" youtube vim programming)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCrqM0Ym_NbK1fqeQG2VIohg" youtube emacs programming)
+                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" youtube emacs exwm programming))))
 
 (use-package erc
   :custom

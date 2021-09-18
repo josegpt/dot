@@ -1,7 +1,7 @@
 (specifications->manifest
  '("mu"
    "sx"
-   "feh"
+   "mpv"
    "curl"
    "isync"
    "xmodmap"

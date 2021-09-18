@@ -36,11 +36,13 @@
 
 (defun pt-exwm-custom-rename-buffer-with-title ()
   (pcase exwm-class-name
-    ("Chromium-browser" (exwm-workspace-rename-buffer (format "Chromium: %s" exwm-title)))))
+    ("Chromium-browser" (exwm-workspace-rename-buffer (format "%s" exwm-title)))
+    ("mpv" (exwm-workspace-rename-buffer (format "%s" exwm-title)))))
 
 (defun pt-exwm-send-window-to-workspace ()
   (pcase exwm-class-name
-    ("Chromium-browser" (exwm-workspace-move-window 4))))
+    ("Chromium-browser" (exwm-workspace-move-window 4))
+    ("mpv" (exwm-workspace-move-window 3))))
 
 (defun pt-exwm-run-app (command)
   (interactive (list (read-shell-command "$ ")))
