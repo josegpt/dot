@@ -4,7 +4,7 @@
    "mpv"
    "curl"
    "isync"
-   "xmodmap"
+   "setxkbmap"
    "alsa-utils"
    "font-iosevka"
    "password-store"

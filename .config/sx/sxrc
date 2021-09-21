@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# TODO: Create service
-xmodmap ~/.Xmodmap &
-
 # Start Shepherd to manage user daemons
 if [ -z "$(pgrep -u josegpt shepherd)" ]; then
   shepherd &
 fi
+
+# Make Caps Lock a Control key
+setxkbmap -option ctrl:nocaps
 
 exec emacs

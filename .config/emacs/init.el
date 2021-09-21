@@ -272,7 +272,7 @@
 (use-package whitespace
   :diminish
   :bind
-  ("s-w" . whitespace-mode)
+  ("s-SPC" . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs
@@ -383,6 +383,7 @@
         ("C-q" . exwm-input-send-next-key))
   :custom
   (exwm-workspace-number 5)
+  (exwm-workspace-switch-create-limit 5)
   (exwm-workspace-warp-cursor t)
   (exwm-input-prefix-keys
    '(?\C-x
@@ -404,11 +405,11 @@
      XF86MonBrightnessUp
      XF86MonBrightnessDown))
   (exwm-input-global-keys
-   `(([?\H-r] . exwm-reset)
-     ([?\H-w] . exwm-workspace-switch)
-     ([?\H-&] . pt-exwm-run-app)
+   `(([?\s-w ?q] . exwm-reset)
+     ([?\s-w ?s] . exwm-workspace-switch)
+     ([?\s-w ?r] . pt-exwm-run-app)
      ,@(mapcar (lambda (i)
-                 `(,(kbd (format "H-%d" (1+ i))) .
+                 `(,(kbd (format "C-s-%d" (1+ i))) .
                    (lambda ()
                      (interactive)
                      (exwm-workspace-switch-create ,i))))
