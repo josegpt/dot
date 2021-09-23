@@ -229,6 +229,7 @@
 (use-package pt-desktop
   :after exwm
   :bind
+  ("s-a" . pt-desktop-powersettings)
   ("<XF86AudioRaiseVolume>" . pt-desktop-audio-volume-increment)
   ("<XF86AudioLowerVolume>" . pt-desktop-audio-volume-decrement)
   ("<XF86AudioMute>" . pt-desktop-audio-mute-toggle)

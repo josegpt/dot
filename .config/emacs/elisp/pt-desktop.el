@@ -92,6 +92,12 @@
   :type 'string
   :group 'pt-desktop)
 
+(defcustom pt-desktop-powersetting-commands '(("Reboot" . "sudo reboot")
+                                              ("Poweroff" . "sudo shutdown"))
+  "Commands to control power settings of the computer"
+  :type 'list
+  :group 'pt-desktop)
+
 (defun pt-desktop--format-brightness-message (val)
   "Format brightness message to a more readable format"
   (let ((n (string-to-number val)))
@@ -171,6 +177,16 @@
   (interactive)
   (pt-desktop--run-command pt-desktop-set-brightness-decrement)
   (pt-desktop--format-brightness-message (pt-desktop--run-command pt-desktop-get-brightness)))
+
+;;;###autoload
+(defun pt-desktop-powersettings ()
+  (interactive)
+  (let* ((completion-ignore t)
+         (choice (assoc-string
+                  (completing-read "Action: " pt-desktop-powersetting-commands  nil t)
+                  pt-desktop-powersetting-commands t))
+         (cmd (cdr choice)))
+    (message cmd)))
 
 (provide 'pt-desktop)
 ;;; pt-desktop.el ends here
