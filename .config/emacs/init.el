@@ -269,8 +269,8 @@
                    ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
                    ("DuckDuckGo" . [simple-query "duckduckgo.com" "duckduckgo.com/?q=" ""])
                    ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
+                   ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
                    ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
-                   ("Github User" . [simple-query "github.com" "github.com/search?q=" "&type=users"])
                    ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
 
 (use-package whitespace
