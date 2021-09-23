@@ -186,7 +186,7 @@
                   (completing-read "Action: " pt-desktop-powersetting-commands  nil t)
                   pt-desktop-powersetting-commands t))
          (cmd (cdr choice)))
-    (message cmd)))
+    (eshell-command cmd)))
 
 (provide 'pt-desktop)
 ;;; pt-desktop.el ends here
