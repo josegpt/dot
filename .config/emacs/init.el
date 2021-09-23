@@ -269,6 +269,7 @@
                    ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
                    ("DuckDuckGo" . [simple-query "duckduckgo.com" "duckduckgo.com/?q=" ""])
                    ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
+                   ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
                    ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
                    ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
                    ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
