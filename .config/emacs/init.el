@@ -120,9 +120,15 @@
   ("s-f" . find-file)
   ("s-s" . save-buffer))
 
-(use-package guix
-  :bind
-  ("C-c g" . guix))
+(use-package icomplete
+  :after minibuffer
+  :init (icomplete-mode)
+  :config
+  (fido-mode)
+  :custom
+  (icomplete-separator " ")
+  (icomplete-compute-delay 0.3)
+  (icomplete-prospects-height 1))
 
 (use-package keycast
   :init (keycast-mode)
@@ -130,13 +136,9 @@
   (keycast-separator-width 1)
   (keycast-remove-tail-elements nil))
 
-(use-package marginalia
-  :after vertico
-  :init (marginalia-mode))
-
 (use-package modus-themes
   :config
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-operandi t))
 
 (use-package magit
   :bind
@@ -144,6 +146,13 @@
   :custom
   (magit-clone-default-directory "~/projects/")
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package minibuffer
+  :custom
+  (completion-ignore-case t)
+  (read-buffer-completion-ignore-case t)
+  (read-file-name-completion-ignore-case t)
+  (completion-styles '(partial-completion substring)))
 
 (use-package move-text
   :bind
@@ -160,7 +169,6 @@
   (mu4e-view-show-addresses t)
   (mu4e-update-interval (* 30 60))
   (mu4e-get-mail-command "mbsync -a")
-  ;; enable inline images
   (mu4e-view-show-images t)
   (mu4e-sent-messages-behavior 'delete)
   (mu4e-confirm-quit nil)
@@ -194,18 +202,7 @@
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types)))
 
-(use-package orderless
-  :after vertico
-  :custom
-  (completion-styles '(orderless))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles . (partial-completion))))))
-
-(use-package projectile
-  :bind-keymap
-  ("s-p" . projectile-command-map)
-  :custom
-  (projectile-project-search-path '("~/projects")))
+(use-package project)
 
 (use-package password-store
   :bind
@@ -222,12 +219,13 @@
   :hook (prog-mode . show-paren-mode))
 
 (use-package pinentry
+  :after minibuffer
   :init (pinentry-start)
   :custom
   (epg-pinentry-mode 'loopback))
 
 (use-package pt-desktop
-  :after exwm
+  :after emacs
   :bind
   ("s-a" . pt-desktop-powersettings)
   ("<XF86AudioRaiseVolume>" . pt-desktop-audio-volume-increment)
@@ -246,11 +244,6 @@
 (use-package tooltip
   :custom
   (tooltip-mode nil))
-
-(use-package vertico
-  :init (vertico-mode)
-  :custom
-  (vertico-cycle t))
 
 (use-package webjump
   :bind
@@ -292,10 +285,11 @@
                       space-before-tab)))
 
 (use-package which-key
+  :after emacs
   :diminish
   :init (which-key-mode)
   :custom
-  (which-key-idle-delay 0.5))
+  (which-key-idle-delay 0.3))
 
 (use-package window
   :no-require t
@@ -322,11 +316,10 @@
       (display-buffer-in-side-window)
       (window-width . 0.35)
       (side . right)
-      (slot . 0))
+      (slot . -1))
      ("\\*.*e?shell.*"
       (display-buffer-reuse-mode-window display-buffer-at-bottom)
-      (window-height . 0.25)
-      (slot . -1)))))
+      (window-height . 0.25)))))
 
 (use-package yasnippet
   :diminish (yas-minor-mode)
