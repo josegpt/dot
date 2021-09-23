@@ -264,9 +264,12 @@
                    ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
                    ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
                    ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
+                   ("Wikipedia" . [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""])
+                   ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
                    ("DuckDuckGo" . [simple-query "duckduckgo.com" "duckduckgo.com/?q=" ""])
                    ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
                    ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
+                   ("Github User" . [simple-query "github.com" "github.com/search?q=" "&type=users"])
                    ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
 
 (use-package whitespace
