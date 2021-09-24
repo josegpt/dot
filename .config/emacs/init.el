@@ -1,6 +1,29 @@
-;; ============================================================
-;; Init
-;; ============================================================
+;;; init.el --- My init file. -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021 Jose G Perez Taveras <josegpt27@gmail.com>
+
+;; Permission is hereby granted, free of charge, to any person obtaining
+;; a copy of this software and associated documentation files (the
+;; "Software"), to deal in the Software without restriction, including
+;; without limitation the rights to use, copy, modify, merge, publish,
+;; distribute, sublicense, and/or sell copies of the Software, and to
+;; permit persons to whom the Software is furnished to do so, subject to
+;; the following conditions:
+
+;; The above copyright notice and this permission notice shall be
+;; included in all copies or substantial portions of the Software.
+
+;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+;; EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+;; MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+;; NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+;; LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+;; OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+;; WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+;;; Commentary:
+
+;;; Code:
 
 ;; debugging purposes
 ;; (setq use-package-verbose t)
@@ -58,6 +81,16 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
+;; (use-package eglot
+;;   :hook ((js-mode sh-mode go-mode elixir-mode) . eglot-ensure)
+;;   :bind
+;;   ("C-c e e" . eglot)
+;;   (:map eglot-mode-map
+;;         ("C-c e h" . eldoc)
+;;         ("C-c e r" . eglot-rename)
+;;         ("C-c e f" . eldoc-format-buffer)
+;;         ("C-c e o" . eglot-code-action-organize-imports)))
+
 (use-package elfeed
   :bind
   ("s-r" . elfeed)
@@ -96,6 +129,8 @@
 
 (use-package emacs
   :init (server-mode)
+  :config
+  (load-theme 'modus-operandi t)
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
@@ -111,6 +146,9 @@
   :bind
   ("<s-return>" . eshell))
 
+(use-package flymake
+  :hook (prog-mode . flymake-mode))
+
 (use-package frame
   :config
   (blink-cursor-mode 0))
@@ -124,21 +162,16 @@
   :after minibuffer
   :init (icomplete-mode)
   :config
-  (fido-mode)
+  (fido-vertical-mode)
   :custom
-  (icomplete-separator " ")
-  (icomplete-compute-delay 0.3)
-  (icomplete-prospects-height 1))
+  (icomplete-compute-delay 0.0)
+  (icomplete-delay-completions-threshold 200))
 
 (use-package keycast
   :init (keycast-mode)
   :custom
   (keycast-separator-width 1)
   (keycast-remove-tail-elements nil))
-
-(use-package modus-themes
-  :config
-  (load-theme 'modus-operandi t))
 
 (use-package magit
   :bind
@@ -292,7 +325,6 @@
   (which-key-idle-delay 0.3))
 
 (use-package window
-  :no-require t
   :bind
   ("s-0" . delete-window)
   ("s-1" . delete-other-windows)
@@ -358,7 +390,7 @@
   ("\\.ylm\\'" . yaml-mode))
 
 (use-package exwm-randr
-  :if (string= system-name "guts")
+  :if (string= (system-name) "guts")
   :after exwm
   :hook
   (exwm-randr-screen-change . pt-exwm-xrandr-config)
@@ -440,3 +472,4 @@
      ([?\M-d] . [C-S-right C-x])
      ([?\C-0 ?\C-k] . [C-S-home C-x])
      ([M-backspace] . [C-S-left C-x]))))
+;;; init.el ends here

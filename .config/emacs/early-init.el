@@ -2,7 +2,7 @@
 (setq package-enable-at-startup nil)
 
 ;; Set alias to y-or-n
-(defalias 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t) 
 
 ;; Configure font size
 (set-face-attribute 'default nil :family "Iosevka" :height 120)
@@ -20,4 +20,4 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 (setq inhibit-startup-buffer-menu t)
-
+(setq native-comp-async-report-warnings-errors 'silent)
