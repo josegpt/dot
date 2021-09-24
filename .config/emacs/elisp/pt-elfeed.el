@@ -53,13 +53,13 @@
       (message "%d" (length links))
       (if (> (length links) 0)
           (progn
-            (mapcar #'pt-elfeed--mpv-command links)
+            (mapc #'pt-elfeed--mpv-command links)
             (message "Playing: %s" links-str))
         (message "No videos to play"))
-      (mapcar #'elfeed-search-update-entry entries)
+      (mapc #'elfeed-search-update-entry entries)
       (unless (or elfeed-search-remain-on-entry (use-region-p))
         (forward-line)))))
 
 
 (provide 'pt-elfeed)
-;;; pt-elfeed ends here
+;;; pt-elfeed.el ends here

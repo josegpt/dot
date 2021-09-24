@@ -36,4 +36,4 @@ $3
 $0
 
 (provide '$1)
-;;; $1 ends here
+;;; $1.el ends here

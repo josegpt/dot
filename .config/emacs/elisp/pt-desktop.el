@@ -181,8 +181,7 @@
 ;;;###autoload
 (defun pt-desktop-powersettings ()
   (interactive)
-  (let* ((completion-ignore t)
-         (choice (assoc-string
+  (let* ((choice (assoc-string
                   (completing-read "Action: " pt-desktop-powersetting-commands  nil t)
                   pt-desktop-powersetting-commands t))
          (cmd (cdr choice)))
