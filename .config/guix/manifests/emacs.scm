@@ -11,6 +11,7 @@
    "emacs-go-mode"
    "emacs-diminish"
    "emacs-pinentry"
+   "emacs-pdf-tools"
    "emacs-yaml-mode"
    "emacs-which-key"
    "emacs-yasnippet"

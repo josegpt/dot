@@ -237,6 +237,10 @@
 
 (use-package project)
 
+(use-package pdf-tools
+  :magic
+  ("%PDF" . pdf-view-mode))
+
 (use-package password-store
   :bind
   ("C-c p e" . password-store-edit)
@@ -354,7 +358,7 @@
       (window-height . 0.25)))))
 
 (use-package yasnippet
-  :diminish (yas-minor-mode)
+  :diminish yas-minor-mode
   :init (yas-global-mode))
 
 (use-package dockerfile-mode
