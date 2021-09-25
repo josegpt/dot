@@ -1,6 +1,3 @@
-;; Disable package.el at startup
-(setq package-enable-at-startup nil)
-
 ;; Set alias to y-or-n
 (setq use-short-answers t) 
 

@@ -17,7 +17,6 @@
    "emacs-yasnippet"
    "emacs-move-text"
    "emacs-native-comp"
-   "emacs-use-package"
    "emacs-markdown-mode"
    "emacs-password-store"
    "emacs-dockerfile-mode"))
