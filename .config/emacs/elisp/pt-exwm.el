@@ -36,8 +36,8 @@
 
 (defun pt-exwm-custom-rename-buffer-with-title ()
   (pcase exwm-class-name
-    ("Chromium-browser" (exwm-workspace-rename-buffer (format "%s" exwm-title)))
-    ("mpv" (exwm-workspace-rename-buffer (format "%s" exwm-title)))))
+    ("Chromium-browser" (exwm-workspace-rename-buffer exwm-title))
+    ("mpv" (exwm-workspace-rename-buffer  exwm-title))))
 
 (defun pt-exwm-send-window-to-workspace ()
   (pcase exwm-class-name
