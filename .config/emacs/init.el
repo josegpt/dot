@@ -25,9 +25,6 @@
 
 ;;; Code:
 
-(unless (package-installed-p 'setup)
-  (package-install 'setup))
-
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 (add-hook 'emacs-startup-hook (lambda ()
@@ -45,11 +42,15 @@
 ;; ============================================================
 
 (setup auth-source-pass
-  (:if-package password-store)
+  (:if-feature password-store)
   (auth-source-pass-enable))
 
 (setup autorevert
-  (global-auto-revert-mode t))
+  (global-auto-revert-mode))
+
+(setup battery
+  (:if-host "griffith")
+  (display-battery-mode))
 
 (setup bookmark
   (:global "s-l" #'bookmark-jump))
@@ -130,7 +131,7 @@
            ;; don't clutter with #files either
            auto-save-file-name-transforms
            `((".*" ,temporary-file-directory t)))
-  (load-theme 'modus-operandi t)
+  (load-theme 'modus-vivendi t)
   (server-mode))
 
 (setup eshell
@@ -145,6 +146,9 @@
 (setup files
   (:global "s-f" #'find-file
            "s-s" #'save-buffer))
+
+(setup hl-line
+  (global-hl-line-mode))
 
 (setup icomplete
   (:option icomplete-compute-delay 0.0
@@ -249,7 +253,7 @@
            "<XF86MonBrightnessDown>" #'pt-desktop-brightness-decrement))
 
 (setup subword
-  (global-subword-mode t))
+  (global-subword-mode))
 
 (setup tooltip
   (:option tooltip-mode nil))
@@ -345,6 +349,14 @@
   (:require pdf-tools)
   (:with-mode pdf-view-mode
     (:file-match "\\.pdf\\'")))
+
+(setup prettier-js
+  (:hook-into js-mode
+              typescript-mode))
+
+(setup typescript-mode
+  (:file-match "\\.ts\\'")
+  (:option typescript-indent-level 2))
 
 (setup yaml-mode
   (:file-match "\\.ylm\\'"))
@@ -444,15 +456,3 @@
                                         ([M-backspace] . [C-S-left C-x])))
   (exwm-enable))
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(setup)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
