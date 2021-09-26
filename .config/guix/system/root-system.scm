@@ -75,6 +75,7 @@
                   (connman-configuration
                    (disable-vpn? #t)))
          fontconfig-file-system-service
+         (service upower-service-type)
          (service wpa-supplicant-service-type)
          (service usb-modeswitch-service-type)
          (accountsservice-service)

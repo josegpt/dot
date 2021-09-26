@@ -1,5 +1,5 @@
 ;; Set alias to y-or-n
-(setq use-short-answers t) 
+(setq use-short-answers t)
 
 ;; Configure font size
 (set-face-attribute 'default nil :family "Iosevka" :height 120)
