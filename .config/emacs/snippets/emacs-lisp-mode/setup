@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: (setup ...)
+# key: setup
+# --
+(setup ${1:package-name}
+  $0)
