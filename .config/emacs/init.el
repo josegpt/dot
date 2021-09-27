@@ -212,7 +212,19 @@
     (imagemagick-register-types))
   (mu4e))
 
-(setup project)
+(setup project
+  (:require pt-project)
+  (:global "s-p" #'pt-project-switch-commands-current-project)
+  (:option project-switch-commands '((?f "File" project-find-file)
+                                     (?g "Grep" project-find-regexp)
+                                     (?d "Dired" project-dired)
+                                     (?b "Buffer" project-switch-to-buffer)
+                                     (?c "Compile" project-compile)
+                                     (?q "Query replace" project-query-replace-regexp)
+                                     (?m "Magit" magit-project-status)
+                                     (?v "VC dir" project-vc-dir)
+                                     (?e "Eshell" project-eshell)
+                                     (?! "Shell command" project-shell-command))))
 
 (setup password-store
   (:needs "pass")
