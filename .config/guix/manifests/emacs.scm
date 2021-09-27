@@ -8,7 +8,6 @@
    "emacs-direnv"
    "emacs-elfeed"
    "emacs-daemons"
-   "emacs-keycast"
    "emacs-go-mode"
    "emacs-diminish"
    "emacs-pinentry"

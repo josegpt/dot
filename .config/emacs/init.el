@@ -156,11 +156,6 @@
   (icomplete-mode)
   (fido-vertical-mode))
 
-(setup keycast
-  (:option keycast-separator-width 1
-           keycast-remove-tail-elements nil)
-  (keycast-mode))
-
 (setup magit
   (:global "s-g" #'magit-status)
   (:option magit-clone-default-directory "~/projects/"
