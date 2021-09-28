@@ -40,7 +40,8 @@
   (:global "C-c d" #'daemons))
 
 (setup dired
-  (:global "s-d" #'dired))
+  (:global "s-d" #'dired)
+  (:option dired-kill-when-opening-new-dired-buffer t))
 
 (setup display-line-numbers
   (:hook-into prog-mode)
