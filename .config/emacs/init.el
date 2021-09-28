@@ -39,12 +39,16 @@
 (setup daemons
   (:global "C-c d" #'daemons))
 
+(setup direnv
+  (direnv-mode))
+
 (setup dired
   (:global "s-d" #'dired)
   (:option dired-kill-when-opening-new-dired-buffer t))
 
 (setup display-line-numbers
-  (:hook-into prog-mode)
+  (:hook-into prog-mode
+              html-mode)
   (:option display-line-numbers-type 'relative
            display-line-numbers-current-absolute t))
 
@@ -296,11 +300,21 @@
 (setup yasnippet
   (yas-global-mode))
 
+(setup css
+  (:hook prettier-js-mode)
+  (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'"))
+
 (setup dockerfile-mode
   (:file-match "\\Dockerfile\\'"))
 
-(setup eldoc
-  (:hook-into emacs-lisp-mode lisp-interaction-mode))
+(setup emacs-lisp
+  (:hook superword-mode
+         eldoc-mode))
+
+(setup html
+  (:hook superword-mode
+         prettier-js-mode)
+  (:file-match "\\.\\(html?\\|ejs\\)\\'"))
 
 (setup go-mode
   (:hook subword-mode
@@ -311,10 +325,11 @@
   (:hook subword-mode
          flymake-mode
          prettier-js-mode)
-  (:file-match "\\.js\\'")
+  (:file-match "\\.jsx?\\'")
   (:option js-indent-level 2))
 
 (setup markdown-mode
+  (:hook prettier-js-mode)
   (:file-match "\\.md\\'"))
 
 (setup nov
@@ -334,6 +349,7 @@
   (:option typescript-indent-level 2))
 
 (setup yaml-mode
+  (:hook prettier-js-mode)
   (:file-match "\\.ya?lm\\'"))
 
 (setup exwm-randr
