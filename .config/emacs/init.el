@@ -1,30 +1,5 @@
 ;;; init.el --- My init file. -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021 Jose G Perez Taveras <josegpt27@gmail.com>
-
-;; Permission is hereby granted, free of charge, to any person obtaining
-;; a copy of this software and associated documentation files (the
-;; "Software"), to deal in the Software without restriction, including
-;; without limitation the rights to use, copy, modify, merge, publish,
-;; distribute, sublicense, and/or sell copies of the Software, and to
-;; permit persons to whom the Software is furnished to do so, subject to
-;; the following conditions:
-
-;; The above copyright notice and this permission notice shall be
-;; included in all copies or substantial portions of the Software.
-
-;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-;; EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-;; MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-;; NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-;; LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-;; OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-;; WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-;;; Commentary:
-
-;;; Code:
-
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 (add-hook 'emacs-startup-hook (lambda ()
@@ -59,17 +34,13 @@
   (:option corfu-cycle t)
   (:hook-into prog-mode
               shell-mode
-              eshell-mode)
-  (corfu-global-mode))
+              eshell-mode))
 
 (setup daemons
   (:global "C-c d" #'daemons))
 
 (setup dired
   (:global "s-d" #'dired))
-
-(setup direnv
-  (direnv-mode))
 
 (setup display-line-numbers
   (:hook-into prog-mode)
@@ -136,9 +107,6 @@
 
 (setup eshell
   (:global "<s-return>" #'eshell))
-
-(setup flymake
-  (:hook-into prog-mode))
 
 (setup frame
   (:option blink-cursor-mode nil))
@@ -257,9 +225,6 @@
            "<XF86MonBrightnessUp>" #'pt-desktop-brightness-increment
            "<XF86MonBrightnessDown>" #'pt-desktop-brightness-decrement))
 
-(setup subword
-  (global-subword-mode))
-
 (setup tooltip
   (:option tooltip-mode nil))
 
@@ -337,9 +302,14 @@
   (:hook-into emacs-lisp-mode lisp-interaction-mode))
 
 (setup go-mode
+  (:hook subword-mode
+         flymake-mode)
   (:file-match "\\.go\\'"))
 
 (setup js
+  (:hook subword-mode
+         flymake-mode
+         prettier-js-mode)
   (:file-match "\\.js\\'")
   (:option js-indent-level 2))
 
@@ -355,16 +325,15 @@
   (:with-mode pdf-view-mode
     (:file-match "\\.pdf\\'")))
 
-(setup prettier-js
-  (:hook-into js-mode
-              typescript-mode))
-
 (setup typescript-mode
+  (:hook subword-mode
+         flymake-mode
+         prettier-js-mode)
   (:file-match "\\.ts\\'")
   (:option typescript-indent-level 2))
 
 (setup yaml-mode
-  (:file-match "\\.ylm\\'"))
+  (:file-match "\\.ya?lm\\'"))
 
 (setup exwm-randr
   (:if-host "guts")
