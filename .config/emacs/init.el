@@ -141,7 +141,7 @@
   (:hook-into prog-mode))
 
 (setup frame
-  (:option blink-cursor-mode 0))
+  (:option blink-cursor-mode nil))
 
 (setup files
   (:global "s-f" #'find-file
@@ -171,11 +171,10 @@
   (:global "M-p" #'move-text-up
            "M-n" #'move-text-down))
 
-(setup mu4e
+(setup (:load-from "/home/josegpt/.guix-extra-profiles/base/base/share/emacs/site-lisp/")
   (:require mu4e)
   (:needs "mu"
           "mbsync")
-  (:load-from "/home/josegpt/.guix-extra-profiles/base/base/share/emacs/site-lisp/")
   (:global "s-m" #'mu4e)
   (:option mu4e-change-filenames-when-moving t
            mu4e-view-show-addresses t
@@ -209,8 +208,7 @@
            smtpmail-smtp-service 465
            smtpmail-stream-type 'ssl)
   (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
-  (mu4e))
+    (imagemagick-register-types)))
 
 (setup project
   (:require pt-project)

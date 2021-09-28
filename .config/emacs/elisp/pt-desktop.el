@@ -110,7 +110,8 @@
   (shell-command-to-string cmd))
 
 (defun pt-desktop--func-helper (cmmd1 cmmd2 msg)
-  "Run commands pt-desktop commands"
+  "Helper function to run passed in commands
+and print them into the minibuffer"
   (shell-command cmmd1)
   (message "%s %s" msg (shell-command-to-string cmmd2)))
 
