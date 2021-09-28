@@ -329,7 +329,7 @@
   (:hook subword-mode
          flymake-mode
          prettier-js-mode)
-  (:file-match "\\.ts\\'")
+  (:file-match "\\.tsx?\\'")
   (:option typescript-indent-level 2))
 
 (setup yaml-mode
