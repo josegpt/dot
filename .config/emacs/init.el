@@ -39,8 +39,8 @@
 (setup daemons
   (:global "C-c d" #'daemons))
 
-(setup direnv
-  (direnv-mode))
+(setup envrc
+  (envrc-global-mode))
 
 (setup dired
   (:global "s-d" #'dired)
@@ -195,7 +195,9 @@
                                      (?m "Magit" magit-project-status)
                                      (?v "VC dir" project-vc-dir)
                                      (?e "Eshell" project-eshell)
-                                     (?! "Shell command" project-shell-command))))
+                                     (?! "Shell command" project-shell-command)
+                                     (?a "Envrc Allow" envrc-allow)
+                                     (?r "Envrc Reload" envrc-reload))))
 
 (setup password-store
   (:needs "pass")
