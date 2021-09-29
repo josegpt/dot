@@ -4,6 +4,7 @@
    "mpv"
    "curl"
    "isync"
+   "direnv"
    "setxkbmap"
    "alsa-utils"
    "font-iosevka"

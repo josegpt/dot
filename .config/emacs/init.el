@@ -350,7 +350,7 @@
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
-                          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
+                          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|envrc\\)\\*"
                            (display-buffer-in-side-window)
                            (window-height . 0.25)
                            (side . bottom)
