@@ -83,10 +83,10 @@
 ;;         ("C-c e o" . eglot-code-action-organize-imports)))
 
 (use-package elfeed
-  :bind
-  ("s-r" . elfeed)
   :config
   (require 'pt-elfeed)
+  :bind
+  ("s-r" . elfeed)
   (:map elfeed-search-mode-map
         ("w" . pt-elfeed-play-youtube-link))
   :custom
