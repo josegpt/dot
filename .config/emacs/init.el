@@ -226,6 +226,8 @@
   (mu4e t))
 
 (use-package project
+  :config
+  (require 'pt-project)
   :bind
   ("s-p" . pt-project-switch-commands-current-project)
   :custom
