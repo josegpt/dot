@@ -370,13 +370,15 @@
   (yas-global-mode))
 
 (use-package css
-  :mode "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
+  :mode
+  ("\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'" . css-mode))
 
 (use-package dockerfile-mode
    :mode "\\Dockerfile\\'")
 
 (use-package html
-  :mode ("\\.\\(html?\\|ejs\\)\\'" . html-mode))
+  :mode
+  ("\\.\\(html?\\|ejs\\)\\'" . html-mode))
 
 (use-package go-mode
   :mode "\\.go\\'")
