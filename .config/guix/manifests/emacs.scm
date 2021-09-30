@@ -3,7 +3,7 @@
    "emacs-corfu"
    "emacs-magit"
    "emacs-envrc"
-   ;; "emacs-eglot"
+   "emacs-eglot"
    "emacs-nov-el"
    "emacs-elfeed"
    "emacs-daemons"

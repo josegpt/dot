@@ -69,18 +69,21 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
-;; (use-package eglot
-;;   :hook ((js-mode
-;;           sh-mode
-;;           go-mode
-;;           typescript-mode) . eglot-ensure)
-;;   :bind
-;;   ("C-c e e" . eglot)
-;;   (:map eglot-mode-map
-;;         ("C-c e h" . eldoc)
-;;         ("C-c e r" . eglot-rename)
-;;         ("C-c e f" . eldoc-format-buffer)
-;;         ("C-c e o" . eglot-code-action-organize-imports)))
+(use-package eglot
+  :hook ((js-mode
+          go-mode
+          typescript-mode) . eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs
+               '((js-mode typescript-mode)
+                 "typescript-language-server" "--stdio"))
+  :bind
+  ("C-c e e" . eglot)
+  (:map eglot-mode-map
+        ("C-c e h" . eldoc)
+        ("C-c e r" . eglot-rename)
+        ("C-c e f" . eldoc-format-buffer)
+        ("C-c e o" . eglot-code-action-organize-imports)))
 
 (use-package elfeed
   :config
@@ -241,6 +244,7 @@
                              (?v "VC dir" project-vc-dir)
                              (?e "Eshell" project-eshell)
                              (?! "Shell command" project-shell-command)
+                             (?l "Eglot LSP" eglot)
                              (?a "Envrc Allow" envrc-allow)
                              (?r "Envrc Reload" envrc-reload))))
 
@@ -286,6 +290,16 @@
   ("<XF86AudioMicMute>" . pt-desktop-audio-mic-mute-toggle)
   ("<XF86MonBrightnessUp>" . pt-desktop-brightness-increment)
   ("<XF86MonBrightnessDown>" . pt-desktop-brightness-decrement))
+
+(use-package superword
+  :hook ((html-mode
+          css-mode
+          elisp-mode) . superword-mode))
+
+(use-package subword
+  :hook ((js-mode
+          go-mode
+          typescript-mode) . subword-mode))
 
 (use-package tooltip
   :custom
@@ -435,25 +449,41 @@
   (exwm-workspace-number 5)
   (exwm-workspace-switch-create-limit 5)
   (exwm-workspace-warp-cursor t)
-  (exwm-input-prefix-keys
-   '(?\C-x
-     ?\C-c
-     ?\C-u
-     ?\C-h
-     ?\C-g
-     ?\M-x
-     ?\M-:
-     ?\M-!
-     ?\s-q
-     ?\s-j
-     XF86AudioRaiseVolume
-     XF86AudioLowerVolume
-     s-XF86AudioRaiseVolume
-     s-XF86AudioLowerVolume
-     XF86AudioMute
-     XF86AudioMicMute
-     XF86MonBrightnessUp
-     XF86MonBrightnessDown))
+  (exwm-input-prefix-keys '(?\C-x
+                            ?\C-c
+                            ?\C-u
+                            ?\C-h
+                            ?\C-g
+                            ?\M-x
+                            ?\M-:
+                            ?\M-!
+                            ?\s-l
+                            ?\s-d
+                            ?\s-r
+                            ?\s-f
+                            ?\s-s
+                            ?\s-g
+                            ?\s-m
+                            ?\s-a
+                            ?\s-j
+                            ?\s-0
+                            ?\s-1
+                            ?\s-2
+                            ?\s-3
+                            ?\s-o
+                            ?\s-c
+                            ?\s-C
+                            ?\s-b
+                            ?\s-k
+                            s-return
+                            XF86AudioRaiseVolume
+                            XF86AudioLowerVolume
+                            s-XF86AudioRaiseVolume
+                            s-XF86AudioLowerVolume
+                            XF86AudioMute
+                            XF86AudioMicMute
+                            XF86MonBrightnessUp
+                            XF86MonBrightnessDown))
   (exwm-input-global-keys
    `(([?\s-w ?q] . exwm-reset)
      ([?\s-w ?s] . exwm-workspace-switch)
