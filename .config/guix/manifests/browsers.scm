@@ -1,2 +1,3 @@
 (specifications->manifest
- '("ungoogled-chromium"))
+ '("ungoogled-chromium"
+   "ublock-origin-chromium"))
