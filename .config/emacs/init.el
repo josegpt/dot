@@ -67,7 +67,9 @@
 
 (use-package display-line-numbers
   :hook
-  ((prog-mode html-mode) . display-line-numbers-mode)
+  ((prog-mode
+    html-mode
+    ledger-mode) . display-line-numbers-mode)
   :custom
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
