@@ -8,4 +8,6 @@ fi
 # Make Caps Lock a Control key
 setxkbmap -option ctrl:nocaps
 
+xhost +SI:localuser:$USER
+
 exec emacs

@@ -2,6 +2,7 @@
  '("mu"
    "sx"
    "mpv"
+   "xhost"
    "curl"
    "isync"
    "direnv"
