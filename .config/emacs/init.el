@@ -39,7 +39,10 @@
 
 (use-package corfu
   :hook
-  ((prog-mode shell-mode eshell-mode) . corfu-mode)
+  ((prog-mode
+    shell-mode
+    eshell-mode
+    ledger-mode) . corfu-mode)
   :custom
   (corfu-cycle t))
 
@@ -177,6 +180,7 @@
 (use-package minibuffer
   :custom
   (completion-ignore-case t)
+  (completion-cycle-threshold 3)
   (read-buffer-completion-ignore-case t)
   (read-file-name-completion-ignore-case t)
   (completion-styles '(partial-completion substring)))
@@ -369,7 +373,7 @@
                            (window-height . 0.25)
                            (side . bottom)
                            (slot . 1))
-                          ("\\*Help.*"
+                          ("\\*\\(Help.*\\|Ledger.*\\)\\*"
                            (display-buffer-in-side-window)
                            (window-width . 0.35)
                            (side . right)
@@ -402,6 +406,12 @@
   ("\\.js\\'" . js-mode)
   :custom
   (js-indent-level 2))
+
+(use-package ledger-mode
+  :mode "\\.\\(ledger\\|dat\\)\\'"
+  :custom
+  (ledger-clear-whole-transactions t)
+  (ledger-complete-in-steps t))
 
 (use-package markdown-mode
   :mode "\\.md\\'")

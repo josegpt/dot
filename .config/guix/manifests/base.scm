@@ -5,6 +5,7 @@
    "xhost"
    "curl"
    "isync"
+   "ledger"
    "direnv"
    "setxkbmap"
    "alsa-utils"
