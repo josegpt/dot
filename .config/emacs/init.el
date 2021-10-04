@@ -74,21 +74,23 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
-(use-package eglot
-  :hook ((js-mode
-          go-mode
-          typescript-mode) . eglot-ensure)
+(use-package cus-edit
   :config
-  (add-to-list 'eglot-server-programs
-               '((js-mode typescript-mode)
-                 "typescript-language-server" "--stdio"))
+  (load custom-file)
+  :custom
+  (custom-file (concat user-emacs-directory "custom.el")))
+
+(use-package eglot
   :bind
-  ("C-c e e" . eglot)
   (:map eglot-mode-map
         ("C-c e h" . eldoc)
         ("C-c e r" . eglot-rename)
         ("C-c e f" . eldoc-format-buffer)
-        ("C-c e o" . eglot-code-action-organize-imports)))
+        ("C-c e o" . eglot-code-action-organize-imports))
+  :config
+  (add-to-list 'eglot-server-programs
+               '((js-mode typescript-mode)
+                 "typescript-language-server" "--stdio")))
 
 (use-package elfeed
   :config
@@ -297,11 +299,6 @@
   ("<XF86MonBrightnessUp>" . pt-desktop-brightness-increment)
   ("<XF86MonBrightnessDown>" . pt-desktop-brightness-decrement))
 
-(use-package superword
-  :hook ((html-mode
-          css-mode
-          elisp-mode) . superword-mode))
-
 (use-package subword
   :hook ((js-mode
           go-mode
@@ -490,6 +487,7 @@
                             ?\s-C
                             ?\s-b
                             ?\s-k
+                            ?\s-a
                             s-return
                             XF86AudioRaiseVolume
                             XF86AudioLowerVolume
