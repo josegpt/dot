@@ -74,12 +74,6 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
-(use-package cus-edit
-  :config
-  (load custom-file)
-  :custom
-  (custom-file (concat user-emacs-directory "custom.el")))
-
 (use-package eglot
   :bind
   (:map eglot-mode-map
@@ -146,11 +140,6 @@
 (use-package eshell
   :bind
   ("<s-return>" . eshell))
-
-(use-package flymake
-  :hook ((js-mode
-          go-mode
-          typescript-mode) . flymake-mode))
 
 (use-package frame
   :custom
