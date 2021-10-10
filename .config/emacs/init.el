@@ -302,6 +302,7 @@
 (use-package subword
   :hook ((js-mode
           go-mode
+          elm-mode
           typescript-mode) . subword-mode))
 
 (use-package tooltip
@@ -395,6 +396,10 @@
 
 (use-package dockerfile-mode
    :mode "\\Dockerfile\\'")
+
+(use-package elm-mode
+  :mode "\\.elm\\'"
+  :hook (elm-mode . elm-format-on-save-mode))
 
 (use-package html
   :mode

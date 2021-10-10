@@ -8,6 +8,7 @@
    "emacs-elfeed"
    "emacs-daemons"
    "emacs-go-mode"
+   "emacs-elm-mode"
    "emacs-diminish"
    "emacs-pinentry"
    "emacs-prettier"
