@@ -93,7 +93,7 @@
   :group 'pt-desktop)
 
 (defcustom pt-desktop-powersetting-commands '(("Reboot" . "sudo reboot")
-                                              ("Poweroff" . "sudo shutdown"))
+                                              ("Shutdown" . "sudo shutdown"))
   "Commands to control power settings of the computer"
   :type 'list
   :group 'pt-desktop)
