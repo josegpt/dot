@@ -55,10 +55,6 @@
   :bind
   ("C-c d" . daemons))
 
-(use-package eldoc
-  :hook ((emacs-lisp-mode
-          lisp-interaction-mode) . eldoc-mode))
-
 (use-package envrc
   :defer 5
   :config
