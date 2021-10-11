@@ -423,7 +423,8 @@
 (use-package ledger-mode
   :mode "\\.\\(ledger\\|dat\\)\\'"
   :bind
-  ("TAB" . completion-at-point)
+  (:map ledger-mode-map
+        ("TAB" . completion-at-point))
   :custom
   (ledger-complete-in-steps t)
   (ledger-clear-whole-transactions t))
