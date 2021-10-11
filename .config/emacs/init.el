@@ -170,6 +170,10 @@
   (magit-clone-default-directory "~/projects/")
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+(use-package marginalia
+  :config
+  (marginalia-mode))
+
 (use-package minibuffer
   :custom
   (completion-ignore-case t)

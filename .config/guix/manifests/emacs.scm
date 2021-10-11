@@ -16,6 +16,7 @@
    "emacs-which-key"
    "emacs-yasnippet"
    "emacs-move-text"
+   "emacs-marginalia"
    "emacs-ledger-mode"
    "emacs-use-package"
    "emacs-native-comp"
