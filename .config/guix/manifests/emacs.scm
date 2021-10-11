@@ -20,6 +20,7 @@
    "emacs-ledger-mode"
    "emacs-use-package"
    "emacs-native-comp"
+   "emacs-haskell-mode"
    "emacs-geiser-guile"
    "emacs-markdown-mode"
    "emacs-password-store"

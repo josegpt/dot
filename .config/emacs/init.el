@@ -394,6 +394,9 @@
   :mode "\\.elm\\'"
   :hook (elm-mode . elm-format-on-save-mode))
 
+(use-package haskell-mode
+  :mode "\\.hs\\'")
+
 (use-package html
   :mode
   ("\\.\\(html?\\|ejs\\)\\'" . html-mode))
