@@ -25,7 +25,8 @@
   (auth-source-pass-enable))
 
 (use-package autorevert
-  :defer 5
+  :custom
+  (global-auto-revert-non-file-buffers t)
   :config
   (global-auto-revert-mode))
 
@@ -56,7 +57,6 @@
   ("C-c d" . daemons))
 
 (use-package envrc
-  :defer 5
   :config
   (envrc-global-mode))
 
@@ -128,7 +128,7 @@
 (use-package emacs
   :init (server-mode)
   :config
-  (load-theme 'modus-vivendi t)
+  (load-theme 'modus-operandi t)
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
@@ -152,7 +152,6 @@
   ("s-s" . save-buffer))
 
 (use-package hl-line
-  :defer 5
   :config
   (global-hl-line-mode))
 
@@ -262,7 +261,8 @@
   ("C-c p f" . password-store-copy-field))
 
 (use-package paren
-  :defer 5
+  :custom
+  (show-paren-when-point-inside-paren t)
   :hook (prog-mode . show-paren-mode))
 
 (use-package proced
@@ -281,7 +281,6 @@
 
 (use-package pinentry
   :after minibuffer
-  :defer 5
   :config
   (pinentry-start)
   :custom
@@ -357,7 +356,6 @@
                       space-before-tab)))
 
 (use-package which-key
-  :defer 3
   :config
   (which-key-mode)
   :custom
@@ -392,7 +390,6 @@
                            (window-height . 0.25)))))
 
 (use-package yasnippet
-  :defer 5
   :config
   (yas-global-mode))
 
@@ -425,9 +422,11 @@
 
 (use-package ledger-mode
   :mode "\\.\\(ledger\\|dat\\)\\'"
+  :bind
+  ("TAB" . completion-at-point)
   :custom
-  (ledger-clear-whole-transactions t)
-  (ledger-complete-in-steps t))
+  (ledger-complete-in-steps t)
+  (ledger-clear-whole-transactions t))
 
 (use-package markdown-mode
   :mode "\\.md\\'")
@@ -438,7 +437,7 @@
   :custom
   (nov-text-width 80))
 
-(use-package pdf-tools
+(use-package pdf-view
   :mode
   ("\\.pdf\\'" . pdf-view-mode))
 
