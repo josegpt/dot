@@ -37,6 +37,11 @@
   :bind
   ("s-l" . bookmark-jump))
 
+(use-package compile
+  :custom
+  (compilation-scroll-output t)
+  (compilation-shell-minor-mode t))
+
 (use-package corfu
   :hook
   ((prog-mode
