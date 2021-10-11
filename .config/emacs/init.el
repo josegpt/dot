@@ -40,8 +40,7 @@
 
 (use-package compile
   :custom
-  (compilation-scroll-output t)
-  (compilation-shell-minor-mode t))
+  (compilation-scroll-output t))
 
 (use-package corfu
   :hook
