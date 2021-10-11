@@ -265,6 +265,12 @@
   :defer 5
   :hook (prog-mode . show-paren-mode))
 
+(use-package proced
+  :custom
+  (proced-auto-update-timer 1)
+  :bind
+  ("C-c r" . proced))
+
 (use-package prettier-js
   :hook ((html-mode
           js-mode
@@ -298,6 +304,12 @@
           go-mode
           elm-mode
           typescript-mode) . subword-mode))
+
+(use-package time
+  :custom
+  (display-time-format "(%A) %b %d, %Y | %I:%M%P")
+  :config
+  (display-time-mode))
 
 (use-package tooltip
   :custom
