@@ -170,6 +170,8 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package marginalia
+  :custom
+  (marginalia-margin-threshold 150)
   :config
   (marginalia-mode))
 
