@@ -426,7 +426,13 @@
         ("TAB" . completion-at-point))
   :custom
   (ledger-complete-in-steps t)
-  (ledger-clear-whole-transactions t))
+  (ledger-clear-whole-transactions t)
+  (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
+                    ("reg" "%(binary) -f %(ledger-file) reg")
+                    ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+                    ("account" "%(binary) -f %(ledger-file) reg %(account)")
+                    ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
+                    ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
 
 (use-package markdown-mode
   :mode "\\.md\\'")
