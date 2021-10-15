@@ -127,7 +127,9 @@
 (use-package emacs
   :init (server-mode)
   :config
-  (load-theme 'modus-operandi t)
+  (load-theme 'modus-vivendi t)
+  (set-frame-parameter (selected-frame) 'alpha '(75 . 75))
+  (add-to-list 'default-frame-alist '(alpha . (75 . 75)))
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
