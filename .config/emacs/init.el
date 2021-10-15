@@ -305,6 +305,7 @@
   :hook ((js-mode
           go-mode
           elm-mode
+          haskell-mode
           typescript-mode) . subword-mode))
 
 (use-package time
@@ -427,7 +428,7 @@
   :mode "\\.\\(ledger\\|dat\\)\\'"
   :bind
   (:map ledger-mode-map
-        ("TAB" . completion-at-point))
+        ("C-M-i" . completion-at-point))
   :custom
   (ledger-complete-in-steps t)
   (ledger-clear-whole-transactions t)
