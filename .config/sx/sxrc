@@ -14,7 +14,7 @@ setxkbmap -option ctrl:nocaps
 xhost +SI:localuser:$USER
 
 # Set Wallpaper
-feg --bg-scale $HOME/.wallpapers/current.jpg
+feh --bg-scale $HOME/.wallpapers/current.jpg
 ~/.fehbg &
 
 exec emacs
