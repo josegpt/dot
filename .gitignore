@@ -1,5 +1,12 @@
-# ignore Mail contents
-Mail/*
-
 # ignore projects contents
 projects/*
+.config/emacs/auto-save-list/
+.config/emacs/eln-cache/
+.config/emacs/eshell/history
+.config/emacs/eshell/lastdir
+.config/emacs/projects
+.config/emacs/transient/
+.config/emacs/url/
+.gnupg/private-keys-v1.d/
+.gnupg/reader_0.status
+.gnupg/sshcontrol
