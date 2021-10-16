@@ -7,6 +7,4 @@ projects/*
 .config/emacs/projects
 .config/emacs/transient/
 .config/emacs/url/
-.gnupg/private-keys-v1.d/
-.gnupg/reader_0.status
-.gnupg/sshcontrol
+
