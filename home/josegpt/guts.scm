@@ -21,6 +21,7 @@
             xdg:mime-applications-config-service
             shell:bash-config-service
             emacs:config-service
+            emacs:elisp-files-service
             video:mpv-config-service
             xorg:picom-config-service
             xorg:sx-config-service)))
