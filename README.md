@@ -1,15 +1,25 @@
 # dotfiles
 
-# Requirements
+## Requirements
 
-- [stow](https://linux.die.net/man/8/stow)
+- [Guix](https://guix.gnu.org/)
+- [Guix Home](https://guix.gnu.org/manual/devel/en/html_node/Home-Configuration.html)
+- [GNUmake](https://www.gnu.org/software/make/manual/make.html)
 
-# Installation
-```sh
-git clone https://github.com/josegpt/dotfiles.git .dotfiles
-cd .dotfiles
-stow .
+## Quick Start
+
+### Install the system
+```bash
+$ git clone https://github.com/josegpt/dotfiles.git .dotfiles
+$ cd .dotfiles
+$ make guts-system
 ```
-# Enjoy!
+
+### Setup dotfiles
+```bash
+$ cd .dotfiles
+$ make guts-home
+```
+### Enjoy!
 
 
