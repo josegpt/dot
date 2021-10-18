@@ -9,3 +9,4 @@ Downloads/*
 /.config/glib-2.0/
 /.config/emacs/transient/
 /.config/emacs/eshell/lastdir
+/.config/pulse/

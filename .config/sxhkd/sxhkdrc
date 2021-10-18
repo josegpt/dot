@@ -41,12 +41,8 @@ mod4 + w ; {q,r}
  bspc {quit,wm -r}
 
 # close and kill
-mod4 + {_,shift +}c
+mod4 + {_,shift +}k
  bspc node -{c,k}
-
-# alternate between the tiled and monocle layout
-mod4 + m
- bspc desktop -l next
 
 #
 # state/flags
@@ -56,42 +52,10 @@ mod4 + m
 mod4 + {t,shift + t,g,space}
  bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-# set the node flags
-mod4 + s ; {m,x,y,z}
- bspc node -g {marked,locked,sticky,private}
-
 #
 # focus/swap
 #
 
 # focus the node in the given direction
-mod4 + {_,shift +}{b,n,p,f}
- bspc node -{f,s} {west,south,north,east}
-
-# focus the next/previous desktop in the current monitor
-mod4 + bracket{left,right}
- bspc desktop -f {prev,next}.local
-
-# focus or send to the given desktop
-mod4 + {_,shift +}{1-5}
- bspc {desktop -f,node -d} '^{1-5}'
-
-#
-# preselect
-#
-
-# preselect the direction
-mod4 + d ; {b,n,p,f}
- bspc node -p {west,south,north,east}
-
-# preselect the ratio
-mod4 + h ; {1-9}
- bspc node -o 0.{1-9}
-
-# cancel the preselection for the focused node
-#mod4 + ctrl + space
-#	bspc node -p cancel
-
-# cancel the preselection for the focused desktop
-#mod4 + ctrl + shift + space
-#	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+mod4 + o
+ bspc node -f prev.local.window
