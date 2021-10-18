@@ -1,4 +1,4 @@
-(define-module (home josegpt guts)
+(define-module (home josegpt griffith)
   #:use-module (gnu home)
   #:use-module ((home josegpt xdg) #:prefix xdg:)
   #:use-module ((home josegpt xorg) #:prefix xorg:)
