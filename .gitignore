@@ -3,3 +3,8 @@ Mail/*
 
 # ignore Download contents
 Downloads/*
+/.config/emacs/auto-save-list/
+/.config/emacs/eshell/history
+/.config/emacs/straight/
+/.config/glib-2.0/
+/.config/emacs/transient/

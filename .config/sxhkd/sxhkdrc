@@ -3,15 +3,15 @@
 #
 
 # make sxhkd reload its configuration files:
-mod3 + q
+mod4 + q
  pkill -USR1 -x sxhkd
 
 # program launcher
-mod3 + r
+mod4 + r
  dmenu_run
 
 # browser
-mod3 + {_,shift +,alt +}j
+mod4 + {_,shift +,alt +}j
  firefox --{new-tab,new-window,private-window} https://duckduckgo.com
 
 # brightness
@@ -26,26 +26,26 @@ XF86Audio{_,Mic}Mute
  pactl -- set-{sink-mute 0,source-mute 1} toggle
 
 # emacs
-mod3 + Return
+mod4 + Return
  emacsclient -c -e "(eshell)"
 
-mod3 + e
- emacsclient -n -c
+mod4 + e
+ emacs
 
 #
 # bspwm hotkeys
 #
 
 # quit/restart bspwm
-mod3 + w ; {q,r}
+mod4 + w ; {q,r}
  bspc {quit,wm -r}
 
 # close and kill
-mod3 + {_,shift +}c
+mod4 + {_,shift +}c
  bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
-mod3 + m
+mod4 + m
  bspc desktop -l next
 
 #
@@ -53,11 +53,11 @@ mod3 + m
 #
 
 # set the window state
-mod3 + {t,shift + t,g,space}
+mod4 + {t,shift + t,g,space}
  bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
-mod3 + s ; {m,x,y,z}
+mod4 + s ; {m,x,y,z}
  bspc node -g {marked,locked,sticky,private}
 
 #
@@ -65,15 +65,15 @@ mod3 + s ; {m,x,y,z}
 #
 
 # focus the node in the given direction
-mod3 + {_,shift +}{b,n,p,f}
+mod4 + {_,shift +}{b,n,p,f}
  bspc node -{f,s} {west,south,north,east}
 
 # focus the next/previous desktop in the current monitor
-mod3 + bracket{left,right}
+mod4 + bracket{left,right}
  bspc desktop -f {prev,next}.local
 
 # focus or send to the given desktop
-mod3 + {_,shift +}{1-5}
+mod4 + {_,shift +}{1-5}
  bspc {desktop -f,node -d} '^{1-5}'
 
 #
@@ -81,17 +81,17 @@ mod3 + {_,shift +}{1-5}
 #
 
 # preselect the direction
-mod3 + d ; {b,n,p,f}
+mod4 + d ; {b,n,p,f}
  bspc node -p {west,south,north,east}
 
 # preselect the ratio
-mod3 + h ; {1-9}
+mod4 + h ; {1-9}
  bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
-#mod3 + ctrl + space
+#mod4 + ctrl + space
 #	bspc node -p cancel
 
 # cancel the preselection for the focused desktop
-#mod3 + ctrl + shift + space
+#mod4 + ctrl + shift + space
 #	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel

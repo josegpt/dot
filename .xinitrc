@@ -1,9 +1,7 @@
 #!/bin/sh
 
-# set brightness
-xbacklight -set 20% &
+picom &
 
-# xmodmap
-xmodmap ~/.Xmodmap &
+feh --bg-scale $HOME/.wallpapers/current.jpg &
 
-exec emacs
+exec bspwm
