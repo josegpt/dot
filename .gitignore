@@ -10,3 +10,7 @@ Downloads/*
 /.config/emacs/transient/
 /.config/emacs/eshell/lastdir
 /.config/pulse/
+/.config/configstore/
+/.config/dconf/
+/.config/emacs/tramp
+/.config/emacs/projects

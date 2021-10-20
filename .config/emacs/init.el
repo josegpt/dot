@@ -37,9 +37,6 @@
                                                   (time-subtract after-init-time before-init-time)))
                                          gcs-done)))
 
-(add-to-list 'load-path (concat user-emacs-directory
-                                (convert-standard-filename "elisp/")))
-
 ;; ============================================================
 ;; Packages
 ;; ============================================================
@@ -52,14 +49,11 @@
 
 (use-package autorevert
   :straight (:type built-in)
-  :custom
-  (global-auto-revert-non-file-buffers t)
+  ;; emacs28
+  ;; :custom
+  ;; (global-auto-revert-non-file-buffers nil)
   :config
   (global-auto-revert-mode))
-
-(use-package battery
-  :unless (string= (system-name) "josegpt-desktop")
-  :init (display-battery-mode))
 
 (use-package compile
   :custom
@@ -71,9 +65,9 @@
   :custom
   (corfu-cycle t))
 
-(use-package envrc
-  :config
-  (envrc-global-mode))
+;; (use-package envrc
+;;   :config
+;;   (envrc-global-mode))
 
 ;; emacs28
 ;; (use-package dired
@@ -100,12 +94,8 @@
                  "typescript-language-server" "--stdio")))
 
 (use-package elfeed
-  :config
-  (require 'pt-elfeed)
   :bind
   ("C-c r" . elfeed)
-  (:map elfeed-search-mode-map
-        ("w" . pt-elfeed-play-youtube-link))
   :custom
   (elfeed-use-curl t)
   (elfeed-db-directory "~/.cache/elfeed")
@@ -140,9 +130,6 @@
 
 (use-package emacs
   :straight (:type built-in)
-  :config
-  (set-frame-parameter (selected-frame) 'alpha '(75 . 75))
-  (add-to-list 'default-frame-alist '(alpha . (75 . 75)))
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
@@ -152,14 +139,9 @@
   ;; don't clutter with #files either
   (auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 
-(use-package eshell
-  :straight (:type built-in)
-  :bind
-  ("<s-return>" . eshell))
-
 (use-package frame
   :straight (:type built-in)
-  :config
+  :custom
   (blink-cursor-mode nil))
 
 (use-package gruvbox-theme
@@ -208,48 +190,6 @@
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
 
-(use-package mu4e
-  :straight (:type built-in)
-  :defer 30
-  :bind
-  ("s-m" . mu4e)
-  :custom
-  (mu4e-change-filenames-when-moving t)
-  (mu4e-view-show-addresses t)
-  (mu4e-update-interval (* 30 60))
-  (mu4e-get-mail-command "mbsync -a")
-  (mu4e-view-show-images t)
-  (mu4e-sent-messages-behavior 'delete)
-  (mu4e-confirm-quit nil)
-  (message-kill-buffer-on-exit t)
-  (mu4e-compose-dont-reply-to-self t)
-  (mu4e-attachment-dir "~/Downloads")
-  (user-full-name "Jose G Perez Taveras")
-  (user-mail-address "josegpt27@gmail.com")
-  (mu4e-maildir "~/Mail")
-  (mu4e-sent-folder "/Sent Mail")
-  (mu4e-drafts-folder "/Drafts")
-  (mu4e-trash-folder "/Trash")
-  (mu4e-maildir-shortcuts
-   '((:maildir "/INBOX" :key ?i)
-     (:maildir "/Sent Mail" :key ?s)
-     (:maildir "/Starred" :key ?r)
-     (:maildir "/Spam" :key ?p)
-     (:maildir "/Drafts" :key ?d)
-     (:maildir "/Trash" :key ?t)))
-  ;; Send Emails
-  ;; FIXME: Add authinfo.gpg
-  (mail-user-agent 'mu4e-user-agent)
-  (message-send-mail-function 'smtpmail-send-it)
-  (smtpmail-smtp-user "josegpt27")
-  (smtpmail-smtp-server "smtp.gmail.com")
-  (smtpmail-smtp-service 465)
-  (smtpmail-stream-type 'ssl)
-  :config
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
-  (mu4e t))
-
 (use-package orderless
   :after vertico
   :custom
@@ -282,10 +222,6 @@
   (epg-pinentry-mode 'loopback))
 
 (use-package project
-  :config
-  (require 'pt-project)
-  :bind
-  ("C-x p p" . pt-project-switch-commands-current-project)
   :custom
   (project-switch-commands '((?f "File" project-find-file)
                              (?g "Grep" project-find-regexp)
@@ -314,6 +250,10 @@
           css-mode
           markdown-mode
           yaml-mode) . prettier-js-mode))
+
+(use-package rainbow-mode
+  :hook
+  (prog-mode . rainbow-mode))
 
 (use-package subword
   :hook ((js-mode
