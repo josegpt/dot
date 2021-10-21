@@ -2,4 +2,4 @@
 
 feh --bg-scale $HOME/.wallpapers/current.jpg &
 
-exec herbstluftwm
+exec dwm

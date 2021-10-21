@@ -255,6 +255,10 @@
   :hook
   (prog-mode . rainbow-mode))
 
+(use-package select
+  :custom
+  (x-select-enable-clipboard t))
+
 (use-package subword
   :hook ((js-mode
           go-mode
