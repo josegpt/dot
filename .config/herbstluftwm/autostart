@@ -68,7 +68,10 @@ hc keybind $MOD-f           focus right
 # layout
 hc keybind $MOD-0           close_and_remove
 hc keybind $MOD-1           fullscreen toggle
-hc keybind $MOD-space       floating toggle
+hc keybind $MOD-space       set_attr clients.focus.floating toggle
+hc keybind $MOD-m           set_attr clients.focus.minimized true
+hc keybind $MOD-Shift-m     jumpto last-minimized
+hc keybind $MOD-Shift-space floating toggle
 hc keybind $MOD-2           split bottom 0.5
 hc keybind $MOD-3           split right 0.5
 hc keybind $MOD-k           close
