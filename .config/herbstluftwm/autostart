@@ -56,7 +56,8 @@ hc keybind $MOD-Shift-q     quit
 
 # focus
 hc keybind $MOD-o           cycle_all
-hc keybind $MOD-Shift-o     cycle_monitor
+hc keybind $MOD-Shift-o     cycle
+hc keybind $MOD-Control-o   cycle_monitor
 hc keybind $MOD-u jumpto    urgent
 hc keybind $MOD-period      use_index +1 --skip-visible
 hc keybind $MOD-comma       use_index -1 --skip-visible
@@ -83,6 +84,11 @@ hc keybind $MOD-Control-b   resize left +$RESIZESTEP
 hc keybind $MOD-Control-n   resize down +$RESIZESTEP
 hc keybind $MOD-Control-p   resize up +$RESIZESTEP
 hc keybind $MOD-Control-f   resize right +$RESIZESTEP
+hc keybind $MOD-semicolon   pseudotile toggle
+hc keybind $MOD-slash                                                           \
+            or , and . compare tags.focus.curframe_wcount = 2                   \
+                     . cycle_layout +1 vertical horizontal max vertical grid    \
+               , cycle_layout +1
 
 # mouse
 hc mouseunbind --all
