@@ -9,10 +9,15 @@ MOD=Mod4
 RESIZESTEP=0.05
 TAG_NAMES=({1..5})
 TAG_KEYS=({1..5})
-COLOR_NB='#282828'
-COLOR_NF='#d5c4a1'
-COLOR_SB='#d65d0e'
-COLOR_SF='#ebdbb2'
+BG='#ffffff'
+FG='#000000'
+WEAK='#888888'
+WEAKER='#dddddd'
+WEAKEST='#efefef'
+HL='#fda50f'
+WG='#ff0000'
+SCS='#00ff00'
+S='#3c5e2b'
 # gentoo uses the old path for emacs server
 USERID=$(id -u)
 EMACSCLIENT="/tmp/emacs${USERID}/server"
@@ -36,7 +41,7 @@ done
 # spawns
 hc keybind $MOD-e spawn emacsclient -s $EMACSCLIENT -c
 hc keybind $MOD-Return spawn emacsclient -s $EMACSCLIENT -c -e "(term \"/bin/bash\")"
-hc keybind $MOD-i spawn dmenu_run -nb $COLOR_NB -nf $COLOR_NF -sb $COLOR_SB -sf $COLOR_SF
+hc keybind $MOD-i spawn dmenu_run -nb $BG -nf $FG -sb $HL -sf $FG -b
 hc keybind $MOD-r spawn emacsclient -s $EMACSCLIENT -c -e "(elfeed)"
 hc keybind XF86MonBrightnessUp spawn xbacklight -inc 10%
 hc keybind XF86MonBrightnessDown spawn xbacklight -dec 10%
@@ -85,28 +90,28 @@ hc mousebind $MOD-Button3   resize
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color $COLOR_SB
-hc set frame_border_normal_color $COLOR_NB
-hc set frame_bg_normal_color $COLOR_NB
-hc set frame_bg_active_color $COLOR_SB
+hc set frame_border_active_color $HL
+hc set frame_border_normal_color $WEAK
+hc set frame_bg_normal_color $WEAK
+hc set frame_bg_active_color $BG
 hc set frame_border_width 0
 hc set always_show_frame on
 hc set frame_bg_transparent on
 hc set frame_transparent_width 4
 hc set frame_gap 4
 
-hc attr theme.active.color $COLOR_SB
-hc attr theme.normal.color $COLOR_NB
-hc attr theme.urgent.color $COLOR_SB
+hc attr theme.active.color $HL
+hc attr theme.normal.color $WEAKER
+hc attr theme.urgent.color $WG
 hc attr theme.inner_width 0
-hc attr theme.inner_color $COLOR_NBA
+hc attr theme.inner_color $BG
 hc attr theme.border_width 4
 hc attr theme.floating.border_width 4
 hc attr theme.floating.outer_width 0
-hc attr theme.floating.outer_color $COLOR_NB
-hc attr theme.active.inner_color $COLOR_SB
-hc attr theme.urgent.inner_color $COLOR_SB
-hc attr theme.normal.inner_color $COLOR_NB
+hc attr theme.floating.outer_color $BG
+hc attr theme.active.inner_color $HL
+hc attr theme.urgent.inner_color $WG
+hc attr theme.normal.inner_color $BG
 # copy inner color to outer_color
 for state in active urgent normal ; do
     hc substitute C theme.${state}.inner_color \
@@ -115,8 +120,8 @@ done
 hc attr theme.active.outer_width 0
 hc attr theme.background_color $COLOR_NB
 
-hc set window_gap 0
-hc set frame_padding 0
+hc set window_gap 4
+hc set frame_padding 4
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0

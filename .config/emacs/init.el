@@ -144,9 +144,9 @@
   :custom
   (blink-cursor-mode nil))
 
-(use-package gruvbox-theme
+(use-package almost-mono-themes
   :config
-  (load-theme 'gruvbox-dark-medium t))
+  (load-theme 'almost-mono-white t))
 
 (use-package hl-line
   :straight (:type built-in)
