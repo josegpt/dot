@@ -1,0 +1,20 @@
+# emacs gui
+>=app-editors/emacs-27.2-r5 -motif jit athena Xaw3d gui xft jpeg tiff gif png xpm svg imagemagick m17n-lib json harfbuzz cairo gmp dynamic-loading gzip-el libxml2 zlib
+# dwm
+>=x11-wm/dwm-6.2 savedconfig
+# package.use# required by media-libs/mesa-21.1.7::gentoo[-video_cards_r300,-video_cards_r600,-video_cards_r200,video_cards_radeonsi,-video_cards_r100,-video_cards_radeon]
+# required by virtual/opengl-7.0-r2::gentoo
+# required by x11-apps/mesa-progs-8.4.0::gentoo
+# required by x11-apps/mesa-progs (argument)
+>=x11-libs/libdrm-2.4.107 video_cards_radeon
+# required by x11-libs/pango-1.48.10::gentoo
+# required by gnome-base/librsvg-2.50.7::gentoo
+# required by x11-themes/adwaita-icon-theme-40.1.1::gentoo
+# required by virtual/freedesktop-icon-theme-0-r4::gentoo
+# required by www-client/firefox-bin-93.0::gentoo
+# required by www-client/firefox-bin (argument)
+>=media-libs/freetype-2.11.0-r1 harfbuzz
+# required by app-editors/emacs-27.2-r5::gentoo
+# required by @selected
+# required by @world (argument)
+>=app-emacs/emacs-common-1.8 gui

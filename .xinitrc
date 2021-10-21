@@ -1,5 +1,5 @@
 #!/bin/sh
 
-feh --bg-scale $HOME/.wallpapers/current.jpg &
+~/.fehbg &
 
-exec dwm
+exec herbstluftwm

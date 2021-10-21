@@ -1,16 +1,11 @@
-# ignore Mail contents
-Mail/*
-
-# ignore Download contents
-Downloads/*
-/.config/emacs/auto-save-list/
-/.config/emacs/eshell/history
-/.config/emacs/straight/
-/.config/glib-2.0/
-/.config/emacs/transient/
-/.config/emacs/eshell/lastdir
-/.config/pulse/
-/.config/configstore/
-/.config/dconf/
-/.config/emacs/tramp
-/.config/emacs/projects
+.config/emacs/auto-save-list/
+.config/emacs/eshell/history
+.config/emacs/straight/
+.config/glib-2.0/
+.config/emacs/transient/
+.config/emacs/eshell/lastdir
+.config/pulse/
+.config/configstore/
+.config/dconf/
+.config/emacs/tramp
+.config/emacs/projects
