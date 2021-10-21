@@ -1,15 +1,17 @@
 # dotfiles
 
-# Requirements
+## Requirements
 
-- [stow](https://linux.die.net/man/8/stow)
+- [GNUstow](https://linux.die.net/man/8/stow)
+- [GNUmake](https://linux.die.net/man/1/make)
+- [doas](https://man.openbsd.org/doas)
 
-# Installation
+## Quick start
 ```sh
 git clone https://github.com/josegpt/dotfiles.git .dotfiles
 cd .dotfiles
-stow .
+make
 ```
-# Enjoy!
+## Enjoy!
 
 
