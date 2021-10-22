@@ -2,6 +2,7 @@ app-admin/doas
 app-admin/stow
 app-editors/emacs
 app-emacs/emacs-daemon
+app-office/ledger
 dev-vcs/git
 media-fonts/dina
 media-fonts/jetbrains-mono
