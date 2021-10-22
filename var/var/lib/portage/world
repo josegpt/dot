@@ -4,6 +4,7 @@ app-editors/emacs
 app-emacs/emacs-daemon
 dev-vcs/git
 media-fonts/dina
+media-fonts/jetbrains-mono
 media-gfx/feh
 media-sound/alsa-utils
 net-misc/connman

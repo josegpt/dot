@@ -11,8 +11,8 @@ font-0 = Dina:size=8;1
 padding-right = 2
 padding-left = 2
 module-margin = 2
-background = ${env:COLOR_BG}
-foreground = ${env:COLOR_FG}
+background = ${env:COLOR_BLACK}
+foreground = ${env:COLOR_GRAY_1}
 height = 14
 # width = 960
 border-size = 0

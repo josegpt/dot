@@ -130,6 +130,8 @@
 
 (use-package emacs
   :straight (:type built-in)
+  :config
+  (load-theme 'achrome t)
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
@@ -144,23 +146,19 @@
   :custom
   (blink-cursor-mode nil))
 
-(use-package almost-mono-themes
-  :config
-  (load-theme 'almost-mono-white t))
-
 (use-package hl-line
   :straight (:type built-in)
   :config
   (global-hl-line-mode))
 
-;; emacs28
-;; (use-package icomplete
-;;   :config
-;;   (icomplete-mode)
-;;   (fido-vertical-mode)
-;;   :custom
-;;   (icomplete-compute-delay 0.0)
-;;   (icomplete-delay-completions-threshold 200))
+
+(use-package icomplete
+  :config
+  (icomplete-mode)
+  ;; (fido-vertical-mode) ;; emacs28
+  :custom
+  (icomplete-compute-delay 0.0)
+  (icomplete-delay-completions-threshold 200))
 
 (use-package magit
   :bind
@@ -171,8 +169,6 @@
 
 (use-package marginalia
   :after minibuffer
-  :custom
-  (marginalia-margin-threshold 150)
   :config
   (marginalia-mode))
 
@@ -189,13 +185,6 @@
   :bind
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
-
-(use-package orderless
-  :after vertico
-  :custom
-  (completion-styles '(orderless))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles . (partial-completion))))))
 
 (use-package paren
   :straight (:type built-in)
@@ -271,11 +260,6 @@
   :custom
   (tooltip-mode nil))
 
-(use-package vertico
-  :init (vertico-mode)
-  :custom
-  (vertico-cycle t))
-
 (use-package webjump
   :bind
   ("C-c j" . webjump)
@@ -303,8 +287,7 @@
 
 (use-package whitespace
   :straight (:type built-in)
-  :bind
-  ("C-c SPC" . whitespace-mode)
+  :hook (prog-mode . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs

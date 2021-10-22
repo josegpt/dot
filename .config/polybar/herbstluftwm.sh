@@ -16,37 +16,33 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                 name=${tag#?}
                 state=${tag%$name}
                 case "$state" in
-                    '.')
-                        # Empty
-                        printf ' %s ' "$name"
-                        ;;
                     ':')
                         # Not empty
-                        printf "%%{B${COLOR_WEAKER} F${COLOR_FG}} %s %%{B- F-}" "$name"
+                        printf "%%{B${COLOR_GRAY_4} F${COLOR_GRAY_1}} %s %%{B- F-}" "$name"
                         ;;
                     '+')
                         # View in monitor but not focused
-                        printf "%%{B${COLOR_WEAK} F${COLOR_BG}} %s %%{B- F-}" "$name"
+                        printf "%%{B${COLOR_GRAY_3} F${COLOR_WHITE}} %s %%{B- F-}" "$name"
                         ;;
                     '#')
                         # View in monitor and focused
-                        printf "%%{B${COLOR_HL} F${COLOR_FG}} %s %%{B- F-}" "$name"
+                        printf "%%{B${COLOR_ACCENT} F${COLOR_WHITE}} %s %%{B- F-}" "$name"
                         ;;
 
                     '-')
                         # View in another monitor but not focused
-                        printf "%%{B${COLOR_S} F${COLOR_BG}} %s %%{B- F-}" "$name"
+                        printf "%%{B${COLOR_GRAY_3} F${COLOR_WHITE}} %s %%{B- F-}" "$name"
                         ;;
                     '%')
                         # View in another monitor and focused
-                        printf "%%{B${COLOR_SCS} F${COLOR_BG}} %s %%{B- F-}" "$name"
+                        printf "%%{B${COLOR_ACCENT} F${COLOR_WHITE}} %s %%{B- F-}" "$name"
                         ;;
                     '!')
                         # Urgent
-                        printf "%%{B${COLOR_WG} F${COLOR_BG}} %s %%{B- F-}" "$name"
+                        printf "%%{B${COLOR_ACCENT} F${COLOR_WHITE}} %s %%{B- F-}" "$name"
                         ;;
                     *)
-                        printf ' %s ' "$name"
+                        printf " %s " "$name"
                 esac
             done
         } | tr -d "\n"

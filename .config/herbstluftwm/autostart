@@ -37,7 +37,7 @@ hc keybind $MOD-Shift-q     quit
 hc keybind $MOD-j spawn firefox-bin --new-window
 hc keybind $MOD-e spawn emacsclient -s $EMACSCLIENT -c
 hc keybind $MOD-Return spawn emacsclient -s $EMACSCLIENT -c -e "(term \"/bin/bash\")"
-hc keybind $MOD-i spawn dmenu_run -nb $COLOR_BG -nf $COLOR_FG -sb $COLOR_HL -sf $COLOR_FG -fn "Dina-8"
+hc keybind $MOD-i spawn dmenu_run -nb $COLOR_BLACK -nf $COLOR_GRAY_1 -sb $COLOR_ACCENT -sf $COLOR_WHITE -fn "Dina-8"
 hc keybind $MOD-r spawn emacsclient -s $EMACSCLIENT -c -e "(elfeed)"
 hc keybind XF86MonBrightnessUp spawn xbacklight -inc 10%
 hc keybind XF86MonBrightnessDown spawn xbacklight -dec 10%
@@ -91,35 +91,35 @@ hc mousebind $MOD-Button3   resize
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color $COLOR_HL
-hc set frame_border_normal_color $COLOR_WEAK
-hc set frame_bg_normal_color $COLOR_WEAK
-hc set frame_bg_active_color $COLOR_BG
+hc set frame_border_active_color $COLOR_ACCENT
+hc set frame_border_normal_color $COLOR_GRAY_4
+hc set frame_bg_normal_color $COLOR_GRAY_4
+hc set frame_bg_active_color $COLOR_WHITE
 hc set frame_border_width 0
 hc set always_show_frame on
 hc set frame_bg_transparent on
 hc set frame_transparent_width 4
 hc set frame_gap 4
 
-hc attr theme.active.color $COLOR_HL
-hc attr theme.normal.color $COLOR_WEAKER
-hc attr theme.urgent.color $COLOR_WG
+hc attr theme.active.color $COLOR_ACCENT
+hc attr theme.normal.color $COLOR_GRAY_4
+hc attr theme.urgent.color $COLOR_ACCENT
 hc attr theme.inner_width 0
-hc attr theme.inner_color $COLOR_BG
+hc attr theme.inner_color $COLOR_WHITE
 hc attr theme.border_width 4
 hc attr theme.floating.border_width 4
 hc attr theme.floating.outer_width 0
-hc attr theme.floating.outer_color $COLOR_BG
-hc attr theme.active.inner_color $COLOR_HL
-hc attr theme.urgent.inner_color $COLOR_WG
-hc attr theme.normal.inner_color $COLOR_BG
+hc attr theme.floating.outer_color $COLOR_GRAY_4
+hc attr theme.active.inner_color $COLOR_ACCENT
+hc attr theme.urgent.inner_color $COLOR_ACCENT
+hc attr theme.normal.inner_color $COLOR_GRAY_$
 # copy inner color to outer_color
 for state in active urgent normal ; do
     hc substitute C theme.${state}.inner_color \
         attr theme.${state}.outer_color C
 done
 hc attr theme.active.outer_width 0
-hc attr theme.background_color $COLOR_BG
+hc attr theme.background_color $COLOR_WHITE
 
 hc set window_gap 4
 hc set frame_padding 4
@@ -150,4 +150,4 @@ hc unlock
 # hc detect_monitors
 
 hc spawn ~/.fehbg
-hc spawn sh $HOME/.config/polybar/launch.sh &
+hc spawn sh $HOME/.config/polybar/launch.sh
