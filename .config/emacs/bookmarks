@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("herbstluftwm"
+(("polybar"
+ (filename . "~/.dotfiles/.config/polybar/config")
+ (front-context-string . "[module/herbstlu")
+ (rear-context-string)
+ (position . 1))
+("herbstluftwm"
  (filename . "~/.dotfiles/.config/herbstluftwm/autostart")
  (front-context-string . "#!/usr/bin/env b")
  (rear-context-string)
@@ -21,7 +26,7 @@
 (#(".xinitrc" 0 8
    (face nil))
  (filename . "~/.dotfiles/.xinitrc")
- (front-context-string . "#!/bin/sh\n\n# sxh")
+ (front-context-string . "#!/bin/sh\n\n~/.fe")
  (rear-context-string)
  (position . 1))
 )

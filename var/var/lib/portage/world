@@ -3,6 +3,7 @@ app-admin/stow
 app-editors/emacs
 app-emacs/emacs-daemon
 dev-vcs/git
+media-fonts/dina
 media-gfx/feh
 media-sound/alsa-utils
 net-misc/connman
@@ -22,4 +23,5 @@ x11-drivers/xf86-video-amdgpu
 x11-libs/libX11
 x11-libs/libXft
 x11-misc/dmenu
+x11-misc/polybar
 x11-wm/herbstluftwm
