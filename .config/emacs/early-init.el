@@ -6,7 +6,7 @@
 ;; (setq use-short-answers t) emacs28
 
 ;; Configure font size
-(set-face-attribute 'default nil :family "Jetbrains Mono" :height 140)
+(set-face-attribute 'default nil :family "Iosevka" :height 120)
 
 ;; Do not resize at early stage
 (setq frame-inhibit-implied-resize t)

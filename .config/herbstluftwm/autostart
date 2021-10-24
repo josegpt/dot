@@ -45,7 +45,7 @@ hc keybind $MOD-Shift-q     quit
 hc keybind $MOD-j spawn firefox-bin --new-window
 hc keybind $MOD-e spawn emacsclient -s $EMACSCLIENT -c
 hc keybind $MOD-Return spawn emacsclient -s $EMACSCLIENT -c -e "(term \"/bin/bash\")"
-hc keybind $MOD-i spawn dmenu_run -nb $COLOR_BLACK -nf $COLOR_GRAY_1 -sb $COLOR_ACCENT -sf $COLOR_WHITE -fn "Dina-8"
+hc keybind $MOD-i spawn dmenu_run -nb $COLOR_BLACK -nf $COLOR_GRAY_1 -sb $COLOR_ACCENT -sf $COLOR_WHITE -fn "Tamzen-8"
 hc keybind $MOD-r spawn emacsclient -s $EMACSCLIENT -c -e "(elfeed)"
 hc keybind XF86MonBrightnessUp spawn xbacklight -inc 10%
 hc keybind XF86MonBrightnessDown spawn xbacklight -dec 10%

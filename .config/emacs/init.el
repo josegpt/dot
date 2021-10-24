@@ -65,9 +65,9 @@
   :custom
   (corfu-cycle t))
 
-;; (use-package envrc
-;;   :config
-;;   (envrc-global-mode))
+(use-package envrc
+  :config
+  (envrc-global-mode))
 
 ;; emacs28
 ;; (use-package dired
@@ -130,8 +130,6 @@
 
 (use-package emacs
   :straight (:type built-in)
-  :config
-  (load-theme 'achrome t)
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
@@ -151,20 +149,14 @@
   :config
   (global-hl-line-mode))
 
-
+;; emacs28
 ;; (use-package icomplete
 ;;   :config
 ;;   (icomplete-mode)
-;;   ;; (fido-vertical-mode) ;; emacs28
+;;   (fido-vertical-mode)
 ;;   :custom
 ;;   (icomplete-compute-delay 0.0)
 ;;   (icomplete-delay-completions-threshold 200))
-
-(use-package ido
-  :custom
-  (ido-everywhere t)
-  :config
-  (ido-mode))
 
 (use-package magit
   :bind
@@ -177,6 +169,10 @@
   :after minibuffer
   :config
   (marginalia-mode))
+
+(use-package modus-themes
+  :config
+  (load-theme 'modus-vivendi t))
 
 (use-package minibuffer
   :straight (:type built-in)
@@ -191,6 +187,13 @@
   :bind
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
+
+(use-package orderless
+  :after minibuffer
+  :custom
+  (completion-styles '(orderless))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles . (partial-completion))))))
 
 (use-package paren
   :straight (:type built-in)
@@ -265,6 +268,13 @@
   :straight (:type built-in)
   :custom
   (tooltip-mode nil))
+
+(use-package vertico
+  :after minibuffer
+  :config
+  (vertico-mode)
+  :custom
+  (vertico-cycle t))
 
 (use-package webjump
   :bind
