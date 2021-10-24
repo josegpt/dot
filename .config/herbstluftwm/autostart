@@ -9,6 +9,14 @@ MOD=Mod4
 RESIZESTEP=0.05
 TAG_NAMES=({1..5})
 TAG_KEYS=({1..5})
+COLOR_ACCENT=#d0021b
+COLOR_WHITE=#ffffff
+COLOR_GRAY_1=#aaaaaa
+COLOR_GRAY_2=#888888
+COLOR_GRAY_3=#5d5d5d
+COLOR_GRAY_4=#333333
+COLOR_GRAY_5=#191919
+COLOR_BLACK=#000000
 # gentoo uses the old path for emacs server
 USERID=$(id -u)
 EMACSCLIENT="/tmp/emacs${USERID}/server"
@@ -112,7 +120,7 @@ hc attr theme.floating.outer_width 0
 hc attr theme.floating.outer_color $COLOR_GRAY_4
 hc attr theme.active.inner_color $COLOR_ACCENT
 hc attr theme.urgent.inner_color $COLOR_ACCENT
-hc attr theme.normal.inner_color $COLOR_GRAY_$
+hc attr theme.normal.inner_color $COLOR_GRAY_4
 # copy inner color to outer_color
 for state in active urgent normal ; do
     hc substitute C theme.${state}.inner_color \
@@ -149,5 +157,5 @@ hc unlock
 # or simply:
 # hc detect_monitors
 
-hc spawn ~/.fehbg
-hc spawn sh $HOME/.config/polybar/launch.sh
+hc spawn $HOME/.fehbg
+hc spawn sh $HOME/.config/herbstluftwm/launch "0"

@@ -152,13 +152,19 @@
   (global-hl-line-mode))
 
 
-(use-package icomplete
-  :config
-  (icomplete-mode)
-  ;; (fido-vertical-mode) ;; emacs28
+;; (use-package icomplete
+;;   :config
+;;   (icomplete-mode)
+;;   ;; (fido-vertical-mode) ;; emacs28
+;;   :custom
+;;   (icomplete-compute-delay 0.0)
+;;   (icomplete-delay-completions-threshold 200))
+
+(use-package ido
   :custom
-  (icomplete-compute-delay 0.0)
-  (icomplete-delay-completions-threshold 200))
+  (ido-everywhere t)
+  :config
+  (ido-mode))
 
 (use-package magit
   :bind

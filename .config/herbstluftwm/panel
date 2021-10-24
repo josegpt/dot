@@ -1,0 +1,86 @@
+#!/bin/env bash
+
+quote() {
+    local q="$(printf '%q ' "$@")"
+    printf '%s' "${q% }"
+}
+
+HC_QUOTED="$(quote "${herbstclient_command[@]:-herbstclient}")"
+hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
+MONITOR=${1:-0}
+GEOMETRY=($(hc monitor_rect "$MONITOR"))
+if [ -z "$GEOMETRY" ] ;then
+    echo "Invalid monitor $MONITOR"
+    exit 1
+fi
+# geometry has the format W H X Y
+X=${GEOMETRY[0]}
+Y=${GEOMETRY[1]}
+PANEL_WIDTH=${GEOMETRY[2]}
+PANEL_HEIGHT=12
+BORDER_NORMAL_COLOR=$(hc get frame_border_normal_color)
+BORDER_ACTIVE_COLOR=$(hc get frame_border_active_color)
+BG_NORMAL_COLOR=$(hc get frame_bg_normal_color)
+BG_ACTIVE_COLOR=$(hc get frame_bg_active_color)
+
+hc pad $MONITOR $PANEL_HEIGHT
+
+_date() {
+    printf "^fg($BG_ACTIVE_COLOR)%s^fg()" $(date +'(%A) %b %d, %Y')
+}
+
+_time() {
+    printf "^fg($BG_ACTIVE_COLOR)%s^fg()" $(date +'%I:%M%P')
+}
+
+_memory() {
+    MEMORY=$(free -h | awk '/^Mem:/ {print $3"/"$2}')
+    printf "^fg($BG_ACTIVE_COLOR)%s^fg()" $MEMORY
+}
+
+# herbstclient --idle "tag_*" 2>/dev/null | {
+#     while true; do
+#         # Read tags into $tags as array
+#         IFS=$'\t' read -ra tags <<< "$(herbstclient tag_status "${MONITOR}")"
+#         {
+#             for tag in $(herbstclient tag_status "$1"); do
+#                 # Read the prefix from each tag and render them according to that prefix
+#                 name=${tag#?}
+#                 state=${tag%$name}
+#                 case "$state" in
+#                     ':')
+#                         # Not empty
+#                         printf "^bg($BG_NORMAL_COLOR)^fg($BG_ACTIVE_COLOR) %s ^bg()^fg()" "$name"
+#                         ;;
+#                     '+')
+#                         # View in monitor but not focused
+#                         printf "^bg($BG_NORMAL_COLOR)^fg($BORDER_ACTIVE_COLOR) %s ^bg()^fg()" "$name"
+#                         ;;
+#                     '#')
+#                         # View in monitor and focused
+#                         printf "^bg($BORDER_ACTIVE_COLOR)^fg($BG_ACTIVE_COLOR) %s ^bg()^fg()" "$name"
+#                         ;;
+#                     '-')
+#                         # View in another monitor but not focused
+#                         printf "^bg($BORDER_ACTIVE_COLOR)^fg($BG_ACTIVE_COLOR) %s ^bg()^fg()" "$name"
+#                         ;;
+#                     '%')
+#                         # View in another monitor and focused
+#                         printf "^bg($BORDER_ACTIVE_COLOR)^fg($BG_ACTIVE_COLOR) %s ^bg()^fg()" "$name"
+#                         ;;
+#                     '!')
+#                         # Urgent
+#                         printf "^bg($BG_ACTIVE_COLOR)^fg($BORDER_ACTIVE_COLOR) %s ^bg()^fg()" "$name"
+#                         ;;
+#                     *)
+#                         printf " %s " "$name"
+#                 esac
+#             done
+#         } | tr -d "\n"
+#         echo
+#         # wait for next event from herbstclient --idle
+#         read -r || break
+#     done
+# } 2>/dev/null
+
+echo "^ba($PANEL_WIDTH,_LEFT)$(_time)" | dzen2 -bg red -w $PANEL_WIDTH -x $X -y $Y -h $PANEL_HEIGHT -fn "Dina-8" -ta l -p
