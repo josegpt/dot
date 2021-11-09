@@ -30,16 +30,24 @@
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
-(add-hook 'emacs-startup-hook (lambda ()
-                                (message "---> Emacs loaded in %s with %d garbage collections."
-                                         (format "%.2f seconds"
-                                                 (float-time
-                                                  (time-subtract after-init-time before-init-time)))
-                                         gcs-done)))
+(add-hook 'emacs-startup-hook #'(lambda ()
+                                  (message "---> Emacs loaded in %s with %d garbage collections."
+                                           (format "%.2f seconds"
+                                                   (float-time
+                                                    (time-subtract after-init-time before-init-time)))
+                                           gcs-done)))
+
+(add-to-list 'load-path (concat user-emacs-directory
+                                (convert-standard-filename "elisp/")))
 
 ;; ============================================================
 ;; Packages
 ;; ============================================================
+
+(use-package weeb
+  :straight nil
+  :bind
+  ("C-c a" . weeb-search-anime))
 
 (use-package auth-source-pass
   :straight (:type built-in)
@@ -65,14 +73,18 @@
   :custom
   (corfu-cycle t))
 
-(use-package envrc
-  :config
-  (envrc-global-mode))
-
 ;; emacs28
 ;; (use-package dired
 ;;   :custom
 ;;   (dired-kill-when-opening-new-dired-buffer t))
+
+(use-package eshell
+  :bind
+  ("<s-return>" . eshell))
+
+(use-package envrc
+  :config
+  (envrc-global-mode))
 
 (use-package display-line-numbers
   :straight (:type built-in)
@@ -101,19 +113,11 @@
   (elfeed-db-directory "~/.cache/elfeed")
   (elfeed-search-title-max-width 100)
   (elfeed-search-title-min-width 100)
-  (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
+  (elfeed-feeds '(("https://reddit.com/r/guix.rss" linux)
+                  ("https://reddit.com/r/emacs.rss" emacs)
                   ("https://reddit.com/r/unixporn.rss" linux)
-                  ("https://reddit.com/r/guix.rss" linux)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ" youtube tech)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw" youtube funny)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA" youtube vim)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCLqH-U2TXzj1h7lyYQZLNQQ" youtube fitness)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg" youtube emacs unix vim)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA" youtube vim unix)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw" youtube vim programming)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCrqM0Ym_NbK1fqeQG2VIohg" youtube emacs programming)
-                  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" youtube emacs exwm programming))))
+                  ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
 
 (use-package erc
   :straight (:type built-in)
@@ -220,20 +224,10 @@
   (epg-pinentry-mode 'loopback))
 
 (use-package project
-  :custom
-  (project-switch-commands '((?f "File" project-find-file)
-                             (?g "Grep" project-find-regexp)
-                             (?d "Dired" project-dired)
-                             (?b "Buffer" project-switch-to-buffer)
-                             (?c "Compile" project-compile)
-                             (?q "Query replace" project-query-replace-regexp)
-                             (?m "Magit" magit-project-status)
-                             (?v "VC dir" project-vc-dir)
-                             (?e "Eshell" project-eshell)
-                             (?! "Shell command" project-shell-command)
-                             (?l "Eglot LSP" eglot)
-                             (?a "Envrc Allow" envrc-allow)
-                             (?r "Envrc Reload" envrc-reload))))
+  :bind
+  ("C-x p m" . magit-project-status)
+  ("C-x p a" . envrc-allow)
+  ("C-x p l" . eglot))
 
 (use-package proced
   :custom
@@ -247,15 +241,8 @@
           typescript-mode
           css-mode
           markdown-mode
+          vue-mode
           yaml-mode) . prettier-js-mode))
-
-(use-package rainbow-mode
-  :hook
-  (prog-mode . rainbow-mode))
-
-(use-package select
-  :custom
-  (x-select-enable-clipboard t))
 
 (use-package subword
   :hook ((js-mode
@@ -263,6 +250,12 @@
           elm-mode
           haskell-mode
           typescript-mode) . subword-mode))
+
+(use-package time
+  :custom
+  (display-time-format "(%A) %B %d, %Y - %I:%M%P")
+  :config
+  (display-time-mode))
 
 (use-package tooltip
   :straight (:type built-in)
@@ -299,7 +292,9 @@
                    ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
                    ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
                    ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
-                   ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""]))))
+                   ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
+                   ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
+                   ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""]))))
 
 (use-package whitespace
   :straight (:type built-in)
@@ -326,22 +321,24 @@
 (use-package window
   :straight (:type built-in)
   :no-require t
+  :bind
+  ("s-1" . delete-other-windows)
+  ("s-2" . split-window-below)
+  ("s-3" . split-window-right)
+  ("s-o" . other-window)
+  ("s-p" . previous-buffer)
+  ("s-n" . next-buffer)
+  ("s-0" . delete-window)
+  ("s-k" . kill-current-buffer)
+  ("s-K" . kill-buffer-and-window)
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
-                          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|envrc\\)\\*"
-                           (display-buffer-in-side-window)
-                           (window-height . 0.25)
-                           (side . bottom)
-                           (slot . 1))
-                          ("\\*\\(Help.*\\|Ledger.*\\)\\*"
+                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|envrc\\|e?shell\\)\\*"
                            (display-buffer-in-side-window)
                            (window-width . 0.35)
                            (side . right)
-                           (slot . -1))
-                          ("\\*.*e?shell.*"
-                           (display-buffer-reuse-mode-window display-buffer-at-bottom)
-                           (window-height . 0.25)))))
+                           (slot . -1)))))
 
 (use-package yasnippet
   :config
@@ -357,7 +354,9 @@
 
 (use-package elm-mode
   :mode "\\.elm\\'"
-  :hook (elm-mode . elm-format-on-save-mode))
+  :hook
+  (elm-mode . elm-indent-mode)
+  (elm-mode . elm-format-on-save-mode))
 
 (use-package haskell-mode
   :mode "\\.hs\\'")
@@ -395,6 +394,9 @@
 (use-package markdown-mode
   :mode "\\.md\\'")
 
+(use-package vue-mode
+  :mode "\\.vue\\'")
+
 (use-package nov
   :mode
   ("\\.epub\\'" . nov-mode)
@@ -413,85 +415,162 @@
 (use-package yaml-mode
   :mode "\\.ya?lm\\'")
 
-;; (use-package exwm-randr
-;;   :straight nil
-;;   :if (string= system-name "josegpt-desktop")
-;;   :after exwm
-;;   :hook
-;;   (exwm-randr-screen-change . pt-exwm-xrandr-config)
-;;   :config
-;;   (exwm-randr-enable)
-;;   :custom
-;;   (exwm-randr-workspace-monitor-plist '(0 "HDMI-1-1" 1 "HDMI-1-2" 2 "HDMI-1-3" 3 "HDMI-1-4" 4 "HDMI-1-5")))
+(use-package exwm-workspace
+  :straight nil
+  :no-require t
+  :bind
+  ("s-b" . (lambda ()
+             (interactive)
+             (if (< 0 exwm-workspace-current-index)
+                 (exwm-workspace-switch (1- exwm-workspace-current-index))
+               (exwm-workspace-switch (1- (exwm-workspace--count))))))
+  ("s-f" . (lambda ()
+             (interactive)
+             (if (> (1- (exwm-workspace--count)) exwm-workspace-current-index)
+                 (exwm-workspace-switch (1+ exwm-workspace-current-index))
+               (exwm-workspace-switch 0)))))
 
-;; (use-package exwm
-;;   :init (exwm-enable)
-;;   :if (string= system-type "gnu/linux")
-;;   :config
-;;   (require 'pt-exwm)
-;;   :hook
-;;   (exwm-update-class . pt-exwm-rename-buffer-with-class-name)
-;;   (exwm-update-title . pt-exwm-custom-rename-buffer-with-title)
-;;   (exwm-manage-finish . pt-exwm-send-window-to-workspace)
-;;   :bind
-;;   (:map exwm-mode-map
-;;         ("C-q" . exwm-input-send-next-key))
-;;   :custom
-;;   (exwm-workspace-number 5)
-;;   (exwm-workspace-warp-cursor t)
-;;   (exwm-input-prefix-keys
-;;    '(?\C-x
-;;      ?\C-c
-;;      ?\C-u
-;;      ?\C-h
-;;      ?\C-g
-;;      ?\M-x
-;;      ?\M-:
-;;      ?\M-!
-;;      ?\s-q
-;;      ?\s-j
-;;      XF86AudioRaiseVolume
-;;      XF86AudioLowerVolume
-;;      s-XF86AudioRaiseVolume
-;;      s-XF86AudioLowerVolume
-;;      XF86AudioMute
-;;      XF86AudioMicMute
-;;      XF86MonBrightnessUp
-;;      XF86MonBrightnessDown))
-;;   (exwm-input-global-keys
-;;    `(([?\s-r] . exwm-reset)
-;;      ([?\s-w] . exwm-workspace-switch)
-;;      ([?\s-&] . pt-exwm-run-app)
-;;      ,@(mapcar (lambda (i)
-;;                  `(,(kbd (format "s-%d" (1+ i))) .
-;;                    (lambda ()
-;;                      (interactive)
-;;                      (exwm-workspace-switch-create ,i))))
-;;                (number-sequence 0 4))))
-;;   (exwm-input-simulation-keys
-;;    '(([?\C-b] . [left])
-;;      ([?\C-f] . [right])
-;;      ([?\C-p] . [up])
-;;      ([?\C-n] . [down])
-;;      ([?\C-a] . [home])
-;;      ([?\C-e] . [end])
-;;      ([?\C-v] . [next])
-;;      ([?\M-v] . [prior])
-;;      ([?\M-b] . [C-left])
-;;      ([?\M-f] . [C-right])
-;;      ([?\M-<] . [home])
-;;      ([?\M->] . [end])
-;;      ([?\C-d] . [delete])
-;;      ([?\C-w] . [?\C-x])
-;;      ([?\M-w] . [?\C-c])
-;;      ([?\C-y] . [?\C-v])
-;;      ([?\C-s] . [?\C-f])
-;;      ([?\C-c ?h] . [?\C-a])
-;;      ([?\C-c ?f] . [?\C-l])
-;;      ([?\C-c ?k] . [?\C-w])
-;;      ([?\C-c ?g] . [escape])
-;;      ([?\C-\M-b] . [M-left])
-;;      ([?\C-\M-f] . [M-right])
-;;      ([?\C-k] . [S-end delete])
-;;      ([M-backspace] . [C-backspace])
-;;      ([?\M-d] . [C-S-right delete]))))
+(use-package exwm
+  :init (exwm-enable)
+  :config
+  (defun pt/run-command-with-message (cmmd)
+    (message "%s" (shell-command-to-string cmmd)))
+  :hook
+  (exwm-update-class . (lambda ()
+                         (exwm-workspace-rename-buffer exwm-class-name)))
+  (exwm-update-title . (lambda ()
+                         (pcase exwm-class-name
+                           ("Firefox" (exwm-workspace-rename-buffer exwm-title)))))
+  (exwm-manage-finish . (lambda ()
+                          (pcase exwm-class-name
+                            ("Firefox" (exwm-workspace-move-window 1)))))
+  :bind
+  ("<XF86AudioPlay>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl play-pause")))
+  ("<XF86AudioStop>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl stop")))
+  ("<XF86AudioNext>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl next")))
+  ("<XF86AudioPrev>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl previous")))
+  ("<XF86AudioRaiseVolume>" . (lambda ()
+                                (interactive)
+                                (pt/run-command-with-message "amixer set Master 10%+")))
+  ("<XF86AudioLowerVolume>" . (lambda ()
+                                (interactive)
+                                (pt/run-command-with-message "amixer set Master 10%-")))
+  ("<XF86AudioMute>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "amixer set Master toggle")))
+  ("<s-XF86AudioRaiseVolume>" . (lambda ()
+                                  (interactive)
+                                  (pt/run-command-with-message "amixer set Capture 10%+")))
+  ("<s-XF86AudioLowerVolume>" . (lambda ()
+                                  (interactive)
+                                  (pt/run-command-with-message "amixer set Capture 10%-")))
+  ("<s-XF86AudioMute>" . (lambda ()
+                           (interactive)
+                           (pt/run-command-with-message "amixer set Capture toggle")))
+  ("<XF86AudioMicMute>" . (lambda ()
+                            (interactive)
+                            (pt/run-command-with-message "amixer set Capture toggle")))
+  ("<XF86MonBrightnessUp>" . (lambda ()
+                               (interactive)
+                               (pt/run-command-with-message "xbacklight -inc 10%")))
+  ("<XF86MonBrightnessDown>" . (lambda ()
+                                 (interactive)
+                                 (pt/run-command-with-message "xbacklight -dec 10%")))
+  ("s-a" . (lambda ()
+             (interactive)
+             (let* ((cmmds '(("Reboot" . "rb")
+                             ("Shutdown" . "sd")
+                             ("Poweroff" . "po")))
+                    (choice (assoc-string
+                             (completing-read "Action: " cmmds  nil t)
+                             cmmds t))
+                    (cmmd (cdr choice)))
+               (eshell-command cmmd))))
+  (:map exwm-mode-map
+        ("C-q" . exwm-input-send-next-key))
+  :custom
+  (exwm-workspace-number 2)
+  (exwm-workspace-warp-cursor t)
+  (exwm-input-prefix-keys
+   '(?\C-x
+     ?\C-c
+     ?\C-u
+     ?\C-h
+     ?\C-g
+     ?\M-x
+     ?\M-:
+     ?\M-!
+     ?\s-i
+     ?\s-1
+     ?\s-2
+     ?\s-3
+     ?\s-o
+     ?\s-p
+     ?\s-n
+     ?\s-0
+     ?\s-k
+     ?\s-K
+     ?\s-b
+     ?\s-f
+     ?\s-a
+     s-return
+     XF86AudioPlay
+     XF86AudioStop
+     XF86AudioNext
+     XF86AudioPrev
+     XF86AudioRaiseVolume
+     XF86AudioLowerVolume
+     XF86AudioMute
+     XF86AudioMicMute
+     XF86MonBrightnessUp
+     XF86MonBrightnessDown
+     s-XF86AudioRaiseVolume
+     s-XF86AudioLowerVolume
+     s-XF86AudioMute))
+  (exwm-input-global-keys
+   `(([?\C-c ?\C-j] . exwm-reset)
+     ([?\s-w] . exwm-workspace-switch)
+     ([?\s-&] . (lambda (command)
+                  (interactive (list (read-shell-command "$ ")))
+                  (start-process-shell-command command nil command)))
+     ,@(mapcar (lambda (i)
+                 `(,(kbd (format "C-s-%d" (1+ i))) .
+                   (lambda ()
+                     (interactive)
+                     (exwm-workspace-switch-create ,i))))
+               (number-sequence 0 (1- exwm-workspace-number)))))
+  (exwm-input-simulation-keys
+   '(([?\C-b] . [left])
+     ([?\C-f] . [right])
+     ([?\C-p] . [up])
+     ([?\C-n] . [down])
+     ([?\C-a] . [home])
+     ([?\C-e] . [end])
+     ([?\C-v] . [next])
+     ([?\M-v] . [prior])
+     ([?\M-b] . [C-left])
+     ([?\M-f] . [C-right])
+     ([?\M-<] . [home])
+     ([?\M->] . [end])
+     ([?\C-d] . [delete])
+     ([?\C-w] . [?\C-x])
+     ([?\M-w] . [?\C-c])
+     ([?\C-y] . [?\C-v])
+     ([?\C-s] . [?\C-f])
+     ([?\C-c ?h] . [?\C-a])
+     ([?\C-c ?f] . [?\C-l])
+     ([?\C-c ?k] . [?\C-w])
+     ([?\C-c ?g] . [escape])
+     ([?\C-\M-b] . [M-left])
+     ([?\C-\M-f] . [M-right])
+     ([?\C-k] . [S-end delete])
+     ([M-backspace] . [C-backspace])
+     ([?\M-d] . [C-S-right delete]))))

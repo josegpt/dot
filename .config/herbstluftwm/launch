@@ -1,6 +1,0 @@
-#!/bin/env bash
-
-# Terminate already running bar instances
-killall -q dzen2
-
-$HOME/.config/herbstluftwm/panel "$1" &
