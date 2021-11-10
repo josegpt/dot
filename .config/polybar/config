@@ -1,0 +1,53 @@
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[bar/main]
+# modules-left = exwm
+modules-center = time
+modules-right = temperature cpu memory date
+
+font-0 = Iosevka:size=8;2
+padding-right = 2
+padding-left = 2
+module-margin = 2
+background = #000000
+foreground = #ffffff
+height = 14
+border-size = 0
+bottom = true
+
+# [module/exwm]
+# type = custom/ipc
+# hook-1 = emacsclient -e "exwm-workspace-current-index" 
+# initial = 1
+# format = <output>
+
+[module/time]
+type = internal/date
+date = %I:%M%P
+
+[module/date]
+type = internal/date
+date = (%A) %b %d, %Y
+
+[module/cpu]
+type = internal/cpu
+
+format = <label>
+label = CPU %percentage%%
+
+[module/memory]
+type = internal/memory
+
+format = <label>
+label = RAM %gb_used%/%gb_free%
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+
+base-temperature = 20
+warn-temperature = 60
+label = TEMP %temperature-c%
+format = <label>

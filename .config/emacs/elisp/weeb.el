@@ -53,7 +53,7 @@
   (let* ((first-episode (1+ (string-to-number (match-string 1))))
          (last-episode (string-to-number (match-string 2)))
          (choice (read-number (format "Choose %s Episode[%d-%d]: " anime first-episode last-episode))))
-    (if (and (>= choice first-episode) (< choice last-episode))
+    (if (and (>= choice first-episode) (<= choice last-episode))
         (weeb--fetch-anime-video-url anime path choice)
       (message "Input out of range."))))
 

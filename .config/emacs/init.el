@@ -174,9 +174,9 @@
   :config
   (marginalia-mode))
 
-(use-package modus-themes
+(use-package nord-theme
   :config
-  (load-theme 'modus-vivendi t))
+  (load-theme 'nord t))
 
 (use-package minibuffer
   :straight (:type built-in)
@@ -250,12 +250,6 @@
           elm-mode
           haskell-mode
           typescript-mode) . subword-mode))
-
-(use-package time
-  :custom
-  (display-time-format "(%A) %B %d, %Y - %I:%M%P")
-  :config
-  (display-time-mode))
 
 (use-package tooltip
   :straight (:type built-in)
@@ -439,8 +433,7 @@
   (exwm-update-class . (lambda ()
                          (exwm-workspace-rename-buffer exwm-class-name)))
   (exwm-update-title . (lambda ()
-                         (pcase exwm-class-name
-                           ("Firefox" (exwm-workspace-rename-buffer exwm-title)))))
+                         (exwm-workspace-rename-buffer exwm-title)))
   (exwm-manage-finish . (lambda ()
                           (pcase exwm-class-name
                             ("Firefox" (exwm-workspace-move-window 1)))))
