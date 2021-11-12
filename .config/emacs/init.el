@@ -155,7 +155,7 @@
 
 (use-package gruvbox-theme
   :config
-  (load-theme 'gruvbox t))
+  (load-theme 'gruvbox-dark-hard t))
 
 (use-package hl-line
   :straight (:type built-in)
