@@ -65,7 +65,7 @@
 (defun weeb--fetch-anime-inner-video-url (anime episode-number url)
   (set-buffer (url-retrieve-synchronously url))
   (re-search-forward "sources:\\[{file: '\\(.+\\)',label.+" nil t)
-  (async-shell-command (format "mpv --http-header-fields=\"Referer: %s\" %s >/dev/null" url (match-string 1)))
+  (start-process-shell-command "mpv" nil (format "mpv --http-header-fields=\"Referer: %s\" %s >/dev/null" url (match-string 1)))
   (message "%s - Episode %s sent to mpv" anime episode-number))
 
 (defun weeb-search-anime (name)
