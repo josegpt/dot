@@ -73,6 +73,11 @@
   :custom
   (corfu-cycle t))
 
+(use-package css
+  :straight (:type built-in)
+  :mode
+  ("\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'" . css-mode))
+
 ;; emacs28
 ;; (use-package dired
 ;;   :custom
@@ -148,6 +153,10 @@
   :custom
   (blink-cursor-mode nil))
 
+(use-package gruvbox-theme
+  :config
+  (load-theme 'gruvbox t))
+
 (use-package hl-line
   :straight (:type built-in)
   :config
@@ -174,10 +183,6 @@
   :config
   (marginalia-mode))
 
-(use-package nord-theme
-  :config
-  (load-theme 'nord t))
-
 (use-package minibuffer
   :straight (:type built-in)
   :custom
@@ -191,6 +196,28 @@
   :bind
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
+
+(defun nroff-pdf-view ()
+  "Run pdf on this file."
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (file-pdf (concat (file-name-base) ".pdf"))
+         (view-buff (get-buffer file-pdf)))
+    (unless file
+      (error "Buffer is not associated with any file"))
+    (and (buffer-modified-p)
+         (y-or-n-p (format "Save buffer %s first? " (buffer-name)))
+         (save-buffer))
+    (call-process-shell-command (format "groff -Tpdf -P-pa4 -ms %s > %s" (buffer-name) file-pdf))
+    (unless view-buff
+      (message "%s created." file-pdf)
+      (display-buffer (find-file-noselect file-pdf)))))
+
+(use-package nroff-mode
+  :bind
+  (:map nroff-mode-map
+        ("C-c C-p" . nroff-pdf-view))
+  :mode "\\.ms\\'")
 
 (use-package orderless
   :after minibuffer
@@ -243,6 +270,9 @@
           markdown-mode
           vue-mode
           yaml-mode) . prettier-js-mode))
+
+(use-package rainbow-mode
+  :hook (prog-mode . rainbow-mode))
 
 (use-package subword
   :hook ((js-mode
@@ -328,7 +358,7 @@
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
-                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|envrc\\|e?shell\\)\\*"
+                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|envrc\\|.*e?shell\\)\\*"
                            (display-buffer-in-side-window)
                            (window-width . 0.35)
                            (side . right)
@@ -337,11 +367,6 @@
 (use-package yasnippet
   :config
   (yas-global-mode))
-
-(use-package css
-  :straight (:type built-in)
-  :mode
-  ("\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'" . css-mode))
 
 (use-package dockerfile-mode
    :mode "\\Dockerfile\\'")
@@ -388,9 +413,6 @@
 (use-package markdown-mode
   :mode "\\.md\\'")
 
-(use-package vue-mode
-  :mode "\\.vue\\'")
-
 (use-package nov
   :mode
   ("\\.epub\\'" . nov-mode)
@@ -398,8 +420,11 @@
   (nov-text-width 80))
 
 (use-package pdf-tools
+  :magic ("%PDF" . pdf-view-mode)
   :mode
-  ("\\.pdf\\'" . pdf-view-mode))
+  ("\\.pdf\\'" . pdf-view-mode)
+  :config
+  (pdf-tools-install :no-query))
 
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
@@ -408,6 +433,9 @@
 
 (use-package yaml-mode
   :mode "\\.ya?lm\\'")
+
+(use-package vue-mode
+  :mode "\\.vue\\'")
 
 (use-package exwm-workspace
   :straight nil
