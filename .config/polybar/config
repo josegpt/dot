@@ -5,14 +5,14 @@ margin-bottom = 0
 [bar/main]
 # modules-left = exwm
 modules-center = time
-modules-right = temperature cpu memory date
+modules-right = battery temperature cpu memory date
 
 font-0 = Iosevka:size=8;2
 padding-right = 2
 padding-left = 2
 module-margin = 2
-background = #000000
-foreground = #ffffff
+background = #1d2021
+foreground = #ebdbb2
 height = 14
 border-size = 0
 bottom = true
@@ -22,6 +22,17 @@ bottom = true
 # hook-1 = emacsclient -e "exwm-workspace-current-index" 
 # initial = 1
 # format = <output>
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+battery = BAT1
+adapter = AC
+
+label-charging = Charging %percentage%%
+label-discharging = Discharging %percentage%%
+label-full = Fully charged
 
 [module/time]
 type = internal/date
