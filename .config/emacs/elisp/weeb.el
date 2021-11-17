@@ -217,7 +217,7 @@
 
 (defun weeb--search-anime-episodes-range (buffer)
   "Search anime episodes range."
-  (let ((ranges '(27)))
+  (let ((ranges '()))
     (set-buffer buffer)
     (while (re-search-forward weeb-anime-episodes-range-regex nil t)
       (setq ranges (append `(,(string-to-number (match-string 1)) ,(string-to-number (match-string 2))) ranges)))

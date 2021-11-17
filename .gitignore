@@ -11,4 +11,4 @@
 .config/emacs/projects
 .config/emacs/url/
 .local/share/
-.local/service/emacs-daemon/supervise/
+.config/emacs/eln-cache/

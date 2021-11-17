@@ -57,9 +57,8 @@
 
 (use-package autorevert
   :straight (:type built-in)
-  ;; emacs28
-  ;; :custom
-  ;; (global-auto-revert-non-file-buffers nil)
+  :custom
+  (global-auto-revert-non-file-buffers nil)
   :config
   (global-auto-revert-mode))
 
@@ -78,10 +77,14 @@
   :mode
   ("\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'" . css-mode))
 
-;; emacs28
-;; (use-package dired
-;;   :custom
-;;   (dired-kill-when-opening-new-dired-buffer t))
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode))
+
+(use-package dired
+  :straight (:type built-in)
+  :custom
+  (dired-kill-when-opening-new-dired-buffer t))
 
 (use-package eshell
   :bind
@@ -139,6 +142,8 @@
 
 (use-package emacs
   :straight (:type built-in)
+  :config
+  (load-theme 'modus-vivendi t)
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
@@ -153,23 +158,18 @@
   :custom
   (blink-cursor-mode nil))
 
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-hard t))
-
 (use-package hl-line
   :straight (:type built-in)
   :config
   (global-hl-line-mode))
 
-;; emacs28
-;; (use-package icomplete
-;;   :config
-;;   (icomplete-mode)
-;;   (fido-vertical-mode)
-;;   :custom
-;;   (icomplete-compute-delay 0.0)
-;;   (icomplete-delay-completions-threshold 200))
+(use-package icomplete
+  :config
+  (icomplete-mode)
+  (fido-vertical-mode)
+  :custom
+  (icomplete-compute-delay 0.0)
+  (icomplete-delay-completions-threshold 200))
 
 (use-package magit
   :bind
@@ -286,13 +286,6 @@
   :custom
   (tooltip-mode nil))
 
-(use-package vertico
-  :after minibuffer
-  :config
-  (vertico-mode)
-  :custom
-  (vertico-cycle t))
-
 (use-package webjump
   :bind
   ("C-c j" . webjump)
@@ -320,9 +313,11 @@
                    ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                    ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""]))))
 
+
 (use-package whitespace
   :straight (:type built-in)
-  :hook (prog-mode . whitespace-mode)
+  :bind
+  ("C-c SPC" . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs

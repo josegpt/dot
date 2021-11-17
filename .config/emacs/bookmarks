@@ -1,8 +1,13 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("polybar"
+(("eshell-aliases"
+ (filename . "~/.dotfiles/.config/emacs/eshell/alias")
+ (front-context-string . "alias ll ls -lh\n")
+ (rear-context-string)
+ (position . 1))
+("polybar"
  (filename . "~/.config/polybar/config")
  (front-context-string . "[global/wm]\nmarg")
  (rear-context-string)
@@ -12,8 +17,7 @@
  (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
  (position . 1))
-(#("emacs-config" 0 12
-   (face nil))
+("emacs-config"
  (filename . "~/.dotfiles/.config/emacs/init.el")
  (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
