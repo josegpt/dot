@@ -10,3 +10,6 @@ alias pqi pacman -Qe
 alias pqs pacman -Qs $1
 alias pqo pacman -Qdtq
 alias pr sudo pacman -Rncs $*
+alias yi yay -S $*
+alias yiu yay -Syu
+alias yr yay -Rncs $*

@@ -1,0 +1,115 @@
+;; -*- mode: lisp; -*-
+(in-package :stumpwm)
+
+(run-shell-command "picom")
+(run-shell-command "$HOME/.fehbg")
+
+(set-prefix-key (kbd "s-t"))
+
+(setf *root-map* (make-sparse-keymap))
+(setf *group-root-map* (make-sparse-keymap))
+(setf *tile-group-root-map* (make-sparse-keymap))
+(setf *float-group-root-map* (make-sparse-keymap))
+;; (sync-keys)
+
+(setf *colors*
+      '("#000000" "#ffffff"))
+
+(setf *message-window-gravity* :center
+      *input-window-gravity* :center
+      *window-border-style* :thin
+      *message-window-padding* 3
+      *maxsize-border-width* 2
+      *normal-border-width* 2
+      *transient-border-width* 2
+      *float-window-border* 2
+      *float-window-title-height* 1)
+
+(defcommand terminal () ()
+            "Start emacs if emacsclient is not running and focus emacs if it is
+running in the current group"
+            (run-or-raise "emacsclient -c -e '(term \"/bin/bash\")'" '(:title ".*terminal")))
+
+(defcommand emacs () ()
+            "Start emacs if emacsclient is not running and focus emacs if it is
+running in the current group"
+            (run-or-raise "emacsclient -c" '(:instance "emacs")))
+
+(define-key *root-map* (kbd "e") "emacs")
+(define-key *root-map* (kbd "s-e") "emacs")
+(define-key *root-map* (kbd "o") "other")
+(define-key *root-map* (kbd "k") "kill")
+(define-key *root-map* (kbd "0") "remove")
+(define-key *root-map* (kbd "1") "only")
+(define-key *root-map* (kbd "2") "vsplit")
+(define-key *root-map* (kbd "3") "hsplit")
+(define-key *root-map* (kbd "q") "quit-confirm")
+(define-key *root-map* (kbd "r") "reload")
+(define-key *root-map* (kbd "s-r") "loadrc")
+(define-key *root-map* (kbd "h") '*help-map*)
+
+(define-key *top-map* (kbd "s-RET") "terminal")
+(define-key *top-map* (kbd "s-:") "eval")
+(define-key *top-map* (kbd "s-x") "colon")
+(define-key *top-map* (kbd "s-!") "exec")
+(define-key *top-map* (kbd "s-b") "banish")
+(define-key *top-map* (kbd "s-n") "pull-hidden-next")
+(define-key *top-map* (kbd "s-p") "pull-hidden-previous")
+(define-key *top-map* (kbd "XF86AudioPlay") "exec playerctl play-pause")
+(define-key *top-map* (kbd "XF86AudioStop") "exec playerctl stop")
+(define-key *top-map* (kbd "XF86AudioNext") "exec playerctl next")
+(define-key *top-map* (kbd "XF86AudioPrev") "exec playerctl previous")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 10%+")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 10%-")
+(define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
+(define-key *top-map* (kbd "C-XF86AudioRaiseVolume") "exec amixer set Capture 10%+")
+(define-key *top-map* (kbd "C-XF86AudioLowerVolume") "exec amixer set Capture 10%-")
+(define-key *top-map* (kbd "XF86AudioMicMute") "exec amixer set Capture toggle")
+(define-key *top-map* (kbd "C-XF86AudioMute") "exec amixer set Capture toggle")
+(define-key *top-map* (kbd "XF86MonBrightnessUp") "exec xbacklight -inc 10%")
+(define-key *top-map* (kbd "XF86MonBrightnessDown") "exec xbacklight -dec 10%")
+
+(define-remapped-keys
+    '(("([Ff]irefox)"
+       ("C-b" . "Left")
+       ("C-f" . "Right")
+       ("C-p" . "Up")
+       ("C-n" . "Down")
+       ("C-a" . "Home")
+       ("C-e" . "End")
+       ("C-v" . "Next")
+       ("M-v" . "Prior")
+       ("M-b" . "C-Left")
+       ("M-f" . "C-Right")
+       ("M-<" . "Home")
+       ("M->" . "End")
+       ("C-d" . "Delete")
+       ("C-w" . "C-x")
+       ("M-w" . "C-c")
+       ("C-y" . "C-v")
+       ("C-s" . "C-f")
+       ("C-/" . "C-z")
+       ("M-s" . "C-l")
+       ("C-j" . "C-k")
+       ("C-K" . "C-w")                  ; Temp
+       ("C-H" . "C-a")                  ; Temp
+       ("C-g" . "Escape")
+       ("C-M-b" . "M-Left")
+       ("M-@" . "C-S-Right")
+       ("C-M-f" . "M-Right")
+       ("C-k" . ("C-S-End" "C-x"))
+       ("M-d" . ("C-S-Right" "C-x"))
+       ("M-DEL" . ("C-S-Left" "C-x")))))
+
+(setf *default-bg-color* (car *colors*))
+
+(setf *mode-line-background-color* (car *colors*)
+      *mode-line-foreground-color* (cadr *colors*))
+
+;; (setf *window-format* "%m%n%s%c")
+(setf *window-format* "%m%n%s%50t")
+(setf *screen-mode-line-format* (list "[^B%n^b] %W^>%d"))
+
+(setf *time-modeline-string* "%I:%M%P (%A) %b %d, %Y")
+
+(enable-mode-line (current-screen) (current-head) t)

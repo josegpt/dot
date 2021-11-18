@@ -2,14 +2,14 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("eshell-aliases"
- (filename . "~/.dotfiles/.config/emacs/eshell/alias")
- (front-context-string . "alias ll ls -lh\n")
+(("stumpwmrc"
+ (filename . "~/.dotfiles/.config/stumpwm/config")
+ (front-context-string . "# -*- mode: lisp")
  (rear-context-string)
  (position . 1))
-("polybar"
- (filename . "~/.config/polybar/config")
- (front-context-string . "[global/wm]\nmarg")
+("eshell-aliases"
+ (filename . "~/.dotfiles/.config/emacs/eshell/alias")
+ (front-context-string . "alias ll ls -lh\n")
  (rear-context-string)
  (position . 1))
 ("emacs-early"

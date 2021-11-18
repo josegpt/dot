@@ -44,11 +44,6 @@
 ;; Packages
 ;; ============================================================
 
-(use-package otaku
-  :straight nil
-  :bind
-  ("C-c a" . otaku-search-anime))
-
 (use-package auth-source-pass
   :straight (:type built-in)
   :after password-store
@@ -86,13 +81,8 @@
   :custom
   (dired-kill-when-opening-new-dired-buffer t))
 
-(use-package eshell
-  :bind
-  ("<s-return>" . eshell))
-
-(use-package envrc
-  :config
-  (envrc-global-mode))
+(use-package dockerfile-mode
+   :mode "\\Dockerfile\\'")
 
 (use-package display-line-numbers
   :straight (:type built-in)
@@ -100,6 +90,16 @@
   :custom
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
+
+(use-package envrc
+  :config
+  (envrc-global-mode))
+
+(use-package elm-mode
+  :mode "\\.elm\\'"
+  :hook
+  (elm-mode . elm-indent-mode)
+  (elm-mode . elm-format-on-save-mode))
 
 (use-package eglot
   :bind
@@ -158,6 +158,17 @@
   :custom
   (blink-cursor-mode nil))
 
+(use-package go-mode
+  :mode "\\.go\\'")
+
+(use-package haskell-mode
+  :mode "\\.hs\\'")
+
+(use-package html
+  :straight (:type built-in)
+  :mode
+  ("\\.\\(html?\\|ejs\\)\\'" . html-mode))
+
 (use-package hl-line
   :straight (:type built-in)
   :config
@@ -170,6 +181,28 @@
   :custom
   (icomplete-compute-delay 0.0)
   (icomplete-delay-completions-threshold 200))
+
+(use-package js
+  :straight (:type built-in)
+  :mode
+  ("\\.js\\'" . js-mode)
+  :custom
+  (js-indent-level 2))
+
+(use-package ledger-mode
+  :mode "\\.\\(ledger\\|dat\\)\\'"
+  :bind
+  (:map ledger-mode-map
+        ("C-M-i" . completion-at-point))
+  :custom
+  (ledger-complete-in-steps t)
+  (ledger-clear-whole-transactions t)
+  (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
+                    ("reg" "%(binary) -f %(ledger-file) reg")
+                    ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+                    ("account" "%(binary) -f %(ledger-file) reg %(account)")
+                    ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
+                    ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
 
 (use-package magit
   :bind
@@ -185,6 +218,9 @@
         ("M-A" . marginalia-cycle))
   :config
   (marginalia-mode))
+
+(use-package markdown-mode
+  :mode "\\.md\\'")
 
 (use-package minibuffer
   :straight (:type built-in)
@@ -222,6 +258,17 @@
         ("C-c C-p" . nroff-pdf-view))
   :mode "\\.ms\\'")
 
+(use-package nov
+  :mode
+  ("\\.epub\\'" . nov-mode)
+  :custom
+  (nov-text-width 80))
+
+(use-package otaku
+  :straight nil
+  :bind
+  ("C-c a" . otaku-search-anime))
+
 (use-package orderless
   :after minibuffer
   :custom
@@ -245,6 +292,13 @@
   ("C-c p k" . password-store-remove)
   ("C-c p g" . password-store-generate)
   ("C-c p f" . password-store-copy-field))
+
+(use-package pdf-tools
+  :magic ("%PDF" . pdf-view-mode)
+  :mode
+  ("\\.pdf\\'" . pdf-view-mode)
+  :config
+  (pdf-tools-install :no-query))
 
 (use-package pinentry
   :after minibuffer
@@ -284,6 +338,11 @@
           haskell-mode
           typescript-mode) . subword-mode))
 
+(use-package typescript-mode
+  :mode "\\.tsx?\\'"
+  :custom
+  (typescript-indent-level 2))
+
 (use-package tooltip
   :straight (:type built-in)
   :custom
@@ -316,7 +375,6 @@
                    ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                    ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""]))))
 
-
 (use-package whitespace
   :straight (:type built-in)
   :bind
@@ -343,16 +401,6 @@
 (use-package window
   :straight (:type built-in)
   :no-require t
-  :bind
-  ("s-1" . delete-other-windows)
-  ("s-2" . split-window-below)
-  ("s-3" . split-window-right)
-  ("s-o" . other-window)
-  ("s-p" . previous-buffer)
-  ("s-n" . next-buffer)
-  ("s-0" . delete-window)
-  ("s-k" . kill-current-buffer)
-  ("s-K" . kill-buffer-and-window)
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
@@ -362,234 +410,12 @@
                            (side . right)
                            (slot . -1)))))
 
-(use-package yasnippet
-  :config
-  (yas-global-mode))
-
-(use-package dockerfile-mode
-   :mode "\\Dockerfile\\'")
-
-(use-package elm-mode
-  :mode "\\.elm\\'"
-  :hook
-  (elm-mode . elm-indent-mode)
-  (elm-mode . elm-format-on-save-mode))
-
-(use-package haskell-mode
-  :mode "\\.hs\\'")
-
-(use-package html
-  :straight (:type built-in)
-  :mode
-  ("\\.\\(html?\\|ejs\\)\\'" . html-mode))
-
-(use-package go-mode
-  :mode "\\.go\\'")
-
-(use-package js
-  :straight (:type built-in)
-  :mode
-  ("\\.js\\'" . js-mode)
-  :custom
-  (js-indent-level 2))
-
-(use-package ledger-mode
-  :mode "\\.\\(ledger\\|dat\\)\\'"
-  :bind
-  (:map ledger-mode-map
-        ("C-M-i" . completion-at-point))
-  :custom
-  (ledger-complete-in-steps t)
-  (ledger-clear-whole-transactions t)
-  (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
-                    ("reg" "%(binary) -f %(ledger-file) reg")
-                    ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-                    ("account" "%(binary) -f %(ledger-file) reg %(account)")
-                    ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
-                    ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
-
-(use-package markdown-mode
-  :mode "\\.md\\'")
-
-(use-package nov
-  :mode
-  ("\\.epub\\'" . nov-mode)
-  :custom
-  (nov-text-width 80))
-
-(use-package pdf-tools
-  :magic ("%PDF" . pdf-view-mode)
-  :mode
-  ("\\.pdf\\'" . pdf-view-mode)
-  :config
-  (pdf-tools-install :no-query))
-
-(use-package typescript-mode
-  :mode "\\.tsx?\\'"
-  :custom
-  (typescript-indent-level 2))
+(use-package vue-mode
+  :mode "\\.vue\\'")
 
 (use-package yaml-mode
   :mode "\\.ya?lm\\'")
 
-(use-package vue-mode
-  :mode "\\.vue\\'")
-
-(use-package exwm-workspace
-  :straight nil
-  :no-require t
-  :bind
-  ("s-b" . (lambda ()
-             (interactive)
-             (if (< 0 exwm-workspace-current-index)
-                 (exwm-workspace-switch (1- exwm-workspace-current-index))
-               (exwm-workspace-switch (1- (exwm-workspace--count))))))
-  ("s-f" . (lambda ()
-             (interactive)
-             (if (> (1- (exwm-workspace--count)) exwm-workspace-current-index)
-                 (exwm-workspace-switch (1+ exwm-workspace-current-index))
-               (exwm-workspace-switch 0)))))
-
-(use-package exwm
-  :init (exwm-enable)
+(use-package yasnippet
   :config
-  (defun pt/run-command-with-message (cmmd)
-    (message "%s" (shell-command-to-string cmmd)))
-  :hook
-  (exwm-update-class . (lambda ()
-                         (exwm-workspace-rename-buffer exwm-class-name)))
-  (exwm-update-title . (lambda ()
-                         (exwm-workspace-rename-buffer exwm-title)))
-  (exwm-manage-finish . (lambda ()
-                          (pcase exwm-class-name
-                            ("Firefox" (exwm-workspace-move-window 1)))))
-  :bind
-  ("<XF86AudioPlay>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl play-pause")))
-  ("<XF86AudioStop>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl stop")))
-  ("<XF86AudioNext>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl next")))
-  ("<XF86AudioPrev>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl previous")))
-  ("<XF86AudioRaiseVolume>" . (lambda ()
-                                (interactive)
-                                (pt/run-command-with-message "amixer set Master 10%+")))
-  ("<XF86AudioLowerVolume>" . (lambda ()
-                                (interactive)
-                                (pt/run-command-with-message "amixer set Master 10%-")))
-  ("<XF86AudioMute>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "amixer set Master toggle")))
-  ("<s-XF86AudioRaiseVolume>" . (lambda ()
-                                  (interactive)
-                                  (pt/run-command-with-message "amixer set Capture 10%+")))
-  ("<s-XF86AudioLowerVolume>" . (lambda ()
-                                  (interactive)
-                                  (pt/run-command-with-message "amixer set Capture 10%-")))
-  ("<s-XF86AudioMute>" . (lambda ()
-                           (interactive)
-                           (pt/run-command-with-message "amixer set Capture toggle")))
-  ("<XF86AudioMicMute>" . (lambda ()
-                            (interactive)
-                            (pt/run-command-with-message "amixer set Capture toggle")))
-  ("<XF86MonBrightnessUp>" . (lambda ()
-                               (interactive)
-                               (pt/run-command-with-message "xbacklight -inc 10%")))
-  ("<XF86MonBrightnessDown>" . (lambda ()
-                                 (interactive)
-                                 (pt/run-command-with-message "xbacklight -dec 10%")))
-  ("s-a" . (lambda ()
-             (interactive)
-             (let* ((cmmds '(("Reboot" . "rb")
-                             ("Shutdown" . "sd")
-                             ("Poweroff" . "po")))
-                    (choice (assoc-string
-                             (completing-read "Action: " cmmds  nil t)
-                             cmmds t))
-                    (cmmd (cdr choice)))
-               (eshell-command cmmd))))
-  (:map exwm-mode-map
-        ("C-q" . exwm-input-send-next-key))
-  :custom
-  (exwm-workspace-number 2)
-  (exwm-workspace-warp-cursor t)
-  (exwm-input-prefix-keys
-   '(?\C-x
-     ?\C-c
-     ?\C-u
-     ?\C-h
-     ?\C-g
-     ?\M-x
-     ?\M-:
-     ?\M-!
-     ?\s-i
-     ?\s-1
-     ?\s-2
-     ?\s-3
-     ?\s-o
-     ?\s-p
-     ?\s-n
-     ?\s-0
-     ?\s-k
-     ?\s-K
-     ?\s-b
-     ?\s-f
-     ?\s-a
-     s-return
-     XF86AudioPlay
-     XF86AudioStop
-     XF86AudioNext
-     XF86AudioPrev
-     XF86AudioRaiseVolume
-     XF86AudioLowerVolume
-     XF86AudioMute
-     XF86AudioMicMute
-     XF86MonBrightnessUp
-     XF86MonBrightnessDown
-     s-XF86AudioRaiseVolume
-     s-XF86AudioLowerVolume
-     s-XF86AudioMute))
-  (exwm-input-global-keys
-   `(([?\C-c ?\C-j] . exwm-reset)
-     ([?\s-w] . exwm-workspace-switch)
-     ([?\s-&] . (lambda (command)
-                  (interactive (list (read-shell-command "$ ")))
-                  (start-process-shell-command command nil command)))
-     ,@(mapcar (lambda (i)
-                 `(,(kbd (format "C-s-%d" (1+ i))) .
-                   (lambda ()
-                     (interactive)
-                     (exwm-workspace-switch-create ,i))))
-               (number-sequence 0 (1- exwm-workspace-number)))))
-  (exwm-input-simulation-keys
-   '(([?\C-b] . [left])
-     ([?\C-f] . [right])
-     ([?\C-p] . [up])
-     ([?\C-n] . [down])
-     ([?\C-a] . [home])
-     ([?\C-e] . [end])
-     ([?\C-v] . [next])
-     ([?\M-v] . [prior])
-     ([?\M-b] . [C-left])
-     ([?\M-f] . [C-right])
-     ([?\M-<] . [home])
-     ([?\M->] . [end])
-     ([?\C-d] . [delete])
-     ([?\C-w] . [?\C-x])
-     ([?\M-w] . [?\C-c])
-     ([?\C-y] . [?\C-v])
-     ([?\C-s] . [?\C-f])
-     ([?\C-c ?h] . [?\C-a])
-     ([?\C-c ?f] . [?\C-l])
-     ([?\C-c ?k] . [?\C-w])
-     ([?\C-c ?g] . [escape])
-     ([?\C-\M-b] . [M-left])
-     ([?\C-\M-f] . [M-right])
-     ([?\C-k] . [S-end delete])
-     ([M-backspace] . [C-backspace])
-     ([?\M-d] . [C-S-right delete]))))
+  (yas-global-mode))
