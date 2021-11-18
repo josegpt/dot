@@ -404,10 +404,15 @@
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
-                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|envrc\\|.*e?shell\\)\\*"
+                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\)\\*"
                            (display-buffer-in-side-window)
                            (window-width . 0.35)
                            (side . right)
+                           (slot . -1))
+                          ("\\*\\(compilation\\|envrc\\)\\*"
+                           (display-buffer-in-side-window)
+                           (window-height . 0.25)
+                           (side . bottom)
                            (slot . -1)))))
 
 (use-package vue-mode

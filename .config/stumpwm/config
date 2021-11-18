@@ -29,12 +29,12 @@
 (defcommand terminal () ()
             "Start emacs if emacsclient is not running and focus emacs if it is
 running in the current group"
-            (run-or-raise "emacsclient -c -e '(term \"/bin/bash\")'" '(:title "terminal")))
+            (run-or-raise "emacsclient -c -e '(eshell)'" '(:title "\\*eshell\\*")))
 
 (defcommand emacs () ()
             "Start emacs if emacsclient is not running and focus emacs if it is
 running in the current group"
-            (run-or-raise "emacsclient -c" '(:instance "emacs")))
+            (run-or-raise "emacsclient -c" '(:class "Emacs")))
 
 (defcommand firefox () ()
             "Start Forefox or switch to it, if it is already running"
