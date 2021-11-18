@@ -3,14 +3,15 @@
 
 (run-shell-command "picom")
 (run-shell-command "$HOME/.fehbg")
+(run-shell-command "xsetroot -cursor_name left_ptr")
 
-(set-prefix-key (kbd "s-t"))
+(set-prefix-key (kbd "C-z"))
 
 (setf *root-map* (make-sparse-keymap))
 (setf *group-root-map* (make-sparse-keymap))
 (setf *tile-group-root-map* (make-sparse-keymap))
 (setf *float-group-root-map* (make-sparse-keymap))
-;; (sync-keys)
+(setf *window-map* (make-sparse-keymap))
 
 (setf *colors*
       '("#000000" "#ffffff"))
@@ -22,31 +23,46 @@
       *maxsize-border-width* 2
       *normal-border-width* 2
       *transient-border-width* 2
-      *float-window-border* 2
-      *float-window-title-height* 1)
+      *float-window-border* 2)
 
+;; TODO: Find a better way of managing commands sent to emacsclient
 (defcommand terminal () ()
             "Start emacs if emacsclient is not running and focus emacs if it is
 running in the current group"
-            (run-or-raise "emacsclient -c -e '(term \"/bin/bash\")'" '(:title ".*terminal")))
+            (run-or-raise "emacsclient -c -e '(term \"/bin/bash\")'" '(:title "terminal")))
 
 (defcommand emacs () ()
             "Start emacs if emacsclient is not running and focus emacs if it is
 running in the current group"
             (run-or-raise "emacsclient -c" '(:instance "emacs")))
 
+(defcommand firefox () ()
+            "Start Forefox or switch to it, if it is already running"
+            (run-or-raise "firefox" '(:class "Firefox")))
+
+(define-key *root-map* (kbd "C-z") "abort")
 (define-key *root-map* (kbd "e") "emacs")
-(define-key *root-map* (kbd "s-e") "emacs")
-(define-key *root-map* (kbd "o") "other")
-(define-key *root-map* (kbd "k") "kill")
+(define-key *root-map* (kbd "C-e") "emacs")
+(define-key *root-map* (kbd "b") "windowlist")
+(define-key *root-map* (kbd "w") "firefox")
+(define-key *root-map* (kbd "o") "fother")
+(define-key *root-map* (kbd "k") "delete")
 (define-key *root-map* (kbd "0") "remove")
 (define-key *root-map* (kbd "1") "only")
 (define-key *root-map* (kbd "2") "vsplit")
 (define-key *root-map* (kbd "3") "hsplit")
-(define-key *root-map* (kbd "q") "quit-confirm")
-(define-key *root-map* (kbd "r") "reload")
-(define-key *root-map* (kbd "s-r") "loadrc")
+(define-key *root-map* (kbd "d") "echo-date")
+(define-key *root-map* (kbd "m") "lastmsg")
+(define-key *root-map* (kbd "q") '*window-map*)
 (define-key *root-map* (kbd "h") '*help-map*)
+
+(define-key *window-map* (kbd "r") "reload")
+(define-key *window-map* (kbd "l") "loadrc")
+(define-key *window-map* (kbd "s") "show-window-properties")
+(define-key *window-map* (kbd "i") "info")
+(define-key *window-map* (kbd "q") "quit-confirm")
+(define-key *window-map* (kbd "v") "version")
+(define-key *window-map* (kbd "C-q") "quit-confirm")
 
 (define-key *top-map* (kbd "s-RET") "terminal")
 (define-key *top-map* (kbd "s-:") "eval")
@@ -106,7 +122,6 @@ running in the current group"
 (setf *mode-line-background-color* (car *colors*)
       *mode-line-foreground-color* (cadr *colors*))
 
-;; (setf *window-format* "%m%n%s%c")
 (setf *window-format* "%m%n%s%50t")
 (setf *screen-mode-line-format* (list "[^B%n^b] %W^>%d"))
 
