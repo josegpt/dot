@@ -328,6 +328,7 @@
     (start-process-shell-command "weeb-mpv" nil (weeb-mpv-command referer video-url))
     (message "%s sent to mpv" slug)))
 
+;; TODO: Add marginalia category to add more information
 (defun weeb-select-episode (anime)
   (let* ((title (car anime))
          (slug (cadr anime))
@@ -338,6 +339,7 @@
     (weeb-watch-episode episode-selected)))
   
 ;;;###autoload
+;; TODO: Manage empty string
 (defun weeb-search-anime (keyword)
   "Search anime by keyword."
   (interactive "sWeeb Search Anime: ")
