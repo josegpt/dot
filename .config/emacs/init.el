@@ -44,10 +44,10 @@
 ;; Packages
 ;; ============================================================
 
-(use-package weeb
+(use-package otaku
   :straight nil
   :bind
-  ("C-c a" . weeb-search-anime))
+  ("C-c a" . otaku-search-anime))
 
 (use-package auth-source-pass
   :straight (:type built-in)
