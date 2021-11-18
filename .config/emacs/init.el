@@ -180,6 +180,9 @@
 
 (use-package marginalia
   :after minibuffer
+  :bind
+  (:map minibuffer-local-map
+        ("M-A" . marginalia-cycle))
   :config
   (marginalia-mode))
 
