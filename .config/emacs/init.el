@@ -57,6 +57,12 @@
   :config
   (global-auto-revert-mode))
 
+(use-package battery
+  :straight (:type built-in)
+  :if (not (string= (system-name) "josegpt-desktop"))
+  :config
+  (display-battery-mode))
+
 (use-package compile
   :custom
   (compilation-scroll-output t))
