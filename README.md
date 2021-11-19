@@ -6,9 +6,9 @@
 
 ## Quick start
 ```console
-git clone https://github.com/josegpt/dotfiles.git .dotfiles
-cd .dotfiles
-stow .
+$ git clone https://github.com/josegpt/dotfiles.git .dotfiles
+$ cd .dotfiles
+$ stow .
 ```
 ## Enjoy!
 

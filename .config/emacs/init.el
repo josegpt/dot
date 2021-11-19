@@ -453,6 +453,9 @@
   :config
   (yas-global-mode))
 
+;;;;;;;;;;;;;
+;; Desktop ;;
+;;;;;;;;;;;;;
 
 (use-package exwm-workspace
   :straight nil
@@ -468,10 +471,6 @@
              (if (> (1- (exwm-workspace--count)) exwm-workspace-current-index)
                  (exwm-workspace-switch (1+ exwm-workspace-current-index))
                (exwm-workspace-switch 0)))))
-
-;;;;;;;;;;;;;
-;; Desktop ;;
-;;;;;;;;;;;;;
 
 (use-package exwm
   :init (exwm-enable)
