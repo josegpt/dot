@@ -345,6 +345,12 @@
           haskell-mode
           typescript-mode) . subword-mode))
 
+(use-package time
+  :custom
+  (display-time-format "(%A) %B %d, %Y - %I:%M%P")
+  :config
+  (display-time-mode))
+
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
   :custom
