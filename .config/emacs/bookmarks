@@ -2,12 +2,7 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("stumpwmrc"
- (filename . "~/.dotfiles/.config/stumpwm/config")
- (front-context-string . "# -*- mode: lisp")
- (rear-context-string)
- (position . 1))
-("eshell-aliases"
+(("eshell-aliases"
  (filename . "~/.dotfiles/.config/emacs/eshell/alias")
  (front-context-string . "alias ll ls -lh\n")
  (rear-context-string)

@@ -1,3 +1,6 @@
 #!/bin/sh
 
-exec stumpwm
+picom &
+$HOME/.fehbg &
+
+exec emacsclient -c

@@ -91,6 +91,11 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
+(use-package eshell
+  :straight (:type built-in)
+  :bind
+  ("s-<return>" . eshell))
+
 (use-package envrc
   :config
   (envrc-global-mode))
@@ -144,6 +149,8 @@
   :straight (:type built-in)
   :config
   (load-theme 'modus-vivendi t)
+  (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
+  (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   :custom
   (indent-tabs-mode nil)
   (tab-width 2)
@@ -401,6 +408,16 @@
 (use-package window
   :straight (:type built-in)
   :no-require t
+  :bind
+  ("s-0" . delete-window)
+  ("s-1" . delete-other-windows)
+  ("s-2" . split-window-below)
+  ("s-3" . split-window-right)
+  ("s-o" . other-window)
+  ("s-p" . previous-buffer)
+  ("s-n" . next-buffer)
+  ("s-k" . kill-current-buffer)
+  ("s-K" . kill-buffer-and-window)
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
@@ -424,3 +441,170 @@
 (use-package yasnippet
   :config
   (yas-global-mode))
+
+
+(use-package exwm-workspace
+  :straight nil
+  :no-require t
+  :bind
+  ("s-b" . (lambda ()
+             (interactive)
+             (if (< 0 exwm-workspace-current-index)
+                 (exwm-workspace-switch (1- exwm-workspace-current-index))
+               (exwm-workspace-switch (1- (exwm-workspace--count))))))
+  ("s-f" . (lambda ()
+             (interactive)
+             (if (> (1- (exwm-workspace--count)) exwm-workspace-current-index)
+                 (exwm-workspace-switch (1+ exwm-workspace-current-index))
+               (exwm-workspace-switch 0)))))
+
+;;;;;;;;;;;;;
+;; Desktop ;;
+;;;;;;;;;;;;;
+
+(use-package exwm
+  :init (exwm-enable)
+  :config
+  (defun pt/run-command-with-message (cmmd)
+    (message "%s" (shell-command-to-string cmmd)))
+  :hook
+  (exwm-update-class . (lambda ()
+                         (exwm-workspace-rename-buffer exwm-class-name)))
+  (exwm-update-title . (lambda ()
+                         (exwm-workspace-rename-buffer exwm-title)))
+  (exwm-manage-finish . (lambda ()
+                          (pcase exwm-class-name
+                            ("firefox" (exwm-workspace-move-window 1)))))
+  :bind
+  ("<XF86AudioPlay>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl play-pause")))
+  ("<XF86AudioStop>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl stop")))
+  ("<XF86AudioNext>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl next")))
+  ("<XF86AudioPrev>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "playerctl previous")))
+  ("<XF86AudioRaiseVolume>" . (lambda ()
+                                (interactive)
+                                (pt/run-command-with-message "amixer set Master 10%+")))
+  ("<XF86AudioLowerVolume>" . (lambda ()
+                                (interactive)
+                                (pt/run-command-with-message "amixer set Master 10%-")))
+  ("<XF86AudioMute>" . (lambda ()
+                         (interactive)
+                         (pt/run-command-with-message "amixer set Master toggle")))
+  ("<s-XF86AudioRaiseVolume>" . (lambda ()
+                                  (interactive)
+                                  (pt/run-command-with-message "amixer set Capture 10%+")))
+  ("<s-XF86AudioLowerVolume>" . (lambda ()
+                                  (interactive)
+                                  (pt/run-command-with-message "amixer set Capture 10%-")))
+  ("<s-XF86AudioMute>" . (lambda ()
+                           (interactive)
+                           (pt/run-command-with-message "amixer set Capture toggle")))
+  ("<XF86AudioMicMute>" . (lambda ()
+                            (interactive)
+                            (pt/run-command-with-message "amixer set Capture toggle")))
+  ("<XF86MonBrightnessUp>" . (lambda ()
+                               (interactive)
+                               (pt/run-command-with-message "xbacklight -inc 10%")))
+  ("<XF86MonBrightnessDown>" . (lambda ()
+                                 (interactive)
+                                 (pt/run-command-with-message "xbacklight -dec 10%")))
+  ("s-a" . (lambda ()
+             (interactive)
+             (let* ((cmmds '(("Reboot" . "rb")
+                             ("Shutdown" . "sd")
+                             ("Poweroff" . "po")))
+                    (choice (assoc-string
+                             (completing-read "Action: " cmmds  nil t)
+                             cmmds t))
+                    (cmmd (cdr choice)))
+               (eshell-command cmmd))))
+  (:map exwm-mode-map
+        ("C-q" . exwm-input-send-next-key))
+  :custom
+  (exwm-workspace-number 2)
+  (exwm-workspace-warp-cursor t)
+  (exwm-input-prefix-keys
+   '(?\C-x
+     ?\C-c
+     ?\C-u
+     ?\C-h
+     ?\C-g
+     ?\M-x
+     ?\M-:
+     ?\M-!
+     ?\s-i
+     ?\s-1
+     ?\s-2
+     ?\s-3
+     ?\s-o
+     ?\s-p
+     ?\s-n
+     ?\s-0
+     ?\s-k
+     ?\s-K
+     ?\s-b
+     ?\s-f
+     ?\s-a
+     s-return
+     XF86AudioPlay
+     XF86AudioStop
+     XF86AudioNext
+     XF86AudioPrev
+     XF86AudioRaiseVolume
+     XF86AudioLowerVolume
+     XF86AudioMute
+     XF86AudioMicMute
+     XF86MonBrightnessUp
+     XF86MonBrightnessDown
+     s-XF86AudioRaiseVolume
+     s-XF86AudioLowerVolume
+     s-XF86AudioMute))
+  (exwm-input-global-keys
+   `(([?\C-c ?\C-j] . exwm-reset)
+     ([?\s-w] . exwm-workspace-switch)
+     ([?\s-&] . (lambda (command)
+                  (interactive (list (read-shell-command "$ ")))
+                  (start-process-shell-command command nil command)))
+     ,@(mapcar (lambda (i)
+                 `(,(kbd (format "C-s-%d" (1+ i))) .
+                   (lambda ()
+                     (interactive)
+                     (exwm-workspace-switch-create ,i))))
+               (number-sequence 0 (1- exwm-workspace-number)))))
+  (exwm-input-simulation-keys
+   '(([?\C-b] . [left])
+     ([?\C-f] . [right])
+     ([?\C-p] . [up])
+     ([?\C-n] . [down])
+     ([?\C-a] . [home])
+     ([?\C-e] . [end])
+     ([?\C-v] . [next])
+     ([?\M-v] . [prior])
+     ([?\M-b] . [C-left])
+     ([?\M-f] . [C-right])
+     ([?\M-<] . [home])
+     ([?\M->] . [end])
+     ([?\C-/] . [?\C-z])
+     ([?\C-w] . [?\C-x])
+     ([?\M-w] . [?\C-c])
+     ([?\C-y] . [?\C-v])
+     ([?\C-s] . [?\C-f])
+     ([?\C-j] . [?\C-k])
+     ([?\M-s] . [?\C-l])
+     ([?\C-d] . [delete])
+     ([?\C-c ?h] . [?\C-a])
+     ([?\C-c ?k] . [?\C-w])
+     ([?\M-@] . [C-S-right])
+     ([?\C-c ?g] . [escape])
+     ([?\C-\M-b] . [M-left])
+     ([?\C-\M-f] . [M-right])
+     ([?\C-k] . [C-S-end ?\C-x])
+     ([?\M-d] . [C-S-right ?\C-x])
+     ([M-backspace] . [C-S-left ?\C-x]))))

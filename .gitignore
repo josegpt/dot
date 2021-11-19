@@ -12,3 +12,4 @@
 .config/emacs/url/
 .local/share/
 .config/emacs/eln-cache/
+.config/systemd/
