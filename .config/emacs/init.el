@@ -1,6 +1,6 @@
-;; ============================================================
-;; Init
-;; ============================================================
+;;;;;;;;;;
+;; Init ;;
+;;;;;;;;;;
 
 (defvar bootstrap-version)
 
@@ -40,9 +40,9 @@
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "elisp/")))
 
-;; ============================================================
-;; Packages
-;; ============================================================
+;;;;;;;;;;;;;;
+;; Packages ;;
+;;;;;;;;;;;;;;
 
 (use-package auth-source-pass
   :straight (:type built-in)
@@ -384,8 +384,7 @@
 
 (use-package whitespace
   :straight (:type built-in)
-  :bind
-  ("C-c SPC" . whitespace-mode)
+  :hook (prog-mode . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs
