@@ -348,16 +348,16 @@
          (released-date (gethash "released-date" anime))
          (last-episode (gethash "last-episode" anime))
          (summary (gethash "summary" anime)))
-    (concat (format "%50s" " ")
-            (propertize (format "%s" title) 'face '(italic font-lock-keyword-face))
+    (concat (propertize " " 'display '(space :align-to center))
+            (propertize title 'face '(italic font-lock-keyword-face))
             " "
-            (propertize (format "%10d" last-episode) 'face '(bold font-lock-constant-face))
+            (propertize (format "%d" last-episode) 'face '(bold font-lock-constant-face))
             " "
-            (propertize (format "%10s" released-date) 'face '(font-lock-comment-face))
+            (propertize released-date 'face '(font-lock-comment-face))
             " "
-            (propertize (format "%10s" status) 'face '(font-lock-string-face))
+            (propertize status 'face '(font-lock-string-face))
             " "
-            (propertize (format "%10s" type) 'face '(font-lock-builtin-face)))))
+            (propertize type 'face '(font-lock-builtin-face)))))
 
 (add-to-list 'marginalia-annotator-registry
              '(weeb-anime weeb-anime-annotator marginalia-annotate-face builtin none))
