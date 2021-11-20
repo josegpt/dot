@@ -5,7 +5,7 @@
 (setq use-short-answers t)
 
 ;; Configure font size
-(set-face-attribute 'default nil :family "Victor Mono" :height 120)
+(set-face-attribute 'default nil :family "Victor Mono" :height 140)
 
 ;; Do not resize at early stage
 (setq frame-inhibit-implied-resize t)
