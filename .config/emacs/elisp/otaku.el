@@ -1,7 +1,7 @@
 ;;; otaku.el --- Search and watch anime from Emacs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021 Jose G Perez Taveras <josegpt27@gmail.com>
-;; Version: 0.9
+;; Version: 1.0
 
 ;; Permission is hereby granted, free of charge, to any person obtaining
 ;; a copy of this software and associated documentation files (the
@@ -52,6 +52,9 @@
 (defcustom otaku-older-than (* 60 60 24)
   "When otaku considers a file old enough to be replaced.")
 
+(defvar otaku-last-search nil
+  "Store last search")
+
 ;;; Helpers
 
 ;; TODO: Make it async
@@ -69,10 +72,6 @@
     (dolist (obj hash)
       (push `(,(gethash key1 obj) ,(gethash key2 obj)) result))
     result))
-
-(defun otaku--anime-field-accessor (field anime)
-  "Anime field accessor."
-  (cdr (assoc-string field anime)))
 
 (defun otaku-search-url (keyword)
   "Search url constructor."
@@ -302,8 +301,6 @@
   (re-search-forward "sources:\\[{file: '\\(.+\\)',label.+" nil t)
   (match-string 1))
 
-;;; Service
-
 (defun otaku--service-search-anime-by-keyword (keyword)
   "Search anime by keyword."
   (cond
@@ -316,8 +313,10 @@
 (defun otaku--service-get-single-anime (slug)
   "Get anime by slug"
   (cond
-   ((not (otaku--repository-exists-anime-p slug)) (otaku--repository-insert-anime slug (otaku--http-get-single-anime slug)))
-   ((otaku--repository-is-old-anime-p slug) (otaku--repository-update-anime slug (otaku--http-get-single-anime slug))))
+   ((not (otaku--repository-exists-anime-p slug))
+    (otaku--repository-insert-anime slug (otaku--http-get-single-anime slug)))
+   ((otaku--repository-is-old-anime-p slug)
+    (otaku--repository-update-anime slug (otaku--http-get-single-anime slug))))
   (otaku--repository-get-anime slug))
 
 (defun otaku-watch-episode (episode)
@@ -328,7 +327,6 @@
     (start-process-shell-command "otaku-mpv" nil (otaku-mpv-command referer video-url))
     (message "%s sent to mpv" slug)))
 
-;; TODO: Add marginalia category to add more information
 (defun otaku-select-episode (anime)
   (let* ((title (car anime))
          (slug (cadr anime))
@@ -337,17 +335,52 @@
          (choice (completing-read (format "Choose %s Episode: " title) episodes-list nil t))
          (episode-selected (assoc-string choice episodes-list)))
     (otaku-watch-episode episode-selected)))
-  
+
+;;; Marginalia
+
+(defun weeb-anime-annotator (cand)
+  "Marginalia annotator for `otaku'"
+  (let* ((slug (cadr otaku-last-search))
+         (anime (otaku--repository-get-anime slug))
+         (title (gethash "title" anime))
+         (status (gethash "status" anime))
+         (type (gethash "type" anime))
+         (released-date (gethash "released-date" anime))
+         (last-episode (gethash "last-episode" anime))
+         (summary (gethash "summary" anime)))
+    (concat (format "%50s" " ")
+            (propertize (format "%s" title) 'face '(italic font-lock-keyword-face))
+            " "
+            (propertize (format "%10d" last-episode) 'face '(bold font-lock-constant-face))
+            " "
+            (propertize (format "%10s" released-date) 'face '(font-lock-comment-face))
+            " "
+            (propertize (format "%10s" status) 'face '(font-lock-string-face))
+            " "
+            (propertize (format "%10s" type) 'face '(font-lock-builtin-face)))))
+
+(add-to-list 'marginalia-annotator-registry
+             '(weeb-anime weeb-anime-annotator marginalia-annotate-face builtin none))
+
+(add-to-list 'marginalia-prompt-categories '("\\<[Cc]hoose .* [Ee]pisode\\>" . weeb-anime))
+
+;;; Interactive
+
 ;;;###autoload
-;; TODO: Manage empty string
 (defun otaku-search-anime (keyword)
   "Search anime by keyword."
   (interactive "sOtaku Search Anime: ")
-  (let* ((result (otaku--service-search-anime-by-keyword keyword))
-         (animes (otaku--list-from-hash "title" "slug" (gethash "result" result)))
-         (choice (completing-read "Choose Anime: " animes nil t))
-         (anime-selected (assoc-string choice animes)))
-    (otaku-select-episode anime-selected)))
+  (if (string= keyword "")
+      (if otaku-last-search
+          (otaku-select-episode otaku-last-search)
+        (error "No anime has been searched."))
+    (let* ((result (otaku--service-search-anime-by-keyword keyword))
+           (animes (otaku--list-from-hash "title" "slug" (gethash "result" result)))
+           (choice (completing-read "Choose Anime: " animes nil t))
+           (anime-selected (assoc-string choice animes)))
+      (progn
+        (setq otaku-last-search anime-selected)
+        (otaku-select-episode anime-selected)))))
 
 (provide 'otaku)
 ;;; otaku.el ends here
