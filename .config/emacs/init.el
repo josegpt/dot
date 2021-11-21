@@ -158,6 +158,7 @@
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   :custom
+  (comp-deferred-compilation t)
   (indent-tabs-mode nil)
   (tab-width 2)
   (ring-bell-function 'ignore)

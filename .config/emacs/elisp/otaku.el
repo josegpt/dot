@@ -1,7 +1,7 @@
 ;;; otaku.el --- Search and watch anime from Emacs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021 Jose G Perez Taveras <josegpt27@gmail.com>
-;; Version: 1.0
+;; Version: 0.1
 
 ;; Permission is hereby granted, free of charge, to any person obtaining
 ;; a copy of this software and associated documentation files (the
@@ -31,7 +31,8 @@
 
 ;;; Code:
 
-(require 'json)
+(eval-when-compile
+  (require 'json))
 
 (defgroup otaku ()
   "Search and watch anime from Emacs."
@@ -54,6 +55,34 @@
 
 (defvar otaku-last-search nil
   "Store last search")
+
+;;; Marginalia
+
+(defun otaku-annotate-episode (cand)
+  "Marginalia annotator for `otaku'"
+  (let* ((slug (cadr otaku-last-search))
+         (anime (otaku--repository-get-anime slug))
+         (title (gethash "title" anime))
+         (status (gethash "status" anime))
+         (type (gethash "type" anime))
+         (released-date (gethash "released-date" anime))
+         (last-episode (gethash "last-episode" anime))
+         (summary (gethash "summary" anime)))
+    (concat (propertize " " 'display '(space :align-to center))
+            (propertize title 'face '(italic font-lock-keyword-face))
+            " "
+            (propertize (format "%10d" last-episode) 'face '(bold font-lock-constant-face))
+            " "
+            (propertize (format "%10s" released-date) 'face '(font-lock-comment-face))
+            " "
+            (propertize (format "%10s" status) 'face '(font-lock-string-face))
+            " "
+            (propertize (format "%10s" type) 'face '(font-lock-builtin-face)))))
+
+(with-eval-after-load 'marginalia
+  (add-to-list 'marginalia-annotator-registry
+               '(otaku-anime otaku-annotate-episode builtin none))
+  (add-to-list 'marginalia-prompt-categories '("\\<[Cc]hoose .* [Ee]pisode\\>" . otaku-anime)))
 
 ;;; Helpers
 
@@ -336,34 +365,6 @@
          (episode-selected (assoc-string choice episodes-list)))
     (otaku-watch-episode episode-selected)))
 
-;;; Marginalia
-
-(defun weeb-anime-annotator (cand)
-  "Marginalia annotator for `otaku'"
-  (let* ((slug (cadr otaku-last-search))
-         (anime (otaku--repository-get-anime slug))
-         (title (gethash "title" anime))
-         (status (gethash "status" anime))
-         (type (gethash "type" anime))
-         (released-date (gethash "released-date" anime))
-         (last-episode (gethash "last-episode" anime))
-         (summary (gethash "summary" anime)))
-    (concat (propertize " " 'display '(space :align-to center))
-            (propertize title 'face '(italic font-lock-keyword-face))
-            " "
-            (propertize (format "%d" last-episode) 'face '(bold font-lock-constant-face))
-            " "
-            (propertize released-date 'face '(font-lock-comment-face))
-            " "
-            (propertize status 'face '(font-lock-string-face))
-            " "
-            (propertize type 'face '(font-lock-builtin-face)))))
-
-(add-to-list 'marginalia-annotator-registry
-             '(weeb-anime weeb-anime-annotator marginalia-annotate-face builtin none))
-
-(add-to-list 'marginalia-prompt-categories '("\\<[Cc]hoose .* [Ee]pisode\\>" . weeb-anime))
-
 ;;; Interactive
 
 ;;;###autoload
@@ -378,9 +379,8 @@
            (animes (otaku--list-from-hash "title" "slug" (gethash "result" result)))
            (choice (completing-read "Choose Anime: " animes nil t))
            (anime-selected (assoc-string choice animes)))
-      (progn
-        (setq otaku-last-search anime-selected)
-        (otaku-select-episode anime-selected)))))
+      (setq otaku-last-search anime-selected)
+      (otaku-select-episode anime-selected))))
 
 (provide 'otaku)
 ;;; otaku.el ends here
