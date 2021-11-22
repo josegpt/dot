@@ -158,9 +158,8 @@
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   :custom
-  (comp-deferred-compilation t)
-  (indent-tabs-mode nil)
   (tab-width 2)
+  (indent-tabs-mode nil)
   (ring-bell-function 'ignore)
   ;; don't clutter up directories with files~
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -417,6 +416,10 @@
   :custom
   (which-key-idle-delay 0.3))
 
+(use-package woman
+  :bind
+  ("C-c w" . woman))
+
 (use-package window
   :straight (:type built-in)
   :no-require t
@@ -433,12 +436,17 @@
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
-                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\)\\*"
+                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
+                           (display-buffer-in-side-window)
+                           (window-width . 0.35)
+                           (side . right)
+                           (slot . 0))
+                          ("\\*\\(WoMan.*\\|Man.*\\)\\*"
                            (display-buffer-in-side-window)
                            (window-width . 0.35)
                            (side . right)
                            (slot . -1))
-                          ("\\*\\(compilation\\|envrc\\)\\*"
+                          ("\\*\\(envrc\\)\\*"
                            (display-buffer-in-side-window)
                            (window-height . 0.25)
                            (side . bottom)
