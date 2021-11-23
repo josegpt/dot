@@ -25,7 +25,7 @@
 (setq gc-cons-threshold (* 50 1000 1000))
 
 (add-to-list 'load-path (concat user-emacs-directory
-                                (convert-standard-filename "elisp/")))
+                                (convert-standard-filename "lisp/")))
 
 ;;;;;;;;;;;;;
 ;; Helpers ;;
@@ -172,6 +172,7 @@ package.  This macro is not repeatable."
 
 (setup emacs
   (:option tab-width 2
+           truncate-lines t
            indent-tabs-mode nil
            ring-bell-function 'ignore
            ;; don't clutter up directories with files~
@@ -422,7 +423,8 @@ package.  This macro is not repeatable."
               go-mode
               elm-mode
               haskell-mode
-              typescript-mode))
+              typescript-mode
+              ledger-mode))
 
 (setup time
   (:option display-time-format "(%A) %B %d, %Y - %I:%M%P")
@@ -493,15 +495,15 @@ package.  This macro is not repeatable."
            "s-K" kill-buffer-and-window)
   (:option display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                                    (display-buffer-no-window))
-                                  ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
+                                  ("\\*\\(Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
+                                   (display-buffer-in-side-window)
+                                   (window-width . 0.35)
+                                   (side . right)
+                                   (slot . -1))
+                                  ("\\*\\(WoMan.*\\|Man.*\\|Help.*\\)\\*"
                                    (display-buffer-in-side-window)
                                    (window-width . 0.45)
-                                   (side . right)
-                                   (slot . 0))
-                                  ("\\*\\(WoMan.*\\|Man.*\\)\\*"
-                                   (display-buffer-in-side-window)
-                                   (window-width . 0.45)
-                                   (side . right)
+                                   (side . left)
                                    (slot . -1))
                                   ("\\*\\(envrc\\)\\*"
                                    (display-buffer-in-side-window)
