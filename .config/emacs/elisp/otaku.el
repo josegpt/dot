@@ -86,15 +86,6 @@
 
 ;;; Helpers
 
-;; TODO: Make it async
-(defmacro scrape-from-uri (uri &rest body)
-  "Macro to scrape from uri"
-  `(let ((ssl-opt (if (string= (substring ,uri 0 5) "https") "-k" "")))
-     (with-temp-buffer
-       (call-process "curl" nil t nil "-s" "-A" "Mozilla/5.0" ssl-opt ,uri)
-       (goto-char (point-min))
-       ,@body)))
-
 (defun otaku--list-from-hash (key1 key2 hash)
   "List from hash"
   (let ((result '()))

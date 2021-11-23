@@ -2,7 +2,7 @@
 # name: ifn ...
 # key: ifn
 # --
-#ifndef ${1:HEADER_H$(upcase yas-text)}
-#define $1
+#ifndef __${1:HEADER$(upcase yas-text)}_H_
+#define __$1_H_
 $0
-#endif // $1
+#endif // __$1_H_

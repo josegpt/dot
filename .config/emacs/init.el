@@ -18,236 +18,64 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;;; make use-package use straight
-(straight-use-package 'use-package)
-
-;;; set straight as default
-(setq straight-use-package-by-default 1)
-
-;; debugging purposes
-;; (setq use-package-verbose t)
+;;; make setup use straight
+(straight-use-package 'setup)
 
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
-(add-hook 'emacs-startup-hook #'(lambda ()
-                                  (message "---> Emacs loaded in %s with %d garbage collections."
-                                           (format "%.2f seconds"
-                                                   (float-time
-                                                    (time-subtract after-init-time before-init-time)))
-                                           gcs-done)))
-
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "elisp/")))
 
-;;;;;;;;;;;;;;
-;; Packages ;;
-;;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+;; Helpers ;;
+;;;;;;;;;;;;;
 
-(use-package auth-source-pass
-  :straight (:type built-in)
-  :after password-store
-  :config
-  (auth-source-pass-enable))
+(require 'setup)
 
-(use-package autorevert
-  :straight (:type built-in)
-  :custom
-  (global-auto-revert-non-file-buffers nil)
-  :config
-  (global-auto-revert-mode))
+(setup-define :if-host
+  (lambda (hostname)
+    `(unless (string= (system-name) ,hostname)
+       ,(setup-quit)))
+  :documentation "If HOSTNAME is not the current hostname, stop evaluating form.")
 
-(use-package battery
-  :straight (:type built-in)
-  :if (not (string= (system-name) "josegpt-desktop"))
-  :config
-  (display-battery-mode))
+(setup-define :needs
+    (lambda (executable)
+      `(unless (executable-find ,executable)
+         ,(setup-quit)))
+  :documentation "If EXECUTABLE is not in the path, stop here."
+  :repeatable 1)
 
-(use-package compile
-  :custom
-  (compilation-scroll-output t))
+(setup-define :straight
+  (lambda (recipe)
+    `(unless (straight-use-package ',recipe)
+       ,(setup-quit)))
+  :documentation
+  "Install RECIPE with `straight-use-package'.
+This macro can be used as HEAD, and will replace itself with the
+first RECIPE's package."
+  :repeatable t
+  :shorthand (lambda (sexp)
+               (let ((recipe (cadr sexp)))
+                 (if (consp recipe)
+                     (car recipe)
+                   recipe))))
 
-(use-package corfu
-  :hook
-  ((prog-mode shell-mode eshell-mode ledger-mode) . corfu-mode)
-  :custom
-  (corfu-cycle t))
-
-(use-package css
-  :straight (:type built-in)
-  :mode
-  ("\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'" . css-mode))
-
-(use-package diff-hl
-  :config
-  (global-diff-hl-mode))
-
-(use-package dired
-  :straight (:type built-in)
-  :custom
-  (dired-kill-when-opening-new-dired-buffer t))
-
-(use-package dockerfile-mode
-   :mode "\\Dockerfile\\'")
-
-(use-package display-line-numbers
-  :straight (:type built-in)
-  :hook ((prog-mode html-mode ledger-mode) . display-line-numbers-mode)
-  :custom
-  (display-line-numbers-type 'relative)
-  (display-line-numbers-current-absolute t))
-
-(use-package eshell
-  :straight (:type built-in)
-  :bind
-  ("s-<return>" . eshell))
-
-(use-package envrc
-  :config
-  (envrc-global-mode))
-
-(use-package elm-mode
-  :mode "\\.elm\\'"
-  :hook
-  (elm-mode . elm-indent-mode)
-  (elm-mode . elm-format-on-save-mode))
-
-(use-package eglot
-  :bind
-  (:map eglot-mode-map
-        ("C-c e h" . eldoc)
-        ("C-c e r" . eglot-rename)
-        ("C-c e f" . eldoc-format-buffer)
-        ("C-c e o" . eglot-code-action-organize-imports))
-  :config
-  (add-to-list 'eglot-server-programs
-               '((js-mode typescript-mode)
-                 "typescript-language-server" "--stdio")))
-
-(use-package elfeed
-  :bind
-  ("C-c r" . elfeed)
-  :custom
-  (elfeed-use-curl t)
-  (elfeed-db-directory "~/.cache/elfeed")
-  (elfeed-search-title-max-width 100)
-  (elfeed-search-title-min-width 100)
-  (elfeed-feeds '(("https://reddit.com/r/guix.rss" linux)
-                  ("https://reddit.com/r/emacs.rss" emacs)
-                  ("https://reddit.com/r/unixporn.rss" linux)
-                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
-                  ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
-
-(use-package erc
-  :straight (:type built-in)
-  :bind
-  ("C-c i" . erc-tls)
-  :custom
-  (erc-server "irc.us.libera.chat")
-  (erc-nick "josegpt")
-  (erc-user-full-name "Jose G Perez Taveras")
-  (erc-track-shorten-start 8)
-  (erc-kill-buffer-on-part t)
-  (erc-auto-query 'bury)
-  (erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs"))))
-
-(use-package emacs
-  :straight (:type built-in)
-  :config
-  (load-theme 'modus-vivendi t)
-  (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
-  (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-  :custom
-  (tab-width 2)
-  (indent-tabs-mode nil)
-  (ring-bell-function 'ignore)
-  ;; don't clutter up directories with files~
-  (backup-directory-alist `((".*" . ,temporary-file-directory)))
-  ;; don't clutter with #files either
-  (auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
-
-(use-package frame
-  :straight (:type built-in)
-  :custom
-  (blink-cursor-mode nil))
-
-(use-package go-mode
-  :mode "\\.go\\'")
-
-(use-package haskell-mode
-  :mode "\\.hs\\'")
-
-(use-package html
-  :straight (:type built-in)
-  :mode
-  ("\\.\\(html?\\|ejs\\)\\'" . html-mode))
-
-(use-package hl-line
-  :straight (:type built-in)
-  :config
-  (global-hl-line-mode))
-
-(use-package icomplete
-  :config
-  (icomplete-mode)
-  (fido-vertical-mode)
-  :custom
-  (icomplete-compute-delay 0.0)
-  (icomplete-delay-completions-threshold 200))
-
-(use-package js
-  :straight (:type built-in)
-  :mode
-  ("\\.js\\'" . js-mode)
-  :custom
-  (js-indent-level 2))
-
-(use-package ledger-mode
-  :mode "\\.\\(ledger\\|dat\\)\\'"
-  :bind
-  (:map ledger-mode-map
-        ("C-M-i" . completion-at-point))
-  :custom
-  (ledger-complete-in-steps t)
-  (ledger-clear-whole-transactions t)
-  (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
-                    ("reg" "%(binary) -f %(ledger-file) reg")
-                    ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-                    ("account" "%(binary) -f %(ledger-file) reg %(account)")
-                    ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
-                    ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
-
-(use-package magit
-  :bind
-  ("C-x g" . magit-status)
-  :custom
-  (magit-clone-default-directory "~/projects/")
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(use-package marginalia
-  :after minibuffer
-  :bind
-  (:map minibuffer-local-map
-        ("M-A" . marginalia-cycle))
-  :config
-  (marginalia-mode))
-
-(use-package markdown-mode
-  :mode "\\.md\\'")
-
-(use-package minibuffer
-  :straight (:type built-in)
-  :custom
-  (completion-ignore-case t)
-  (completion-cycle-threshold 3)
-  (read-buffer-completion-ignore-case t)
-  (read-file-name-completion-ignore-case t)
-  (completion-styles '(partial-completion substring)))
-
-(use-package move-text
-  :bind
-  ("M-p" . move-text-up)
-  ("M-n" . move-text-down))
+(setup-define :straight-when
+  (lambda (recipe condition)
+    `(if ,condition
+         (straight-use-package ',recipe)
+       ,(setup-quit)))
+  :documentation
+  "Install RECIPE with `straight-use-package' when CONDITION is met.
+If CONDITION is false, stop evaluating the body.  This macro can
+be used as HEAD, and will replace itself with the RECIPE's
+package.  This macro is not repeatable."
+  :repeatable nil
+  :indent 1
+  :shorthand (lambda (sexp)
+               (let ((recipe (cadr sexp)))
+                 (if (consp recipe) (car recipe) recipe))))
 
 (defun nroff-pdf-view ()
   "Run pdf on this file."
@@ -265,371 +93,427 @@
       (message "%s created." file-pdf)
       (display-buffer (find-file-noselect file-pdf)))))
 
-(use-package nroff-mode
-  :bind
-  (:map nroff-mode-map
-        ("C-c C-p" . nroff-pdf-view))
-  :mode "\\.ms\\'")
+;;;;;;;;;;;;;;
+;; Packages ;;
+;;;;;;;;;;;;;;
 
-(use-package nov
-  :mode
-  ("\\.epub\\'" . nov-mode)
-  :custom
-  (nov-text-width 80))
+(setup auth-source-pass
+  (auth-source-pass-enable))
 
-(use-package otaku
-  :straight nil
-  :bind
-  ("C-c a" . otaku-search-anime))
+(setup autorevert
+  (:option global-auto-revert-non-file-buffers nil)
+  (global-auto-revert-mode))
 
-(use-package orderless
-  :after minibuffer
-  :custom
-  (completion-styles '(orderless))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles . (partial-completion))))))
+(setup battery
+  (:if-host "josegpt-laptop")
+  (display-battery-mode))
 
-(use-package paren
-  :straight (:type built-in)
-  :hook (prog-mode . show-paren-mode)
-  :custom
-  (show-paren-when-point-inside-paren t))
+(setup compile
+  (:option compilation-scroll-output t))
 
-(use-package password-store
-  :bind
-  ("C-c p e" . password-store-edit)
-  ("C-c p w" . password-store-copy)
-  ("C-c p c" . password-store-clear)
-  ("C-c p i" . password-store-insert)
-  ("C-c p r" . password-store-rename)
-  ("C-c p k" . password-store-remove)
-  ("C-c p g" . password-store-generate)
-  ("C-c p f" . password-store-copy-field))
+(setup (:straight corfu)
+  (:option corfu-cycle t)
+  (:hook-into prog-mode
+              shell-mode
+              eshell-mode
+              ledger-mode))
 
-(use-package pdf-tools
-  :magic ("%PDF" . pdf-view-mode)
-  :mode
-  ("\\.pdf\\'" . pdf-view-mode)
-  :config
-  (pdf-tools-install :no-query))
+(setup css
+  (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'"))
 
-(use-package pinentry
-  :after minibuffer
-  :config
-  (pinentry-start)
-  :custom
-  (epg-pinentry-mode 'loopback))
+(setup (:straight diff-hl)
+  (global-diff-hl-mode))
 
-(use-package project
-  :bind
-  ("C-x p m" . magit-project-status)
-  ("C-x p a" . envrc-allow)
-  ("C-x p l" . eglot))
+(setup dired
+  (:option dired-kill-when-opening-new-dired-buffer t))
 
-(use-package proced
-  :custom
-  (proced-auto-update-timer 1)
-  :bind
-  ("C-c d" . proced))
+(setup (:straight dockerfile-mode)
+  (:file-match "\\Dockerfile\\'"))
 
-(use-package prettier-js
-  :hook ((html-mode
-          js-mode
-          typescript-mode
-          css-mode
-          markdown-mode
-          vue-mode
-          yaml-mode) . prettier-js-mode))
+(setup display-line-numbers
+  (:option display-line-numbers-type 'relative
+           display-line-numbers-current-absolute t)
+  (:hook-into prog-mode
+              html-mode
+              ledger-mode))
 
-(use-package rainbow-mode
-  :hook (prog-mode . rainbow-mode))
+(setup eshell
+  (:global "s-<return>" eshell))
 
-(use-package subword
-  :hook ((js-mode
-          go-mode
-          elm-mode
-          haskell-mode
-          typescript-mode) . subword-mode))
+(setup (:straight envrc)
+  (envrc-global-mode))
 
-(use-package time
-  :custom
-  (display-time-format "(%A) %B %d, %Y - %I:%M%P")
-  :config
+(setup (:straight elm-mode)
+  (:file-match "\\.elm\\'")
+  (:hook elm-indent-mode
+         elm-format-on-save-mode))
+
+(setup (:straight elfeed)
+  (:global "C-c r" elfeed)
+  (:option elfeed-use-curl t
+           elfeed-db-directory "~/.cache/elfeed"
+           elfeed-search-title-max-width 100
+           elfeed-search-title-min-width 100
+           elfeed-feeds '(("https://reddit.com/r/guix.rss" linux)
+                          ("https://reddit.com/r/emacs.rss" emacs)
+                          ("https://reddit.com/r/unixporn.rss" linux)
+                          ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
+                          ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
+
+(setup erc
+  (:global "C-c i" erc-tls)
+  (:option erc-server "irc.us.libera.chat"
+           erc-nick "josegpt"
+           erc-user-full-name "Jose G Perez Taveras"
+           erc-track-shorten-start 8
+           erc-kill-buffer-on-part t
+           erc-auto-query 'bury
+           erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs"))))
+
+(setup emacs
+  (:option tab-width 2
+           indent-tabs-mode nil
+           ring-bell-function 'ignore
+           ;; don't clutter up directories with files~
+           backup-directory-alist `((".*" . ,temporary-file-directory))
+           ;; don't clutter with #files either
+           auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (load-theme 'modus-vivendi t)
+  (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
+  (set-frame-parameter (selected-frame) 'alpha '(85 . 85)))
+
+(setup (:straight-when exwm (executable-find "startx"))
+  (:bind "C-q" exwm-input-send-next-key)
+  (:option exwm-workspace-number 2
+           exwm-workspace-warp-cursor t
+           exwm-input-prefix-keys '(?\C-x
+                                    ?\C-c
+                                    ?\C-u
+                                    ?\C-h
+                                    ?\C-g
+                                    ?\M-x
+                                    ?\M-:
+                                    ?\M-!
+                                    ?\s-i
+                                    ?\s-1
+                                    ?\s-2
+                                    ?\s-3
+                                    ?\s-o
+                                    ?\s-p
+                                    ?\s-n
+                                    ?\s-0
+                                    ?\s-k
+                                    ?\s-K
+                                    ?\s-b
+                                    ?\s-f
+                                    ?\s-a
+                                    s-return
+                                    XF86AudioPlay
+                                    XF86AudioStop
+                                    XF86AudioNext
+                                    XF86AudioPrev
+                                    XF86AudioRaiseVolume
+                                    XF86AudioLowerVolume
+                                    XF86AudioMute
+                                    XF86AudioMicMute
+                                    XF86MonBrightnessUp
+                                    XF86MonBrightnessDown
+                                    s-XF86AudioRaiseVolume
+                                    s-XF86AudioLowerVolume
+                                    s-XF86AudioMute)
+           exwm-input-global-keys
+           `(([?\C-c ?\C-j] . exwm-reset)
+             ([?\s-w] . exwm-workspace-switch)
+             ([?\s-&] . (lambda (command)
+                          (interactive (list (read-shell-command "$ ")))
+                          (start-process-shell-command command nil command)))
+             ,@(mapcar (lambda (i)
+                         `(,(kbd (format "C-s-%d" (1+ i))) .
+                           (lambda ()
+                             (interactive)
+                             (exwm-workspace-switch-create ,i))))
+                       (number-sequence 0 (1- exwm-workspace-number))))
+           exwm-input-simulation-keys
+           '(([?\C-b] . [left])
+             ([?\C-f] . [right])
+             ([?\C-p] . [up])
+             ([?\C-n] . [down])
+             ([?\C-a] . [home])
+             ([?\C-e] . [end])
+             ([?\C-v] . [next])
+             ([?\M-v] . [prior])
+             ([?\M-b] . [C-left])
+             ([?\M-f] . [C-right])
+             ([?\M-p] . [M-up])
+             ([?\M-n] . [M-down])
+             ([?\M-<] . [home])
+             ([?\M->] . [end])
+             ([?\C-/] . [?\C-z])
+             ([?\C-w] . [?\C-x])
+             ([?\M-w] . [?\C-c])
+             ([?\C-y] . [?\C-v])
+             ([?\C-s] . [?\C-g])
+             ([?\C-r] . [C-S-g])
+             ([?\C-t] . [?\C-t])
+             ([?\C-j] . [?\C-k])
+             ([?\C-d] . [delete])
+             ([?\C-c ?r] . [?\C-r])
+             ([?\C-c ?s] . [?\C-f])
+             ([?\C-c ?f] . [?\C-l])
+             ([?\C-c ?h] . [?\C-a])
+             ([?\C-c ?k] . [?\C-w])
+             ([?\C-c ?/] . [C-S-z])
+             ([?\M-@] . [C-S-right])
+             ([?\C-c ?g] . [escape])
+             ([?\C-\M-b] . [M-left])
+             ([?\C-\M-f] . [M-right])
+             ([?\C-k] . [C-S-end ?\C-x])
+             ([?\M-d] . [C-S-right ?\C-x])
+             ([M-backspace] . [C-S-left ?\C-x])))
+  (exwm-enable))
+
+(setup frame
+  (:option blink-cursor-mode nil))
+
+(setup (:straight go-mode)
+  (:file-match "\\.go\\'"))
+
+(setup (:straight haskell-mode)
+  (:file-match "\\.hs\\'"))
+
+(setup html
+  (:file-match "\\.\\(html?\\|ejs\\)\\'"))
+
+(setup hl-line
+  (global-hl-line-mode))
+
+(setup (:straight vertico)
+  (:option vertico-cycle t)
+  (vertico-mode))
+
+;; (use-package icomplete
+;;   :config
+;;   (icomplete-mode)
+;;   (fido-vertical-mode)
+;;   :custom
+;;   (icomplete-compute-delay 0.0)
+;;   (icomplete-delay-completions-threshold 200))
+
+(setup js
+  (:file-match "\\.js\\'")
+  (:option js-indent-level 2))
+
+(setup (:straight ledger-mode)
+  (:file-match "\\.\\(ledger\\|dat\\)\\'")
+  (:bind "C-M-i" completion-at-point)
+  (:option ledger-complete-in-steps t
+           ledger-clear-whole-transactions t
+           ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
+                            ("reg" "%(binary) -f %(ledger-file) reg")
+                            ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+                            ("account" "%(binary) -f %(ledger-file) reg %(account)")
+                            ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
+                            ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
+
+(setup (:straight-when magit (executable-find "git"))
+  (:global "C-x g" magit-status)
+  (:option magit-clone-default-directory "~/projects/"
+           magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(setup (:straight marginalia)
+  (:with-map minibuffer-local-map
+    (:bind "M-A" marginalia-cycle))
+  (marginalia-mode))
+
+(setup (:straight markdown-mode)
+  (:file-match "\\.md\\'"))
+
+(setup minibuffer
+  (:option completion-ignore-case t
+           completion-cycle-threshold 3
+           read-buffer-completion-ignore-case t
+           read-file-name-completion-ignore-case t
+           completion-styles '(partial-completion substring)))
+
+(setup (:straight move-text)
+  (:global "M-p" move-text-up
+           "M-n" move-text-down))
+
+(setup nroff-mode
+  (:file-match "\\.ms\\'")
+  (:bind "C-c C-p" nroff-pdf-view))
+
+(setup (:straight nov)
+  (:file-match "\\.epub\\'")
+  (:option nov-text-width 80))
+
+(setup (:require otaku)
+  (:needs "mpv")
+  (:global "C-c a" otaku-search-anime))
+
+(setup (:straight orderless)
+  (:option completion-styles '(orderless)
+           completion-category-defaults nil
+           completion-category-overrides '((file (styles . (partial-completion))))))
+
+(setup paren
+  (:with-mode show-paren-mode
+    (:hook-into prog-mode))
+  (:option show-paren-when-point-inside-paren t))
+
+(setup (:straight-when password-store (executable-find "pass"))
+  (:global "C-c p e"  password-store-edit
+           "C-c p w" password-store-copy
+           "C-c p c" password-store-clear
+           "C-c p i" password-store-insert
+           "C-c p r" password-store-rename
+           "C-c p k" password-store-remove
+           "C-c p g" password-store-generate
+           "C-c p f" password-store-copy-field))
+
+(setup (:require pt-desktop)
+  (:with-hook exwm-update-title-hook
+    (:hook pt-desktop-rename-workspace-buffer))
+  (:with-hook exwm-manage-finish-hook
+      (:hook pt-desktop-move-workspace-buffer))
+  (:global "s-b" pt-desktop-previous-workspace
+           "s-f" pt-desktop-next-workspace
+           "<XF86AudioPlay>" pt-desktop-play-pause-player
+           "<XF86AudioStop>" pt-desktop-stop-player
+           "<XF86AudioNext>" pt-desktop-next-player
+           "<XF86AudioPrev>" pt-desktop-previous-player
+           "<XF86AudioRaiseVolume>" pt-desktop-raise-volume
+           "<XF86AudioLowerVolume>" pt-desktop-lower-volume
+           "<XF86AudioMute>" pt-desktop-mute-volume
+           "<s-XF86AudioRaiseVolume>" pt-desktop-raise-mic-volume
+           "<s-XF86AudioLowerVolume>" pt-desktop-lower-mic-volume
+           "<s-XF86AudioMute>" pt-desktop-mute-mic-volume
+           "<XF86AudioMicMute>" pt-desktop-mute-mic-volume
+           "<XF86MonBrightnessUp>" pt-desktop-raise-brightness
+           "<XF86MonBrightnessDown>" pt-desktop-lower-brightness
+           "s-a" pt-desktop-powersettings))
+
+(setup (:straight-when pinentry (executable-find "gpg"))
+  (:option epg-pinentry-mode 'loopback)
+  (pinentry-start))
+
+(setup project
+  (:global "C-x p m" magit-project-status
+           "C-x p a" envrc-allow))
+
+(setup proced
+  (:global "C-c d" proced)
+  (:option proced-auto-update-timer 1))
+
+(setup (:straight prettier-js)
+  (:hook-into html-mode
+              js-mode
+              typescript-mode
+              css-mode
+              markdown-mode
+              vue-mode
+              yaml-mode))
+
+(setup (:straight rainbow-mode)
+  (:hook-into prog-mode))
+
+(setup subword
+  (:hook-into js-mode
+              go-mode
+              elm-mode
+              haskell-mode
+              typescript-mode))
+
+(setup time
+  (:option display-time-format "(%A) %B %d, %Y - %I:%M%P")
   (display-time-mode))
 
-(use-package typescript-mode
-  :mode "\\.tsx?\\'"
-  :custom
-  (typescript-indent-level 2))
+(setup (:straight typescript-mode)
+  (:file-match "\\.tsx?\\'")
+  (:option typescript-indent-level 2))
 
-(use-package tooltip
-  :straight (:type built-in)
-  :custom
-  (tooltip-mode nil))
+(setup tooltip
+  (:option tooltip-mode nil))
 
-(use-package webjump
-  :bind
-  ("C-c j" . webjump)
-  :custom
-  (webjump-sites '(("Gmail" . "mail.google.com")
-                   ("Discord" . "discord.com/app")
-                   ("Telegram" . "web.telegram.org")
-                   ("WhatsApp" . "web.whatsapp.com")
-                   ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
-                   ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
-                   ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
-                   ("Google" . [simple-query "google.com" "google.com/search?q=" ""])
-                   ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
-                   ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
-                   ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
-                   ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
-                   ("Wikipedia" . [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""])
-                   ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
-                   ("DuckDuckGo" . [simple-query "duckduckgo.com" "duckduckgo.com/?q=" ""])
-                   ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
-                   ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
-                   ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
-                   ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
-                   ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
-                   ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
-                   ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""]))))
+(setup webjump
+  (:global "C-c j" webjump)
+  (:option webjump-sites '(("Gmail" . "mail.google.com")
+                           ("Discord" . "discord.com/app")
+                           ("Telegram" . "web.telegram.org")
+                           ("WhatsApp" . "web.whatsapp.com")
+                           ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
+                           ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
+                           ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
+                           ("Google" . [simple-query "google.com" "google.com/search?q=" ""])
+                           ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
+                           ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
+                           ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
+                           ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
+                           ("Wikipedia" . [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""])
+                           ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
+                           ("DuckDuckGo" . [simple-query "duckduckgo.com" "duckduckgo.com/?q=" ""])
+                           ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
+                           ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
+                           ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
+                           ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
+                           ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
+                           ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
+                           ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""]))))
 
-(use-package whitespace
-  :straight (:type built-in)
-  :hook (prog-mode . whitespace-mode)
-  :custom
-  (whitespace-style '(face
-                      tabs
-                      empty
-                      spaces
-                      newline
-                      tab-mark
-                      trailing
-                      space-mark
-                      indentation
-                      space-after-tab
-                      space-before-tab)))
+(setup whitespace
+  (:hook-into prog-mode)
+  (:option whitespace-style '(face
+                              tabs
+                              empty
+                              spaces
+                              newline
+                              tab-mark
+                              trailing
+                              space-mark
+                              indentation
+                              space-after-tab
+                              space-before-tab)))
 
-(use-package which-key
-  :config
-  (which-key-mode)
-  :custom
-  (which-key-idle-delay 0.3))
+(setup (:straight which-key)
+  (:option which-key-idle-delay 0.3)
+  (which-key-mode))
 
-(use-package woman
-  :bind
-  ("C-c w" . woman))
+(setup woman
+  (:global "C-c w" woman))
 
-(use-package window
-  :straight (:type built-in)
-  :no-require t
-  :bind
-  ("s-0" . delete-window)
-  ("s-1" . delete-other-windows)
-  ("s-2" . split-window-below)
-  ("s-3" . split-window-right)
-  ("s-o" . other-window)
-  ("s-p" . previous-buffer)
-  ("s-n" . next-buffer)
-  ("s-k" . kill-current-buffer)
-  ("s-K" . kill-buffer-and-window)
-  :custom
-  (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
-                           (display-buffer-no-window))
-                          ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
-                           (display-buffer-in-side-window)
-                           (window-width . 0.35)
-                           (side . right)
-                           (slot . 0))
-                          ("\\*\\(WoMan.*\\|Man.*\\)\\*"
-                           (display-buffer-in-side-window)
-                           (window-width . 0.35)
-                           (side . right)
-                           (slot . -1))
-                          ("\\*\\(envrc\\)\\*"
-                           (display-buffer-in-side-window)
-                           (window-height . 0.25)
-                           (side . bottom)
-                           (slot . -1)))))
+(setup window
+  (:global "s-0" delete-window
+           "s-1" delete-other-windows
+           "s-2" split-window-below
+           "s-3" split-window-right
+           "s-o" other-window
+           "s-p" previous-buffer
+           "s-n" next-buffer
+           "s-k" kill-current-buffer
+           "s-K" kill-buffer-and-window)
+  (:option display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
+                                   (display-buffer-no-window))
+                                  ("\\*\\(Help.*\\|Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
+                                   (display-buffer-in-side-window)
+                                   (window-width . 0.45)
+                                   (side . right)
+                                   (slot . 0))
+                                  ("\\*\\(WoMan.*\\|Man.*\\)\\*"
+                                   (display-buffer-in-side-window)
+                                   (window-width . 0.45)
+                                   (side . right)
+                                   (slot . -1))
+                                  ("\\*\\(envrc\\)\\*"
+                                   (display-buffer-in-side-window)
+                                   (window-height . 0.25)
+                                   (side . bottom)
+                                   (slot . -1)))))
 
-(use-package vue-mode
-  :mode "\\.vue\\'")
+(setup (:straight vue-mode)
+  (:file-match "\\.vue\\'"))
 
-(use-package yaml-mode
-  :mode "\\.ya?lm\\'")
+(setup (:straight yaml-mode)
+  (:file-match "\\.ya?lm\\'"))
 
-(use-package yasnippet
-  :config
+(setup (:straight yasnippet)
   (yas-global-mode))
-
-;;;;;;;;;;;;;
-;; Desktop ;;
-;;;;;;;;;;;;;
-
-(use-package exwm-workspace
-  :straight nil
-  :no-require t
-  :bind
-  ("s-b" . (lambda ()
-             (interactive)
-             (if (< 0 exwm-workspace-current-index)
-                 (exwm-workspace-switch (1- exwm-workspace-current-index))
-               (exwm-workspace-switch (1- (exwm-workspace--count))))))
-  ("s-f" . (lambda ()
-             (interactive)
-             (if (> (1- (exwm-workspace--count)) exwm-workspace-current-index)
-                 (exwm-workspace-switch (1+ exwm-workspace-current-index))
-               (exwm-workspace-switch 0)))))
-
-(use-package exwm
-  :init (exwm-enable)
-  :config
-  (defun pt/run-command-with-message (cmmd)
-    (message "%s" (shell-command-to-string cmmd)))
-  :hook
-  (exwm-update-class . (lambda ()
-                         (exwm-workspace-rename-buffer exwm-class-name)))
-  (exwm-update-title . (lambda ()
-                         (exwm-workspace-rename-buffer exwm-title)))
-  (exwm-manage-finish . (lambda ()
-                          (pcase exwm-class-name
-                            ("firefox" (exwm-workspace-move-window 1)))))
-  :bind
-  ("<XF86AudioPlay>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl play-pause")))
-  ("<XF86AudioStop>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl stop")))
-  ("<XF86AudioNext>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl next")))
-  ("<XF86AudioPrev>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "playerctl previous")))
-  ("<XF86AudioRaiseVolume>" . (lambda ()
-                                (interactive)
-                                (pt/run-command-with-message "amixer set Master 10%+")))
-  ("<XF86AudioLowerVolume>" . (lambda ()
-                                (interactive)
-                                (pt/run-command-with-message "amixer set Master 10%-")))
-  ("<XF86AudioMute>" . (lambda ()
-                         (interactive)
-                         (pt/run-command-with-message "amixer set Master toggle")))
-  ("<s-XF86AudioRaiseVolume>" . (lambda ()
-                                  (interactive)
-                                  (pt/run-command-with-message "amixer set Capture 10%+")))
-  ("<s-XF86AudioLowerVolume>" . (lambda ()
-                                  (interactive)
-                                  (pt/run-command-with-message "amixer set Capture 10%-")))
-  ("<s-XF86AudioMute>" . (lambda ()
-                           (interactive)
-                           (pt/run-command-with-message "amixer set Capture toggle")))
-  ("<XF86AudioMicMute>" . (lambda ()
-                            (interactive)
-                            (pt/run-command-with-message "amixer set Capture toggle")))
-  ("<XF86MonBrightnessUp>" . (lambda ()
-                               (interactive)
-                               (pt/run-command-with-message "xbacklight -inc 10%")))
-  ("<XF86MonBrightnessDown>" . (lambda ()
-                                 (interactive)
-                                 (pt/run-command-with-message "xbacklight -dec 10%")))
-  ("s-a" . (lambda ()
-             (interactive)
-             (let* ((cmmds '(("Reboot" . "rb")
-                             ("Shutdown" . "sd")
-                             ("Poweroff" . "po")))
-                    (choice (assoc-string
-                             (completing-read "Action: " cmmds  nil t)
-                             cmmds t))
-                    (cmmd (cdr choice)))
-               (eshell-command cmmd))))
-  (:map exwm-mode-map
-        ("C-q" . exwm-input-send-next-key))
-  :custom
-  (exwm-workspace-number 2)
-  (exwm-workspace-warp-cursor t)
-  (exwm-input-prefix-keys
-   '(?\C-x
-     ?\C-c
-     ?\C-u
-     ?\C-h
-     ?\C-g
-     ?\M-x
-     ?\M-:
-     ?\M-!
-     ?\s-i
-     ?\s-1
-     ?\s-2
-     ?\s-3
-     ?\s-o
-     ?\s-p
-     ?\s-n
-     ?\s-0
-     ?\s-k
-     ?\s-K
-     ?\s-b
-     ?\s-f
-     ?\s-a
-     s-return
-     XF86AudioPlay
-     XF86AudioStop
-     XF86AudioNext
-     XF86AudioPrev
-     XF86AudioRaiseVolume
-     XF86AudioLowerVolume
-     XF86AudioMute
-     XF86AudioMicMute
-     XF86MonBrightnessUp
-     XF86MonBrightnessDown
-     s-XF86AudioRaiseVolume
-     s-XF86AudioLowerVolume
-     s-XF86AudioMute))
-  (exwm-input-global-keys
-   `(([?\C-c ?\C-j] . exwm-reset)
-     ([?\s-w] . exwm-workspace-switch)
-     ([?\s-&] . (lambda (command)
-                  (interactive (list (read-shell-command "$ ")))
-                  (start-process-shell-command command nil command)))
-     ,@(mapcar (lambda (i)
-                 `(,(kbd (format "C-s-%d" (1+ i))) .
-                   (lambda ()
-                     (interactive)
-                     (exwm-workspace-switch-create ,i))))
-               (number-sequence 0 (1- exwm-workspace-number)))))
-  (exwm-input-simulation-keys
-   '(([?\C-b] . [left])
-     ([?\C-f] . [right])
-     ([?\C-p] . [up])
-     ([?\C-n] . [down])
-     ([?\C-a] . [home])
-     ([?\C-e] . [end])
-     ([?\C-v] . [next])
-     ([?\M-v] . [prior])
-     ([?\M-b] . [C-left])
-     ([?\M-f] . [C-right])
-     ([?\M-p] . [M-up])
-     ([?\M-n] . [M-down])
-     ([?\M-<] . [home])
-     ([?\M->] . [end])
-     ([?\C-/] . [?\C-z])
-     ([?\C-w] . [?\C-x])
-     ([?\M-w] . [?\C-c])
-     ([?\C-y] . [?\C-v])
-     ([?\C-s] . [?\C-g])
-     ([?\C-r] . [C-S-g])
-     ([?\C-t] . [?\C-t])
-     ([?\C-j] . [?\C-k])
-     ([?\C-d] . [delete])
-     ([?\C-c ?r] . [?\C-r])
-     ([?\C-c ?f] . [?\C-l])
-     ([?\C-c ?h] . [?\C-a])
-     ([?\C-c ?k] . [?\C-w])
-     ([?\C-c ?/] . [C-S-z])
-     ([?\M-@] . [C-S-right])
-     ([?\C-c ?g] . [escape])
-     ([?\C-\M-b] . [M-left])
-     ([?\C-\M-f] . [M-right])
-     ([?\C-k] . [C-S-end ?\C-x])
-     ([?\M-d] . [C-S-right ?\C-x])
-     ([M-backspace] . [C-S-left ?\C-x]))))
