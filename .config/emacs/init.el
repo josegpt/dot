@@ -1,3 +1,4 @@
+;;; init.el --- description -*- lexical-binding: t -*-
 ;;;;;;;;;;
 ;; Init ;;
 ;;;;;;;;;;
@@ -23,6 +24,12 @@
 
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
+
+(add-hook 'emacs-startup-hook
+          #'(lambda ()
+            (message "----> Emacs loaded in %s seconds with %d garbage collections."
+                     (emacs-init-time "%.2f")
+                     gcs-done)))
 
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "lisp/")))
@@ -519,3 +526,4 @@ package.  This macro is not repeatable."
 
 (setup (:straight yasnippet)
   (yas-global-mode))
+;;; init.el ends here
