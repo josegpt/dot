@@ -26,13 +26,12 @@
 
 ;; Folder structure
 ;; . otaku
-;; |-- search-that time
-;  `-- anime-tensei-shitara-slime-datta-ken-2nd-season
+;; |-- search
+;;    `-- vinland
+;; |-- anime
+;;    `-- vinland-saga
 
 ;;; Code:
-
-(eval-when-compile
-  (require 'json))
 
 (defgroup otaku ()
   "Search and watch anime from Emacs."
@@ -62,12 +61,12 @@
   "Marginalia annotator for `otaku'"
   (let* ((slug (cadr otaku-last-search))
          (anime (otaku--repository-get-anime slug))
-         (title (gethash "title" anime))
-         (status (gethash "status" anime))
-         (type (gethash "type" anime))
-         (released-date (gethash "released-date" anime))
-         (last-episode (gethash "last-episode" anime))
-         (summary (gethash "summary" anime)))
+         (title (cdr (assoc-string "title" anime)))
+         (status (cdr (assoc-string "status" anime)))
+         (type (cdr (assoc-string "type" anime)))
+         (released-date (cdr (assoc-string "released-date" anime)))
+         (last-episode (cdr (assoc-string "last-episode" anime)))
+         (summary (cdr (assoc-string "summary" anime))))
     (concat (propertize " " 'display '(space :align-to center))
             (propertize title 'face '(italic font-lock-keyword-face))
             " "
@@ -85,13 +84,6 @@
   (add-to-list 'marginalia-prompt-categories '("\\<[Cc]hoose .* [Ee]pisode\\>" . otaku-anime)))
 
 ;;; Helpers
-
-(defun otaku--list-from-hash (key1 key2 hash)
-  "List from hash"
-  (let ((result '()))
-    (dolist (obj hash)
-      (push `(,(gethash key1 obj) ,(gethash key2 obj)) result))
-    result))
 
 (defun otaku-search-url (keyword)
   "Search url constructor."
@@ -118,47 +110,54 @@
 
 (defun otaku--db-insert (file-path object)
   "DB insert."
-  (unless (file-exists-p file-path)
+  (unless (otaku--db-exists-p file-path)
     (with-temp-buffer
-      (json-insert object)
-      (write-file file-path nil))))
+      (insert ";;; -*- lisp-data -*-\n")
+      (let ((print-length nil)
+            (print-level nil))
+        (pp object (current-buffer)))
+      (write-region nil nil file-path nil 'silent))))
 
 (defun otaku--db-exists-p (file-path)
   "DB exists predicate."
-  (info-file-exists-p file-path))
+  (file-exists-p file-path))
 
 (defun otaku--db-select (file-path)
   "DB select."
-  (when (file-exists-p file-path)
-    (let* ((json-object-type 'hash-table)
-           (json-array-type 'list)
-           (json-key-type 'string))
-          (json-read-file file-path))))
+  (when (otaku--db-exists-p file-path)
+    (with-temp-buffer
+      (insert-file-contents file-path)
+      (read (current-buffer)))))
 
-(defun otaku--db-update (file-path new-object)
+(defun otaku--db-update (file-path object)
   "DB update."
   (otaku--db-delete file-path)
-  (otaku--db-insert file-path new-object))
+  (otaku--db-insert file-path object))
 
 (defun otaku--db-delete (file-path)
   "DB delete."
-  (when (file-exists-p file-path)
+  (when (otaku--db-exists-p file-path)
     (delete-file file-path)))
 
 (defun otaku--db-is-old-p (file-path)
   "DB is older predicate."
   (let* ((time (time-convert (current-time) 'integer))
-        (file-time (time-convert
-                    (file-attribute-modification-time
-                     (file-attributes file-path 'string)) 'integer))
-        (difference (- time file-time)))
+         (file-time (time-convert
+                     (file-attribute-modification-time
+                      (file-attributes file-path 'string)) 'integer))
+         (difference (- time file-time)))
     (> difference otaku-older-than)))
+
+(defun otaku--db-ensure-folders (subfolder)
+  "DB ensure folders exists"
+  (let ((db-dir (format "%s/%s" otaku-db-dir subfolder)))
+    (unless (file-directory-p db-dir)
+      (make-directory db-dir t))
+    db-dir))
 
 (defun otaku--db-handler (prefix action slug &optional object)
   "DB handler."
-  (unless (file-directory-p otaku-db-dir)
-    (make-directory otaku-db-dir))
-  (let ((file-path (format "%s/%s-%s" otaku-db-dir prefix slug)))
+  (let ((file-path (format "%s/%s" (otaku--db-ensure-folders prefix) slug)))
     (cond
      ((string= action "insert") (otaku--db-insert file-path object))
      ((string= action "select") (otaku--db-select file-path))
@@ -226,13 +225,11 @@
 
 (defun otaku--http-search-anime-by-keyword (keyword)
   "Search anime by keyword."
-  (let ((animes (list)))
+  (let ((animes '()))
     (set-buffer (url-retrieve-synchronously (otaku-search-url keyword)))
     (while (re-search-forward "<a href=\"/category/\\(.+\\)\" title=\"\\(.+\\)\".+</a>" nil t)
-      (push `((title . ,(match-string 2))
-              (slug . ,(match-string 1))) animes))
-    `((keyword . ,keyword)
-      (result . [,@animes]))))
+      (setq animes (append animes `((,(match-string 2) ,(match-string 1))))))
+    `(,keyword ,animes)))
 
 (defun otaku--http-get-single-anime (slug)
   "Get single anime by slug."
@@ -253,15 +250,14 @@
       (released-date . ,released-date)
       (status . ,status)
       (last-episode . ,last-episode)
-      (episodes . [,@episodes]))))
+      (episodes . ,episodes))))
 
 (defun otaku--episodes-list (slug end)
   "Construct episodes path"
   (let ((result '()))
     (dotimes (episode end)
-      (push `((title . ,(format "Episode %d" (1+ episode)))
-              (episode . ,(1+ episode))
-              (slug . ,(otaku-anime-episode-url slug (1+ episode)))) result))
+      (setq result (append result `((,(format "Episode %d" (1+ episode))
+                                     ,(otaku-anime-episode-url slug (1+ episode)))))))
     result))
 
 (defun otaku--search-anime-title (buffer)
@@ -350,8 +346,8 @@
 (defun otaku-select-episode (anime)
   (let* ((title (car anime))
          (slug (cadr anime))
-         (episodes (gethash "episodes" (otaku--service-get-single-anime slug)))
-         (episodes-list (otaku--list-from-hash "title" "slug" episodes))
+         (episodes (assoc-string "episodes" (otaku--service-get-single-anime slug)))
+         (episodes-list (cdr episodes))
          (choice (completing-read (format "Choose %s Episode: " title) episodes-list nil t))
          (episode-selected (assoc-string choice episodes-list)))
     (otaku-watch-episode episode-selected)))
@@ -367,7 +363,7 @@
           (otaku-select-episode otaku-last-search)
         (error "No anime has been searched."))
     (let* ((result (otaku--service-search-anime-by-keyword keyword))
-           (animes (otaku--list-from-hash "title" "slug" (gethash "result" result)))
+           (animes (cadr result))
            (choice (completing-read "Choose Anime: " animes nil t))
            (anime-selected (assoc-string choice animes)))
       (setq otaku-last-search anime-selected)
