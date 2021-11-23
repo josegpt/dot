@@ -60,23 +60,17 @@
 (defun otaku-annotate-episode (cand)
   "Marginalia annotator for `otaku'"
   (let* ((slug (cadr otaku-last-search))
-         (anime (otaku--repository-get-anime slug))
-         (title (cdr (assoc-string "title" anime)))
-         (status (cdr (assoc-string "status" anime)))
-         (type (cdr (assoc-string "type" anime)))
-         (released-date (cdr (assoc-string "released-date" anime)))
-         (last-episode (cdr (assoc-string "last-episode" anime)))
-         (summary (cdr (assoc-string "summary" anime))))
+         (anime (otaku--repository-get-anime slug)))
     (concat (propertize " " 'display '(space :align-to center))
-            (propertize title 'face '(italic font-lock-keyword-face))
+            (propertize (cdr (assoc-string "title" anime)) 'face '(italic font-lock-keyword-face))
             " "
-            (propertize (format "%10d" last-episode) 'face '(bold font-lock-constant-face))
+            (propertize (format "%10d" (cdr (assoc-string "last-episode" anime))) 'face '(bold font-lock-constant-face))
             " "
-            (propertize (format "%10s" released-date) 'face '(font-lock-comment-face))
+            (propertize (format "%10s" (cdr (assoc-string "released-date" anime))) 'face '(font-lock-comment-face))
             " "
-            (propertize (format "%10s" status) 'face '(font-lock-string-face))
+            (propertize (format "%10s" (cdr (assoc-string "status" anime))) 'face '(font-lock-string-face))
             " "
-            (propertize (format "%10s" type) 'face '(font-lock-builtin-face)))))
+            (propertize (format "%10s" (cdr (assoc-string "type" anime))) 'face '(font-lock-builtin-face)))))
 
 (with-eval-after-load 'marginalia
   (add-to-list 'marginalia-annotator-registry
