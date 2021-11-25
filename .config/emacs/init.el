@@ -376,7 +376,7 @@ package.  This macro is not repeatable."
                                    (window-width . 0.35)
                                    (side . right)
                                    (slot . -1))
-                                  ("\\*\\(WoMan.*\\|Man.*\\|Help.*\\)\\*"
+                                  ("\\*\\(WoMan.*\\|Man.*\\|Help.*\\|Proced\\|Buffer List\\)\\*"
                                    (display-buffer-in-side-window)
                                    (window-width . 0.45)
                                    (side . left)
