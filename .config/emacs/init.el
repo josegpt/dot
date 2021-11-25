@@ -344,7 +344,8 @@ package.  This macro is not repeatable."
                            ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
                            ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
                            ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
-                           ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""]))))
+                           ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
+                           ("Void Packages" . [simple-query "voidlinux.org/packages" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
 
 (setup whitespace
   (:hook-into prog-mode)

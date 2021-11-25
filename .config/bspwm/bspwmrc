@@ -4,7 +4,7 @@ $HOME/.fehbg &
 pgrep -x sxhkd > /dev/null || sxhkd &
 $HOME/.config/polybar/launch.sh &
 
-bspc monitor -d I
+bspc monitor -d Based
 
 bspc config border_width         2
 bspc config window_gap           12
