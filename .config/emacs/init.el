@@ -111,10 +111,6 @@ package.  This macro is not repeatable."
   (:option global-auto-revert-non-file-buffers nil)
   (global-auto-revert-mode))
 
-(setup battery
-  (:if-host "josegpt-laptop")
-  (display-battery-mode))
-
 (setup compile
   (:option compilation-scroll-output t))
 
@@ -317,10 +313,6 @@ package.  This macro is not repeatable."
               haskell-mode
               typescript-mode
               ledger-mode))
-
-(setup time
-  (:option display-time-format "(%A) %B %d, %Y - %I:%M%P")
-  (display-time-mode))
 
 (setup (:straight typescript-mode)
   (:file-match "\\.tsx?\\'")
