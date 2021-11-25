@@ -8,6 +8,7 @@
 (set-face-attribute 'default nil :family "Victor Mono" :height 140)
 
 ;; Do not resize at early stage
+(setq frame-resize-pixelwise t)
 (setq frame-inhibit-implied-resize t)
 
 ;; Deferred native comp

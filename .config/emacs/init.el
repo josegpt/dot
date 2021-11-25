@@ -144,9 +144,6 @@ package.  This macro is not repeatable."
               html-mode
               ledger-mode))
 
-(setup eshell
-  (:global "s-<return>" eshell))
-
 (setup (:straight envrc)
   (envrc-global-mode))
 
@@ -189,96 +186,6 @@ package.  This macro is not repeatable."
   (load-theme 'modus-vivendi t)
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85)))
-
-(setup (:straight-when exwm (executable-find "startx"))
-  (:bind "C-q" exwm-input-send-next-key)
-  (:option exwm-workspace-number 2
-           exwm-workspace-warp-cursor t
-           exwm-input-prefix-keys '(?\C-x
-                                    ?\C-c
-                                    ?\C-u
-                                    ?\C-h
-                                    ?\C-g
-                                    ?\M-x
-                                    ?\M-:
-                                    ?\M-!
-                                    ?\s-i
-                                    ?\s-1
-                                    ?\s-2
-                                    ?\s-3
-                                    ?\s-o
-                                    ?\s-p
-                                    ?\s-n
-                                    ?\s-0
-                                    ?\s-k
-                                    ?\s-K
-                                    ?\s-b
-                                    ?\s-f
-                                    ?\s-a
-                                    s-return
-                                    XF86AudioPlay
-                                    XF86AudioStop
-                                    XF86AudioNext
-                                    XF86AudioPrev
-                                    XF86AudioRaiseVolume
-                                    XF86AudioLowerVolume
-                                    XF86AudioMute
-                                    XF86AudioMicMute
-                                    XF86MonBrightnessUp
-                                    XF86MonBrightnessDown
-                                    s-XF86AudioRaiseVolume
-                                    s-XF86AudioLowerVolume
-                                    s-XF86AudioMute)
-           exwm-input-global-keys
-           `(([?\C-c ?\C-j] . exwm-reset)
-             ([?\s-w] . exwm-workspace-switch)
-             ([?\s-&] . (lambda (command)
-                          (interactive (list (read-shell-command "$ ")))
-                          (start-process-shell-command command nil command)))
-             ,@(mapcar (lambda (i)
-                         `(,(kbd (format "C-s-%d" (1+ i))) .
-                           (lambda ()
-                             (interactive)
-                             (exwm-workspace-switch-create ,i))))
-                       (number-sequence 0 (1- exwm-workspace-number))))
-           exwm-input-simulation-keys
-           '(([?\C-b] . [left])
-             ([?\C-f] . [right])
-             ([?\C-p] . [up])
-             ([?\C-n] . [down])
-             ([?\C-a] . [home])
-             ([?\C-e] . [end])
-             ([?\C-v] . [next])
-             ([?\M-v] . [prior])
-             ([?\M-b] . [C-left])
-             ([?\M-f] . [C-right])
-             ([?\M-p] . [M-up])
-             ([?\M-n] . [M-down])
-             ([?\M-<] . [home])
-             ([?\M->] . [end])
-             ([?\C-/] . [?\C-z])
-             ([?\C-w] . [?\C-x])
-             ([?\M-w] . [?\C-c])
-             ([?\C-y] . [?\C-v])
-             ([?\C-s] . [?\C-g])
-             ([?\C-r] . [C-S-g])
-             ([?\C-t] . [?\C-t])
-             ([?\C-j] . [?\C-k])
-             ([?\C-d] . [delete])
-             ([?\C-c ?r] . [?\C-r])
-             ([?\C-c ?s] . [?\C-f])
-             ([?\C-c ?f] . [?\C-l])
-             ([?\C-c ?h] . [?\C-a])
-             ([?\C-c ?k] . [?\C-w])
-             ([?\C-c ?/] . [C-S-z])
-             ([?\M-@] . [C-S-right])
-             ([?\C-c ?g] . [escape])
-             ([?\C-\M-b] . [M-left])
-             ([?\C-\M-f] . [M-right])
-             ([?\C-k] . [C-S-end ?\C-x])
-             ([?\M-d] . [C-S-right ?\C-x])
-             ([M-backspace] . [C-S-left ?\C-x])))
-  (exwm-enable))
 
 (setup frame
   (:option blink-cursor-mode nil))
@@ -379,29 +286,7 @@ package.  This macro is not repeatable."
            "C-c p g" password-store-generate
            "C-c p f" password-store-copy-field))
 
-(setup (:require pt-desktop)
-  (:with-hook exwm-update-title-hook
-    (:hook pt-desktop-rename-workspace-buffer))
-  (:with-hook exwm-manage-finish-hook
-      (:hook pt-desktop-move-workspace-buffer))
-  (:global "s-b" pt-desktop-previous-workspace
-           "s-f" pt-desktop-next-workspace
-           "<XF86AudioPlay>" pt-desktop-play-pause-player
-           "<XF86AudioStop>" pt-desktop-stop-player
-           "<XF86AudioNext>" pt-desktop-next-player
-           "<XF86AudioPrev>" pt-desktop-previous-player
-           "<XF86AudioRaiseVolume>" pt-desktop-raise-volume
-           "<XF86AudioLowerVolume>" pt-desktop-lower-volume
-           "<XF86AudioMute>" pt-desktop-mute-volume
-           "<s-XF86AudioRaiseVolume>" pt-desktop-raise-mic-volume
-           "<s-XF86AudioLowerVolume>" pt-desktop-lower-mic-volume
-           "<s-XF86AudioMute>" pt-desktop-mute-mic-volume
-           "<XF86AudioMicMute>" pt-desktop-mute-mic-volume
-           "<XF86MonBrightnessUp>" pt-desktop-raise-brightness
-           "<XF86MonBrightnessDown>" pt-desktop-lower-brightness
-           "s-a" pt-desktop-powersettings))
-
-(setup (:straight-when pinentry (executable-find "gpg"))
+(setup (:straight pinentry)
   (:option epg-pinentry-mode 'loopback)
   (pinentry-start))
 
@@ -421,9 +306,6 @@ package.  This macro is not repeatable."
               markdown-mode
               vue-mode
               yaml-mode))
-
-(setup (:straight rainbow-mode)
-  (:hook-into prog-mode))
 
 (setup subword
   (:hook-into js-mode
@@ -491,15 +373,6 @@ package.  This macro is not repeatable."
   (:global "C-c w" woman))
 
 (setup window
-  (:global "s-0" delete-window
-           "s-1" delete-other-windows
-           "s-2" split-window-below
-           "s-3" split-window-right
-           "s-o" other-window
-           "s-p" previous-buffer
-           "s-n" next-buffer
-           "s-k" kill-current-buffer
-           "s-K" kill-buffer-and-window)
   (:option display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                                    (display-buffer-no-window))
                                   ("\\*\\(Ledger.*\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"

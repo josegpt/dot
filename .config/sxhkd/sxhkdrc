@@ -1,0 +1,67 @@
+#  -*- mode: shell-script; -*-
+# wm independent hotkeys
+#
+
+# terminal emulator
+super + Return
+  xdotool search --name "eshell.*" windowactivate || emacsclient -c -e "(eshell)"
+
+# emacsclient
+super + e
+  emacsclient -c
+
+# elfeed
+super + r
+  xdotool search --name "elfeed.*" windowactivate || emacsclient -c -e "(elfeed)"
+
+# webjump
+super + j
+  xdotool search --limit 1 --desktop 0 --classname "Emacs" windowactivate && emacsclient -e "(webjump)"
+
+super + u ; b
+  emacsclient -c -e "(list-buffers)"
+
+# make sxhkd reload its configuration files:
+super + Escape
+  pkill -USR1 -x sxhkd
+
+# Audio
+XF86Audio{Play,Stop,Next,Prev}
+  playerctl {play-pause,stop,next,previous}
+
+{_,super +}XF86Audio{Lower,Raise}Volume
+  amixer set {Master,Capture} 10%{-,+}
+
+XF86Audio{_,Mic}Mute
+  amixer set {Master,Capture} toggle
+
+XF86MonBrightness{Down,Up}
+  xbacklight -{dec,inc} 10%
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + {_,shift +}q
+  bspc {wm -r,quit}
+
+# close and kill
+super + {_,shift + }k
+  bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+  bspc desktop -l next
+
+#
+# focus/swap
+#
+
+# focus the next/previous window in the current desktop
+super + {p,n}
+  bspc node -f {prev,next}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + {b,f}
+  bspc desktop -f {prev,next}.local
