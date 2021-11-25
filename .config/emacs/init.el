@@ -187,6 +187,9 @@ package.  This macro is not repeatable."
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85)))
 
+(setup eww
+  (:option eww-auto-rename-buffer t))
+
 (setup frame
   (:option blink-cursor-mode nil))
 
