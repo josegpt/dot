@@ -25,12 +25,6 @@
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
-(add-hook 'emacs-startup-hook
-          #'(lambda ()
-            (message "----> Emacs loaded in %s seconds with %d garbage collections."
-                     (emacs-init-time "%.2f")
-                     gcs-done)))
-
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "lisp/")))
 
@@ -108,7 +102,8 @@ package.  This macro is not repeatable."
   (auth-source-pass-enable))
 
 (setup autorevert
-  (:option global-auto-revert-non-file-buffers nil)
+  ;;emacs28
+  ;; (:option global-auto-revert-non-file-buffers nil)
   (global-auto-revert-mode))
 
 (setup compile
@@ -127,8 +122,9 @@ package.  This macro is not repeatable."
 (setup (:straight diff-hl)
   (global-diff-hl-mode))
 
-(setup dired
-  (:option dired-kill-when-opening-new-dired-buffer t))
+;; emacs28
+;; (setup dired
+;;   (:option dired-kill-when-opening-new-dired-buffer t))
 
 (setup (:straight dockerfile-mode)
   (:file-match "\\Dockerfile\\'"))
@@ -179,7 +175,7 @@ package.  This macro is not repeatable."
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (load-theme 'modus-vivendi t)
+;;  (load-theme 'modus-vivendi t)
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85)))
 
@@ -205,6 +201,7 @@ package.  This macro is not repeatable."
   (:option vertico-cycle t)
   (vertico-mode))
 
+;; emacs28
 ;; (use-package icomplete
 ;;   :config
 ;;   (icomplete-mode)
@@ -233,6 +230,9 @@ package.  This macro is not repeatable."
   (:global "C-x g" magit-status)
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(setup (:straight modus-themes)
+  (load-theme 'modus-vivendi t))
 
 (setup (:straight marginalia)
   (:with-map minibuffer-local-map
@@ -285,11 +285,11 @@ package.  This macro is not repeatable."
            "C-c p g" password-store-generate
            "C-c p f" password-store-copy-field))
 
-(setup (:straight pinentry)
+(setup (:straight-when pinentry (executable-find "pinentry-emacs"))
   (:option epg-pinentry-mode 'loopback)
   (pinentry-start))
 
-(setup project
+(setup (:straight project)
   (:global "C-x p m" magit-project-status
            "C-x p a" envrc-allow))
 
@@ -376,7 +376,7 @@ package.  This macro is not repeatable."
                                    (window-width . 0.35)
                                    (side . right)
                                    (slot . -1))
-                                  ("\\*\\(WoMan.*\\|Man.*\\|Help.*\\|Proced\\|Buffer List\\)\\*"
+                                  ("\\*\\(WoMan.*\\|Man.*\\|Help.*\\|Proced\\|Buffer List\\|Process List\\)\\*"
                                    (display-buffer-in-side-window)
                                    (window-width . 0.45)
                                    (side . left)

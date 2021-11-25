@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-  xdotool search --name "eshell.*" windowactivate || emacsclient -c -e "(eshell)"
+  emacsclient -c -e "(eshell)"
 
 # emacsclient
 super + e
@@ -12,11 +12,11 @@ super + e
 
 # elfeed
 super + r
-  xdotool search --name "elfeed.*" windowactivate || emacsclient -c -e "(elfeed)"
+  emacsclient -c -e "(elfeed)"
 
 # webjump
 super + j
-  xdotool search --limit 1 --desktop 0 --classname "Emacs" windowactivate && emacsclient -e "(webjump)"
+  xdo activate -N Emacs && emacsclient -e "(webjump)" || emacsclient -c -e "(webjump)"
 
 # make sxhkd reload its configuration files:
 super + Escape
