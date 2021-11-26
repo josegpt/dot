@@ -5,15 +5,21 @@ margin-bottom = 0
 [bar/main]
 modules-left = bspwm
 modules-center = time
-modules-right = battery temperature cpu memory date
+modules-right = weather battery temperature cpu memory date
 
 font-0 = Tamzen:size=12;2
+font-1 = Noto Fonts Emoji:size=12;3
 padding-right = 2
 padding-left = 2
 module-margin = 2
 height = 12
 border-size = 0
 bottom = true
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/wttr.sh
+interval = 60
 
 [module/bspwm]
 type = internal/bspwm
@@ -27,9 +33,9 @@ full-at = 99
 battery = BAT1
 adapter = AC
 
-label-charging = Charging %percentage%%
-label-discharging = Discharging %percentage%%
-label-full = Fully charged
+label-charging = [+%percentage%%]
+label-discharging = [-%percentage%%]
+label-full = [%percentage%%]
 
 [module/time]
 type = internal/date
@@ -43,13 +49,13 @@ date = (%A) %b %d, %Y
 type = internal/cpu
 
 format = <label>
-label = CPU %percentage%%
+label = %percentage%%
 
 [module/memory]
 type = internal/memory
 
 format = <label>
-label = RAM %gb_used%/%gb_free%
+label = %gb_used%/%gb_free%
 
 [module/temperature]
 type = internal/temperature
@@ -57,5 +63,5 @@ thermal-zone = 0
 
 base-temperature = 20
 warn-temperature = 60
-label = TEMP %temperature-c%
+label = %temperature-c%
 format = <label>
