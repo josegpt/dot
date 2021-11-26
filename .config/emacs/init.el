@@ -28,6 +28,11 @@
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "lisp/")))
 
+;; emacs28
+;; native-compile all Elisp files under a directory
+;; (native-compile-async (concat user-emacs-directory
+;;                               (convert-standard-filename "lisp/")) 'recursively)
+
 ;;;;;;;;;;;;;
 ;; Helpers ;;
 ;;;;;;;;;;;;;
@@ -41,9 +46,9 @@
   :documentation "If HOSTNAME is not the current hostname, stop evaluating form.")
 
 (setup-define :needs
-    (lambda (executable)
-      `(unless (executable-find ,executable)
-         ,(setup-quit)))
+  (lambda (executable)
+    `(unless (executable-find ,executable)
+       ,(setup-quit)))
   :documentation "If EXECUTABLE is not in the path, stop here."
   :repeatable 1)
 
@@ -202,13 +207,11 @@ package.  This macro is not repeatable."
   (vertico-mode))
 
 ;; emacs28
-;; (use-package icomplete
-;;   :config
-;;   (icomplete-mode)
-;;   (fido-vertical-mode)
-;;   :custom
-;;   (icomplete-compute-delay 0.0)
-;;   (icomplete-delay-completions-threshold 200))
+;; (setup icomplete
+;;   (:option icomplete-compute-delay 0.0
+;;            icomplete-delay-completions-threshold 200)
+;; (fido-vertical-mode)
+;; (icomplete-mode))
 
 (setup js
   (:file-match "\\.js\\'")
