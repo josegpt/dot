@@ -8,11 +8,11 @@ modules-center = time
 modules-right = weather battery temperature cpu memory date
 
 font-0 = Dina:size=10;1
-font-1 = Noto Emoji:scale=10;3
+font-1 = Noto Emoji:scale=10;2
 padding-right = 2
 padding-left = 2
 module-margin = 2
-height = 16
+height = 20
 border-size = 0
 bottom = true
 
