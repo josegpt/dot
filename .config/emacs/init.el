@@ -177,7 +177,6 @@ package.  This macro is not repeatable."
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (load-theme 'modus-vivendi t)
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85)))
 
@@ -230,6 +229,11 @@ package.  This macro is not repeatable."
   (:global "C-x g" magit-status)
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(setup modus-themes
+  ;; I do't like proportinal fonts.
+  (set-face-attribute 'mode-line-active nil :inherit 'mode-line)
+  (load-theme 'modus-vivendi t))
 
 (setup (:straight marginalia)
   (:with-map minibuffer-local-map
