@@ -13,4 +13,4 @@
 .local/share/
 .config/emacs/eln-cache/
 .config/systemd/
-/.local/service/emacs-daemon/supervise/
+.gnupg
