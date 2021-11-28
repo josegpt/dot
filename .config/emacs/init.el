@@ -28,10 +28,9 @@
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "lisp/")))
 
-;; emacs28
 ;; native-compile all Elisp files under a directory
-;; (native-compile-async (concat user-emacs-directory
-;;                               (convert-standard-filename "lisp/")) 'recursively)
+(native-compile-async (concat user-emacs-directory
+                              (convert-standard-filename "lisp/")) 'recursively)
 
 ;;;;;;;;;;;;;
 ;; Helpers ;;
@@ -107,8 +106,7 @@ package.  This macro is not repeatable."
   (auth-source-pass-enable))
 
 (setup autorevert
-  ;;emacs28
-  ;; (:option global-auto-revert-non-file-buffers nil)
+  (:option global-auto-revert-non-file-buffers nil)
   (global-auto-revert-mode))
 
 (setup compile
@@ -127,9 +125,8 @@ package.  This macro is not repeatable."
 (setup (:straight diff-hl)
   (global-diff-hl-mode))
 
-;; emacs28
-;; (setup dired
-;;   (:option dired-kill-when-opening-new-dired-buffer t))
+(setup dired
+  (:option dired-kill-when-opening-new-dired-buffer t))
 
 (setup (:straight dockerfile-mode)
   (:file-match "\\Dockerfile\\'"))
@@ -180,7 +177,7 @@ package.  This macro is not repeatable."
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-;;  (load-theme 'modus-vivendi t)
+  (load-theme 'modus-vivendi t)
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85)))
 
@@ -233,9 +230,6 @@ package.  This macro is not repeatable."
   (:global "C-x g" magit-status)
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(setup (:straight modus-themes)
-  (load-theme 'modus-vivendi t))
 
 (setup (:straight marginalia)
   (:with-map minibuffer-local-map
@@ -348,7 +342,7 @@ package.  This macro is not repeatable."
                            ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
                            ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                            ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
-                           ("Void Packages" . [simple-query "voidlinux.org/packages" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
+                           ("Gentoo Packages" . [simple-query "packages.gentoo.org" "packages.gentoo.org/packages/search?q=" ""]))))
 
 (setup whitespace
   (:hook-into prog-mode)

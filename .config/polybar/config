@@ -7,12 +7,12 @@ modules-left = bspwm
 modules-center = time
 modules-right = weather battery temperature cpu memory date
 
-font-0 = Tamzen:size=12;2
-font-1 = Noto Fonts Emoji:size=12;3
+font-0 = Dina:size=10;1
+font-1 = Noto Emoji:scale=10;3
 padding-right = 2
 padding-left = 2
 module-margin = 2
-height = 12
+height = 16
 border-size = 0
 bottom = true
 

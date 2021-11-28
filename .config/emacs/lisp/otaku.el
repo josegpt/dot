@@ -50,7 +50,9 @@
   :group 'otaku)
 
 (defcustom otaku-older-than (* 60 60 24)
-  "When otaku considers a file old enough to be replaced.")
+  "When otaku considers a file old enough to be replaced."
+  :type 'integer
+  :group 'otaku)
 
 (defvar otaku-last-search nil
   "Store last search")
