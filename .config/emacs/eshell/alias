@@ -5,7 +5,7 @@ alias po doas poweroff
 alias sd doas shutdown
 alias eqi cat /var/lib/portage/world
 alias er doas emerge --deselect $*
-alias ero doas emerge --depclean
+alias ero doas emerge --depclean $*
 alias eiu doas emerge -NuDa @world
 alias eis doas emerge --sync $*
 alias ei doas emerge $*
