@@ -213,11 +213,10 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package marginalia
+  :init (marginalia-mode)
   :bind
   (:map minibuffer-local-map
-        ("M-A" . marginalia-cycle))
-  :config
-  (marginalia-mode))
+        ("M-A" . marginalia-cycle)))
 
 (use-package markdown-mode
   :mode "\\.md\\'")
