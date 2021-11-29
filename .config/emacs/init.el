@@ -137,6 +137,8 @@
   (tab-width 2)
   (indent-tabs-mode nil)
   (ring-bell-function 'ignore)
+  (user-full-name "Jose G Perez Taveras")
+  (user-mail-address "josegpt27@gmail.com")
   ;; don't clutter up directories with files~
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
   ;; don't clutter with #files either
