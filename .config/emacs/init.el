@@ -297,6 +297,11 @@
           vue-mode
           yaml-mode) . prettier-js-mode))
 
+(use-package simple
+  :straight (:type built-in)
+  :bind
+  ("C-c l" . list-processes))
+
 (use-package subword
   :hook ((js-mode
           go-mode
