@@ -380,20 +380,25 @@
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
+                          ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
+                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                           (window-height . 0.20)
+                           (side . bottom)
+                           (slot . -1))
                           ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
-                           (display-buffer-in-side-window)
-                           (window-height . 0.18)
+                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                           (window-height . 0.20)
                            (side . bottom)
                            (slot . 0))
+                          ("\\*\\(envrc\\)\\*"
+                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                           (window-height . 0.20)
+                           (side . bottom)
+                           (slot . 1))
                           ("\\*\\(Ledger.*\\|Woman.*\\|Man.*\\|Help.*\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-width . 0.36)
+                           (window-width . 0.40)
                            (side . right)
-                           (slot . -1))
-                          ("\\*\\(envrc\\|Process List\\|Proced\\|Buffer List\\)\\*"
-                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.18)
-                           (side . bottom)
                            (slot . -1)))))
 
 (use-package vue-mode
