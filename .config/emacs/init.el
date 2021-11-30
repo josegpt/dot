@@ -246,7 +246,8 @@
 (use-package otaku
   :straight (:type built-in)
   :bind
-  ("C-c a" . otaku-search-anime))
+  ("C-c a s" . otaku-search-anime)
+  ("C-c a r" . otaku-recent-anime-episodes))
 
 (use-package orderless
   :after minibuffer

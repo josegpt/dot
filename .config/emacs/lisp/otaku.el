@@ -30,8 +30,12 @@
 ;;    `-- vinland
 ;; |-- anime
 ;;    `-- vinland-saga
+;; |-- recent
+;;    `-- (11 20 2021)
 
 ;;; Code:
+
+(require 'calendar)
 
 (defgroup otaku ()
   "Search and watch anime from Emacs."
@@ -44,35 +48,52 @@
   :type 'string
   :group 'otaku)
 
+(defcustom otaku-db-dir (format "%s/.cache/%s" (getenv "HOME") "otaku")
+  "Directory where all searched animes are store for better performance."
+  :type 'string
+  :group 'otaku)
+
 (defcustom otaku-mpv-video-command "mpv --http-header-fields=\"Referer: %s\" %s >/dev/null"
   "Mpv command to run when a video is found."
   :type 'string
   :group 'otaku)
 
-(defcustom otaku-older-than (* 60 60 24)
-  "When otaku considers a file old enough to be replaced."
+(defcustom otaku-anime-older-than (* 60 60 24)
+  "When otaku considers a anime file old enough to be replaced."
   :type 'integer
   :group 'otaku)
 
-(defvar otaku-last-search nil
+(defcustom otaku-search-older-than (* 60 60 24)
+  "When otaku considers a search file old enough to be replaced."
+  :type 'integer
+  :group 'otaku)
+
+(defcustom otaku-recent-older-than (* 60 60 24)
+  "When otaku considers a recent file old enough to be replaced."
+  :type 'integer
+  :group 'otaku)
+
+(defvar otaku--last-search nil
   "Store last search")
 
 ;;; Marginalia
 
 (defun otaku-annotate-episode (cand)
   "Marginalia annotator for `otaku'"
-  (let* ((slug (cadr otaku-last-search))
+  (let* ((slug (cadr otaku--last-search))
          (anime (otaku--repository-get-anime slug)))
-    (concat (propertize " " 'display '(space :align-to center))
+    (concat (propertize (format "%20s" " "))
             (propertize (cdr (assoc-string "title" anime)) 'face '(italic font-lock-keyword-face))
             " "
-            (propertize (format "%10d" (cdr (assoc-string "last-episode" anime))) 'face '(bold font-lock-constant-face))
+            (propertize (format "%4d" (cdr (assoc-string "last-episode" anime))) 'face '(bold font-lock-constant-face))
             " "
-            (propertize (format "%10s" (cdr (assoc-string "released-date" anime))) 'face '(font-lock-comment-face))
+            (propertize (format "%4s" (cdr (assoc-string "released-date" anime))) 'face '(font-lock-comment-face))
             " "
-            (propertize (format "%10s" (cdr (assoc-string "status" anime))) 'face '(font-lock-string-face))
+            (propertize (format "%8s" (cdr (assoc-string "status" anime))) 'face '(font-lock-string-face))
             " "
-            (propertize (format "%10s" (cdr (assoc-string "type" anime))) 'face '(font-lock-builtin-face)))))
+            (propertize (format "%8s" (cdr (assoc-string "type" anime))) 'face '(font-lock-builtin-face))
+            " "
+            (propertize (format "%s" (cdr (assoc-string "summary" anime))) 'face '(font-lock-doc-face)))))
 
 (with-eval-after-load 'marginalia
   (add-to-list 'marginalia-annotator-registry
@@ -81,28 +102,23 @@
 
 ;;; Helpers
 
-(defun otaku-search-url (keyword)
-  "Search url constructor."
+(defun otaku--make-search-url (keyword)
+  "Search url maker."
   (format "%s/search.html?keyword=%s" otaku-base-url (url-encode-url keyword)))
 
-(defun otaku-single-anime-url (path)
-  "Single anime url constructor."
+(defun otaku--make-single-anime-url (path)
+  "Single anime url maker."
   (format "%s/category/%s" otaku-base-url (url-encode-url path)))
 
-(defun otaku-anime-episode-url (path episode)
-  "Anime episode url constructor."
+(defun otaku--make-anime-episode-url (path episode)
+  "Anime episode url make."
   (format "%s/%s-episode-%s" otaku-base-url path episode))
 
-(defun otaku-mpv-command (referer video-url)
-  "Mpv command constructor"
+(defun otaku--make-mpv-command (referer video-url)
+  "Mpv command make."
   (format otaku-mpv-video-command referer video-url))
 
 ;; CRUD
-
-(defcustom otaku-db-dir (format "%s/.cache/%s" (getenv "HOME") "otaku")
-  "Directory where all searched animes are store for better performance."
-  :type 'string
-  :group 'otaku)
 
 (defun otaku--db-insert (file-path object)
   "DB insert."
@@ -135,14 +151,14 @@
   (when (otaku--db-exists-p file-path)
     (delete-file file-path)))
 
-(defun otaku--db-is-old-p (file-path)
+(defun otaku--db-is-old-p (file-path older-than)
   "DB is older predicate."
   (let* ((time (time-convert (current-time) 'integer))
          (file-time (time-convert
                      (file-attribute-modification-time
                       (file-attributes file-path 'string)) 'integer))
          (difference (- time file-time)))
-    (> difference otaku-older-than)))
+    (> difference older-than)))
 
 (defun otaku--db-ensure-folders (subfolder)
   "DB ensure folders exists"
@@ -151,7 +167,7 @@
       (make-directory db-dir t))
     db-dir))
 
-(defun otaku--db-handler (prefix action slug &optional object)
+(defun otaku--db-handler (prefix action slug &optional object older-than)
   "DB handler."
   (let ((file-path (format "%s/%s" (otaku--db-ensure-folders prefix) slug)))
     (cond
@@ -160,7 +176,7 @@
      ((string= action "update") (otaku--db-update file-path object))
      ((string= action "delete") (otaku--db-delete file-path))
      ((string= action "exists") (otaku--db-exists-p file-path))
-     ((string= action "older") (otaku--db-is-old-p file-path))
+     ((string= action "older") (otaku--db-is-old-p file-path older-than))
      (t (error "unknown action: %s" action)))))
 
 ;;; Repository
@@ -177,7 +193,7 @@
 
 (defun otaku--repository-is-old-anime-p (slug)
   "Check if anime is old."
-  (otaku--db-handler "anime" "older" slug))
+  (otaku--db-handler "anime" "older" slug nil otaku-anime-older-than))
 
 (defun otaku--repository-get-anime (slug)
   "Get anime."
@@ -203,7 +219,7 @@
 
 (defun otaku--repository-is-old-search-p (keyword)
   "Check if search is old."
-  (otaku--db-handler "search" "older" keyword))
+  (otaku--db-handler "search" "older" keyword nil otaku-search-older-than))
 
 (defun otaku--repository-get-search (keyword)
   "Get search."
@@ -217,19 +233,56 @@
   "Delete search."
   (otaku--db-handler "search" "delete" keyword))
 
+;; Recent
+
+(defun otaku--repository-insert-recent (recent)
+  "Insert recent."
+  (otaku--db-handler "recent" "insert" (calendar-current-date) recent))
+
+(defun otaku--repository-exists-recent-p ()
+  "Check recent."
+  (otaku--db-handler "recent" "exists" (calendar-current-date)))
+
+(defun otaku--repository-is-old-recent-p ()
+  "Check if recent is old."
+  (otaku--db-handler "recent" "older" (calendar-current-date) nil otaku-recent-older-than))
+
+(defun otaku--repository-get-recent ()
+  "Get recent."
+  (otaku--db-handler "recent" "select" (calendar-current-date)))
+
+(defun otaku--repository-update-recent (recent)
+  "Update recent."
+  (otaku--db-handler "recent" "update" (calendar-current-date) recent))
+
+(defun otaku--repository-delete-recent ()
+  "Delete recent."
+  (otaku--db-handler "recent" "delete" (calendar-current-date)))
+
 ;;; HTTP
+
+(defun otaku--http-get-recent-anime-episodes ()
+  "Get recent anime episodes"
+  (let ((episodes '()))
+    (set-buffer (url-retrieve-synchronously otaku-base-url))
+    (while (re-search-forward "<p class=\"name.*><a href=\"\\(.*\\)\" title=.*>\\(.*\\)</a></p>" nil t)
+      (let* ((title (match-string 2))
+             (slug (match-string 1))
+             (episode (car (last (split-string slug "-")))))
+        (setq episodes (append episodes `((,(format "Episode %4s - %s" episode title) ,(format "%s%s" otaku-base-url slug)))))))
+    episodes))
 
 (defun otaku--http-search-anime-by-keyword (keyword)
   "Search anime by keyword."
   (let ((animes '()))
-    (set-buffer (url-retrieve-synchronously (otaku-search-url keyword)))
+    (set-buffer (url-retrieve-synchronously (otaku--make-search-url keyword)))
     (while (re-search-forward "<a href=\"/category/\\(.+\\)\" title=\"\\(.+\\)\".+</a>" nil t)
       (setq animes (append animes `((,(match-string 2) ,(match-string 1))))))
     `(,keyword ,animes)))
 
 (defun otaku--http-get-single-anime (slug)
   "Get single anime by slug."
-  (let* ((buffer (url-retrieve-synchronously (otaku-single-anime-url slug)))
+  (let* ((buffer (url-retrieve-synchronously (otaku--make-single-anime-url slug)))
          (title (otaku--search-anime-title buffer))
          (type (otaku--search-anime-type buffer))
          (summary (otaku--search-anime-summary buffer))
@@ -252,8 +305,8 @@
   "Construct episodes path"
   (let ((result '()))
     (dotimes (episode end)
-      (setq result (append result `((,(format "Episode %d" (1+ episode))
-                                     ,(otaku-anime-episode-url slug (1+ episode)))))))
+      (setq result (append result `((,(format "Episode %4d" (1+ episode))
+                                     ,(otaku--make-anime-episode-url slug (1+ episode)))))))
     result))
 
 (defun otaku--search-anime-title (buffer)
@@ -313,6 +366,15 @@
   (re-search-forward "sources:\\[{file: '\\(.+\\)',label.+" nil t)
   (match-string 1))
 
+(defun otaku--service-recent-anime-episodes ()
+  "Get recent anime episodes"
+  (cond
+   ((not (otaku--repository-exists-recent-p))
+    (otaku--repository-insert-recent (otaku--http-get-recent-anime-episodes)))
+   ((otaku--repository-is-old-recent-p)
+    (otaku--repository-update-recent (otaku--http-get-recent-anime-episodes))))
+  (otaku--repository-get-recent))
+
 (defun otaku--service-search-anime-by-keyword (keyword)
   "Search anime by keyword."
   (cond
@@ -336,7 +398,7 @@
   (let* ((slug (cadr episode))
          (referer (otaku--search-anime-episode-video-url slug))
          (video-url (otaku--search-anime-episode-inner-video-url referer)))
-    (start-process-shell-command "otaku-mpv" nil (otaku-mpv-command referer video-url))
+    (start-process-shell-command "otaku-mpv" nil (otaku--make-mpv-command referer video-url))
     (message "%s sent to mpv" slug)))
 
 (defun otaku-select-episode (anime)
@@ -351,18 +413,27 @@
 ;;; Interactive
 
 ;;;###autoload
+(defun otaku-recent-anime-episodes ()
+  "Get recent anime episodes"
+  (interactive)
+  (let* ((episodes (otaku--service-recent-anime-episodes))
+         (choice (completing-read "Otaku Recent Anime Episodes: " episodes nil t))
+         (episode-selected (assoc-string choice episodes)))
+    (otaku-watch-episode episode-selected)))
+
+;;;###autoload
 (defun otaku-search-anime (keyword)
   "Search anime by keyword."
   (interactive "sOtaku Search Anime: ")
   (if (string= keyword "")
-      (if otaku-last-search
-          (otaku-select-episode otaku-last-search)
+      (if otaku--last-search
+          (otaku-select-episode otaku--last-search)
         (error "No anime has been searched."))
     (let* ((result (otaku--service-search-anime-by-keyword keyword))
            (animes (cadr result))
            (choice (completing-read "Choose Anime: " animes nil t))
            (anime-selected (assoc-string choice animes)))
-      (setq otaku-last-search anime-selected)
+      (setq otaku--last-search anime-selected)
       (otaku-select-episode anime-selected))))
 
 (provide 'otaku)
