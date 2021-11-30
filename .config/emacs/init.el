@@ -298,6 +298,11 @@
           vue-mode
           yaml-mode) . prettier-js-mode))
 
+(use-package shr
+  :straight (:type built-in)
+  :custom
+  (shr-use-fonts nil))
+
 (use-package simple
   :straight (:type built-in)
   :bind
