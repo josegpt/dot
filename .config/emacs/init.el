@@ -402,7 +402,7 @@
                            (slot . 1))
                           ("\\*\\(Ledger.*\\|Woman.*\\|Man.*\\|Help.*\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-width . 0.40)
+                           (window-width . 0.45)
                            (side . right)
                            (slot . -1)))))
 
