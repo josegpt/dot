@@ -393,7 +393,7 @@
     (otaku--repository-update-anime slug (otaku--http-get-single-anime slug))))
   (otaku--repository-get-anime slug))
 
-(defun otaku-watch-episode (episode)
+(defun otaku--watch-episode (episode)
   "Watch selected episode."
   (let* ((slug (cadr episode))
          (referer (otaku--search-anime-episode-video-url slug))
@@ -401,14 +401,14 @@
     (start-process-shell-command "otaku-mpv" nil (otaku--make-mpv-command referer video-url))
     (message "%s sent to mpv" slug)))
 
-(defun otaku-select-episode (anime)
+(defun otaku--select-episode (anime)
   (let* ((title (car anime))
          (slug (cadr anime))
          (episodes (assoc-string "episodes" (otaku--service-get-single-anime slug)))
          (episodes-list (cdr episodes))
          (choice (completing-read (format "Choose %s Episode: " title) episodes-list nil t))
          (episode-selected (assoc-string choice episodes-list)))
-    (otaku-watch-episode episode-selected)))
+    (otaku--watch-episode episode-selected)))
 
 ;;; Interactive
 
@@ -419,7 +419,7 @@
   (let* ((episodes (otaku--service-recent-anime-episodes))
          (choice (completing-read "Otaku Recent Anime Episodes: " episodes nil t))
          (episode-selected (assoc-string choice episodes)))
-    (otaku-watch-episode episode-selected)))
+    (otaku--watch-episode episode-selected)))
 
 ;;;###autoload
 (defun otaku-search-anime (keyword)
@@ -427,14 +427,14 @@
   (interactive "sOtaku Search Anime: ")
   (if (string= keyword "")
       (if otaku--last-search
-          (otaku-select-episode otaku--last-search)
+          (otaku--select-episode otaku--last-search)
         (error "No anime has been searched."))
     (let* ((result (otaku--service-search-anime-by-keyword keyword))
            (animes (cadr result))
            (choice (completing-read "Choose Anime: " animes nil t))
            (anime-selected (assoc-string choice animes)))
       (setq otaku--last-search anime-selected)
-      (otaku-select-episode anime-selected))))
+      (otaku--select-episode anime-selected))))
 
 (provide 'otaku)
 ;;; otaku.el ends here
