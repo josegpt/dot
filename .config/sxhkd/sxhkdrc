@@ -11,6 +11,9 @@ super + e
 super + r
   emacsclient -c -e "(elfeed)"
 
+super + j
+  pgrep -f emacsclient && emacsclient -e "(x-focus-frame nil)" && emacsclient -e "(webjump)"
+
 super + Escape
   pkill -USR1 -x sxhkd
 
