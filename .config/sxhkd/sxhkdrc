@@ -9,13 +9,13 @@ super + e
   emacsclient -c
 
 super + r
-  wmctrl -a elfeed && emacsclient -e "(elfeed)" || emacsclient -c -e "(elfeed)"
-
-super + j
-  wmctrl -x -a emacs && emacsclient -e "(webjump)" || emacsclient -c -e "(webjump)"
+  emacsclient -c -e "(elfeed)"
 
 super + Escape
   pkill -USR1 -x sxhkd
+
+super + {l,d}
+  pgrep -x emacs && emacsclient -e "(load-theme '{modus-operandi,modus-vivendi} t)"
 
 XF86Audio{Play,Stop,Next,Prev}
   playerctl {play-pause,stop,next,previous}
