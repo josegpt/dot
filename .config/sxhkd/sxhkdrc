@@ -14,8 +14,8 @@ super + r
 super + j
   pgrep -f emacsclient && emacsclient -e "(x-focus-frame nil)" && emacsclient -e "(webjump)"
 
-super + Escape
-  pkill -USR1 -x sxhkd
+super + w ; {r,q,k}
+  {bspc wm -r,bspc quit,pkill -USR1 -x sxhkd}
 
 super + {l,d}
   pgrep -x emacs && emacsclient -e "(load-theme '{modus-operandi,modus-vivendi} t)"
@@ -41,9 +41,6 @@ XF86MonBrightness{Down,Up}
 #
 # wm hotkeys
 #
-
-super + {_,shift +}q
-  bspc {wm -r,quit}
 
 super + {_,shift + }k
   bspc node -{c,k}
