@@ -68,7 +68,7 @@
   :type 'integer
   :group 'otaku)
 
-(defcustom otaku-recent-older-than (* 60 60 24)
+(defcustom otaku-recent-older-than (* 60 60)
   "When otaku considers a recent file old enough to be replaced."
   :type 'integer
   :group 'otaku)
