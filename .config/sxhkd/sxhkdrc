@@ -6,13 +6,10 @@ super + Return
   emacsclient -c -e "(eshell)"
 
 super + e
+  pgrep -f emacsclient && emacsclient -e "(x-focus-frame nil)" || emacsclient -c
+
+super + shift + e
   emacsclient -c
-
-super + r
-  emacsclient -c -e "(elfeed)"
-
-super + j
-  pgrep -f emacsclient && emacsclient -e "(x-focus-frame nil)" && emacsclient -e "(webjump)"
 
 super + w ; {r,q,k}
   {bspc wm -r,bspc quit,pkill -USR1 -x sxhkd}

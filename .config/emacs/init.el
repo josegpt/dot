@@ -77,6 +77,7 @@
 (use-package dired
   :straight (:type built-in)
   :custom
+  (dired-listing-switches "-alh")
   (dired-kill-when-opening-new-dired-buffer t))
 
 (use-package dockerfile-mode
@@ -131,6 +132,7 @@
   :config
   (load-theme 'modus-vivendi t)
   (set-face-attribute 'mode-line-active nil :inherit 'mode-line)
+  (set-face-attribute 'mode-line-inactive nil :inherit 'mode-line)
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   :custom
@@ -246,8 +248,8 @@
 (use-package otaku
   :straight (:type built-in)
   :bind
-  ("C-c a s" . otaku-search-anime)
-  ("C-c a r" . otaku-recent-anime-episodes))
+  ("C-c o s" . otaku-search-anime)
+  ("C-c o r" . otaku-recent-anime-episodes))
 
 (use-package orderless
   :after minibuffer
@@ -260,6 +262,7 @@
   :straight (:type built-in)
   :hook (prog-mode . show-paren-mode)
   :custom
+  (show-paren-context-when-offscreen t)
   (show-paren-when-point-inside-paren t))
 
 (use-package password-store
