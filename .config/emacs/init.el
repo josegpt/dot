@@ -229,12 +229,6 @@
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
 
-(use-package nov
-  :mode
-  ("\\.epub\\'" . nov-mode)
-  :custom
-  (nov-text-width 80))
-
 (use-package otaku
   :straight (:type built-in)
   :bind
