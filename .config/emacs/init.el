@@ -55,6 +55,11 @@
   :config
   (global-auto-revert-mode))
 
+(use-package canales
+  :straight (:type built-in)
+  :bind
+  ("C-c c" . canales-watch))
+
 (use-package compile
   :custom
   (compilation-scroll-output t))
@@ -177,15 +182,6 @@
   (vertico-cycle t)
   :config
   (vertico-mode))
-
-;; emacs28
-;; (use-package icomplete
-;;   :config
-;;   (icomplete-mode)
-;;   (fido-vertical-mode)
-;;   :custom
-;;   (icomplete-compute-delay 0.0)
-;;   (icomplete-delay-completions-threshold 200))
 
 (use-package js
   :straight (:type built-in)
