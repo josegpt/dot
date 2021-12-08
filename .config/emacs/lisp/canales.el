@@ -55,8 +55,6 @@
   (delete-char 1)
   (json-parse-buffer :object-type 'plist :array-type 'list))
 
-(plist-get (nth 35 (canales--get-channels)) :DRM)
-
 (defun canales--make-channel (channel)
   "Generate channel from raw data to be processed by the interactive function."
   (let ((drm (plist-get channel :DRM)))
