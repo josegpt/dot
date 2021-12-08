@@ -99,12 +99,6 @@
   :config
   (envrc-global-mode))
 
-(use-package elm-mode
-  :mode "\\.elm\\'"
-  :hook
-  (elm-mode . elm-indent-mode)
-  (elm-mode . elm-format-on-save-mode))
-
 (use-package elfeed
   :bind
   ("C-c r" . elfeed)
@@ -311,7 +305,6 @@
 (use-package subword
   :hook ((js-mode
           go-mode
-          elm-mode
           haskell-mode
           typescript-mode
           ledger-mode) . subword-mode))
