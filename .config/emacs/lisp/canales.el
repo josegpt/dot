@@ -33,7 +33,7 @@
   :group 'multimedia
   :group 'applications)
 
-(defcustom canales-base-url "http://192.168.1.129"
+(defcustom canales-base-url "http://192.168.1.248"
   "Base url for `canales'"
   :type 'string
   :group 'canales)

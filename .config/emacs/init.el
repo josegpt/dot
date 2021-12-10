@@ -138,8 +138,7 @@
   (tab-width 2)
   (indent-tabs-mode nil)
   (ring-bell-function 'ignore)
-  (user-full-name "Jose G Perez Taveras")
-  (user-mail-address "josegpt27@gmail.com")
+  (initial-major-mode #'emacs-lisp-mode)
   ;; don't clutter up directories with files~
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
   ;; don't clutter with #files either
@@ -199,6 +198,21 @@
                     ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
                     ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
 
+(use-package smtpmail
+  :straight (:type built-in)
+  :custom
+  (smtpmail-smtp-service 465)
+  (smtpmail-stream-type 'ssl)
+  (smtpmail-smtp-user "josegpt27")
+  (mail-user-agent 'mu4e-user-agent)
+  (send-mail-function 'smtpmail-send-it)
+  (user-full-name "Jose G Perez Taveras")
+  (smtpmail-smtp-server "smtp.gmail.com")
+  (user-mail-address "josegpt27@gmail.com")
+  (smtpmail-auth-credentials "~/.authinfo.gpg")
+  (smtpmail-default-smtp-server "smtp.gmail.com")
+  (message-send-mail-function 'smtpmail-send-it))
+
 (use-package magit
   :bind
   ("C-x g" . magit-status)
@@ -228,6 +242,38 @@
   :bind
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
+
+
+(use-package mu4e
+  :no-require t
+  :defer 30
+  :bind
+  ("C-c m" . mu4e)
+  :custom
+  (mu4e-confirm-quit nil)
+  (mu4e-view-show-images t)
+  (mu4e-view-show-addresses t)
+  (mu4e-trash-folder "/Trash")
+  (mu4e-drafts-folder "/Drafts")
+  (mu4e-maildir "~/.cache/Mail")
+  (mu4e-sent-folder "/Sent Mail")
+  (message-kill-buffer-on-exit t)
+  (mu4e-update-interval (* 60 30))
+  (mu4e-get-mail-command "mbsync -a")
+  (mu4e-attachment-dir "~/Downloads")
+  (mu4e-compose-dont-reply-to-self t)
+  (mu4e-change-filenames-when-moving t)
+  (mu4e-sent-messages-behavior 'delete)
+  (mu4e-maildir-shortcuts
+   '((:maildir "/INBOX" :key ?i)
+     (:maildir "/Sent Mail" :key ?s)
+     (:maildir "/Starred" :key ?f)
+     (:maildir "/Spam" :key ?p)
+     (:maildir "/Drafts" :key ?d)
+     (:maildir "/Trash" :key ?t)))
+  :config
+  (imagemagick-register-types)
+  (mu4e))
 
 (use-package otaku
   :straight (:type built-in)

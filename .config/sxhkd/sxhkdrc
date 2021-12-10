@@ -14,9 +14,6 @@ super + shift + e
 super + w ; {r,q,k}
   {bspc wm -r,bspc quit,pkill -USR1 -x sxhkd}
 
-super + {l,d}
-  pgrep -x emacs && emacsclient -e "(load-theme '{modus-operandi,modus-vivendi} t)"
-
 XF86Audio{Play,Stop,Next,Prev}
   playerctl {play-pause,stop,next,previous}
 
