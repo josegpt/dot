@@ -6,10 +6,10 @@ super + Return
   emacsclient -c -e "(eshell)"
 
 super + e
-  pgrep -f emacsclient && emacsclient -e "(x-focus-frame nil)" || emacsclient -c
+  pgrep -f emacsclient && emacsclient -e "(x-focus-frame nil)" || emacsclient -a "" -c
 
 super + shift + e
-  emacsclient -c
+  emacsclient -a "" -c
 
 super + w ; {r,q,k}
   {bspc wm -r,bspc quit,pkill -USR1 -x sxhkd}
