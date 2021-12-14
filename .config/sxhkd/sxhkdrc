@@ -3,7 +3,7 @@
 #
 
 super + Return
-  emacsclient -c -e "(eshell)"
+  emacsclient -a "" -c -e "(eshell)"
 
 super + e
   pgrep -f emacsclient && emacsclient -e "(x-focus-frame nil)" || emacsclient -a "" -c
