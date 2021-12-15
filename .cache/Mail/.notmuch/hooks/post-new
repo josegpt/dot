@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# tag all "new" messages "inbox" and "unread"
+notmuch tag +inbox +unread -new -- tag:new
+
+# process spam and trash folders
+notmuch tag +spam -unread -inbox -new -- folder:Spam
+notmuch tag +trashed -unread -inbox -new -- folder:Trash

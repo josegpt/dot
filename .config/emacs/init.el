@@ -204,7 +204,7 @@
   (smtpmail-smtp-service 465)
   (smtpmail-stream-type 'ssl)
   (smtpmail-smtp-user "josegpt27")
-  (mail-user-agent 'mu4e-user-agent)
+  (mail-user-agent 'notmuch-user-agent)
   (send-mail-function 'smtpmail-send-it)
   (user-full-name "Jose G Perez Taveras")
   (smtpmail-smtp-server "smtp.gmail.com")
@@ -243,37 +243,12 @@
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
 
-
-(use-package mu4e
-  :no-require t
-  :defer 30
-  :bind
-  ("C-c m" . mu4e)
+(use-package notmuch
   :custom
-  (mu4e-confirm-quit nil)
-  (mu4e-view-show-images t)
-  (mu4e-view-show-addresses t)
-  (mu4e-trash-folder "/Trash")
-  (mu4e-drafts-folder "/Drafts")
-  (mu4e-maildir "~/.cache/Mail")
-  (mu4e-sent-folder "/Sent Mail")
-  (message-kill-buffer-on-exit t)
-  (mu4e-update-interval (* 60 30))
-  (mu4e-get-mail-command "mbsync -a")
-  (mu4e-attachment-dir "~/Downloads")
-  (mu4e-compose-dont-reply-to-self t)
-  (mu4e-change-filenames-when-moving t)
-  (mu4e-sent-messages-behavior 'delete)
-  (mu4e-maildir-shortcuts
-   '((:maildir "/INBOX" :key ?i)
-     (:maildir "/Sent Mail" :key ?s)
-     (:maildir "/Starred" :key ?f)
-     (:maildir "/Spam" :key ?p)
-     (:maildir "/Drafts" :key ?d)
-     (:maildir "/Trash" :key ?t)))
-  :config
-  (imagemagick-register-types)
-  (mu4e))
+  (notmuch-show-logo nil)
+  (notmuch-search-oldest-first nil)
+  :bind
+  ("C-c m" . notmuch))
 
 (use-package otaku
   :straight (:type built-in)
