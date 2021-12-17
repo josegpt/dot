@@ -408,7 +408,7 @@
                            (window-height . 0.20)
                            (side . bottom)
                            (slot . 1))
-                          ("\\*\\(Ledger.*\\|Woman.*\\|Man.*\\|Help.*\\)\\*"
+                          ("\\*\\(Ledger.*\\|Woman.*\\|Man.*\\|Help.*\\|godoc.*\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
                            (window-width . 0.45)
                            (side . right)

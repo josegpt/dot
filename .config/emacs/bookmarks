@@ -2,7 +2,33 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("polybarrc"
+(("raspberry-ssh"
+ (filename . "/ssh:pi@192.168.1.250:~/")
+ (front-context-string . ".bash_history\n  ")
+ (rear-context-string . "7K Dec 14 21:02 ")
+ (position . 169))
+("ptserver-ssh"
+ (filename . "/ssh:josegpt@ptserver.org:~/")
+ (front-context-string . ".bash_logout\n  -")
+ (rear-context-string . "20 Apr 18  2019 ")
+ (position . 196))
+("notmuch-hooks"
+ (filename . "~/.cache/Mail/.notmuch/hooks/")
+ (front-context-string)
+ (rear-context-string . "44 Dec 14 19:55 ")
+ (position . 197))
+("notmuch-config"
+ (filename . "~/.dotfiles/.notmuch-config")
+ (front-context-string . "# .notmuch-confi")
+ (rear-context-string)
+ (position . 1))
+("personal-webpage"
+ (front-context-string . "Jose G\n\nJose G\n\n")
+ (rear-context-string)
+ (position . 1)
+ (location . "https://josegpt.com/")
+ (handler . eww-bookmark-jump))
+("polybarrc"
  (filename . "~/.dotfiles/.config/polybar/config")
  (front-context-string . "[global/wm]\nmarg")
  (rear-context-string)
