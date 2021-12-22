@@ -186,6 +186,7 @@ first RECIPE's package."
                                     ?\M-!
                                     ?\s-c
                                     s-return
+                                    ?\s-r
                                     ?\s-d
                                     ?\s-j
                                     ?\s-l
@@ -202,6 +203,7 @@ first RECIPE's package."
                                     ?\s-p
                                     ?\s-n
                                     ?\s-a
+                                    ?\s-q
                                     XF86AudioPlay
                                     XF86AudioStop
                                     XF86AudioNext
