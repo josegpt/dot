@@ -57,6 +57,15 @@ first RECIPE's package."
                      (car recipe)
                    recipe))))
 
+(setup-define :require
+  (lambda (feature)
+    `(run-with-timer 5 nil #'require ',feature nil t))
+  :documentation "Try to require FEATURE after a set amount of `time'.
+This macro can be used as NAME, and it will replace itself with
+the first FEATURE."
+  :repeatable t
+  :shorthand #'cadr)
+
 ;;;;;;;;;;;;;;
 ;; Packages ;;
 ;;;;;;;;;;;;;;
@@ -88,7 +97,7 @@ first RECIPE's package."
               eshell-mode
               ledger-mode))
 
-(setup css
+(setup css-mode
   (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'"))
 
 (setup (:package diff-hl)
@@ -113,6 +122,9 @@ first RECIPE's package."
 
 (setup eshell
   (:global "s-<return>" #'eshell))
+
+(setup elec-pair
+  (electric-pair-mode))
 
 (setup (:package elfeed)
   (:global "s-r" #'elfeed)
@@ -157,7 +169,7 @@ first RECIPE's package."
            truncate-lines t
            indent-tabs-mode nil
            ring-bell-function 'ignore
-           initial-major-mode #'emacs-lisp-mode
+           initial-major-mode #'fundamental-mode
            ;; don't clutter up directories with files~
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
@@ -277,13 +289,16 @@ first RECIPE's package."
 (setup (:package haskell-mode)
   (:file-match "\\.hs\\'"))
 
-(setup html
+(setup html-mode
   (:file-match "\\.\\(html?\\|ejs\\)\\'"))
 
 (setup hl-line
   (global-hl-line-mode))
 
-(setup js
+(setup imenu
+  (:option imenu-auto-rescan t))
+
+(setup js-mode
   (:file-match "\\.js\\'")
   (:option js-indent-level 2))
 
@@ -303,7 +318,7 @@ first RECIPE's package."
   (:option smtpmail-smtp-service 465
            smtpmail-stream-type 'ssl
            smtpmail-smtp-user "josegpt27"
-           mail-user-agent 'notmuch-user-agent
+           mail-user-agent 'mu4e-user-agent
            send-mail-function 'smtpmail-send-it
            user-full-name "Jose G Perez Taveras"
            smtpmail-smtp-server "smtp.gmail.com"
@@ -334,10 +349,30 @@ first RECIPE's package."
   (:global "M-p" #'move-text-up
            "M-n" #'move-text-down))
 
-(setup (:package notmuch)
-  (:option notmuch-show-logo nil
-           notmuch-search-oldest-first nil)
-  (:global "s-m" #'notmuch))
+(setup (:require mu4e)
+  (:global "s-m" #'mu4e)
+  (:option mu4e-confirm-quit nil
+           mu4e-view-show-images t
+           mu4e-view-show-addresses t
+           mu4e-trash-folder "/Trash"
+           mu4e-drafts-folder "/Drafts"
+           mu4e-maildir "~/.cache/Mail"
+           mu4e-sent-folder "/Sent Mail"
+           message-kill-buffer-on-exit t
+           mu4e-update-interval (* 60 30)
+           mu4e-get-mail-command "mbsync -a"
+           mu4e-attachment-dir "~/Downloads"
+           mu4e-compose-dont-reply-to-self t
+           mu4e-change-filenames-when-moving t
+           mu4e-sent-messages-behavior 'delete
+           mu4e-maildir-shortcuts
+           '((:maildir "/INBOX" :key ?i)
+             (:maildir "/Sent Mail" :key ?s)
+             (:maildir "/Starred" :key ?f)
+             (:maildir "/Spam" :key ?p)
+             (:maildir "/Drafts" :key ?d)
+             (:maildir "/Trash" :key ?t)))
+  (imagemagick-register-types))
 
 (setup (:require otaku)
   (:global "s-c s" #'otaku-search-anime
@@ -408,6 +443,10 @@ first RECIPE's package."
 
 (setup simple
   (:global "s-l" #'list-processes))
+
+(setup server
+  (unless (server-running-p)
+    (server-start)))
 
 (setup subword
   (:hook-into js-mode

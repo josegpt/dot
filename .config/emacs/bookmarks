@@ -8,15 +8,6 @@
  (position . 1)
  (location . "http://git.savannah.gnu.org/cgit/emacs.git")
  (handler . eww-bookmark-jump))
-("portage-config"
- (filename .
-           #("/doas:root@josegpt-laptop:/etc/portage/" 6 10
-             (tramp-default t)
-             11 25
-             (tramp-default t)))
- (front-context-string . "make.conf\n  lrwx")
- (rear-context-string . "18 Dec  2 12:41 ")
- (position . 180))
 ("raspberry-ssh"
  (filename . "/ssh:pi@192.168.1.250:~/")
  (front-context-string . ".bash_history\n  ")
@@ -27,16 +18,6 @@
  (front-context-string . ".bash_logout\n  -")
  (rear-context-string . "20 Apr 18  2019 ")
  (position . 196))
-("notmuch-hooks"
- (filename . "~/.cache/Mail/.notmuch/hooks/")
- (front-context-string)
- (rear-context-string . "44 Dec 14 19:55 ")
- (position . 197))
-("notmuch-config"
- (filename . "~/.dotfiles/.notmuch-config")
- (front-context-string . "# .notmuch-confi")
- (rear-context-string)
- (position . 1))
 ("personal-website"
  (front-context-string . "Jose G\n\nJose G\n\n")
  (rear-context-string)

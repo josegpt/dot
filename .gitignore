@@ -16,3 +16,4 @@
 .gnupg
 .config/emacs/network-security.data
 .config/emacs/%backup%~
+.config/emacs/multisession/
