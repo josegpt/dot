@@ -57,15 +57,6 @@ first RECIPE's package."
                      (car recipe)
                    recipe))))
 
-(setup-define :require
-  (lambda (feature)
-    `(run-with-timer 5 nil #'require ',feature nil t))
-  :documentation "Try to require FEATURE after a set amount of `time'.
-This macro can be used as NAME, and it will replace itself with
-the first FEATURE."
-  :repeatable t
-  :shorthand #'cadr)
-
 ;;;;;;;;;;;;;;
 ;; Packages ;;
 ;;;;;;;;;;;;;;
@@ -349,30 +340,31 @@ the first FEATURE."
   (:global "M-p" #'move-text-up
            "M-n" #'move-text-down))
 
-(setup (:require mu4e)
-  (:global "s-m" #'mu4e)
-  (:option mu4e-confirm-quit nil
-           mu4e-view-show-images t
-           mu4e-view-show-addresses t
-           mu4e-trash-folder "/Trash"
-           mu4e-drafts-folder "/Drafts"
-           mu4e-maildir "~/.cache/Mail"
-           mu4e-sent-folder "/Sent Mail"
-           message-kill-buffer-on-exit t
-           mu4e-update-interval (* 60 30)
-           mu4e-get-mail-command "mbsync -a"
-           mu4e-attachment-dir "~/Downloads"
-           mu4e-compose-dont-reply-to-self t
-           mu4e-change-filenames-when-moving t
-           mu4e-sent-messages-behavior 'delete
-           mu4e-maildir-shortcuts
-           '((:maildir "/INBOX" :key ?i)
-             (:maildir "/Sent Mail" :key ?s)
-             (:maildir "/Starred" :key ?f)
-             (:maildir "/Spam" :key ?p)
-             (:maildir "/Drafts" :key ?d)
-             (:maildir "/Trash" :key ?t)))
-  (imagemagick-register-types))
+;; FIXME: Activate when find a better way of deferring it.
+;; (setup (:require mu4e)
+;;   (:global "s-m" #'mu4e)
+;;   (:option mu4e-confirm-quit nil
+;;            mu4e-view-show-images t
+;;            mu4e-view-show-addresses t
+;;            mu4e-trash-folder "/Trash"
+;;            mu4e-drafts-folder "/Drafts"
+;;            mu4e-maildir "~/.cache/Mail"
+;;            mu4e-sent-folder "/Sent Mail"
+;;            message-kill-buffer-on-exit t
+;;            mu4e-update-interval (* 60 30)
+;;            mu4e-get-mail-command "mbsync -a"
+;;            mu4e-attachment-dir "~/Downloads"
+;;            mu4e-compose-dont-reply-to-self t
+;;            mu4e-change-filenames-when-moving t
+;;            mu4e-sent-messages-behavior 'delete
+;;            mu4e-maildir-shortcuts
+;;            '((:maildir "/INBOX" :key ?i)
+;;              (:maildir "/Sent Mail" :key ?s)
+;;              (:maildir "/Starred" :key ?f)
+;;              (:maildir "/Spam" :key ?p)
+;;              (:maildir "/Drafts" :key ?d)
+;;              (:maildir "/Trash" :key ?t)))
+;;   (imagemagick-register-types))
 
 (setup (:require otaku)
   (:global "s-c s" #'otaku-search-anime
