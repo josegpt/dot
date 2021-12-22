@@ -453,7 +453,8 @@ first RECIPE's package."
                            ("Gentoo Packages" . [simple-query "packages.gentoo.org" "packages.gentoo.org/packages/search?q=" ""]))))
 
 (setup whitespace
-  (:hook-into prog-mode)
+  (:hook-into prog-mode
+              ledger-mode)
   (:option whitespace-style '(face
                               tabs
                               empty
