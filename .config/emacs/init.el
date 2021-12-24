@@ -95,7 +95,8 @@ first RECIPE's package."
   (global-diff-hl-mode))
 
 (setup dired
-  (:option dired-listing-switches "-alh"
+  (:option dired-dwim-target t
+           dired-listing-switches "-alh"
            dired-kill-when-opening-new-dired-buffer t))
 
 (setup (:package dockerfile-mode)
