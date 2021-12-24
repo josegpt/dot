@@ -107,6 +107,7 @@ first RECIPE's package."
            display-line-numbers-current-absolute t)
   (:hook-into prog-mode
               html-mode
+              conf-mode
               ledger-mode))
 
 (setup (:package envrc)
@@ -488,7 +489,8 @@ first RECIPE's package."
 
 (setup whitespace
   (:hook-into prog-mode
-              ledger-mode)
+              ledger-mode
+              conf-mode)
   (:option whitespace-style '(face
                               tabs
                               empty
