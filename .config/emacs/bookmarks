@@ -1,4 +1,4 @@
-;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
@@ -37,12 +37,6 @@
 ("emacs-config"
  (filename . "~/.dotfiles/.config/emacs/init.el")
  (front-context-string . ";;   ___ _ __ __")
- (rear-context-string)
- (position . 1))
-(#(".xinitrc" 0 8
-   (face nil))
- (filename . "~/.dotfiles/.xinitrc")
- (front-context-string . "#!/bin/sh\n\n~/.fe")
  (rear-context-string)
  (position . 1))
 )

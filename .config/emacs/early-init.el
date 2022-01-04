@@ -2,10 +2,8 @@
 (setq package-enable-at-startup nil)
 
 ;; Set alias to y-or-n
-(setq use-short-answers t)
-
-;; Configure font size
-(set-face-attribute 'default nil :family "Victor Mono" :height 140)
+(defalias 'yes-or-no-p 'y-or-n-p)
+;; (setq use-short-answers t)
 
 ;; Do not resize at early stage
 (setq frame-inhibit-implied-resize t)
@@ -14,10 +12,10 @@
 (setq native-comp-deferred-compilation t)
 
 ;; Disable GUI elements
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
 (set-fringe-mode 10)
-(scroll-bar-mode -1)
+(scroll-bar-mode 0)
 
 ;; Disable statup messages
 (setq inhibit-startup-message t)

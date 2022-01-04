@@ -102,6 +102,10 @@
 
 ;;; Helpers
 
+(defun format-prompt (str &optional default args)
+  (concat (format str args)
+          (if default (format " (default %s)" (car default)) "") ": "))
+
 (defun otaku--make-search-url (keyword)
   "Search url maker."
   (format "%s/search.html?keyword=%s" otaku-base-url (url-encode-url keyword)))
@@ -113,6 +117,10 @@
 (defun otaku--make-anime-episode-url (path episode)
   "Anime episode url maker."
   (format "%s/%s-episode-%s" otaku-base-url path episode))
+
+(defun otaku--make-anime-episode-play-url (id)
+  "Anime episode video play url maker."
+  (format "%s/download?id=%s" "https://gogoplay1.com/" id))
 
 (defun otaku--make-mpv-command (referer video-url)
   "Mpv command maker."
@@ -354,17 +362,22 @@
       (setq ranges (append `(,(string-to-number (match-string 1)) ,(string-to-number (match-string 2))) ranges)))
     `(,(apply #'min ranges) ,(apply #'max ranges))))
 
-(defun otaku--search-anime-episode-video-url (url)
+(defun otaku--search-anime-episode-video-referrer-url (url)
   "Search episode video url for selected anime."
   (set-buffer (url-retrieve-synchronously url))
   (re-search-forward "<a href=\"#\" rel=\"100\" data-video=\"\\(.+\\)\" >.+</a>" nil t)
   (format "https:%s" (match-string 1)))
 
-(defun otaku--search-anime-episode-inner-video-url (url)
-  "Search inner episode video url to be played in mpv."
+(defun otaku--search-anime-episode-id (url)
+  "Search episode id to be played."
   (set-buffer (url-retrieve-synchronously url))
-  (re-search-forward "sources:\\[{file: '\\(.+\\)',label.+" nil t)
+  (re-search-forward "<input .* id=\"id\" value=\"\\(.*\\)\"" nil t)
   (match-string 1))
+
+(defun otaku--search-anime-episode-video-url (id)
+  "Search inner episode video url with id."
+  (set-buffer (url-retrieve-synchronously (otaku--make-anime-episode-play-url id)))
+  (display-buffer (current-buffer)))
 
 (defun otaku--service-recent-anime-episodes ()
   "Get recent anime episodes."
@@ -396,10 +409,11 @@
 (defun otaku--watch-episode (episode)
   "Watch selected episode."
   (let* ((slug (cadr episode))
-         (referer (otaku--search-anime-episode-video-url slug))
-         (video-url (otaku--search-anime-episode-inner-video-url referer)))
-    (start-process-shell-command "otaku-mpv" nil (otaku--make-mpv-command referer video-url))
-    (message "%s sent to mpv" slug)))
+         (referer (otaku--search-anime-episode-video-referrer-url slug))
+         (episode-id (otaku--search-anime-episode-id referer))
+         (video-url (otaku--search-anime-episode-video-url episode-id)))
+    ;; (start-process-shell-command "otaku-mpv" nil (otaku--make-mpv-command referer video-url))
+    (message "%s - sent to mpv" video-url)))
 
 (defun otaku--select-episode (anime)
   "Select episode from anime selected."

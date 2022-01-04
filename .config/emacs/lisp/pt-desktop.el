@@ -39,6 +39,10 @@
   :type 'list
   :group 'application)
 
+(defun pt-desktop-print-startup-message ()
+  (message "---> Emacs loaded in %s seconds with %d garbage collections."
+           (emacs-init-time) gcs-done))
+
 ;;;###autoload
 (defun pt-desktop--run-command-with-message (cmmd)
   (start-process-shell-command "pt-desktop" nil cmmd))

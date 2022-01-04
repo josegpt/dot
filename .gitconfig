@@ -2,5 +2,8 @@
   email = josegpt27@gmail.com
   name = Jose G Perez Taveras
   editor = emacs
+  signingkey = 0x221C4A59D2D44F72
 [init]
   defaultBranch = main
+[commit]
+  gpgsign = true

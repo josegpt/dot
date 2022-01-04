@@ -1,7 +1,5 @@
 ;;; init.el --- description -*- lexical-binding: t -*-
-;;;;;;;;;;
-;; Init ;;
-;;;;;;;;;;
+;;; Straight Config
 
 (defvar bootstrap-version)
 
@@ -25,20 +23,13 @@
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
-;; Profile emacs startup
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "---> Emacs loaded in %s seconds with %d garbage collections."
-                     (emacs-init-time "%.2f")
-                     gcs-done)))
-
 ;; include custom elisp
 (add-to-list 'load-path (concat user-emacs-directory
                                 (convert-standard-filename "lisp/")))
 
 ;; native-compile all Elisp files under a directory
-(native-compile-async (concat user-emacs-directory
-                              (convert-standard-filename "lisp/")) 'recursively)
+;; (native-compile-async (concat user-emacs-directory
+;;                               (convert-standard-filename "lisp/")) 'recursively)
 
 (require 'setup)
 
@@ -57,9 +48,7 @@ first RECIPE's package."
                      (car recipe)
                    recipe))))
 
-;;;;;;;;;;;;;;
-;; Packages ;;
-;;;;;;;;;;;;;;
+;;; Packages
 
 (setup auth-source-pass
   (auth-source-pass-enable))
@@ -73,10 +62,10 @@ first RECIPE's package."
   (display-battery-mode))
 
 (setup bookmark
-  (:global "s-q" #'bookmark-jump))
+  (:global "C-c b" #'bookmark-jump))
 
 (setup (:require canales)
-  (:global "s-c c" #'canales-watch))
+  (:global "C-c c" #'canales-watch))
 
 (setup compile
   (:option compilation-scroll-output t))
@@ -90,9 +79,6 @@ first RECIPE's package."
 
 (setup css-mode
   (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'"))
-
-(setup (:package diff-hl)
-  (global-diff-hl-mode))
 
 (setup dired
   (:option dired-dwim-target t
@@ -110,45 +96,39 @@ first RECIPE's package."
               conf-mode
               ledger-mode))
 
-(setup (:package envrc)
-  (envrc-global-mode))
-
-(setup eshell
-  (:global "s-<return>" #'eshell))
-
 (setup elec-pair
   (electric-pair-mode))
 
 (setup (:package elfeed)
-  (:global "s-r" #'elfeed)
+  (:global "C-c r" #'elfeed)
   (:option elfeed-use-curl t
-           elfeed-db-directory "~/.cache/elfeed"
            elfeed-search-title-max-width 100
            elfeed-search-title-min-width 100
+           elfeed-db-directory "~/.cache/elfeed"
+           elfeed-search-filter "@1-month-ago +unread"
            elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                           ("https://reddit.com/r/unixporn.rss" linux)
-                          ("https://reddit.com/r/gentoo.rss" linux gentoo)
+                          ("https://reddit.com/r/voidlinux.rss" linux void)
                           ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
-                          ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
+                          ("https://sachachua.com/blog/category/emacs-news/feed" emacs news)
+                          ("https://github.com/void-linux/void-packages/commits/master.atom" linux void packages))))
 
 (setup (:package eglot)
   (:bind [remap display-local-help] nil
-         "C-c m" #'imenu
-         "C-c e" #'eldoc
-         "C-c r" #'eglot-rename
-         "C-c f" #'eglot-format
-         "C-c g" #'eglot-reconnect
-         "C-c h" #'display-local-help
-         "C-c k" #'eglot-shutdown-all
-         "C-c a" #'eglot-code-actions
-         "C-c d" #'eglot-find-declaration
-         "C-c t" #'eglot-find-typeDefinition
-         "C-c i" #'eglot-find-implementation
-         "C-c q" #'eglot-code-action-quickfix
-         "C-c o" #'eglot-code-action-organize-imports))
+         "C-c e r" #'eglot-rename
+         "C-c e f" #'eglot-format
+         "C-c e g" #'eglot-reconnect
+         "C-c e h" #'display-local-help
+         "C-c e k" #'eglot-shutdown-all
+         "C-c e a" #'eglot-code-actions
+         "C-c e d" #'eglot-find-declaration
+         "C-c e t" #'eglot-find-typeDefinition
+         "C-c e i" #'eglot-find-implementation
+         "C-c e q" #'eglot-code-action-quickfix
+         "C-c e o" #'eglot-code-action-organize-imports))
 
 (setup erc
-  (:global "s-i" #'erc-tls)
+  (:global "C-c i" #'erc-tls)
   (:option erc-server "irc.us.libera.chat"
            erc-nick "josegpt"
            erc-user-full-name "Jose G Perez Taveras"
@@ -157,8 +137,12 @@ first RECIPE's package."
            erc-auto-query 'bury
            erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#systemcrafters"))))
 
+(setup eshell
+  (:global "s-<return>" #'eshell))
+
 (setup emacs
   (:option tab-width 2
+           fill-column 72
            truncate-lines t
            indent-tabs-mode nil
            ring-bell-function 'ignore
@@ -167,11 +151,12 @@ first RECIPE's package."
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (load-theme 'modus-vivendi t)
-  (set-face-attribute 'mode-line-active nil :inherit 'mode-line)
-  (set-face-attribute 'mode-line-inactive nil :inherit 'mode-line)
-  (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
-  (set-frame-parameter (selected-frame) 'alpha '(85 . 85)))
+  ;; (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
+  ;; (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
+  (set-face-attribute 'default nil :family "Iosevka" :height 140)
+  ;; (set-face-attribute 'mode-line-active nil :inherit 'mode-line)
+  ;; (set-face-attribute 'mode-line-inactive nil :inherit 'mode-line)
+)
 
 (setup eww
   (:option eww-auto-rename-buffer t
@@ -189,13 +174,7 @@ first RECIPE's package."
                                     ?\M-x
                                     ?\M-:
                                     ?\M-!
-                                    ?\s-c
                                     s-return
-                                    ?\s-r
-                                    ?\s-d
-                                    ?\s-j
-                                    ?\s-l
-                                    ?\s-s
                                     ?\s-0
                                     ?\s-1
                                     ?\s-2
@@ -208,7 +187,6 @@ first RECIPE's package."
                                     ?\s-p
                                     ?\s-n
                                     ?\s-a
-                                    ?\s-q
                                     XF86AudioPlay
                                     XF86AudioStop
                                     XF86AudioNext
@@ -219,9 +197,9 @@ first RECIPE's package."
                                     XF86AudioMicMute
                                     XF86MonBrightnessUp
                                     XF86MonBrightnessDown
-                                    s-XF86AudioRaiseVolume
-                                    s-XF86AudioLowerVolume
-                                    s-XF86AudioMute)
+                                    M-XF86AudioRaiseVolume
+                                    M-XF86AudioLowerVolume
+                                    M-XF86AudioMute)
            exwm-input-global-keys
            `(([?\s- ?w] . exwm-workspace-switch)
              ([?\s- ?r] . exwm-reset)
@@ -288,8 +266,16 @@ first RECIPE's package."
 (setup hl-line
   (global-hl-line-mode))
 
+(setup icomplete
+  (:option icomplete-separator " ◦ "
+           icomplete-compute-delay 0.0
+           icomplete-prospects-height 1
+           icomplete-delay-completions-threshold 0.0)
+  (fido-mode))
+
 (setup imenu
-  (:option imenu-auto-rescan t))
+  (:option imenu-auto-rescan t)
+  (:global "C-." #'imenu))
 
 (setup js-mode
   (:file-match "\\.js\\'")
@@ -321,12 +307,12 @@ first RECIPE's package."
            message-send-mail-function 'smtpmail-send-it))
 
 (setup (:package magit)
-  (:global "s-g" #'magit-status)
+  (:global "C-x g" #'magit-status)
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(setup (:package marginalia)
-  (marginalia-mode))
+(setup (:package gruvbox-theme)
+  (load-theme 'gruvbox-dark-hard t))
 
 (setup (:package markdown-mode)
   (:file-match "\\.md\\'"))
@@ -344,7 +330,7 @@ first RECIPE's package."
 
 ;; FIXME: Activate when find a better way of deferring it.
 ;; (setup (:require mu4e)
-;;   (:global "s-m" #'mu4e)
+;;   (:global "C-c e" #'mu4e)
 ;;   (:option mu4e-confirm-quit nil
 ;;            mu4e-view-show-images t
 ;;            mu4e-view-show-addresses t
@@ -365,17 +351,11 @@ first RECIPE's package."
 ;;              (:maildir "/Starred" :key ?f)
 ;;              (:maildir "/Spam" :key ?p)
 ;;              (:maildir "/Drafts" :key ?d)
-;;              (:maildir "/Trash" :key ?t)))
-;;   (imagemagick-register-types))
+;;              (:maildir "/Trash" :key ?t))))
 
 (setup (:require otaku)
-  (:global "s-c s" #'otaku-search-anime
-           "s-c r" #'otaku-recent-anime-episodes))
-
-(setup (:package orderless)
-  (:option completion-styles '(orderless)
-           completion-category-defaults nil
-           completion-category-overrides '((file (styles . (partial-completion))))))
+  (:global "C-c o s" #'otaku-search-anime
+           "C-c o r" #'otaku-recent-anime-episodes))
 
 (setup paren
   (:with-mode show-paren-mode
@@ -384,33 +364,38 @@ first RECIPE's package."
            show-paren-context-when-offscreen t))
 
 (setup (:package password-store)
-  (:global "s-s e" #'password-store-edit
-           "s-s w" #'password-store-copy
-           "s-s c" #'password-store-clear
-           "s-s i" #'password-store-insert
-           "s-s r" #'password-store-rename
-           "s-s k" #'password-store-remove
-           "s-s g" #'password-store-generate
-           "s-s f" #'password-store-copy-field))
+  (:global "C-c p e" #'password-store-edit
+           "C-c p w" #'password-store-copy
+           "C-c p c" #'password-store-clear
+           "C-c p i" #'password-store-insert
+           "C-c p r" #'password-store-rename
+           "C-c p k" #'password-store-remove
+           "C-c p g" #'password-store-generate
+           "C-c p f" #'password-store-copy-field))
 
 (setup (:package pinentry)
   (:option epg-pinentry-mode 'loopback)
   (pinentry-start))
 
-(setup (:package flatbuffers-mode)
-  (:file-match "\\.fbs\\'"))
-
 (setup project
+  (:option project-switch-commands '((?l "Eglot LSP" eglot)
+                                     (?d "Dired" project-dired)
+                                     (?e "Eshell" project-eshell)
+                                     (?f "File" project-find-file)
+                                     (?c "Compile" project-compile)
+                                     (?m "Magit" magit-project-status)
+                                     (?b "Buffer" project-switch-to-buffer)))
   (:global "C-x p l" #'eglot
-           "C-x p a" #'envrc-allow
            "C-x p m" #'magit-project-status))
 
 (setup proced
   (:option proced-auto-update-timer 1)
-  (:global "s-d" #'proced))
+  (:global "C-c d" #'proced))
 
 (setup (:require pt-desktop)
   (:if-feature exwm)
+  (:with-hook emacs-startup-hook
+    (:hook pt-desktop-print-startup-message))
   (:with-hook exwm-update-title-hook
     (:hook pt-desktop-rename-workspace-buffer))
   (:with-hook exwm-manage-finish-hook
@@ -424,9 +409,9 @@ first RECIPE's package."
            "<XF86AudioRaiseVolume>" #'pt-desktop-raise-volume
            "<XF86AudioLowerVolume>" #'pt-desktop-lower-volume
            "<XF86AudioMute>" #'pt-desktop-mute-volume
-           "<s-XF86AudioRaiseVolume>" #'pt-desktop-raise-mic-volume
-           "<s-XF86AudioLowerVolume>" #'pt-desktop-lower-mic-volume
-           "<s-XF86AudioMute>" #'pt-desktop-mute-mic-volume
+           "M-<XF86AudioRaiseVolume>" #'pt-desktop-raise-mic-volume
+           "M-<XF86AudioLowerVolume>" #'pt-desktop-lower-mic-volume
+           "M-<XF86AudioMute>" #'pt-desktop-mute-mic-volume
            "<XF86AudioMicMute>" #'pt-desktop-mute-mic-volume
            "<XF86MonBrightnessUp>" #'pt-desktop-raise-brightness
            "<XF86MonBrightnessDown>" #'pt-desktop-lower-brightness
@@ -436,11 +421,19 @@ first RECIPE's package."
   (:option shr-use-fonts nil))
 
 (setup simple
-  (:global "s-l" #'list-processes))
+  (:global "C-c l" #'list-processes))
 
 (setup server
   (unless (server-running-p)
     (server-start)))
+
+(setup solar
+  (:option calendar-latitude 40.86
+           calendar-longitude -74.16
+           calendar-location-name "Clifton, NJ"))
+
+(setup sh-mode
+  (:file-match "\\template\\'"))
 
 (setup subword
   (:hook-into js-mode
@@ -461,17 +454,20 @@ first RECIPE's package."
   (:option tooltip-mode nil))
 
 (setup webjump
-  (:global "s-j" #'webjump)
+  (:global "C-c j" #'webjump)
   (:option webjump-sites '(("Gmail" . "mail.google.com")
                            ("Discord" . "discord.com/app")
                            ("Epic Games" . "epicgames.com")
                            ("Telegram" . "web.telegram.org")
                            ("WhatsApp" . "web.whatsapp.com")
                            ("Personal Website" . "josegpt.com")
+                           ("Google Photos" . "photos.google.com")
+                           ("Google Drive" . "drive.google.com/drive/my-drive")
                            ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
                            ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
                            ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
-                           ("Google" . [simple-query "google.com" "google.com/search?q=" ""])
+                           ("Swappa" . [simple-query "swappa.com" "swappa.com/search?q=" ""])
+                           ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
                            ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
                            ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
                            ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
@@ -485,7 +481,7 @@ first RECIPE's package."
                            ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
                            ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                            ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
-                           ("Gentoo Packages" . [simple-query "packages.gentoo.org" "packages.gentoo.org/packages/search?q=" ""]))))
+                           ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
 
 (setup whitespace
   (:hook-into prog-mode
@@ -503,12 +499,8 @@ first RECIPE's package."
                               space-after-tab
                               space-before-tab)))
 
-(setup (:package which-key)
-  (:option which-key-idle-delay 1)
-  (which-key-mode))
-
-(setup woman
-  (:global "s-w" #'woman))
+(setup man
+  (:global "C-c m" #'man))
 
 (setup window
   (:global "s-0" #'delete-window
@@ -520,9 +512,9 @@ first RECIPE's package."
            "s-f" #'next-buffer
            "s-k" #'kill-current-buffer
            "s-K" #'kill-buffer-and-window)
-  (:option display-buffer-alist '(("\\*\\(Async Shell Command\\)\\*"
+  (:option display-buffer-alist `(("\\`\\*Async Shell Command\\*\\'"
                                    (display-buffer-no-window))
-                                  ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
+                                  ("\\*\\(Calc\\|Process List\\|Proced\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
                                    (window-height . 0.20)
                                    (side . bottom)
@@ -537,23 +529,24 @@ first RECIPE's package."
                                    (window-height . 0.20)
                                    (side . bottom)
                                    (slot . 1))
-                                  ("\\*\\(Ledger.*\\|Woman.*\\|Man.*\\|Help.*\\|godoc.*\\|eldoc.*\\)\\*"
+                                  ("\\*\\(Ledger.*\\|Woman.*\\|Man.*\\|Help.*\\|godoc.*\\|eldoc.*\\|Buffer List\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
                                    (window-width . 0.45)
                                    (side . right)
                                    (slot . -1)))))
 
-(setup (:package vertico)
-  (:option vertico-cycle t)
-  (vertico-mode))
-
 (setup (:package vue-mode)
   (:file-match "\\.vue\\'"))
 
+(setup vc
+  (:option vc-follow-symlinks t))
+
 (setup (:package yaml-mode)
-  (:file-match "\\.ya?lm\\'"))
+  (:file-match "\\.ya?ml\\'"))
 
 (setup (:package yasnippet)
-  (yas-global-mode))
+  (:with-mode yas-minor-mode
+    (:hook-into prog-mode
+                text-mode)))
 
 ;;; init.el ends here
