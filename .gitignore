@@ -18,3 +18,4 @@
 .config/emacs/%backup%~
 .config/emacs/multisession/
 .config/emacs/history
+.config/mimeapps.list

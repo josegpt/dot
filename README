@@ -1,0 +1,16 @@
+dotfiles
+========
+  testing zone
+
+usage
+-----
+  $ git clone https://github.com/josegpt/dotfiles.git .dotfiles
+  $ cd .dotfiles
+  $ stow .
+
+depends on
+----------
+  * stow
+
+enjoy
+-----

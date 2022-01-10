@@ -31,6 +31,7 @@ $3
 
 (defgroup $1 ${4:()}
   "$2."
+  :prefix "$1-"
   :group '${5:group})
 
 $0

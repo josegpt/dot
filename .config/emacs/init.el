@@ -110,8 +110,7 @@ first RECIPE's package."
                           ("https://reddit.com/r/unixporn.rss" linux)
                           ("https://reddit.com/r/voidlinux.rss" linux void)
                           ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
-                          ("https://sachachua.com/blog/category/emacs-news/feed" emacs news)
-                          ("https://github.com/void-linux/void-packages/commits/master.atom" linux void packages))))
+                          ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
 
 (setup (:package eglot)
   (:bind [remap display-local-help] nil
@@ -129,12 +128,12 @@ first RECIPE's package."
 
 (setup erc
   (:global "C-c i" #'erc-tls)
-  (:option erc-server "irc.us.libera.chat"
-           erc-nick "josegpt"
-           erc-user-full-name "Jose G Perez Taveras"
+  (:option erc-nick "josegpt"
+           erc-auto-query 'bury
            erc-track-shorten-start 8
            erc-kill-buffer-on-part t
-           erc-auto-query 'bury
+           erc-server "irc.us.libera.chat"
+           erc-user-full-name "Jose G Perez Taveras"
            erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#systemcrafters"))))
 
 (setup eshell
@@ -151,12 +150,10 @@ first RECIPE's package."
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (load-theme 'modus-operandi t)
   ;; (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   ;; (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-  (set-face-attribute 'default nil :family "Iosevka" :height 140)
-  ;; (set-face-attribute 'mode-line-active nil :inherit 'mode-line)
-  ;; (set-face-attribute 'mode-line-inactive nil :inherit 'mode-line)
-)
+  (set-face-attribute 'default nil :family "Victor Mono" :height 140))
 
 (setup eww
   (:option eww-auto-rename-buffer t
@@ -267,7 +264,7 @@ first RECIPE's package."
   (global-hl-line-mode))
 
 (setup icomplete
-  (:option icomplete-separator " ◦ "
+  (:option icomplete-separator " · "
            icomplete-compute-delay 0.0
            icomplete-prospects-height 1
            icomplete-delay-completions-threshold 0.0)
@@ -311,14 +308,13 @@ first RECIPE's package."
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(setup (:package gruvbox-theme)
-  (load-theme 'gruvbox-dark-hard t))
-
 (setup (:package markdown-mode)
   (:file-match "\\.md\\'"))
 
 (setup minibuffer
   (:option completion-ignore-case t
+           completion-auto-select t
+           completion-wrap-movement t
            completion-cycle-threshold 3
            read-buffer-completion-ignore-case t
            read-file-name-completion-ignore-case t
@@ -462,6 +458,7 @@ first RECIPE's package."
                            ("WhatsApp" . "web.whatsapp.com")
                            ("Personal Website" . "josegpt.com")
                            ("Google Photos" . "photos.google.com")
+                           ("Canal Packages" . "packages.ptserver.org")
                            ("Google Drive" . "drive.google.com/drive/my-drive")
                            ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
                            ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
@@ -499,8 +496,8 @@ first RECIPE's package."
                               space-after-tab
                               space-before-tab)))
 
-(setup man
-  (:global "C-c m" #'man))
+(setup woman
+  (:global "C-c m" #'woman))
 
 (setup window
   (:global "s-0" #'delete-window
@@ -545,8 +542,6 @@ first RECIPE's package."
   (:file-match "\\.ya?ml\\'"))
 
 (setup (:package yasnippet)
-  (:with-mode yas-minor-mode
-    (:hook-into prog-mode
-                text-mode)))
+  (yas-global-mode))
 
 ;;; init.el ends here

@@ -33,7 +33,6 @@
   :group 'application)
 
 (defcustom pt-desktop-powersetting-commands '(("Reboot" . "rb")
-                                              ("Shutdown" . "sd")
                                               ("Poweroff" . "po"))
   "Powersetting commands"
   :type 'list

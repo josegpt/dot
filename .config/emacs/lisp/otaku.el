@@ -102,9 +102,10 @@
 
 ;;; Helpers
 
-(defun format-prompt (str &optional default args)
-  (concat (format str args)
-          (if default (format " (default %s)" (car default)) "") ": "))
+(when (< (string-to-number emacs-version) 28)
+  (defun format-prompt (str &optional default args)
+    (concat (format str args)
+            (if default (format " (default %s)" (car default)) "") ": ")))
 
 (defun otaku--make-search-url (keyword)
   "Search url maker."
