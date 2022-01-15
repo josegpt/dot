@@ -13,6 +13,6 @@ alias rr rsync -urvP --delete-after /home/josegpt/projects/packages/ ptserver.or
 alias ra xbps-rindex -a /home/josegpt/projects/packages/*.xbps
 alias rc xbps-rindex -c /home/josegpt/projects/packages/
 alias ro xbps-rindex -r /home/josegpt/projects/packages/
-alias rp cp /home/josegpt/projects/void-packages/hostdir/binpkgs/my-repo/$1.x86_64.xbps /home/josegpt/projects/packages/
+alias rp cp /home/josegpt/projects/void-packages/hostdir/binpkgs/canal/$1.x86_64.xbps /home/josegpt/projects/packages/
 alias rs xbps-rindex --privkey /home/josegpt/projects/privkey.pem --sign-pkg /home/josegpt/projects/packages/*.xbps
 alias ri xbps-rindex --sign --signedby 'Jose G Perez Taveras <josegpt27@gmail.com>' --privkey /home/josegpt/projects/privkey.pem /home/josegpt/projects/packages/

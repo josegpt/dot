@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("emacs-repository"
+((".xinitrc"
+ (filename . "~/.dotfiles/.xinitrc")
+ (front-context-string . "#!/bin/sh\n\n# Mak")
+ (rear-context-string)
+ (position . 1))
+("emacs-repository"
  (front-context-string . " cgit logo  inde")
  (rear-context-string)
  (position . 1)

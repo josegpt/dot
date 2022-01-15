@@ -150,7 +150,7 @@ first RECIPE's package."
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (load-theme 'modus-operandi t)
+  (load-theme 'modus-vivendi t)
   ;; (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   ;; (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   (set-face-attribute 'default nil :family "Victor Mono" :height 140))
