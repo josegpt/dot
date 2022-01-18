@@ -4,9 +4,7 @@ dotfiles
 
 usage
 -----
-  $ git clone https://github.com/josegpt/dotfiles.git .dotfiles
-  $ cd .dotfiles
-  $ stow .
+  $ ./deploy <desktop|laptop>
 
 depends on
 ----------
