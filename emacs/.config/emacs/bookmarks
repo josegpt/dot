@@ -1,0 +1,82 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("deploy-sh"
+ (filename . "~/projects/dotfiles/deploy")
+ (front-context-string . "#!/bin/sh\n\n_die(")
+ (rear-context-string)
+ (position . 1))
+("git-config"
+ (filename . "~/projects/dotfiles/git/.config/git/config")
+ (front-context-string . "[user]\n  email =")
+ (rear-context-string)
+ (position . 1))
+("isync-config"
+ (filename . "~/projects/dotfiles/isync/.mbsyncrc")
+ (front-context-string . "IMAPAccount gmai")
+ (rear-context-string)
+ (position . 1))
+("mpv-config"
+ (filename . "~/projects/dotfiles/mpv/.config/mpv/mpv.conf")
+ (front-context-string . "hwdec=auto-safe\n")
+ (rear-context-string)
+ (position . 1))
+(".inputrc"
+ (filename . "~/projects/dotfiles/shell/.inputrc")
+ (front-context-string . "# ~/.inputrc\n\n$i")
+ (rear-context-string)
+ (position . 1))
+(".bashrc"
+ (filename . "~/projects/dotfiles/shell/.bashrc")
+ (front-context-string . "# ~/.bashrc\n\n# I")
+ (rear-context-string)
+ (position . 1))
+(".bash_profile"
+ (filename . "~/projects/dotfiles/shell/.bash_profile")
+ (front-context-string . "# ~/.bash_profil")
+ (rear-context-string)
+ (position . 1))
+(".xinitrc"
+ (filename . "~/projects/dotfiles/x/.xinitrc")
+ (front-context-string . "#!/bin/sh\n\nexpor")
+ (rear-context-string)
+ (position . 1))
+("emacs-repository"
+ (front-context-string . " cgit logo  inde")
+ (rear-context-string)
+ (position . 1)
+ (location . "http://git.savannah.gnu.org/cgit/emacs.git")
+ (handler . eww-bookmark-jump))
+("raspberry-ssh"
+ (filename . "/ssh:pi@192.168.1.250:~/")
+ (front-context-string . ".bash_history\n  ")
+ (rear-context-string . "7K Dec 14 21:02 ")
+ (position . 169))
+("ptserver-ssh"
+ (filename . "/ssh:josegpt@ptserver.org:~/")
+ (front-context-string . ".bash_logout\n  -")
+ (rear-context-string . "20 Apr 18  2019 ")
+ (position . 196))
+("personal-website"
+ (front-context-string . "Jose G\n\nJose G\n\n")
+ (rear-context-string)
+ (position . 1)
+ (location . "https://josegpt.com/")
+ (handler . eww-bookmark-jump))
+("eshell-aliases"
+ (filename . "~/projects/dotfiles/emacs/.config/emacs/eshell/alias")
+ (front-context-string . "alias ll ls -lh\n")
+ (rear-context-string)
+ (position . 1))
+("emacs-early"
+ (filename . "~/projects/dotfiles/emacs/.config/emacs/early-init.el")
+ (front-context-string . ";;   ___ _ __ __")
+ (rear-context-string)
+ (position . 1))
+("emacs-config"
+ (filename . "~/projects/dotfiles/emacs/.config/emacs/init.el")
+ (front-context-string . ";;   ___ _ __ __")
+ (rear-context-string)
+ (position . 1))
+)

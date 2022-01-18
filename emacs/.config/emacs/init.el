@@ -108,6 +108,7 @@ first RECIPE's package."
            elfeed-search-filter "@1-month-ago +unread"
            elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                           ("https://reddit.com/r/unixporn.rss" linux)
+                          ("https://reddit.com/r/EXWM.rss" emacs exwm)
                           ("https://reddit.com/r/voidlinux.rss" linux void)
                           ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
                           ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
