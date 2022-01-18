@@ -154,7 +154,7 @@ first RECIPE's package."
   (load-theme 'modus-vivendi t)
   ;; (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   ;; (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-  (set-face-attribute 'default nil :family "Victor Mono" :height 140))
+  (set-face-attribute 'default nil :family "Iosevka" :height 140))
 
 (setup eww
   (:option eww-auto-rename-buffer t
