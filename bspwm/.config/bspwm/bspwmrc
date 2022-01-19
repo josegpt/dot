@@ -6,11 +6,13 @@ _() {
 
 bspc monitor -d Based
 
-_ border_width       2
-_ window_gap         4
-_ split_ratio        0.55
-_ borderless_monocle true
-_ gapless_monocle    true
+_ border_width         2
+_ window_gap           4
+_ split_ratio          0.55
+_ borderless_monocle   true
+_ gapless_monocle      true
+_ focused_border_color "#ffffff"
+_ normal_border_color  "#444444"
 
 bspc rule -a Emacs state=tiled
 
