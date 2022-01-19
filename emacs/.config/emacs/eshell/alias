@@ -3,16 +3,17 @@ alias la ls -lah
 alias rb doas reboot
 alias po doas poweroff
 alias sd doas shutdown
+alias xi xi -Su $*
 alias xqi xbps-query -m
 alias xqo xbps-query -O
 alias xqs xbps-query -s $1
 alias xq xbps-query -Rs $1
-alias xi xi -Su $*
 alias xr doas xbps-remove -Ro $*
-alias rr rsync -urvP --delete-after /home/josegpt/projects/packages/ ptserver.org:packages/
-alias ra xbps-rindex -a /home/josegpt/projects/packages/*.xbps
-alias rc xbps-rindex -c /home/josegpt/projects/packages/
-alias ro xbps-rindex -r /home/josegpt/projects/packages/
-alias rp cp /home/josegpt/projects/void-packages/hostdir/binpkgs/canal/$1.x86_64.xbps /home/josegpt/projects/packages/
-alias rs xbps-rindex --privkey /home/josegpt/projects/privkey.pem --sign-pkg /home/josegpt/projects/packages/*.xbps
-alias ri xbps-rindex --sign --signedby 'Jose G Perez Taveras <josegpt27@gmail.com>' --privkey /home/josegpt/projects/privkey.pem /home/josegpt/projects/packages/
+alias xro doas xbps-remove -Oo
+alias rr rsync -urvP --delete-after ~/projects/packages/ ptserver.org:packages/
+alias ra xbps-rindex -a ~/projects/packages/*.xbps
+alias rc xbps-rindex -c ~/projects/packages/
+alias ro xbps-rindex -r ~/projects/packages/
+alias rp cp ~/projects/void-packages/hostdir/binpkgs/canal/$1.x86_64.xbps ~/projects/packages/
+alias rs xbps-rindex --privkey ~/projects/privkey.pem --sign-pkg ~/projects/packages/*.xbps
+alias ri xbps-rindex --sign --signedby 'Jose G Perez Taveras <josegpt27@gmail.com>' --privkey ~/projects/privkey.pem ~/projects/packages/
