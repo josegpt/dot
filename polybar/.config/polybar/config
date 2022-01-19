@@ -3,9 +3,9 @@ margin-top = 0
 margin-bottom = 0
 
 [bar/main]
-modules-left = bspwm weather
+modules-left = bspwm
 modules-center = time
-modules-right = battery temperature cpu memory date
+modules-right = weather battery cpu memory date
 
 font-0 = Iosevka:size=10;3
 font-1 = Noto Emoji:scale=10;3
@@ -56,12 +56,3 @@ type = internal/memory
 
 format = <label>
 label = %gb_used%/%gb_free%
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-
-base-temperature = 20
-warn-temperature = 60
-label = %temperature-c%
-format = <label>
