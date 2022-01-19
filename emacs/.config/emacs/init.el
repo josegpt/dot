@@ -108,7 +108,6 @@ first RECIPE's package."
            elfeed-search-filter "@1-month-ago +unread"
            elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                           ("https://reddit.com/r/unixporn.rss" linux)
-                          ("https://reddit.com/r/EXWM.rss" emacs exwm)
                           ("https://reddit.com/r/voidlinux.rss" linux void)
                           ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
                           ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
@@ -137,9 +136,6 @@ first RECIPE's package."
            erc-user-full-name "Jose G Perez Taveras"
            erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#systemcrafters"))))
 
-(setup eshell
-  (:global "s-<return>" #'eshell))
-
 (setup emacs
   (:option tab-width 2
            fill-column 72
@@ -159,89 +155,6 @@ first RECIPE's package."
 (setup eww
   (:option eww-auto-rename-buffer t
            eww-header-line-format nil))
-
-(setup (:package exwm)
-  (:bind "C-q" #'exwm-input-send-next-key)
-  (:option exwm-workspace-number 2
-           exwm-workspace-warp-cursor t
-           exwm-input-prefix-keys '(?\C-x
-                                    ?\C-c
-                                    ?\C-u
-                                    ?\C-h
-                                    ?\C-g
-                                    ?\M-x
-                                    ?\M-:
-                                    ?\M-!
-                                    s-return
-                                    ?\s-0
-                                    ?\s-1
-                                    ?\s-2
-                                    ?\s-3
-                                    ?\s-o
-                                    ?\s-b
-                                    ?\s-f
-                                    ?\s-k
-                                    ?\s-K
-                                    ?\s-p
-                                    ?\s-n
-                                    ?\s-a
-                                    XF86AudioPlay
-                                    XF86AudioStop
-                                    XF86AudioNext
-                                    XF86AudioPrev
-                                    XF86AudioRaiseVolume
-                                    XF86AudioLowerVolume
-                                    XF86AudioMute
-                                    XF86AudioMicMute
-                                    XF86MonBrightnessUp
-                                    XF86MonBrightnessDown
-                                    M-XF86AudioRaiseVolume
-                                    M-XF86AudioLowerVolume
-                                    M-XF86AudioMute)
-           exwm-input-global-keys
-           `(([?\s- ?w] . exwm-workspace-switch)
-             ([?\s- ?r] . exwm-reset)
-             ([?\s- ?&] . (lambda (command)
-                            (interactive (list (read-shell-command "$ ")))
-                            (start-process-shell-command command nil command))))
-           exwm-input-simulation-keys
-           '(([?\C-b] . [left])
-             ([?\C-f] . [right])
-             ([?\C-p] . [up])
-             ([?\C-n] . [down])
-             ([?\C-a] . [home])
-             ([?\C-e] . [end])
-             ([?\C-v] . [next])
-             ([?\M-v] . [prior])
-             ([?\M-b] . [C-left])
-             ([?\M-f] . [C-right])
-             ([?\M-p] . [M-up])
-             ([?\M-n] . [M-down])
-             ([?\M-<] . [home])
-             ([?\M->] . [end])
-             ([?\C-/] . [?\C-z])
-             ([?\C-w] . [?\C-x])
-             ([?\M-w] . [?\C-c])
-             ([?\C-y] . [?\C-v])
-             ([?\C-s] . [?\C-g])
-             ([?\C-r] . [C-S-g])
-             ([?\C-t] . [?\C-t])
-             ([?\C-j] . [?\C-k])
-             ([?\C-d] . [delete])
-             ([?\C-c ?r] . [?\C-r])
-             ([?\C-c ?s] . [?\C-f])
-             ([?\C-c ?f] . [?\C-l])
-             ([?\C-c ?h] . [?\C-a])
-             ([?\C-c ?k] . [?\C-w])
-             ([?\C-c ?/] . [C-S-z])
-             ([?\M-@] . [C-S-right])
-             ([?\C-c ?g] . [escape])
-             ([?\C-\M-b] . [M-left])
-             ([?\C-\M-f] . [M-right])
-             ([?\C-k] . [C-S-end ?\C-x])
-             ([?\M-d] . [C-S-right ?\C-x])
-             ([M-backspace] . [C-S-left ?\C-x])))
-  (exwm-enable))
 
 (setup flymake
   (:bind "M-g p" #'flymake-goto-prev-error
@@ -389,40 +302,11 @@ first RECIPE's package."
   (:option proced-auto-update-timer 1)
   (:global "C-c d" #'proced))
 
-(setup (:require pt-desktop)
-  (:if-feature exwm)
-  (:with-hook emacs-startup-hook
-    (:hook pt-desktop-print-startup-message))
-  (:with-hook exwm-update-title-hook
-    (:hook pt-desktop-rename-workspace-buffer))
-  (:with-hook exwm-manage-finish-hook
-    (:hook pt-desktop-move-workspace-buffer))
-  (:global "s-p" #'pt-desktop-previous-workspace
-           "s-n" #'pt-desktop-next-workspace
-           "<XF86AudioPlay>" #'pt-desktop-play-pause-player
-           "<XF86AudioStop>" #'pt-desktop-stop-player
-           "<XF86AudioNext>" #'pt-desktop-next-player
-           "<XF86AudioPrev>" #'pt-desktop-previous-player
-           "<XF86AudioRaiseVolume>" #'pt-desktop-raise-volume
-           "<XF86AudioLowerVolume>" #'pt-desktop-lower-volume
-           "<XF86AudioMute>" #'pt-desktop-mute-volume
-           "M-<XF86AudioRaiseVolume>" #'pt-desktop-raise-mic-volume
-           "M-<XF86AudioLowerVolume>" #'pt-desktop-lower-mic-volume
-           "M-<XF86AudioMute>" #'pt-desktop-mute-mic-volume
-           "<XF86AudioMicMute>" #'pt-desktop-mute-mic-volume
-           "<XF86MonBrightnessUp>" #'pt-desktop-raise-brightness
-           "<XF86MonBrightnessDown>" #'pt-desktop-lower-brightness
-           "s-a" #'pt-desktop-powersettings))
-
 (setup shr
   (:option shr-use-fonts nil))
 
 (setup simple
   (:global "C-c l" #'list-processes))
-
-(setup server
-  (unless (server-running-p)
-    (server-start)))
 
 (setup solar
   (:option calendar-latitude 40.86
