@@ -2,7 +2,22 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("deploy-sh"
+(("sxhkd-config"
+ (filename . "~/projects/dotfiles/sxhkd/.config/sxhkd/sxhkdrc")
+ (front-context-string . "#  -*- mode: she")
+ (rear-context-string)
+ (position . 1))
+("polybar-config"
+ (filename . "~/projects/dotfiles/polybar/.config/polybar/config")
+ (front-context-string . "[global/wm]\nmarg")
+ (rear-context-string)
+ (position . 1))
+("bspwm-config"
+ (filename . "~/projects/dotfiles/bspwm/.config/bspwm/bspwmrc")
+ (front-context-string . "#!/bin/sh\n\n_() {")
+ (rear-context-string)
+ (position . 1))
+("deploy-sh"
  (filename . "~/projects/dotfiles/deploy")
  (front-context-string . "#!/bin/sh\n\n_die(")
  (rear-context-string)
