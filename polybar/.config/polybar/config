@@ -1,0 +1,67 @@
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[bar/main]
+modules-left = bspwm weather
+modules-center = time
+modules-right = battery temperature cpu memory date
+
+font-0 = Iosevka:size=10;3
+font-1 = Noto Emoji:scale=10;3
+padding-right = 2
+padding-left = 2
+module-margin = 2
+height = 20
+border-size = 0
+bottom = true
+
+[module/weather]
+type = custom/script
+exec = "curl -s https://wttr.in/Clifton?format=4"
+interval = 3600
+
+[module/bspwm]
+type = internal/bspwm
+enable-click = false
+enable-scroll = false
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+battery = BAT1
+adapter = AC
+
+label-charging = [+%percentage%%]
+label-discharging = [-%percentage%%]
+label-full = [%percentage%%]
+
+[module/time]
+type = internal/date
+date = %I:%M%P
+
+[module/date]
+type = internal/date
+date = (%A) %b %d, %Y
+
+[module/cpu]
+type = internal/cpu
+
+format = <label>
+label = %percentage%%
+
+[module/memory]
+type = internal/memory
+
+format = <label>
+label = %gb_used%/%gb_free%
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+
+base-temperature = 20
+warn-temperature = 60
+label = %temperature-c%
+format = <label>
