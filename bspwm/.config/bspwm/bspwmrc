@@ -1,0 +1,19 @@
+#!/bin/sh
+
+_() {
+    bspc config "$@"
+}
+
+bspc monitor -d Based
+
+_ border_width       2
+_ window_gap         4
+_ split_ratio        0.55
+_ borderless_monocle true
+_ gapless_monocle    true
+
+bspc rule -a Emacs state=tiled
+
+$HOME/.config/feh/.fehbg &
+pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x polybar > /dev/null || polybar main &

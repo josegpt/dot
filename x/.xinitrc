@@ -10,4 +10,4 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 export PASSWORD_STORE_GPG_OPTS="--no-throw-keyids"
 gpg-connect-agent /bye
 
-exec emacs
+exec bspwm
