@@ -11,6 +11,12 @@ super + e
 super + ampersand
   rofi -show run
 
+super + Escape
+  ps
+
+super + j
+  rofi -show window
+
 XF86Audio{Play,Stop,Next,Prev}
   playerctl {play-pause,stop,next,previous}
 
@@ -22,12 +28,6 @@ alt + XF86Audio{Mute,LowerVolume,RaiseVolume}
 
 XF86MonBrightness{Down,Up}
   xbacklight -{dec,inc} 20%
-
-super + Escape
-  ps
-
-super + l
-  rofi -show window
 
 #
 # wm hotkeys
