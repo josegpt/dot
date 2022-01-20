@@ -64,6 +64,11 @@ first RECIPE's package."
 (setup bookmark
   (:global "C-c b" #'bookmark-jump))
 
+(setup browse-url
+  (:option browse-url-browser-function 'eww-browse-url
+           browse-url-secondary-browser-function 'browse-url-default-browser
+           browse-url-handlers '((".*\\(youtube\\|twitch\\|discord\\|whatsapp\\|telegram\\|google\\)" . browse-url-default-browser))))
+
 (setup (:require canales)
   (:global "C-c c" #'canales-watch))
 
