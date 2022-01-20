@@ -349,7 +349,7 @@ first RECIPE's package."
                            ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
                            ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
                            ("Swappa" . [simple-query "swappa.com" "swappa.com/search?q=" ""])
-                           ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
+                           ("Emacs Repository" . "http://git.savannah.gnu.org/cgit/emacs.git")
                            ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
                            ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
                            ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
@@ -362,6 +362,7 @@ first RECIPE's package."
                            ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
                            ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
                            ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
+                           ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
                            ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
                            ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
 

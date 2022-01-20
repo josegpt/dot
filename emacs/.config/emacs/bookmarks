@@ -62,12 +62,6 @@
  (front-context-string . "#!/bin/sh\n\nexpor")
  (rear-context-string)
  (position . 1))
-("emacs-repository"
- (front-context-string . " cgit logo  inde")
- (rear-context-string)
- (position . 1)
- (location . "http://git.savannah.gnu.org/cgit/emacs.git")
- (handler . eww-bookmark-jump))
 ("raspberry-ssh"
  (filename . "/ssh:pi@192.168.1.250:~/")
  (front-context-string . ".bash_history\n  ")
@@ -78,12 +72,6 @@
  (front-context-string . ".bash_logout\n  -")
  (rear-context-string . "20 Apr 18  2019 ")
  (position . 196))
-("personal-website"
- (front-context-string . "Jose G\n\nJose G\n\n")
- (rear-context-string)
- (position . 1)
- (location . "https://josegpt.com/")
- (handler . eww-bookmark-jump))
 ("eshell-aliases"
  (filename . "~/projects/dotfiles/emacs/.config/emacs/eshell/alias")
  (front-context-string . "alias ll ls -lh\n")
