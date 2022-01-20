@@ -24,7 +24,7 @@ XF86MonBrightness{Down,Up}
 # wm hotkeys
 #
 
-super + w ; {r,q,x,p}
+super + w ; {r,q,k,p}
   {bspc wm -r,bspc quit,pkill -USR1 -x sxhkd,pkill -USR1 -x polybar}
 
 super + c
