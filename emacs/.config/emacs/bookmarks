@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("sxhkd-config"
+(("rofi-config"
+ (filename . "~/projects/dotfiles/x/.config/rofi/config.rasi")
+ (front-context-string . "configuration {\n")
+ (rear-context-string)
+ (position . 1))
+("sxhkd-config"
  (filename . "~/projects/dotfiles/sxhkd/.config/sxhkd/sxhkdrc")
  (front-context-string . "#  -*- mode: she")
  (rear-context-string)

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+choice=$(echo "Reboot|Poweroff" | rofi -dmenu -i -l 2 -sep "|" -p "Powersettings Action:")
+
+case $choice in
+    Reboot) doas reboot ;;
+    Poweroff) doas poweroff ;;
+esac
