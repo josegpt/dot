@@ -1,7 +1,7 @@
 [user]
   email = josegpt27@gmail.com
   name = Jose G Perez Taveras
-  editor = emacs
+  editor = emacsclient -a "" -c
   signingkey = 0x221C4A59D2D44F72
 [init]
   defaultBranch = main
