@@ -153,11 +153,11 @@
   (eww-header-line-format nil))
 
 (use-package flymake
-  :bind
-  ("M-g p" . flymake-goto-prev-error)
-  ("M-g n" . flymake-goto-next-error)
-  ("M-g M-p" . flymake-goto-prev-error)
-  ("M-g M-n" . flymake-goto-next-error))
+  :bind (:map flymake-mode-map
+              ("M-g p" . flymake-goto-prev-error)
+              ("M-g n" . flymake-goto-next-error)
+              ("M-g M-p" . flymake-goto-prev-error)
+              ("M-g M-n" . flymake-goto-next-error)))
 
 (use-package frame
   :custom
