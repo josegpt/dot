@@ -14,8 +14,6 @@ _ gapless_monocle      true
 _ focused_border_color "#ffffff"
 _ normal_border_color  "#444444"
 
-bspc rule -a Emacs state=tiled
-
 $HOME/.config/feh/.fehbg &
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x polybar > /dev/null || polybar main &
