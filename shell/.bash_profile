@@ -14,3 +14,5 @@ gpg-connect-agent /bye
 
 # Get the aliases and functions
 [ -f $HOME/.bashrc ] && . $HOME/.bashrc
+
+[ "$(tty)" = "/dev/tty1" ] && exec cagebreak
