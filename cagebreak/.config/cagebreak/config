@@ -37,6 +37,13 @@ definekey resize p resizeup
 definekey resize f resizeright
 definekey resize g setmode top
 
+# Powersettings
+
+definemode ps
+bind a setmode ps
+definekey ps r exec doas reboot
+definekey ps p exec doas poweroff
+
 # Top
 
 definekey top L-n next
