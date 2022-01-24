@@ -1,12 +1,10 @@
 # ~/.bash_profile
 
-# Add local bin to path
-export PATH=~/.local/bin:$PATH
-
 # Defaults
 export EDITOR='emacsclient -a "" -c'
 export VISUAL='$EDITOR'
 export BROWSER='firefox'
+export XDG_RUNTIME_DIR='/tmp'
 
 # Make gnupg work with Yubikey
 export GPG_TTY="$(tty)"
