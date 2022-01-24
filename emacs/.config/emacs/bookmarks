@@ -2,24 +2,9 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("rofi-config"
- (filename . "~/projects/dotfiles/x/.config/rofi/config.rasi")
- (front-context-string . "configuration {\n")
- (rear-context-string)
- (position . 1))
-("sxhkd-config"
- (filename . "~/projects/dotfiles/sxhkd/.config/sxhkd/sxhkdrc")
- (front-context-string . "#  -*- mode: she")
- (rear-context-string)
- (position . 1))
-("polybar-config"
- (filename . "~/projects/dotfiles/polybar/.config/polybar/config")
- (front-context-string . "[global/wm]\nmarg")
- (rear-context-string)
- (position . 1))
-("bspwm-config"
- (filename . "~/projects/dotfiles/bspwm/.config/bspwm/bspwmrc")
- (front-context-string . "#!/bin/sh\n\n_() {")
+(("cagebreak-config"
+ (filename . "~/projects/dotfiles/cagebreak/.config/cagebreak/config")
+ (front-context-string . "# General settin")
  (rear-context-string)
  (position . 1))
 ("deploy-sh"
@@ -55,11 +40,6 @@
 (".bash_profile"
  (filename . "~/projects/dotfiles/shell/.bash_profile")
  (front-context-string . "# ~/.bash_profil")
- (rear-context-string)
- (position . 1))
-(".xinitrc"
- (filename . "~/projects/dotfiles/x/.xinitrc")
- (front-context-string . "#!/bin/sh\n\nexpor")
  (rear-context-string)
  (position . 1))
 ("raspberry-ssh"
