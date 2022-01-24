@@ -82,6 +82,10 @@
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
 
+(use-package eshell
+  :bind
+  ("s-<return>" . eshell))
+
 (use-package elec-pair
   :hook (prog-mode . electric-pair-mode))
 
