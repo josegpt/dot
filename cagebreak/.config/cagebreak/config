@@ -5,7 +5,7 @@ exec emacsclient -a '' -c
 workspaces 1
 background 0 0 0
 
-escape L-e
+escape L-w
 
 # Root
 
@@ -17,7 +17,6 @@ bind o focus
 bind w exec firefox
 bind t time
 bind g abort
-bind L-g abort
 bind L-p prevscreen
 bind L-n nextscreen
 bind B exchangeleft
@@ -28,8 +27,6 @@ bind b focusleft
 bind n focusdown
 bind p focusup
 bind f focusright
-bind e exec emacsclient -a '' -c
-bind L-e exec emacsclient -a '' -c
 bind r setmode resize
 definekey resize b resizeleft
 definekey resize n resizedown
@@ -43,13 +40,14 @@ definemode ps
 bind a setmode ps
 definekey ps r exec doas reboot
 definekey ps p exec doas poweroff
+definekey ps g setmode top
 
 # Top
 
 definekey top L-n next
 definekey top L-p prev
 definekey top L-q close
-definekey top L-Return exec emacsclient -a '' -c -e '(eshell)'
+definekey top L-e exec emacsclient -a '' -c
 
 ## Workspaces
 
