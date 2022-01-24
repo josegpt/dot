@@ -427,7 +427,6 @@
   ("s-b" . previous-buffer)
   ("s-f" . next-buffer)
   ("s-k" . kill-current-buffer)
-  ("s-K" . kill-buffer-and-window)
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
