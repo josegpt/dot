@@ -8,7 +8,7 @@ alias xqi xbps-query -m
 alias xqo xbps-query -O
 alias xqs xbps-query -s $1
 alias xq xbps-query -Rs $1
-alias xr doas xbps-remove -Ro $*
+alias xr doas xbps-remove -R $*
 alias xro doas xbps-remove -Oo
 alias rr rsync -urvP --delete-after ~/projects/packages/ ptserver.org:packages/
 alias ra xbps-rindex -a ~/projects/packages/*.xbps
