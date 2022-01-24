@@ -12,6 +12,6 @@ _() {
 }
 
 case $1 in
-    desktop|laptop) _ emacs shell alsa git gnupg mpv cagebreak ;;
+    desktop|laptop) _ emacs shell alsa git gnupg isync mpv cagebreak ;;
     *) echo "error: unknown computer \`$1'"; _die
 esac
