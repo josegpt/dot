@@ -17,6 +17,7 @@ bind o focus
 bind w exec firefox
 bind t time
 bind g abort
+bind i show_info
 bind L-p prevscreen
 bind L-n nextscreen
 bind B exchangeleft
