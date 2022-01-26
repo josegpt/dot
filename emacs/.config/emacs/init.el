@@ -398,6 +398,7 @@
                    ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                    ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
                    ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
+                   ("Repology" . [simple-query "repology.org/projects/" "repology.org/projects/?search=" ""])
                    ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
 
 (use-package whitespace
