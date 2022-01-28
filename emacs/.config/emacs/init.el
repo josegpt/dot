@@ -136,7 +136,7 @@
 
 (use-package emacs
   :config
-  (load-theme 'modus-vivendi t)
+  ;; (load-theme 'modus-vivendi t)
   ;; (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   ;; (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   (set-face-attribute 'default nil :family "Iosevka" :height 140)
@@ -325,6 +325,11 @@
   :custom
   (magit-clone-default-directory "~/projects/")
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package modus-themes
+  :ensure t
+  :config
+  (load-theme 'modus-vivendi t))
 
 (use-package markdown-mode
   :ensure t
