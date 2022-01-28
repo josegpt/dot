@@ -152,6 +152,10 @@
   ;; don't clutter with #files either
   (auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 
+(use-package epg-config
+  :custom
+  (epg-pinentry-mode 'loopback))
+
 (use-package eww
   :custom
   (eww-auto-rename-buffer t)
@@ -399,13 +403,6 @@
   ("C-c p k" . password-store-remove)
   ("C-c p g" . password-store-generate)
   ("C-c p f" . password-store-copy-field))
-
-(use-package pinentry
-  :ensure t
-  :config
-  (pinentry-start)
-  :custom
-  (epg-pinentry-mode 'loopback))
 
 (use-package project
   :bind
