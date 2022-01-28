@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("deploy-sh"
+((".xsession"
+ (filename . "~/projects/dotfiles/x/.xsession")
+ (front-context-string . "#!/bin/sh\n\n# Def")
+ (rear-context-string)
+ (position . 1))
+("deploy-sh"
  (filename . "~/projects/dotfiles/deploy")
  (front-context-string . "#!/bin/sh\n\n_die(")
  (rear-context-string)
