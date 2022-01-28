@@ -8,5 +8,6 @@ alias pr doas pkg_delete $*
 alias pro doas pkg_delete -a
 alias pq pkg_info -Q $*
 alias pqi pkg_info -m
+alias pqd pkg_info -mz | tee list
 alias gpgr gpg-connect-agent reloadagent /bye
 alias nf neofetch --ascii_distro openbsd_small
