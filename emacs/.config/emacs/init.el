@@ -357,7 +357,7 @@
 
 (use-package mu4e
   :bind
-  ("C-c m" . mu4e)
+  ("C-c e" . mu4e)
   :custom
   (mu4e-confirm-quit nil)
   (mu4e-view-show-images t)
