@@ -523,9 +523,9 @@
                       space-after-tab
                       space-before-tab)))
 
-(use-package woman
+(use-package man
   :bind
-  ("C-c w" . woman))
+  ("C-c m" . man))
 
 (use-package window
   :bind
