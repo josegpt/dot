@@ -2,7 +2,7 @@
 (setq package-enable-at-startup t)
 
 ;; Allow loading from the package cache
-(setq package-quickstart t)
+;; (setq package-quickstart t)
 
 ;; Set alias to y-or-n
 (setq use-short-answers t)
