@@ -443,7 +443,7 @@
 
 (use-package simple
   :bind
-  ("C-c l" . list-processes))
+  ("C-c d" . list-processes))
 
 (use-package solar
   :custom
