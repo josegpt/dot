@@ -1,13 +1,8 @@
-;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("cagebreak-config"
- (filename . "~/projects/dotfiles/cagebreak/.config/cagebreak/config")
- (front-context-string . "# General settin")
- (rear-context-string)
- (position . 1))
-("deploy-sh"
+(("deploy-sh"
  (filename . "~/projects/dotfiles/deploy")
  (front-context-string . "#!/bin/sh\n\n_die(")
  (rear-context-string)

@@ -156,6 +156,91 @@
   (eww-auto-rename-buffer t)
   (eww-header-line-format nil))
 
+(use-package exwm
+  :ensure t
+  :init (exwm-enable)
+  :bind
+  ("C-q" . exwm-input-send-next-key)
+  :custom
+  (exwm-workspace-number 1)
+  (exwm-workspace-warp-cursor t)
+  (exwm-input-prefix-keys '(?\C-x
+                            ?\C-c
+                            ?\C-u
+                            ?\C-h
+                            ?\C-g
+                            ?\M-x
+                            ?\M-:
+                            ?\M-!
+                            s-return
+                            ?\s-0
+                            ?\s-1
+                            ?\s-2
+                            ?\s-3
+                            ?\s-o
+                            ?\s-b
+                            ?\s-f
+                            ?\s-q
+                            ?\s-p
+                            ?\s-n
+                            ?\s-a
+                            XF86AudioPlay
+                            XF86AudioStop
+                            XF86AudioNext
+                            XF86AudioPrev
+                            XF86AudioRaiseVolume
+                            XF86AudioLowerVolume
+                            XF86AudioMute
+                            XF86AudioMicMute
+                            XF86MonBrightnessUp
+                            XF86MonBrightnessDown
+                            M-XF86AudioRaiseVolume
+                            M-XF86AudioLowerVolume
+                            M-XF86AudioMute))
+  (exwm-input-global-keys
+   `(([?\s- ?w] . exwm-workspace-switch)
+     ([?\s- ?r] . exwm-reset)
+     ([?\s- ?&] . (lambda (command)
+                    (interactive (list (read-shell-command "$ ")))
+                    (start-process-shell-command command nil command)))))
+  (exwm-input-simulation-keys
+   '(([?\C-b] . [left])
+     ([?\C-f] . [right])
+     ([?\C-p] . [up])
+     ([?\C-n] . [down])
+     ([?\C-a] . [home])
+     ([?\C-e] . [end])
+     ([?\C-v] . [next])
+     ([?\M-v] . [prior])
+     ([?\M-b] . [C-left])
+     ([?\M-f] . [C-right])
+     ([?\M-p] . [M-up])
+     ([?\M-n] . [M-down])
+     ([?\M-<] . [home])
+     ([?\M->] . [end])
+     ([?\C-/] . [?\C-z])
+     ([?\C-w] . [?\C-x])
+     ([?\M-w] . [?\C-c])
+     ([?\C-y] . [?\C-v])
+     ([?\C-s] . [?\C-g])
+     ([?\C-r] . [C-S-g])
+     ([?\C-t] . [?\C-t])
+     ([?\C-j] . [?\C-k])
+     ([?\C-d] . [delete])
+     ([?\C-c ?r] . [?\C-r])
+     ([?\C-c ?s] . [?\C-f])
+     ([?\C-c ?f] . [?\C-l])
+     ([?\C-c ?h] . [?\C-a])
+     ([?\C-c ?q] . [?\C-w])
+     ([?\C-c ?/] . [C-S-z])
+     ([?\M-@] . [C-S-right])
+     ([?\C-c ?g] . [escape])
+     ([?\C-\M-b] . [M-left])
+     ([?\C-\M-f] . [M-right])
+     ([?\C-k] . [C-S-end ?\C-x])
+     ([?\M-d] . [C-S-right ?\C-x])
+     ([M-backspace] . [C-S-left ?\C-x]))))
+
 (use-package flymake
   :bind (:map flymake-mode-map
               ("M-g p" . flymake-goto-prev-error)
@@ -212,6 +297,11 @@
                     ("account" "%(binary) -f %(ledger-file) reg %(account)")
                     ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
                     ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
+
+(use-package server
+  :unless (server-running-p)
+  :config
+  (server-start))
 
 (use-package smtpmail
   :custom
@@ -324,11 +414,25 @@
                              (?m "Magit" magit-project-status)
                              (?b "Buffer" project-switch-to-buffer))))
 
-(use-package proced
+(use-package pt-desktop
+  :hook (exwm-update-title . pt-desktop-rename-workspace-buffer)
   :bind
-  ("C-c d" . proced)
-  :custom
-  (proced-auto-update-timer 1))
+  ("s-p" . pt-desktop-previous-workspace)
+  ("s-n" . pt-desktop-next-workspace)
+  ("<XF86AudioPlay>" . pt-desktop-play-pause-player)
+  ("<XF86AudioStop>" . pt-desktop-stop-player)
+  ("<XF86AudioNext>" . pt-desktop-next-player)
+  ("<XF86AudioPrev>" . pt-desktop-previous-player)
+  ("<XF86AudioRaiseVolume>" . pt-desktop-raise-volume)
+  ("<XF86AudioLowerVolume>" . pt-desktop-lower-volume)
+  ("<XF86AudioMute>" . pt-desktop-mute-volume)
+  ("<M-XF86AudioRaiseVolume>" . pt-desktop-raise-mic-volume)
+  ("<M-XF86AudioLowerVolume>" . pt-desktop-lower-mic-volume)
+  ("<M-XF86AudioMute>" . pt-desktop-mute-mic-volume)
+  ("<XF86AudioMicMute>" . pt-desktop-mute-mic-volume)
+  ("<XF86MonBrightnessUp>" . pt-desktop-raise-brightness)
+  ("<XF86MonBrightnessDown>" . pt-desktop-lower-brightness)
+  ("s-a" . pt-desktop-powersettings))
 
 (use-package shr
   :custom
@@ -429,7 +533,7 @@
   ("s-o" . other-window)
   ("s-b" . previous-buffer)
   ("s-f" . next-buffer)
-  ("s-k" . kill-current-buffer)
+  ("s-q" . kill-current-buffer)
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
