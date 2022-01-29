@@ -330,10 +330,10 @@
   (magit-clone-default-directory "~/projects/")
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package modus-themes
+(use-package gruvbox-theme
   :ensure t
   :config
-  (load-theme 'modus-vivendi t))
+  (load-theme 'gruvbox-dark-hard t))
 
 (use-package markdown-mode
   :ensure t
