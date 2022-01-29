@@ -6,6 +6,7 @@
 export EDITOR='emacsclient -a "" -r'
 export VISUAL='$EDITOR'
 export BROWSER='firefox'
+export LC_CTYPE="en_US.UTF-8"
 
 # Make gnupg work with Yubikey
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
