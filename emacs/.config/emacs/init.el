@@ -190,11 +190,11 @@
                             ?\s-n
                             ?\s-a))
   (exwm-input-global-keys
-   `(([?\s- ?w] . exwm-workspace-switch)
-     ([?\s- ?r] . exwm-reset)
-     ([?\s- ?&] . (lambda (command)
-                    (interactive (list (read-shell-command "$ ")))
-                    (start-process-shell-command command nil command)))))
+   `(([?\s-w] . exwm-workspace-switch)
+     ([?\C-c ?\C-j] . exwm-reset)
+     ([?\s-&] . (lambda (command)
+                  (interactive (list (read-shell-command "$ ")))
+                  (start-process-shell-command command nil command)))))
   (exwm-input-simulation-keys
    '(([?\C-b] . [left])
      ([?\C-f] . [right])
