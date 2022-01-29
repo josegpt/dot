@@ -185,23 +185,10 @@
                             ?\s-o
                             ?\s-b
                             ?\s-f
-                            ?\s-q
+                            ?\s-k
                             ?\s-p
                             ?\s-n
-                            ?\s-a
-                            XF86AudioPlay
-                            XF86AudioStop
-                            XF86AudioNext
-                            XF86AudioPrev
-                            XF86AudioRaiseVolume
-                            XF86AudioLowerVolume
-                            XF86AudioMute
-                            XF86AudioMicMute
-                            XF86MonBrightnessUp
-                            XF86MonBrightnessDown
-                            M-XF86AudioRaiseVolume
-                            M-XF86AudioLowerVolume
-                            M-XF86AudioMute))
+                            ?\s-a))
   (exwm-input-global-keys
    `(([?\s- ?w] . exwm-workspace-switch)
      ([?\s- ?r] . exwm-reset)
@@ -236,7 +223,7 @@
      ([?\C-c ?s] . [?\C-f])
      ([?\C-c ?f] . [?\C-l])
      ([?\C-c ?h] . [?\C-a])
-     ([?\C-c ?q] . [?\C-w])
+     ([?\C-c ?k] . [?\C-w])
      ([?\C-c ?/] . [C-S-z])
      ([?\M-@] . [C-S-right])
      ([?\C-c ?g] . [escape])
@@ -536,7 +523,7 @@
   ("s-o" . other-window)
   ("s-b" . previous-buffer)
   ("s-f" . next-buffer)
-  ("s-q" . kill-current-buffer)
+  ("s-k" . kill-current-buffer)
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
