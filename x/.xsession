@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ -f $HOME/.profile ] && . $HOME/.profile
+
 # Defaults
 export EDITOR='emacsclient -a "" -r'
 export VISUAL='$EDITOR'
