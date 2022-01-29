@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _die() {
-    echo "${1:-usage: ${0##*/}} <desktop|laptop>" >&2
+    echo "${1:-usage: ${0##*/}} <desktop|laptop|packages>" >&2
     exit 1
 }
 
@@ -13,5 +13,6 @@ _() {
 
 case $1 in
     desktop|laptop) _ emacs git gnupg isync mpv x ;;
+    packages) doas pkg_add -l ./packages ;;
     *) echo "error: unknown computer \`$1'"; _die
 esac
