@@ -1,0 +1,71 @@
+#!/bin/sh
+# Copyright (c) 2018, 2019, 2020 Joe Schillinger <me@schil.li>
+# ufetch-openbsd - tiny system info for openbsd
+
+_get_wm() {
+    id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)
+    id=${id##* }
+    wm=$(xprop -id "$id" -notype -len 25 -f _NET_WM_NAME 8t)
+    wm=${wm##*_NET_WM_NAME = \"}
+    echo ${wm%%\"*}
+}
+
+_get_packages() {
+    count=$(pkg_info | wc -l)
+    echo ${count##[:space:]*}
+}
+
+_get_uptime() {
+    up=$(uptime)
+    up=${up## *up}
+    echo ${up%%,*}
+}
+
+_get_shell() {
+    echo ${SHELL##*/}
+}
+
+## INFO
+
+# user is already defined
+host="$(hostname)"
+os="$(uname -sr)"
+kernel="$(uname -v)"
+uptime="$(_get_uptime)"
+packages="$(_get_packages)"
+shell="$(_get_shell)"
+wm="$(_get_wm)"
+
+## DEFINE COLORS
+
+# probably don't change these
+bold="\033[1;31m"
+black="\033[0;30m"
+red="\033[0;31m"
+green="\033[0;32m"
+yellow="\033[0;33m"
+blue="\033[0;34m"
+magenta="\033[0;35m"
+cyan="\033[0;36m"
+white="\033[0;37m"
+reset="\033[0m"
+
+# you can change these
+lc="${reset}${bold}${yellow}" # labels
+nc="${reset}${bold}${yellow}" # user and hostname
+ic="${reset}${bold}${white}"  # info
+c0="${reset}${yellow}"        # first color
+c1="${reset}${white}"         # second color
+c2="${reset}${bold}${yellow}" # third color
+
+## OUTPUT
+
+echo "
+${c0}       _____      ${nc}${USER}${ic}@${nc}${host}${reset}
+${c0}     \-     -/    ${lc}OS:        ${ic}${os}${reset}
+${c0}  \_/         \   ${lc}KERNEL:    ${ic}${kernel}${reset}
+${c0}  |        ${c1}O O ${c0}|  ${lc}UPTIME:    ${ic}${uptime}${reset}
+${c0}  |_  ${c2}<   ${c0})  ${c2}3 ${c0})  ${lc}PACKAGES:  ${ic}${packages}${reset}
+${c0}  / \         /   ${lc}SHELL:     ${ic}${shell}${reset}
+${c0}     /-_____-\    ${lc}WM:        ${ic}${wm}${reset}
+"
