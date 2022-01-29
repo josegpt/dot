@@ -10,4 +10,3 @@ alias pq pkg_info -Q $*
 alias pqi pkg_info -m
 alias pqd pkg_info -mz
 alias gpgr gpg-connect-agent reloadagent /bye
-alias nf neofetch --ascii_distro openbsd_small
