@@ -85,7 +85,16 @@
 
 (use-package eshell
   :bind
-  ("s-<return>" . eshell))
+  ("s-<return>" . eshell)
+  :custom
+  (eshell-banner-message "                |
+              \\ _ /
+            -= (_) =-
+              /   \\
+_\\/_            |      o/      _\\/_
+//o\\                  /|       /o\\\\
+  |,__________________/_\\_______,|
+  | '-Welcome to the Caribbean-' |\n"))
 
 (use-package elec-pair
   :hook (prog-mode . electric-pair-mode))
