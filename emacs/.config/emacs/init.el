@@ -102,7 +102,7 @@
   (elfeed-search-filter "@1-month-ago +unread")
   (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
                   ("https://reddit.com/r/unixporn.rss" linux)
-                  ("https://reddit.com/r/voidlinux.rss" linux void)
+                  ("https://reddit.com/r/openbsd.rss" linux openbsd)
                   ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
                   ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
 
