@@ -60,7 +60,7 @@
 
 (use-package corfu
   :ensure t
-  :hook ((prog-mode shell-mode eshell-mode ledger-mode) . corfu-mode)
+  :hook ((prog-mode text-mode shell-mode eshell-mode) . corfu-mode)
   :custom
   (corfu-cycle t))
 
@@ -78,7 +78,7 @@
   :mode "\\Dockerfile\\'")
 
 (use-package display-line-numbers
-  :hook ((prog-mode html-mode conf-mode ledger-mode) . display-line-numbers-mode)
+  :hook ((prog-mode text-mode conf-mode) . display-line-numbers-mode)
   :custom
   (display-line-numbers-type 'relative)
   (display-line-numbers-current-absolute t))
@@ -97,7 +97,7 @@ _\\/_            |      o/      _\\/_
   | '-Welcome to the Caribbean-' |\n"))
 
 (use-package elec-pair
-  :hook (prog-mode . electric-pair-mode))
+  :hook ((prog-mode text-mode conf-mode) . electric-pair-mode))
 
 (use-package elfeed
   :ensure t
@@ -504,7 +504,7 @@ _\\/_            |      o/      _\\/_
                    ("OpenBSD Ports" . [simple-query "openports.se" "https://openports.se/search.php?so=" ""]))))
 
 (use-package whitespace
-  :hook ((prog-mode ledger-mode conf-mode) . whitespace-mode)
+  :hook ((prog-mode text-mode conf-mode) . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs
@@ -550,7 +550,7 @@ _\\/_            |      o/      _\\/_
                            (window-height . 0.20)
                            (side . bottom)
                            (slot . 1))
-                          ("\\*\\(Ledger.*\\|Woman.*\\|Man.*\\|Help.*\\|godoc.*\\|eldoc.*\\|Buffer List\\)\\*"
+                          ("\\*\\(Ledger.*\\|eldoc.*\\|Buffer List\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
                            (window-width . 0.45)
                            (side . right)
