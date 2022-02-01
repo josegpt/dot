@@ -147,7 +147,9 @@ _\\/_            |      o/      _\\/_
   :config
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-  (set-face-attribute 'default nil :family "Iosevka" :height 140)
+  (if (string= (system-name) "carite.lan")
+      (set-face-attribute 'default nil :family "Iosevka" :height 120)
+    (set-face-attribute 'default nil :family "Iosevka" :height 180))
   :custom
   (tab-width 2)
   (fill-column 72)
