@@ -99,22 +99,6 @@ _\\/_            |      o/      _\\/_
 (use-package elec-pair
   :hook ((prog-mode text-mode conf-mode) . electric-pair-mode))
 
-(use-package elfeed
-  :ensure t
-  :bind
-  ("C-c r" . elfeed)
-  :custom
-  (elfeed-use-curl t)
-  (elfeed-search-title-max-width 100)
-  (elfeed-search-title-min-width 100)
-  (elfeed-db-directory "~/.cache/elfeed")
-  (elfeed-search-filter "@1-month-ago +unread")
-  (elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
-                  ("https://reddit.com/r/unixporn.rss" linux)
-                  ("https://reddit.com/r/openbsd.rss" linux openbsd)
-                  ("http://feeds.feedburner.com/crunchyroll/rss/anime" anime)
-                  ("https://sachachua.com/blog/category/emacs-news/feed" emacs news))))
-
 (use-package eglot
   :ensure t
   :bind
