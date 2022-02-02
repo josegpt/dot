@@ -152,7 +152,7 @@ _\\/_            |      o/      _\\/_
     (set-face-attribute 'default nil :family "Iosevka" :height 180))
   :custom
   (tab-width 2)
-  (fill-column 72)
+  (fill-column 70)
   (truncate-lines t)
   (indent-tabs-mode nil)
   (ring-bell-function 'ignore)
