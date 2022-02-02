@@ -395,6 +395,7 @@ _\\/_            |      o/      _\\/_
 
 (use-package shr
   :custom
+  (shr-width 70)
   (shr-use-fonts nil))
 
 (use-package simple
