@@ -258,6 +258,11 @@ _\\/_            |      o/      _\\/_
   :ensure t
   :mode "\\.go\\'")
 
+(use-package gruvbox-theme
+  :ensure t
+  :config
+  (load-theme 'gruvbox-dark-hard t))
+
 (use-package html-mode
   :mode "\\.\\(html?\\|ejs\\)\\'")
 
@@ -300,25 +305,6 @@ _\\/_            |      o/      _\\/_
                     ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
                     ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
 
-(use-package server
-  :unless (server-running-p)
-  :config
-  (server-start))
-
-(use-package smtpmail
-  :custom
-  (smtpmail-smtp-service 465)
-  (smtpmail-stream-type 'ssl)
-  (smtpmail-smtp-user "josegpt27")
-  (mail-user-agent 'mu4e-user-agent)
-  (send-mail-function 'smtpmail-send-it)
-  (user-full-name "Jose G Perez Taveras")
-  (smtpmail-smtp-server "smtp.gmail.com")
-  (user-mail-address "josegpt27@gmail.com")
-  (smtpmail-auth-credentials "~/.authinfo.gpg")
-  (smtpmail-default-smtp-server "smtp.gmail.com")
-  (message-send-mail-function 'smtpmail-send-it))
-
 (use-package magit
   :ensure t
   :bind
@@ -326,11 +312,6 @@ _\\/_            |      o/      _\\/_
   :custom
   (magit-clone-default-directory "~/projects/")
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(use-package gruvbox-theme
-  :ensure t
-  :config
-  (load-theme 'gruvbox-dark-hard t))
 
 (use-package markdown-mode
   :ensure t
@@ -346,37 +327,15 @@ _\\/_            |      o/      _\\/_
   (read-file-name-completion-ignore-case t)
   (completion-styles '(partial-completion substring)))
 
+(use-package man
+  :bind
+  ("C-c m" . man))
+
 (use-package move-text
   :ensure t
   :bind
   ("M-p" . move-text-up)
   ("M-n" . move-text-down))
-
-(use-package mu4e
-  :bind
-  ("C-c e" . mu4e)
-  :custom
-  (mu4e-confirm-quit nil)
-  (mu4e-view-show-images t)
-  (mu4e-view-show-addresses t)
-  (mu4e-trash-folder "/Trash")
-  (mu4e-drafts-folder "/Drafts")
-  (mu4e-maildir "~/.cache/Mail")
-  (mu4e-sent-folder "/Sent Mail")
-  (message-kill-buffer-on-exit t)
-  (mu4e-update-interval (* 60 30))
-  (mu4e-get-mail-command "mbsync -a")
-  (mu4e-attachment-dir "~/Downloads")
-  (mu4e-compose-dont-reply-to-self t)
-  (mu4e-change-filenames-when-moving t)
-  (mu4e-sent-messages-behavior 'delete)
-  (mu4e-maildir-shortcuts
-   '((:maildir "/INBOX" :key ?i)
-     (:maildir "/Sent Mail" :key ?s)
-     (:maildir "/Starred" :key ?f)
-     (:maildir "/Spam" :key ?p)
-     (:maildir "/Drafts" :key ?d)
-     (:maildir "/Trash" :key ?t))))
 
 (use-package otaku
   :bind
@@ -442,6 +401,26 @@ _\\/_            |      o/      _\\/_
   :bind
   ("C-c d" . list-processes))
 
+(use-package server
+  :unless (server-running-p)
+  :config
+  (server-start))
+
+(use-package smtpmail
+  :custom
+  (smtpmail-smtp-service 465)
+  (smtpmail-stream-type 'ssl)
+  (message-signature "josegpt")
+  (smtpmail-smtp-user "josegpt27")
+  (mail-user-agent 'sendmail-user-agent)
+  (send-mail-function 'smtpmail-send-it)
+  (user-full-name "Jose G Perez Taveras")
+  (smtpmail-smtp-server "smtp.gmail.com")
+  (user-mail-address "josegpt27@gmail.com")
+  (smtpmail-auth-credentials "~/.authinfo.gpg")
+  (smtpmail-default-smtp-server "smtp.gmail.com")
+  (message-send-mail-function 'smtpmail-send-it))
+
 (use-package solar
   :custom
   (calendar-latitude 40.86)
@@ -469,6 +448,14 @@ _\\/_            |      o/      _\\/_
 (use-package tooltip
   :custom
   (tooltip-mode nil))
+
+(use-package vue-mode
+  :ensure t
+  :mode "\\.vue\\'")
+
+(use-package vc
+  :custom
+  (vc-follow-symlinks t))
 
 (use-package webjump
   :bind
@@ -520,10 +507,6 @@ _\\/_            |      o/      _\\/_
                       space-after-tab
                       space-before-tab)))
 
-(use-package man
-  :bind
-  ("C-c m" . man))
-
 (use-package window
   :bind
   ("s-0" . delete-window)
@@ -557,14 +540,6 @@ _\\/_            |      o/      _\\/_
                            (window-width . 0.45)
                            (side . right)
                            (slot . -1)))))
-
-(use-package vue-mode
-  :ensure t
-  :mode "\\.vue\\'")
-
-(use-package vc
-  :custom
-  (vc-follow-symlinks t))
 
 (use-package yaml-mode
   :ensure t
