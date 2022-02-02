@@ -1,6 +1,7 @@
 ccid--
 emacs--gtk3%emacs
 feh--
+ffmpeg--
 firefox--
 git--
 gnupg--
@@ -9,7 +10,6 @@ iosevka--
 isync--
 ledger--
 mu--
-noto-emoji--
 pcsc-lite--
 picom--
 pinentry-qt5--
