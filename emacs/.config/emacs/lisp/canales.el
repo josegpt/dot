@@ -43,8 +43,8 @@
   :type 'string
   :group 'canales)
 
-(defcustom canales-mpv-video-command "mpv %s >/dev/null"
-  "Mpv command to run when a canal is selected."
+(defcustom canales-ffplay-video-command "ffplay %s >/dev/null 2>&1"
+  "FFplay command to run when a canal is selected."
   :type 'string
   :group 'canales)
 
@@ -74,8 +74,8 @@
   "Watch channel selected."
   (let ((name (car channel))
         (url (cadr channel)))
-    (start-process-shell-command "canales-mpv" nil (format canales-mpv-video-command url))
-    (message "%s sent to mpv" name)))
+    (start-process-shell-command "canales-ffplay" nil (format canales-ffplay-video-command url))
+    (message "%s sent to ffplay" name)))
 
 ;;;###autoload
 (defun canales-watch ()
