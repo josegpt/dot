@@ -486,7 +486,6 @@ _\\/_            |      o/      _\\/_
                    ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                    ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
                    ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
-                   ("OpenBSD Ports" . [simple-query "openports.se" "https://openports.se/search.php?so=" ""]))))
                    ("Repology" . "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com")
 
 (use-package whitespace
