@@ -487,6 +487,7 @@ _\\/_            |      o/      _\\/_
                    ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
                    ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
                    ("Repology" . "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com")
+                   ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
 
 (use-package whitespace
   :hook ((prog-mode text-mode conf-mode) . whitespace-mode)
