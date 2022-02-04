@@ -382,6 +382,10 @@ _\\/_            |      o/      _\\/_
   ("<XF86MonBrightnessDown>" . pt-desktop-lower-brightness)
   ("s-a" . pt-desktop-powersettings))
 
+(use-package proced
+  :bind
+  ("C-c d" . proced))
+
 (use-package shr
   :custom
   (shr-width 70)
