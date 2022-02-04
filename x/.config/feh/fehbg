@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/local/bin/feh --no-fehbg --bg-scale '/home/josegpt/.config/feh/current.png'
+/bin/feh --no-fehbg --bg-scale '/home/josegpt/.config/feh/current.png'
