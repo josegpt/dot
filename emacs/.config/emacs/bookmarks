@@ -17,16 +17,6 @@
  (front-context-string . "[user]\n  email =")
  (rear-context-string)
  (position . 1))
-("isync-config"
- (filename . "~/projects/dotfiles/isync/.mbsyncrc")
- (front-context-string . "IMAPAccount gmai")
- (rear-context-string)
- (position . 1))
-("mpv-config"
- (filename . "~/projects/dotfiles/mpv/.config/mpv/mpv.conf")
- (front-context-string . "hwdec=auto-safe\n")
- (rear-context-string)
- (position . 1))
 (".inputrc"
  (filename . "~/projects/dotfiles/shell/.inputrc")
  (front-context-string . "# ~/.inputrc\n\n$i")
