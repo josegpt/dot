@@ -393,7 +393,7 @@ _\\/_            |      o/      _\\/_
 
 (use-package simple
   :bind
-  ("C-c d" . list-processes))
+  ("C-c l" . list-processes))
 
 (use-package server
   :unless (server-running-p)
