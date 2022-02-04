@@ -254,11 +254,6 @@ _\\/_            |      o/      _\\/_
   :ensure t
   :mode "\\.go\\'")
 
-(use-package gruvbox-theme
-  :ensure t
-  :config
-  (load-theme 'gruvbox-dark-hard t))
-
 (use-package html-mode
   :mode "\\.\\(html?\\|ejs\\)\\'")
 
