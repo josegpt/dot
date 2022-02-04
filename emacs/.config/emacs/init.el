@@ -182,7 +182,20 @@ _\\/_            |      o/      _\\/_
                             ?\s-k
                             ?\s-p
                             ?\s-n
-                            ?\s-a))
+                            ?\s-a
+                            XF86AudioPlay
+                            XF86AudioStop
+                            XF86AudioNext
+                            XF86AudioPrev
+                            XF86AudioRaiseVolume
+                            XF86AudioLowerVolume
+                            XF86AudioMute
+                            XF86AudioMicMute
+                            XF86MonBrightnessUp
+                            XF86MonBrightnessDown
+                            M-XF86AudioRaiseVolume
+                            M-XF86AudioLowerVolume
+                            M-XF86AudioMute))
   (exwm-input-global-keys
    `(([?\s-w] . exwm-workspace-switch)
      ([?\C-c ?\C-j] . exwm-reset)

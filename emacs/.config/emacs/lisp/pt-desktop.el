@@ -33,14 +33,78 @@
   :group 'application)
 
 (defcustom pt-desktop-powersetting-commands '(("Reboot" . "rb")
-                                              ("Shutdown" . "sd"))
+                                              ("Poweroff" . "po"))
   "Powersetting commands"
   :type 'list
   :group 'application)
 
 ;;;###autoload
+(defun pt-desktop--run-command-with-message (cmmd)
+  (start-process-shell-command "pt-desktop" nil cmmd))
+
+;;;###autoload
 (defun pt-desktop-rename-workspace-buffer ()
   (exwm-workspace-rename-buffer exwm-title))
+
+;;;###autoload
+(defun pt-desktop-play-pause-player ()
+  (interactive)
+  (pt-desktop--run-command-with-message "playerctl play-pause"))
+
+;;;###autoload
+(defun pt-desktop-stop-player ()
+  (interactive)
+  (pt-desktop--run-command-with-message "playerctl stop"))
+
+;;;###autoload
+(defun pt-desktop-next-player ()
+  (interactive)
+  (pt-desktop--run-command-with-message "playerctl next"))
+
+;;;###autoload
+(defun pt-desktop-previous-player ()
+  (interactive)
+  (pt-desktop--run-command-with-message "playerctl previous"))
+
+;;;###autoload
+(defun pt-desktop-raise-volume ()
+  (interactive)
+  (pt-desktop--run-command-with-message "amixer set Master 10%+"))
+
+;;;###autoload
+(defun pt-desktop-lower-volume ()
+  (interactive)
+  (pt-desktop--run-command-with-message "amixer set Master 10%-"))
+
+;;;###autoload
+(defun pt-desktop-mute-volume ()
+  (interactive)
+  (pt-desktop--run-command-with-message "amixer set Master toggle"))
+
+;;;###autoload
+(defun pt-desktop-raise-mic-volume ()
+  (interactive)
+  (pt-desktop--run-command-with-message "amixer set Capture 10%+"))
+
+;;;###autoload
+(defun pt-desktop-lower-mic-volume ()
+  (interactive)
+  (pt-desktop--run-command-with-message "amixer set Capture 10%-"))
+
+;;;###autoload
+(defun pt-desktop-mute-mic-volume ()
+  (interactive)
+  (pt-desktop--run-command-with-message "amixer set Capture toggle"))
+
+;;;###autoload
+(defun pt-desktop-raise-brightness ()
+  (interactive)
+  (pt-desktop--run-command-with-message "xbacklight -inc 10%"))
+
+;;;###autoload
+(defun pt-desktop-lower-brightness ()
+  (interactive)
+  (pt-desktop--run-command-with-message "xbacklight -dec 10%"))
 
 ;;;###autoload
 (defun pt-desktop-powersettings ()
