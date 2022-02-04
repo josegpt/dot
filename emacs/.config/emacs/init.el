@@ -472,7 +472,6 @@ _\\/_            |      o/      _\\/_
                    ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
                    ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
                    ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
-                   ("Swappa" . [simple-query "swappa.com" "swappa.com/search?q=" ""])
                    ("Emacs Repository" . "http://git.savannah.gnu.org/cgit/emacs.git")
                    ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
                    ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
