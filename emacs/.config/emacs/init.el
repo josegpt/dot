@@ -483,7 +483,6 @@ _\\/_            |      o/      _\\/_
                    ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
                    ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
                    ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
-                   ("Crunchyroll" . [simple-query "crunchyroll.com" "crunchyroll.com/search?&q=" ""])
                    ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                    ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
                    ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
