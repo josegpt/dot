@@ -14,7 +14,7 @@ _() {
 _handler() {
     echo "deploying $1"
     case $1 in
-        desktop|laptop) _ emacs git bin gnupg alsa x ;;
+        desktop|laptop) _ emacs git bin gnupg alsa shell x ;;
         *) echo "error: unknown computer \`$1'"; _die
     esac
     echo "deploying $1 done"
