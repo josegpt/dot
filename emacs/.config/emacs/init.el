@@ -465,7 +465,6 @@ _\\/_            |      o/      _\\/_
   (webjump-sites '(("Gmail" . "mail.google.com")
                    ("PTServer" . "ptserver.org")
                    ("Discord" . "discord.com/app")
-                   ("Telegram" . "web.telegram.org")
                    ("WhatsApp" . "web.whatsapp.com")
                    ("Personal Website" . "josegpt.com")
                    ("Google Photos" . "photos.google.com")
