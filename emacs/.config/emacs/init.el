@@ -48,7 +48,7 @@
   :custom
   (browse-url-browser-function 'eww-browse-url)
   (browse-url-secondary-browser-function 'browse-url-default-browser)
-  (browse-url-handlers '((".*\\(youtube\\|twitch\\|discord\\|whatsapp\\|telegram\\|google\\)" . browse-url-default-browser))))
+  (browse-url-handlers '((".*\\(amazon\\|ebay\\|youtube\\|git\\|twitch\\|discord\\|whatsapp\\|google\\)" . browse-url-default-browser))))
 
 (use-package canales
   :bind
