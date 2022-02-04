@@ -5,7 +5,7 @@ export EDITOR='emacsclient -a "" -r'
 export VISUAL='$EDITOR'
 export BROWSER='firefox'
 export XDG_RUNTIME_DIR='/tmp'
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/go/bin:$PATH
 
 # Make gnupg work with Yubikey
 export GPG_TTY="$(tty)"
