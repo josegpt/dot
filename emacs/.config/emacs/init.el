@@ -400,7 +400,7 @@ _\\/_            |      o/      _\\/_
 
 (use-package simple
   :bind
-  ("C-c l" . list-processes))
+  ("C-c s" . list-processes))
 
 (use-package server
   :unless (server-running-p)
