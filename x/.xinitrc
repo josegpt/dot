@@ -1,7 +1,7 @@
 #!/bin/sh
 
-gpg-connect-agent /bye
+gpg-connect-agent reloadagent /bye
 picom &
-~/.config/feh/fehbg
+feh --randomize --bg-scale ~/.config/wallpapers/* &
 
 exec emacs
