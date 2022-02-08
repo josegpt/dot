@@ -10,3 +10,4 @@ alias xqs xbps-query -s $1
 alias xq xbps-query -Rs $1
 alias xr sudo xbps-remove -R $*
 alias xro sudo xbps-remove -Oo
+alias gpgr gpg-connect-agent reloadagent /bye
