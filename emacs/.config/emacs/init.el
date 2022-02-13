@@ -339,18 +339,6 @@ _\\/_            |      o/      _\\/_
   (show-paren-when-point-inside-paren t)
   (show-paren-context-when-offscreen t))
 
-(use-package password-store
-  :ensure t
-  :bind
-  ("C-c p e" . password-store-edit)
-  ("C-c p w" . password-store-copy)
-  ("C-c p c" . password-store-clear)
-  ("C-c p i" . password-store-insert)
-  ("C-c p r" . password-store-rename)
-  ("C-c p k" . password-store-remove)
-  ("C-c p g" . password-store-generate)
-  ("C-c p f" . password-store-copy-field))
-
 (use-package project
   :bind
   ("C-x p l" . eglot)
