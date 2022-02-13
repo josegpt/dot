@@ -364,11 +364,6 @@ _\\/_            |      o/      _\\/_
                              (?m "Magit" magit-project-status)
                              (?b "Buffer" project-switch-to-buffer))))
 
-(use-package pinentry
-  :ensure t
-  :config
-  (pinentry-start))
-
 (use-package pt-desktop
   :hook (exwm-update-title . pt-desktop-rename-workspace-buffer)
   :bind
