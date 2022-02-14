@@ -270,12 +270,6 @@ _\\/_            |      o/      _\\/_
   (icomplete-prospects-height 1)
   (icomplete-delay-completions-threshold 0.0))
 
-(use-package imenu
-  :bind
-  ("C-." . imenu)
-  :custom
-  (imenu-auto-rescan t))
-
 (use-package js-mode
   :mode "\\.js\\'"
   :custom
