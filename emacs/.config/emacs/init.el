@@ -102,18 +102,20 @@ _\\/_            |      o/      _\\/_
 (use-package eglot
   :ensure t
   :bind
-  ("C-c l r" . eglot-rename)
-  ("C-c l f" . eglot-format)
-  ("C-c l g" . eglot-reconnect)
-  ("C-c l h" . display-local-help)
-  ("C-c l k" . eglot-shutdown-all)
-  ("C-c l a" . eglot-code-actions)
-  ([remap display-local-help] . nil)
-  ("C-c l d" . eglot-find-declaration)
-  ("C-c l t" . eglot-find-typeDefinition)
-  ("C-c l i" . eglot-find-implementation)
-  ("C-c l q" . eglot-code-action-quickfix)
-  ("C-c l o" . eglot-code-action-organize-imports))
+  ("C-c l" . eglot)
+  :bind (:map eglot-mode-map
+              ("C-c l r" . eglot-rename)
+              ("C-c l f" . eglot-format)
+              ("C-c l g" . eglot-reconnect)
+              ("C-c l h" . display-local-help)
+              ("C-c l k" . eglot-shutdown-all)
+              ("C-c l a" . eglot-code-actions)
+              ([remap display-local-help] . nil)
+              ("C-c l d" . eglot-find-declaration)
+              ("C-c l t" . eglot-find-typeDefinition)
+              ("C-c l i" . eglot-find-implementation)
+              ("C-c l q" . eglot-code-action-quickfix)
+              ("C-c l o" . eglot-code-action-organize-imports)))
 
 (use-package erc
   :bind
