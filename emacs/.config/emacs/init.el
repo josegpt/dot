@@ -139,6 +139,7 @@ _\\/_            |      o/      _\\/_
   (tab-width 2)
   (fill-column 70)
   (truncate-lines t)
+  (cursor-type 'bar)
   (indent-tabs-mode nil)
   (ring-bell-function 'ignore)
   (initial-major-mode #'fundamental-mode)
