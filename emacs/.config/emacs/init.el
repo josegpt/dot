@@ -131,10 +131,10 @@ _\\/_            |      o/      _\\/_
 
 (use-package emacs
   :config
+  (load-theme 'modus-vivendi t)
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-  (set-face-attribute 'default nil :family "Iosevka" :height 140)
-  (load-theme 'modus-vivendi t)
+  (set-face-attribute 'default nil :family "Iosevka" :height 140 :weight 'light)
   :custom
   (tab-width 2)
   (fill-column 70)
