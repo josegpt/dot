@@ -6,3 +6,5 @@
   defaultBranch = main
 [commit]
   template = ~/.config/git/template
+[merge]
+  ff = only
