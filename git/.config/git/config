@@ -8,3 +8,5 @@
   template = ~/.config/git/template
 [merge]
   ff = only
+[pull]
+  rebase = true
