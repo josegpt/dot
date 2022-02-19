@@ -4,3 +4,5 @@
   editor = emacsclient -a "" -r
 [init]
   defaultBranch = main
+[commit]
+  template = ~/.config/git/template
