@@ -288,7 +288,7 @@ _\\/_            |      o/      _\\/_
   (ledger-clear-whole-transactions t)
   (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
                     ("reg" "%(binary) -f %(ledger-file) reg")
-                    ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+                    ("budget" "%(binary) -f %(ledger-file) bal --budget")
                     ("account" "%(binary) -f %(ledger-file) reg %(account)")
                     ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
                     ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
