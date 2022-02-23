@@ -5,4 +5,4 @@
 
 alias ls='ls --color=auto'
 
-PS1='[\w]> '
+PS1='\w > '
