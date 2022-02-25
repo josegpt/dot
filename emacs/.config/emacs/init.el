@@ -350,8 +350,6 @@ _\\/_            |      o/      _\\/_
 (use-package pt-desktop
   :hook (exwm-update-title . pt-desktop-rename-workspace-buffer)
   :bind
-  ("s-p" . pt-desktop-previous-workspace)
-  ("s-n" . pt-desktop-next-workspace)
   ("s-<left>" . pt-desktop-previous-player)
   ("s-<right>" . pt-desktop-next-player)
   ("s-SPC" . pt-desktop-play-pause-player)
