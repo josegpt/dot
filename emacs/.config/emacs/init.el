@@ -349,7 +349,9 @@ _\\/_            |      o/      _\\/_
 
 (use-package pt-desktop
   :hook (exwm-update-title . pt-desktop-rename-workspace-buffer)
+  :init (pt-desktop-wallpaper)
   :bind
+  ("s-;" . pt-desktop-wallpaper)
   ("s-<left>" . pt-desktop-previous-player)
   ("s-<right>" . pt-desktop-next-player)
   ("s-SPC" . pt-desktop-play-pause-player)

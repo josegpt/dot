@@ -39,7 +39,7 @@
   :group 'application)
 
 ;;;###autoload
-(defun pt-desktop--run-command-with-message (cmmd)
+(defun pt-desktop--run-command (cmmd)
   (start-process-shell-command "pt-desktop" nil cmmd))
 
 ;;;###autoload
@@ -49,57 +49,57 @@
 ;;;###autoload
 (defun pt-desktop-play-pause-player ()
   (interactive)
-  (pt-desktop--run-command-with-message "playerctl play-pause"))
+  (pt-desktop--run-command "playerctl play-pause"))
 
 ;;;###autoload
 (defun pt-desktop-next-player ()
   (interactive)
-  (pt-desktop--run-command-with-message "playerctl next"))
+  (pt-desktop--run-command "playerctl next"))
 
 ;;;###autoload
 (defun pt-desktop-previous-player ()
   (interactive)
-  (pt-desktop--run-command-with-message "playerctl previous"))
+  (pt-desktop--run-command "playerctl previous"))
 
 ;;;###autoload
 (defun pt-desktop-raise-volume ()
   (interactive)
-  (pt-desktop--run-command-with-message "amixer set Master 10%+"))
+  (pt-desktop--run-command "amixer set Master 10%+"))
 
 ;;;###autoload
 (defun pt-desktop-lower-volume ()
   (interactive)
-  (pt-desktop--run-command-with-message "amixer set Master 10%-"))
+  (pt-desktop--run-command "amixer set Master 10%-"))
 
 ;;;###autoload
 (defun pt-desktop-mute-volume ()
   (interactive)
-  (pt-desktop--run-command-with-message "amixer set Master toggle"))
+  (pt-desktop--run-command "amixer set Master toggle"))
 
 ;;;###autoload
 (defun pt-desktop-raise-mic-volume ()
   (interactive)
-  (pt-desktop--run-command-with-message "amixer set Capture 10%+"))
+  (pt-desktop--run-command "amixer set Capture 10%+"))
 
 ;;;###autoload
 (defun pt-desktop-lower-mic-volume ()
   (interactive)
-  (pt-desktop--run-command-with-message "amixer set Capture 10%-"))
+  (pt-desktop--run-command "amixer set Capture 10%-"))
 
 ;;;###autoload
 (defun pt-desktop-mute-mic-volume ()
   (interactive)
-  (pt-desktop--run-command-with-message "amixer set Capture toggle"))
+  (pt-desktop--run-command "amixer set Capture toggle"))
 
 ;;;###autoload
 (defun pt-desktop-raise-brightness ()
   (interactive)
-  (pt-desktop--run-command-with-message "xbacklight -inc 10%"))
+  (pt-desktop--run-command "xbacklight -inc 10%"))
 
 ;;;###autoload
 (defun pt-desktop-lower-brightness ()
   (interactive)
-  (pt-desktop--run-command-with-message "xbacklight -dec 10%"))
+  (pt-desktop--run-command "xbacklight -dec 10%"))
 
 ;;;###autoload
 (defun pt-desktop-powersettings ()
@@ -109,6 +109,11 @@
                   pt-desktop-powersetting-commands t))
          (cmmd (cdr choice)))
     (eshell-command cmmd)))
+
+;;;###autoload
+(defun pt-desktop-wallpaper ()
+  (interactive)
+  (pt-desktop--run-command "feh --randomize --bg-scale ~/.config/wallpapers/*"))
 
 (provide 'pt-desktop)
 ;;; pt-desktop.el ends here
