@@ -438,11 +438,11 @@ _\\/_            |      o/      _\\/_
   :bind
   ("C-c j" . webjump)
   :custom
-  (webjump-sites '(("Gmail" . "mail.google.com")
+  (webjump-sites '(("Jose G" . "josegpt.com")
+                   ("Gmail" . "mail.google.com")
                    ("PTServer" . "ptserver.org")
                    ("Discord" . "discord.com/app")
                    ("WhatsApp" . "web.whatsapp.com")
-                   ("Personal Website" . "josegpt.com")
                    ("Google Photos" . "photos.google.com")
                    ("Google Drive" . "drive.google.com/drive/my-drive")
                    ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
