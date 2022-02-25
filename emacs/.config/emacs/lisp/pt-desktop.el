@@ -52,11 +52,6 @@
   (pt-desktop--run-command-with-message "playerctl play-pause"))
 
 ;;;###autoload
-(defun pt-desktop-stop-player ()
-  (interactive)
-  (pt-desktop--run-command-with-message "playerctl stop"))
-
-;;;###autoload
 (defun pt-desktop-next-player ()
   (interactive)
   (pt-desktop--run-command-with-message "playerctl next"))
