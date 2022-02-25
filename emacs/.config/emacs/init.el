@@ -408,11 +408,23 @@ _\\/_            |      o/      _\\/_
 (use-package subword
   :hook ((js-mode go-mode typescript-mode ledger-mode) . subword-mode))
 
-(use-package time
-  :custom
-  (display-time-format "(%A) %B %d, %Y - %I:%M%P")
+(use-package tab-bar
+  :bind
+  ("s-p" . tab-previous)
+  ("s-n" . tab-next)
+  ("s-t" . tab-new)
   :config
-  (display-time-mode))
+  (tab-bar-mode)
+  :custom
+  (tab-bar-new-button-show nil)
+  (tab-bar-close-button-show nil)
+  (tab-bar-format '(tab-bar-format-align-right tab-bar-format-global)))
+
+(use-package time
+  :config
+  (display-time-mode)
+  :custom
+  (display-time-format "%A, %B %d %Y - %I:%M%P"))
 
 (use-package typescript-mode
   :ensure t
