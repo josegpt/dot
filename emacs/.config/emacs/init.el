@@ -191,8 +191,8 @@ _\\/_            |      o/      _\\/_
                             s-down
                             s-up
                             ?\s-m
-                            s-S-down
-                            s-S-up
+                            S-s-down
+                            S-s-up
                             ?\s-M
                             ?\s-+
                             ?\s-=))
