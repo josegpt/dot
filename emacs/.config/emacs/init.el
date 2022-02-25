@@ -185,19 +185,17 @@ _\\/_            |      o/      _\\/_
                             ?\s-p
                             ?\s-n
                             ?\s-a
-                            XF86AudioPlay
-                            XF86AudioStop
-                            XF86AudioNext
-                            XF86AudioPrev
-                            XF86AudioRaiseVolume
-                            XF86AudioLowerVolume
-                            XF86AudioMute
-                            XF86AudioMicMute
-                            XF86MonBrightnessUp
-                            XF86MonBrightnessDown
-                            M-XF86AudioRaiseVolume
-                            M-XF86AudioLowerVolume
-                            M-XF86AudioMute))
+                            s-SPC
+                            s-left
+                            s-right
+                            s-down
+                            s-up
+                            ?\s-m
+                            s-S-down
+                            s-S-up
+                            ?\s-M
+                            ?\s-+
+                            ?\s-=))
   (exwm-input-global-keys
    `(([?\s-w] . exwm-workspace-switch)
      ([?\C-c ?\C-j] . exwm-reset)
@@ -354,19 +352,17 @@ _\\/_            |      o/      _\\/_
   :bind
   ("s-p" . pt-desktop-previous-workspace)
   ("s-n" . pt-desktop-next-workspace)
-  ("<XF86AudioPlay>" . pt-desktop-play-pause-player)
-  ("<XF86AudioStop>" . pt-desktop-stop-player)
-  ("<XF86AudioNext>" . pt-desktop-next-player)
-  ("<XF86AudioPrev>" . pt-desktop-previous-player)
-  ("<XF86AudioRaiseVolume>" . pt-desktop-raise-volume)
-  ("<XF86AudioLowerVolume>" . pt-desktop-lower-volume)
-  ("<XF86AudioMute>" . pt-desktop-mute-volume)
-  ("<M-XF86AudioRaiseVolume>" . pt-desktop-raise-mic-volume)
-  ("<M-XF86AudioLowerVolume>" . pt-desktop-lower-mic-volume)
-  ("<M-XF86AudioMute>" . pt-desktop-mute-mic-volume)
-  ("<XF86AudioMicMute>" . pt-desktop-mute-mic-volume)
-  ("<XF86MonBrightnessUp>" . pt-desktop-raise-brightness)
-  ("<XF86MonBrightnessDown>" . pt-desktop-lower-brightness)
+  ("s-<left>" . pt-desktop-previous-player)
+  ("s-<right>" . pt-desktop-next-player)
+  ("s-SPC" . pt-desktop-play-pause-player)
+  ("s-<down>" . pt-desktop-lower-volume)
+  ("s-<up>" . pt-desktop-raise-volume)
+  ("s-m" . pt-desktop-mute-volume)
+  ("s-S-<down>" . pt-desktop-lower-mic-volume)
+  ("s-S-<up>" . pt-desktop-raise-mic-volume)
+  ("s-M" . pt-desktop-mute-mic-volume)
+  ("s-+" . pt-desktop-raise-brightness)
+  ("s-=" . pt-desktop-lower-brightness)
   ("s-a" . pt-desktop-powersettings))
 
 (use-package proced
