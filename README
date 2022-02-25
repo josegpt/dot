@@ -4,7 +4,7 @@ dotfiles
 
 usage
 -----
-  $ ./deploy <desktop|laptop|packages>
+  $ ./deploy <desktop|laptop>
 
 depends on
 ----------
