@@ -499,17 +499,17 @@ _\\/_            |      o/      _\\/_
                            (display-buffer-no-window))
                           ("\\*\\(Calc\\|Process List\\|Proced\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.20)
+                           (window-height . 0.25)
                            (side . bottom)
                            (slot . -1))
                           ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.20)
+                           (window-height . 0.25)
                            (side . bottom)
                            (slot . 0))
                           ("\\*\\(envrc\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.20)
+                           (window-height . 0.25)
                            (side . bottom)
                            (slot . 1))
                           ("\\*\\(Ledger.*\\|eldoc.*\\|Buffer List\\)\\*"
