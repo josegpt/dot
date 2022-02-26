@@ -365,6 +365,10 @@ _\\/_            |      o/      _\\/_
   ("s-=" . pt-desktop-lower-brightness)
   ("s-a" . pt-desktop-powersettings))
 
+(use-package protobuf-mode
+  :ensure t
+  :mode "\\.proto\\'")
+
 (use-package proced
   :bind
   ("C-c d" . proced))
@@ -408,7 +412,7 @@ _\\/_            |      o/      _\\/_
   :mode ("\\template\\'" . sh-mode))
 
 (use-package subword
-  :hook ((js-mode go-mode typescript-mode ledger-mode) . subword-mode))
+  :hook ((js-mode go-mode typescript-mode ledger-mode protobuf-mode) . subword-mode))
 
 (use-package tab-bar
   :bind
@@ -478,7 +482,7 @@ _\\/_            |      o/      _\\/_
                    ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
 
 (use-package whitespace
-  :hook ((prog-mode text-mode conf-mode) . whitespace-mode)
+  :hook ((prog-mode text-mode conf-mode protobuf-mode) . whitespace-mode)
   :custom
   (whitespace-style '(face
                       tabs
