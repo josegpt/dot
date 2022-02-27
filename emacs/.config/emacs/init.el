@@ -67,6 +67,10 @@
 (use-package css-mode
   :mode "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
 
+(use-package display-wttr
+  :config
+  (display-wttr-mode))
+
 (use-package dired
   :custom
   (dired-dwim-target t)
