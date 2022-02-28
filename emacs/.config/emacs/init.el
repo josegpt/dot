@@ -189,7 +189,7 @@ _\\/_            |      o/      _\\/_
                             ?\s-p
                             ?\s-n
                             ?\s-a
-                            s-SPC
+                            ?\s- 
                             s-left
                             s-right
                             s-down
