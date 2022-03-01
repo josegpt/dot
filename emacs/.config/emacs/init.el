@@ -384,7 +384,9 @@ _\\/_            |      o/      _\\/_
 
 (use-package simple
   :bind
-  ("C-c s" . list-processes))
+  ("C-c s" . list-processes)
+  ("M-z" . zap-to-char)
+  ("M-Z" . zap-up-to-char))
 
 (use-package server
   :unless (server-running-p)
