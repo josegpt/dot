@@ -438,7 +438,7 @@ _\\/_            |      o/      _\\/_
   :config
   (display-time-mode)
   :custom
-  (display-time-format "%A, %B %d %Y - %I:%M%P"))
+  (display-time-format "%B %d %Y - %I:%M%P"))
 
 (use-package typescript-mode
   :ensure t
