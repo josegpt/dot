@@ -69,7 +69,9 @@
 
 (use-package display-wttr
   :config
-  (display-wttr-mode))
+  (display-wttr-mode)
+  :custom
+  (display-wttr-format "2"))
 
 (use-package dired
   :custom
