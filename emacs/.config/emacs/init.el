@@ -517,25 +517,19 @@ _\\/_            |      o/      _\\/_
   :custom
   (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
                            (display-buffer-no-window))
-                          ("\\*\\(Calc\\|Process List\\|Proced\\)\\*"
+                          ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.25)
-                           (side . bottom)
-                           (slot . -1))
-                          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\)\\*"
-                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.25)
-                           (side . bottom)
-                           (slot . 0))
-                          ("\\*\\(envrc\\)\\*"
-                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.25)
+                           (window-height . 0.40)
                            (side . bottom)
                            (slot . 1))
-                          ("\\*\\(Ledger.*\\|eldoc.*\\|Buffer List\\)\\*"
+                          ("\\*\\(Help\\|eldoc.*\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-width . 0.45)
-                           (side . right)
+                           (window-height . 0.40)
+                           (side . bottom)
+                           (slot . 0))
+                          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|Ledger.*\\)\\*"
+                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                           (window-height . 0.40)
                            (slot . -1)))))
 
 (use-package yaml-mode
