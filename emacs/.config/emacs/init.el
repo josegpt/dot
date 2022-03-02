@@ -344,6 +344,7 @@ _\\/_            |      o/      _\\/_
   :bind
   ("C-x p l" . eglot)
   ("C-x p m" . magit-project-status)
+  ("C-x p C" . recompile)
   :custom
   (project-switch-commands '((?l "Eglot LSP" eglot)
                              (?d "Dired" project-dired)
