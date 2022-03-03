@@ -144,6 +144,8 @@ _\\/_            |      o/      _\\/_
   (erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#systemcrafters"))))
 
 (use-package emacs
+  :bind
+  ("s-'" . modus-themes-toggle)
   :config
   (load-theme 'modus-vivendi t)
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
