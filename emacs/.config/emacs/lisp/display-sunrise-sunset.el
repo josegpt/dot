@@ -44,7 +44,7 @@ It should not be set directly, but is instead updated by the
   (let ((calendar-time-display-form '(12-hours ":" minutes am-pm))
         (l (solar-sunrise-sunset (calendar-current-date))))
     (setq display-sunrise-sunset-string
-          (format "[↑%s, ↓%s] "
+          (format "[↑%s ↓%s] "
                   (apply #'solar-time-string (car l))
                   (apply #'solar-time-string (cadr l))))))
 
