@@ -26,6 +26,7 @@
 ;;; Code:
 
 (require 'exwm-workspace)
+(require 'subr-x)
 
 (defgroup pt-desktop ()
   "Funtionality for the X environment."
@@ -44,7 +45,8 @@
 
 ;;;###autoload
 (defun pt-desktop-rename-workspace-buffer ()
-  (exwm-workspace-rename-buffer exwm-title))
+  (exwm-workspace-rename-buffer
+   (concat (string-limit exwm-title 25) "...")))
 
 ;;;###autoload
 (defun pt-desktop-play-pause-player ()
