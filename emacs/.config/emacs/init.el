@@ -160,7 +160,8 @@ _\\/_            |      o/      _\\/_
 (use-package eww
   :custom
   (eww-auto-rename-buffer t)
-  (eww-header-line-format nil))
+  (eww-header-line-format nil)
+  (eww-search-prefix "https://duckduckgo.com/lite?q="))
 
 (use-package exwm
   :ensure t
