@@ -67,6 +67,14 @@
 (use-package css-mode
   :mode "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
 
+(use-package display-sunrise-sunset
+  :custom
+  (calendar-latitude 40.86)
+  (calendar-longitude -74.16)
+  (calendar-location-name "Clifton, NJ")
+  :config
+  (display-sunrise-sunset-mode))
+
 (use-package display-wttr
   :config
   (display-wttr-mode)
@@ -410,12 +418,6 @@ _\\/_            |      o/      _\\/_
   (smtpmail-auth-credentials "~/.authinfo.gpg")
   (smtpmail-default-smtp-server "smtp.gmail.com")
   (message-send-mail-function 'smtpmail-send-it))
-
-(use-package solar
-  :custom
-  (calendar-latitude 40.86)
-  (calendar-longitude -74.16)
-  (calendar-location-name "Clifton, NJ"))
 
 (use-package sh-script
   :mode ("\\template\\'" . sh-mode))
