@@ -428,16 +428,12 @@ _\\/_            |      o/      _\\/_
   :hook ((js-mode go-mode typescript-mode ledger-mode protobuf-mode) . subword-mode))
 
 (use-package tab-bar
-  :bind
-  ("s-p" . tab-previous)
-  ("s-n" . tab-next)
-  ("s-t" . tab-new)
   :config
   (tab-bar-mode)
   :custom
   (tab-bar-new-button-show nil)
   (tab-bar-close-button-show nil)
-  (tab-bar-format '(tab-bar-format-align-right tab-bar-format-global)))
+  (tab-bar-format '(tab-bar-format-global)))
 
 (use-package time
   :config
