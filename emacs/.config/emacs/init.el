@@ -528,7 +528,7 @@ _\\/_            |      o/      _\\/_
                            (window-height . 0.40)
                            (side . bottom)
                            (slot . 0))
-                          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|Ledger.*\\)\\*"
+                          ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Ledger.*\\)\\*"
                            (display-buffer-reuse-mode-window display-buffer-in-side-window)
                            (window-height . 0.40)
                            (slot . -1)))))
