@@ -16,12 +16,14 @@
 (setq gc-cons-threshold (* 50 1000 1000))
 
 ;;; include custom elisp
-(add-to-list 'load-path (concat user-emacs-directory
-                                (convert-standard-filename "lisp/")))
+(add-to-list 'load-path
+             (concat user-emacs-directory
+                     (convert-standard-filename "lisp/")))
 
 ;; native-compile all Elisp files under a directory
-;; (native-compile-async (concat user-emacs-directory
-;;                               (convert-standard-filename "lisp/")) 'recursively)
+;; (native-compile-async
+;;  (concat user-emacs-directory
+;;          (convert-standard-filename "lisp/")) 'recursively)
 
 ;;; Packages
 
@@ -48,7 +50,8 @@
   :custom
   (browse-url-browser-function 'eww-browse-url)
   (browse-url-secondary-browser-function 'browse-url-default-browser)
-  (browse-url-handlers '((".*\\(amazon\\|ebay\\|youtube\\|github\\|gitlab\\|twitch\\|discord\\|whatsapp\\|google\\)" . browse-url-default-browser))))
+  (browse-url-handlers
+   '((".*\\(amazon\\|ebay\\|youtube\\|git\\(hub\\|lab\\)\\|twitch\\|discord\\|whatsapp\\|google\\)" . browse-url-default-browser))))
 
 (use-package canales
   :bind
