@@ -98,8 +98,8 @@ customizing `display-sunrise-sunset-interval'"
   :group 'display-sunrise-sunset
   (and display-sunrise-sunset-timer (cancel-timer display-sunrise-sunset-timer))
   (setq display-sunrise-sunset-string "")
+  (or global-mode-string (setq global-mode-string '("")))
   (when display-sunrise-sunset-mode
-    (or 'global-mode-string (setq global-mode-string '("")))
     (or (memq 'display-sunrise-sunset-string global-mode-string)
         (setq global-mode-string
               (append global-mode-string '(display-sunrise-sunset-string))))
