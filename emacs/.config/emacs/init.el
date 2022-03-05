@@ -384,15 +384,16 @@ _\\/_            |      o/      _\\/_
                                    (window-height . 0.40)
                                    (side . bottom)
                                    (slot . 1))
-                                  ("\\*\\(Help\\|eldoc.*\\)\\*"
+                                  ("\\*\\(Backtrace\\|Warnings\\|compilation\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                                   (window-height . 0.40)
-                                   (side . bottom)
-                                   (slot . 0))
-                                  ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Ledger.*\\)\\*"
+                                   (window-width . 0.45)
+                                   (side . right)
+                                   (slot . -1))
+                                  ("\\*\\(Help\\|eldoc.*\\|Ledger.*\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                                   (window-height . 0.40)
-                                   (slot . -1)))))
+                                   (window-width . 0.45)
+                                   (side . right)
+                                   (slot . 0)))))
 
 (setup (:package yaml-mode)
   (:file-match "\\.ya?ml\\'")
