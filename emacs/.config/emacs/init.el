@@ -193,8 +193,7 @@ _\\/_            |      o/      _\\/_
 (setup (:package ledger-mode)
   (:file-match "\\.\\(ledger\\|dat\\)\\'")
   (:bind "C-M-i" #'completion-at-point)
-  (:hook electric-pair-mode
-         whitespace-mode)
+  (:hook whitespace-mode)
   (:option ledger-complete-in-steps t
            ledger-clear-whole-transactions t
            ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
