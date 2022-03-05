@@ -208,6 +208,7 @@ _\\/_            |      o/      _\\/_
 
 (setup (:package magit)
   (:global "C-x p m" #'magit-project-status)
+  (:hook electric-pair-mode)
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
