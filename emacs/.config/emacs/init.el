@@ -56,7 +56,8 @@
 
 (setup css-mode
   (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
-  (:hook display-line-numbers-mode))
+  (:hook display-line-numbers-mode
+         whitespace-mode))
 
 (setup (:require display-sunrise-sunset)
   (:option calendar-latitude 40.86
