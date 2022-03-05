@@ -101,19 +101,21 @@ _\\/_            |      o/      _\\/_
   | '-Welcome to the Caribbean-' |\n"))
 
 (setup (:package eglot)
-  (:global "C-c l" #'eglot)
-  (:bind "C-c l r" #'eglot-rename
-         "C-c l f" #'eglot-format
-         "C-c l g" #'eglot-reconnect
-         "C-c l h" #'display-local-help
-         "C-c l k" #'eglot-shutdown-all
-         "C-c l a" #'eglot-code-actions
+  (:global "C-x p l" #'eglot)
+  (:with-hook eglot-managed-mode-hook
+    (:local-hook before-save-hook #'eglot-format))
+  (:bind "C-x p l r" #'eglot-rename
+         "C-x p l f" #'eglot-format
+         "C-x p l g" #'eglot-reconnect
+         "C-x p l h" #'display-local-help
+         "C-x p l k" #'eglot-shutdown-all
+         "C-x p l a" #'eglot-code-actions
          [remap display-local-help] #'nil
-         "C-c l d" #'eglot-find-declaration
-         "C-c l t" #'eglot-find-typeDefinition
-         "C-c l i" #'eglot-find-implementation
-         "C-c l q" #'eglot-code-action-quickfix
-         "C-c l o" #'eglot-code-action-organize-imports))
+         "C-x p l d" #'eglot-find-declaration
+         "C-x p l t" #'eglot-find-typeDefinition
+         "C-x p l i" #'eglot-find-implementation
+         "C-x p l q" #'eglot-code-action-quickfix
+         "C-x p l o" #'eglot-code-action-organize-imports))
 
 (setup erc
   (:global "C-c i" #'erc-tls)
@@ -241,8 +243,7 @@ _\\/_            |      o/      _\\/_
            show-paren-context-when-offscreen t))
 
 (setup project
-  (:global "C-x p l" #'eglot
-           "C-x p m" #'magit-project-status
+  (:global "C-x p m" #'magit-project-status
            "C-x p C" #'recompile)
   (:option project-switch-commands '((?l "Eglot LSP" eglot)
                                      (?d "Dired" project-dired)
