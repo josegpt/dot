@@ -130,7 +130,7 @@ _\\/_            |      o/      _\\/_
 
 (setup emacs
   (:option tab-width 2
-           fill-column 70
+           fill-column 72
            cursor-type 'bar
            indent-tabs-mode nil
            ring-bell-function 'ignore
