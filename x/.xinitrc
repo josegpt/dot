@@ -1,5 +1,3 @@
 #!/bin/sh
 
-picom &
-
-exec emacs
+exec bspwm

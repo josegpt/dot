@@ -1,0 +1,18 @@
+#!/bin/sh
+
+_() {
+    bspc config "$@"
+}
+
+bspc monitor -d Based
+
+_ border_width         2
+_ window_gap           4
+_ split_ratio          0.50
+_ borderless_monocle   false
+_ gapless_monocle      false
+_ focused_border_color "#ffffff"
+_ normal_border_color  "#444444"
+
+feh --randomize --bg-scale ~/.config/wallpapers/*
+pgrep -x sxhkd > /dev/null || sxhkd &
