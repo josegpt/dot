@@ -3,14 +3,12 @@
 
 (require 'package)
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 
-(unless (package-installed-p 'use-package)
+(unless (package-installed-p 'setup)
   (package-refresh-contents)
-  (package-install 'use-package))
-
-;;; debugging
-;; (setq use-package-verbose t)
+  (package-install 'setup))
 
 ;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -27,87 +25,72 @@
 
 ;;; Packages
 
-(use-package auth-source-pass
-  :config
+(setup auth-source-pass
   (auth-source-pass-enable))
 
-(use-package autorevert
-  :custom
-  (global-auto-revert-non-file-buffers nil)
-  :config
+(setup autorevert
+  (:option global-auto-revert-non-file-buffers nil)
   (global-auto-revert-mode))
 
-(use-package battery
-  :unless (string= (system-name) "josegpt-desktop")
-  :config
+(setup battery
+  (:only-if (string= (system-name) "josegpt-laptop"))
   (display-battery-mode))
 
-(use-package bookmark
-  :bind
-  ("C-c b" . bookmark-jump))
+(setup bookmark
+  (:global "C-c b" #'bookmark-jump))
 
-(use-package browse-url
-  :custom
-  (browse-url-browser-function 'eww-browse-url)
-  (browse-url-secondary-browser-function 'browse-url-default-browser)
-  (browse-url-handlers
-   '((".*[Gg]it\\([Hh]ub\\|[Ll]ab\\)" . browse-url-default-browser)
-     (".*\\([Yy]outube\\|[Tt]witch\\)" . browse-url-default-browser)
-     (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
-     (".*\\([Aa]mazon\\|[Ee]bay\\|[Gg]oogle\\)" . browse-url-default-browser))))
+(setup browse-url
+  (:option browse-url-browser-function 'eww-browse-url
+           browse-url-secondary-browser-function 'browse-url-default-browser
+           browse-url-handlers
+           '((".*[Gg]it\\([Hh]ub\\|[Ll]ab\\)" . browse-url-default-browser)
+             (".*\\([Yy]outube\\|[Tt]witch\\)" . browse-url-default-browser)
+             (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
+             (".*\\([Aa]mazon\\|[Ee]bay\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
-(use-package canales
-  :bind
-  ("C-c c" . canales-watch))
+(setup canales
+  (:global "C-c c" #'canales-watch))
 
-(use-package compile
-  :custom
-  (compilation-scroll-output t))
+(setup compile
+  (:option compilation-scroll-output t))
 
-(use-package corfu
-  :ensure t
-  :hook ((prog-mode text-mode shell-mode eshell-mode) . corfu-mode)
-  :custom
-  (corfu-cycle t))
+(setup css-mode
+  (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
+  (:hook display-line-numbers-mode))
 
-(use-package css-mode
-  :mode "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
-
-(use-package display-sunrise-sunset
-  :custom
-  (calendar-latitude 40.86)
-  (calendar-longitude -74.16)
-  (calendar-location-name "Clifton, NJ")
-  :config
+(setup (:require display-sunrise-sunset)
+  (:option calendar-latitude 40.86
+           calendar-longitude -74.16
+           calendar-location-name "Clifton, NJ")
   (display-sunrise-sunset-mode))
 
-(use-package display-wttr
-  :config
-  (display-wttr-mode)
-  :custom
-  (display-wttr-format "2"))
+(setup display-wttr
+  (:option display-wttr-format "2")
+  (display-wttr-mode))
 
-(use-package dired
-  :custom
-  (dired-dwim-target t)
-  (dired-listing-switches "-alh")
-  (dired-kill-when-opening-new-dired-buffer t))
+(setup dired
+  (:option dired-dwim-target t
+           dired-listing-switches "-alh"
+           dired-kill-when-opening-new-dired-buffer t))
 
-(use-package dockerfile-mode
-  :ensure t
-  :mode "\\Dockerfile\\'")
+(setup (:package dockerfile-mode)
+  (:file-match "\\Dockerfile\\'")
+  (:hook display-line-numbers-mode))
 
-(use-package display-line-numbers
-  :hook ((prog-mode text-mode conf-mode) . display-line-numbers-mode)
-  :custom
-  (display-line-numbers-type 'relative)
-  (display-line-numbers-current-absolute t))
+(setup display-line-numbers
+  (:option display-line-numbers-type 'relative
+           display-line-numbers-current-absolute t))
 
-(use-package eshell
-  :bind
-  ("s-<return>" . eshell)
-  :custom
-  (eshell-banner-message "                |
+(setup emacs-lisp-mode
+  (:file-match "\\.el\\'")
+  (:hook electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
+
+(setup eshell
+  (:global "s-<return>" #'eshell)
+  (:option eshell-banner-message "                |
               \\ _ /
             -= (_) =-
               /   \\
@@ -116,436 +99,305 @@ _\\/_            |      o/      _\\/_
   |,__________________/_\\_______,|
   | '-Welcome to the Caribbean-' |\n"))
 
-(use-package elec-pair
-  :hook ((prog-mode text-mode conf-mode) . electric-pair-mode))
+(setup (:package eglot)
+  (:global "C-c l" #'eglot)
+  (:bind "C-c l r" #'eglot-rename
+         "C-c l f" #'eglot-format
+         "C-c l g" #'eglot-reconnect
+         "C-c l h" #'display-local-help
+         "C-c l k" #'eglot-shutdown-all
+         "C-c l a" #'eglot-code-actions
+         [remap display-local-help] #'nil
+         "C-c l d" #'eglot-find-declaration
+         "C-c l t" #'eglot-find-typeDefinition
+         "C-c l i" #'eglot-find-implementation
+         "C-c l q" #'eglot-code-action-quickfix
+         "C-c l o" #'eglot-code-action-organize-imports))
 
-(use-package eglot
-  :ensure t
-  :bind
-  ("C-c l" . eglot)
-  :bind (:map eglot-mode-map
-              ("C-c l r" . eglot-rename)
-              ("C-c l f" . eglot-format)
-              ("C-c l g" . eglot-reconnect)
-              ("C-c l h" . display-local-help)
-              ("C-c l k" . eglot-shutdown-all)
-              ("C-c l a" . eglot-code-actions)
-              ([remap display-local-help] . nil)
-              ("C-c l d" . eglot-find-declaration)
-              ("C-c l t" . eglot-find-typeDefinition)
-              ("C-c l i" . eglot-find-implementation)
-              ("C-c l q" . eglot-code-action-quickfix)
-              ("C-c l o" . eglot-code-action-organize-imports)))
+(setup erc
+  (:global "C-c i" #'erc-tls)
+  (:option erc-nick "josegpt"
+           erc-auto-query 'bury
+           erc-track-shorten-start 8
+           erc-kill-buffer-on-part t
+           erc-server "irc.us.libera.chat"
+           erc-user-full-name "Jose G Perez Taveras"
+           erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#systemcrafters"))))
 
-(use-package erc
-  :bind
-  ("C-c i" . erc-tls)
-  :custom
-  (erc-nick "josegpt")
-  (erc-auto-query 'bury)
-  (erc-track-shorten-start 8)
-  (erc-kill-buffer-on-part t)
-  (erc-server "irc.us.libera.chat")
-  (erc-user-full-name "Jose G Perez Taveras")
-  (erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#systemcrafters"))))
-
-(use-package emacs
-  :bind
-  ("s-'" . modus-themes-toggle)
-  :config
-  (load-theme 'modus-vivendi t)
+(setup emacs
+  (:option tab-width 2
+           fill-column 70
+           cursor-type 'bar
+           indent-tabs-mode nil
+           ring-bell-function 'ignore
+           initial-major-mode #'fundamental-mode
+           ;; don't clutter up directories with files~
+           backup-directory-alist `((".*" . ,temporary-file-directory))
+           ;; don't clutter with #files either
+           auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-  (set-face-attribute 'default nil :family "Iosevka" :height 140 :weight 'light)
-  :custom
-  (tab-width 2)
-  (fill-column 70)
-  (cursor-type 'bar)
-  (indent-tabs-mode nil)
-  (ring-bell-function 'ignore)
-  (initial-major-mode #'fundamental-mode)
-  ;; don't clutter up directories with files~
-  (backup-directory-alist `((".*" . ,temporary-file-directory)))
-  ;; don't clutter with #files either
-  (auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
+  (set-face-attribute 'default nil :family "Iosevka" :height 140 :weight 'light))
 
-(use-package epg-config
-  :custom
-  (epg-pinentry-mode 'loopback))
+(setup epg-config
+  (:option epg-pinentry-mode 'loopback))
 
-(use-package eww
-  :custom
-  (eww-auto-rename-buffer t)
-  (eww-header-line-format nil)
-  (eww-search-prefix "https://duckduckgo.com/lite?q="))
+(setup eww
+  (:option eww-auto-rename-buffer t
+           eww-header-line-format nil
+           eww-search-prefix "https://duckduckgo.com/lite?q="))
 
-(use-package exwm
-  :ensure t
-  :init (exwm-enable)
-  :bind
-  ("C-q" . exwm-input-send-next-key)
-  :custom
-  (exwm-workspace-number 1)
-  (exwm-workspace-warp-cursor t)
-  (exwm-input-prefix-keys '(?\C-x
-                            ?\C-c
-                            ?\C-u
-                            ?\C-h
-                            ?\C-g
-                            ?\M-x
-                            ?\M-:
-                            ?\M-!
-                            s-return
-                            ?\s-0
-                            ?\s-1
-                            ?\s-2
-                            ?\s-3
-                            ?\s-o
-                            ?\s-b
-                            ?\s-f
-                            ?\s-k
-                            ?\s-p
-                            ?\s-n
-                            ?\s-a
-                            ?\s- 
-                            s-left
-                            s-right
-                            s-down
-                            s-up
-                            ?\s-m
-                            S-s-down
-                            S-s-up
-                            ?\s-M
-                            ?\s-+
-                            ?\s-=))
-  (exwm-input-global-keys
-   `(([?\s-w] . exwm-workspace-switch)
-     ([?\C-c ?\C-j] . exwm-reset)
-     ([?\s-&] . (lambda (command)
-                  (interactive (list (read-shell-command "$ ")))
-                  (start-process-shell-command command nil command)))))
-  (exwm-input-simulation-keys
-   '(([?\C-b] . [left])
-     ([?\C-f] . [right])
-     ([?\C-p] . [up])
-     ([?\C-n] . [down])
-     ([?\C-a] . [home])
-     ([?\C-e] . [end])
-     ([?\C-v] . [next])
-     ([?\M-v] . [prior])
-     ([?\M-b] . [C-left])
-     ([?\M-f] . [C-right])
-     ([?\M-p] . [M-up])
-     ([?\M-n] . [M-down])
-     ([?\M-<] . [home])
-     ([?\M->] . [end])
-     ([?\C-/] . [?\C-z])
-     ([?\C-w] . [?\C-x])
-     ([?\M-w] . [?\C-c])
-     ([?\C-y] . [?\C-v])
-     ([?\C-s] . [?\C-g])
-     ([?\C-r] . [C-S-g])
-     ([?\C-t] . [?\C-t])
-     ([?\C-j] . [?\C-k])
-     ([?\C-d] . [delete])
-     ([?\C-c ?r] . [?\C-r])
-     ([?\C-c ?s] . [?\C-f])
-     ([?\C-c ?f] . [?\C-l])
-     ([?\C-c ?h] . [?\C-a])
-     ([?\C-c ?k] . [?\C-w])
-     ([?\C-c ?/] . [C-S-z])
-     ([?\M-@] . [C-S-right])
-     ([?\C-c ?g] . [escape])
-     ([?\C-\M-b] . [M-left])
-     ([?\C-\M-f] . [M-right])
-     ([?\C-k] . [C-S-end ?\C-x])
-     ([?\M-d] . [C-S-right ?\C-x])
-     ([M-backspace] . [C-S-left ?\C-x]))))
+(setup flymake
+  (:bind "M-g p" #'flymake-goto-prev-error
+         "M-g n" #'flymake-goto-next-error
+         "M-g M-p" #'flymake-goto-prev-error
+         "M-g M-n" #'flymake-goto-next-error))
 
-(use-package flymake
-  :bind (:map flymake-mode-map
-              ("M-g p" . flymake-goto-prev-error)
-              ("M-g n" . flymake-goto-next-error)
-              ("M-g M-p" . flymake-goto-prev-error)
-              ("M-g M-n" . flymake-goto-next-error)))
+(setup frame
+  (:option blink-cursor-mode nil))
 
-(use-package frame
-  :custom
-  (blink-cursor-mode nil))
+(setup (:package go-mode)
+  (:file-match "\\.go\\'")
+  (:local-set compile-command "go build")
+  (:hook subword-mode
+         electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
-(use-package go-mode
-  :ensure t
-  :mode "\\.go\\'")
+(setup html-mode
+  (:file-match "\\.\\(html?\\|ejs\\)\\'")
+  (:hook show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
-(use-package html-mode
-  :mode "\\.\\(html?\\|ejs\\)\\'")
-
-(use-package hl-line
-  :config
+(setup hl-line
   (global-hl-line-mode))
 
-(use-package icomplete
-  :config
-  (fido-mode)
-  :custom
-  (icomplete-separator " · ")
-  (icomplete-compute-delay 0.0)
-  (icomplete-prospects-height 1)
-  (icomplete-delay-completions-threshold 0.0))
+(setup icomplete
+  (:option icomplete-separator " · "
+           icomplete-compute-delay 0.0
+           icomplete-prospects-height 1
+           icomplete-delay-completions-threshold 0.0)
+  (fido-mode))
 
-(use-package js-mode
-  :mode "\\.js\\'"
-  :custom
-  (js-indent-level 2))
+(setup js-mode
+  (:file-match "\\.js\\'")
+  (:option js-indent-level 2)
+  (:hook subword-mode
+         electric-pair-mode
+         show-paren-mode
+         whitespace-mode))
 
-(use-package ledger-mode
-  :ensure t
-  :mode "\\.\\(ledger\\|dat\\)\\'"
-  :bind
-  ("C-M-i" . completion-at-point)
-  :custom
-  (ledger-complete-in-steps t)
-  (ledger-clear-whole-transactions t)
-  (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
-                    ("reg" "%(binary) -f %(ledger-file) reg")
-                    ("budget" "%(binary) -f %(ledger-file) bal --budget")
-                    ("account" "%(binary) -f %(ledger-file) reg %(account)")
-                    ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
-                    ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
+(setup (:package ledger-mode)
+  (:file-match "\\.\\(ledger\\|dat\\)\\'")
+  (:bind "C-M-i" #'completion-at-point)
+  (:hook electric-pair-mode
+         whitespace-mode)
+  (:option ledger-complete-in-steps t
+           ledger-clear-whole-transactions t
+           ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
+                            ("reg" "%(binary) -f %(ledger-file) reg")
+                            ("budget" "%(binary) -f %(ledger-file) bal --budget")
+                            ("account" "%(binary) -f %(ledger-file) reg %(account)")
+                            ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
+                            ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
 
-(use-package magit
-  :ensure t
-  :bind
-  ("C-x g" . magit-status)
-  :custom
-  (magit-clone-default-directory "~/projects/")
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+(setup (:package magit)
+  (:global "C-x g" #'magit-status)
+  (:option magit-clone-default-directory "~/projects/"
+           magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package markdown-mode
-  :ensure t
-  :mode "\\.md\\'")
+(setup (:package markdown-mode)
+  (:file-match "\\.md\\'"))
 
-(use-package minibuffer
-  :custom
-  (completion-ignore-case t)
-  (completion-auto-select t)
-  (completion-wrap-movement t)
-  (completion-cycle-threshold 3)
-  (read-buffer-completion-ignore-case t)
-  (read-file-name-completion-ignore-case t)
-  (completion-styles '(partial-completion substring)))
+(setup minibuffer
+  (:option completion-ignore-case t
+           completion-auto-select t
+           completion-wrap-movement t
+           completion-cycle-threshold 3
+           read-buffer-completion-ignore-case t
+           read-file-name-completion-ignore-case t
+           completion-styles '(partial-completion substring)))
 
-(use-package man
-  :bind
-  ("C-c m" . man))
+(setup man
+  (:global "C-c m" #'man))
 
-(use-package move-text
-  :ensure t
-  :bind
-  ("M-p" . move-text-up)
-  ("M-n" . move-text-down))
+(setup modus-themes
+  (:global "s-'" #'modus-themes-toggle)
+  (load-theme 'modus-vivendi t))
 
-(use-package otaku
-  :bind
-  ("C-c o s" . otaku-search-anime)
-  ("C-c o r" . otaku-recent-anime-episodes))
+(setup (:package move-text)
+  (:global "M-p" #'move-text-up
+           "M-n" #'move-text-down))
 
-(use-package paren
-  :hook (prog-mode . show-paren-mode)
-  :custom
-  (show-paren-when-point-inside-paren t)
-  (show-paren-context-when-offscreen t))
+(setup otaku
+  (:global "C-c o s" #'otaku-search-anime
+           "C-c o r" #'otaku-recent-anime-episodes))
 
-(use-package project
-  :bind
-  ("C-x p l" . eglot)
-  ("C-x p m" . magit-project-status)
-  ("C-x p C" . recompile)
-  :custom
-  (project-switch-commands '((?l "Eglot LSP" eglot)
-                             (?d "Dired" project-dired)
-                             (?e "Eshell" project-eshell)
-                             (?f "File" project-find-file)
-                             (?c "Compile" project-compile)
-                             (?m "Magit" magit-project-status)
-                             (?b "Buffer" project-switch-to-buffer))))
+(setup show-paren-mode
+  (:option show-paren-when-point-inside-paren t
+           show-paren-context-when-offscreen t))
 
-(use-package pt-desktop
-  :hook (exwm-update-title . pt-desktop-rename-workspace-buffer)
-  :init (pt-desktop-wallpaper)
-  :bind
-  ("s-;" . pt-desktop-wallpaper)
-  ("s-<left>" . pt-desktop-previous-player)
-  ("s-<right>" . pt-desktop-next-player)
-  ("s-SPC" . pt-desktop-play-pause-player)
-  ("s-<down>" . pt-desktop-lower-volume)
-  ("s-<up>" . pt-desktop-raise-volume)
-  ("s-m" . pt-desktop-mute-volume)
-  ("s-S-<down>" . pt-desktop-lower-mic-volume)
-  ("s-S-<up>" . pt-desktop-raise-mic-volume)
-  ("s-M" . pt-desktop-mute-mic-volume)
-  ("s-+" . pt-desktop-raise-brightness)
-  ("s-=" . pt-desktop-lower-brightness)
-  ("s-a" . pt-desktop-powersettings))
+(setup project
+  (:global "C-x p l" #'eglot
+           "C-x p m" #'magit-project-status
+           "C-x p C" #'recompile)
+  (:option project-switch-commands '((?l "Eglot LSP" eglot)
+                                     (?d "Dired" project-dired)
+                                     (?e "Eshell" project-eshell)
+                                     (?f "File" project-find-file)
+                                     (?c "Compile" project-compile)
+                                     (?m "Magit" magit-project-status)
+                                     (?b "Buffer" project-switch-to-buffer))))
 
-(use-package protobuf-mode
-  :ensure t
-  :mode "\\.proto\\'")
+(setup (:package protobuf-mode)
+  (:file-match "\\.proto\\'")
+  (:hook subword-mode
+         electric-pair-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
-(use-package proced
-  :bind
-  ("C-c d" . proced))
+(setup proced
+  (:global "C-c d" #'proced))
 
-(use-package shr
-  :custom
-  (shr-width 70)
-  (shr-use-fonts nil))
+(setup shr
+  (:option shr-width 70
+           shr-use-fonts nil))
 
-(use-package simple
-  :bind
-  ("C-c s" . list-processes)
-  ("M-z" . zap-to-char)
-  ("M-Z" . zap-up-to-char))
+(setup simple
+  (:global "C-c s" #'list-processes
+           "M-z" #'zap-to-char
+           "M-Z" #'zap-up-to-char))
 
-(use-package server
-  :unless (server-running-p)
-  :config
-  (server-start))
+(setup smtpmail
+  (:option smtpmail-smtp-service 465
+           smtpmail-stream-type 'ssl
+           message-signature "josegpt"
+           smtpmail-smtp-user "josegpt27"
+           mail-user-agent 'sendmail-user-agent
+           send-mail-function 'smtpmail-send-it
+           user-full-name "Jose G Perez Taveras"
+           smtpmail-smtp-server "smtp.gmail.com"
+           user-mail-address "josegpt27@gmail.com"
+           smtpmail-auth-credentials "~/.authinfo.gpg"
+           smtpmail-default-smtp-server "smtp.gmail.com"
+           message-send-mail-function 'smtpmail-send-it))
 
-(use-package smtpmail
-  :custom
-  (smtpmail-smtp-service 465)
-  (smtpmail-stream-type 'ssl)
-  (message-signature "josegpt")
-  (smtpmail-smtp-user "josegpt27")
-  (mail-user-agent 'sendmail-user-agent)
-  (send-mail-function 'smtpmail-send-it)
-  (user-full-name "Jose G Perez Taveras")
-  (smtpmail-smtp-server "smtp.gmail.com")
-  (user-mail-address "josegpt27@gmail.com")
-  (smtpmail-auth-credentials "~/.authinfo.gpg")
-  (smtpmail-default-smtp-server "smtp.gmail.com")
-  (message-send-mail-function 'smtpmail-send-it))
+(setup sh-mode
+  (:file-match "\\template\\'")
+  (:hook electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
-(use-package sh-script
-  :mode ("\\template\\'" . sh-mode))
+(setup tab-bar
+  (:option tab-bar-new-button-show nil
+           tab-bar-close-button-show nil
+           tab-bar-format '(tab-bar-format-global))
+  (tab-bar-mode))
 
-(use-package subword
-  :hook ((js-mode go-mode typescript-mode ledger-mode protobuf-mode) . subword-mode))
+(setup time
+  (:option display-time-format "%B %d %Y - %I:%M%P")
+  (display-time-mode))
 
-(use-package tab-bar
-  :config
-  (tab-bar-mode)
-  :custom
-  (tab-bar-new-button-show nil)
-  (tab-bar-close-button-show nil)
-  (tab-bar-format '(tab-bar-format-global)))
+(setup (:package typescript-mode)
+  (:file-match "\\.tsx?\\'")
+  (:option typescript-indent-level 2)
+  (:hook subword-mode
+         electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
-(use-package time
-  :config
-  (display-time-mode)
-  :custom
-  (display-time-format "%B %d %Y - %I:%M%P"))
+(setup tooltip
+  (:option tooltip-mode nil))
 
-(use-package typescript-mode
-  :ensure t
-  :mode "\\.tsx?\\'"
-  :custom
-  (typescript-indent-level 2))
+(setup (:package vue-mode)
+  (:file-match "\\.vue\\'")
+  (:hook subword-mode
+         electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
-(use-package tooltip
-  :custom
-  (tooltip-mode nil))
+(setup vc
+  (:option vc-follow-symlinks t))
 
-(use-package vue-mode
-  :ensure t
-  :mode "\\.vue\\'")
+(setup webjump
+  (:global "C-c j" #'webjump)
+  (:option webjump-sites '(("Jose G" . "josegpt.com")
+                           ("Gmail" . "mail.google.com")
+                           ("PTServer" . "ptserver.org")
+                           ("Discord" . "discord.com/app")
+                           ("WhatsApp" . "web.whatsapp.com")
+                           ("Google Photos" . "photos.google.com")
+                           ("Google Drive" . "drive.google.com/drive/my-drive")
+                           ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
+                           ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
+                           ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
+                           ("Emacs Repository" . "http://git.savannah.gnu.org/cgit/emacs.git")
+                           ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
+                           ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
+                           ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
+                           ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
+                           ("Wikipedia" . [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""])
+                           ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
+                           ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
+                           ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
+                           ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
+                           ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
+                           ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
+                           ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
+                           ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
+                           ("Repology" . "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com")
+                           ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
 
-(use-package vc
-  :custom
-  (vc-follow-symlinks t))
+(setup whitespace
+  (:option whitespace-style '(face
+                              tabs
+                              empty
+                              spaces
+                              newline
+                              tab-mark
+                              trailing
+                              space-mark
+                              indentation
+                              space-after-tab
+                              space-before-tab)))
 
-(use-package webjump
-  :bind
-  ("C-c j" . webjump)
-  :custom
-  (webjump-sites '(("Jose G" . "josegpt.com")
-                   ("Gmail" . "mail.google.com")
-                   ("PTServer" . "ptserver.org")
-                   ("Discord" . "discord.com/app")
-                   ("WhatsApp" . "web.whatsapp.com")
-                   ("Google Photos" . "photos.google.com")
-                   ("Google Drive" . "drive.google.com/drive/my-drive")
-                   ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
-                   ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
-                   ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
-                   ("Emacs Repository" . "http://git.savannah.gnu.org/cgit/emacs.git")
-                   ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
-                   ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
-                   ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
-                   ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
-                   ("Wikipedia" . [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""])
-                   ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
-                   ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
-                   ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
-                   ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
-                   ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
-                   ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
-                   ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
-                   ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
-                   ("Repology" . "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com")
-                   ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
+(setup window
+  (:global "s-0" #'delete-window
+           "s-1" #'delete-other-windows
+           "s-2" #'split-window-below
+           "s-3" #'split-window-right
+           "s-o" #'other-window
+           "s-b" #'previous-buffer
+           "s-f" #'next-buffer
+           "s-k" #'kill-current-buffer)
+  (:option display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
+                                   (display-buffer-no-window))
+                                  ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
+                                   (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                                   (window-height . 0.40)
+                                   (side . bottom)
+                                   (slot . 1))
+                                  ("\\*\\(Help\\|eldoc.*\\)\\*"
+                                   (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                                   (window-height . 0.40)
+                                   (side . bottom)
+                                   (slot . 0))
+                                  ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Ledger.*\\)\\*"
+                                   (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                                   (window-height . 0.40)
+                                   (slot . -1)))))
 
-(use-package whitespace
-  :hook ((prog-mode text-mode conf-mode protobuf-mode) . whitespace-mode)
-  :custom
-  (whitespace-style '(face
-                      tabs
-                      empty
-                      spaces
-                      newline
-                      tab-mark
-                      trailing
-                      space-mark
-                      indentation
-                      space-after-tab
-                      space-before-tab)))
+(setup (:package yaml-mode)
+  (:file-match "\\.ya?ml\\'")
+  (:hook display-line-numbers-mode
+         whitespace-mode))
 
-(use-package window
-  :bind
-  ("s-0" . delete-window)
-  ("s-1" . delete-other-windows)
-  ("s-2" . split-window-below)
-  ("s-3" . split-window-right)
-  ("s-o" . other-window)
-  ("s-b" . previous-buffer)
-  ("s-f" . next-buffer)
-  ("s-k" . kill-current-buffer)
-  :custom
-  (display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
-                           (display-buffer-no-window))
-                          ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
-                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.40)
-                           (side . bottom)
-                           (slot . 1))
-                          ("\\*\\(Help\\|eldoc.*\\)\\*"
-                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.40)
-                           (side . bottom)
-                           (slot . 0))
-                          ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Ledger.*\\)\\*"
-                           (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                           (window-height . 0.40)
-                           (slot . -1)))))
-
-(use-package yaml-mode
-  :ensure t
-  :mode "\\.ya?ml\\'")
-
-(use-package yasnippet
-  :ensure t
-  :config
+(setup (:package yasnippet)
   (yas-global-mode))
 
 ;;; init.el ends here
