@@ -52,6 +52,7 @@
   (:global "C-c c" #'canales-watch))
 
 (setup compile
+  (:global "C-x p C" #'recompile)
   (:option compilation-scroll-output t))
 
 (setup css-mode
@@ -243,7 +244,6 @@ _\\/_            |      o/      _\\/_
            show-paren-context-when-offscreen t))
 
 (setup project
-  (:global "C-x p C" #'recompile)
   (:option project-switch-commands '((?l "Eglot LSP" eglot)
                                      (?d "Dired" project-dired)
                                      (?e "Eshell" project-eshell)
