@@ -51,7 +51,10 @@
   (browse-url-browser-function 'eww-browse-url)
   (browse-url-secondary-browser-function 'browse-url-default-browser)
   (browse-url-handlers
-   '((".*\\(amazon\\|ebay\\|youtube\\|git\\(hub\\|lab\\)\\|twitch\\|discord\\|whatsapp\\|google\\)" . browse-url-default-browser))))
+   '((".*[Gg]it\\([Hh]ub\\|[Ll]ab\\)" . browse-url-default-browser)
+     (".*\\([Yy]outube\\|[Tt]witch\\)" . browse-url-default-browser)
+     (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
+     (".*\\([Aa]mazon\\|[Ee]bay\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
 (use-package canales
   :bind
