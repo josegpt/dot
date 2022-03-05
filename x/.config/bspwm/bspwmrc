@@ -16,3 +16,4 @@ _ normal_border_color  "#444444"
 
 feh --randomize --bg-scale ~/.config/wallpapers/*
 pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x picom > /dev/null || picom &
