@@ -263,7 +263,7 @@ _\\/_            |      o/      _\\/_
   (:global "C-c d" #'proced))
 
 (setup shr
-  (:option shr-width 70
+  (:option shr-width 72
            shr-use-fonts nil))
 
 (setup simple
