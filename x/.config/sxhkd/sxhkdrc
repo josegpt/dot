@@ -8,10 +8,10 @@ super + e
 super + w
   firefox
 
-super + {space,left,right}
+super + {space,Left,Right}
   playerctl {play-pause,previous,next}
 
-super + {_,shift +}{m,down,up}
+super + {_,shift +}{m,Down,Up}
   amixer set {Master,Capture} {toggle,10%-,10%+}
 
 super + {equal,plus}
