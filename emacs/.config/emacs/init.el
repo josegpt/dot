@@ -207,7 +207,7 @@ _\\/_            |      o/      _\\/_
                             ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
 
 (setup (:package magit)
-  (:global "C-x g" #'magit-status)
+  (:global "C-x p m" #'magit-project-status)
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
@@ -243,8 +243,7 @@ _\\/_            |      o/      _\\/_
            show-paren-context-when-offscreen t))
 
 (setup project
-  (:global "C-x p m" #'magit-project-status
-           "C-x p C" #'recompile)
+  (:global "C-x p C" #'recompile)
   (:option project-switch-commands '((?l "Eglot LSP" eglot)
                                      (?d "Dired" project-dired)
                                      (?e "Eshell" project-eshell)
