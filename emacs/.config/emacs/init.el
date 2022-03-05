@@ -52,7 +52,6 @@
   (:global "C-c c" #'canales-watch))
 
 (setup compile
-  (:global "C-x p C" #'recompile)
   (:option compilation-scroll-output t))
 
 (setup css-mode
