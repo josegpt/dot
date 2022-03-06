@@ -48,7 +48,7 @@
              (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
              (".*\\([Aa]mazon\\|[Ee]bay\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
-(setup canales
+(setup (:require canales)
   (:global "C-c c" #'canales-watch))
 
 (setup compile
@@ -235,7 +235,7 @@ _\\/_            |      o/      _\\/_
   (:global "M-p" #'move-text-up
            "M-n" #'move-text-down))
 
-(setup otaku
+(setup (:require otaku)
   (:global "C-c o s" #'otaku-search-anime
            "C-c o r" #'otaku-recent-anime-episodes))
 
