@@ -161,7 +161,7 @@ _\\/_            |      o/      _\\/_
 
 (setup (:package go-mode)
   (:file-match "\\.go\\'")
-  (:local-set compile-command "go build")
+  (:local-set compile-command "go build ")
   (:hook subword-mode
          electric-pair-mode
          show-paren-mode
