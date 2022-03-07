@@ -187,7 +187,7 @@ _\\/_            |      o/      _\\/_
 (setup js-mode
   (:file-match "\\.js\\'")
   (:option js-indent-level 2)
-  (:local-set compile-command "npm run")
+  (:local-set compile-command "npm run ")
   (:hook subword-mode
          electric-pair-mode
          show-paren-mode
