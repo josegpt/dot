@@ -1,0 +1,49 @@
+######################
+# General settings an key bindings
+######################
+
+workspaces 1
+background 0 0 0
+
+escape L-t
+
+bind g abort
+bind n nextscreen
+bind p prevscreen
+bind w exec firefox
+bind a time
+bind i show_info
+
+######################
+# Bind Function keys
+######################
+definekey top L-p prev
+definekey top L-n next
+definekey top L-Q quit
+definekey top L-q close
+definekey top L-e exec emacsclient -a "" -c
+definekey top L-Left exec playerctl previous
+definekey top L-Right exec playerctl next
+definekey top L-space exec playerctl play-pause
+definekey top L-S-Down exec amixer set Capture 10%-
+definekey top L-S-Up exec amixer set Capture 10%+
+definekey top L-M exec amixer set Capture toggle
+definekey top L-Down exec amixer set Master 10%-
+definekey top L-Up exec amixer set Master 10%+
+definekey top L-m exec amixer set Master toggle
+definekey top L-equal exec light -U 10
+definekey top L-plus exec light -A 10
+
+######################
+# Output configuration
+######################
+#output eDP-1 pos 0 0 res 1366x768 rate 60
+#output eDP-1 disable
+#output eDP-1 enable
+
+#####################
+#Input configuration
+#####################
+#input 1234:0:Device_Ident click_method clickfinger
+#input type:pointer scroll_method two_finger
+#input * calibration_matrix 1 2 3 4 5 6
