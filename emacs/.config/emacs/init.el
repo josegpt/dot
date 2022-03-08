@@ -307,7 +307,7 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
-(setup modus-themes
+(setup (:package modus-themes)
   (:global "s-'" #'modus-themes-toggle)
   (load-theme 'modus-vivendi t))
 
