@@ -286,6 +286,10 @@ _\\/_            |      o/      _\\/_
            "M-z" #'zap-to-char
            "M-Z" #'zap-up-to-char))
 
+(setup server
+  (unless (server-running-p)
+    (server-start)))
+
 (setup smtpmail
   (:option smtpmail-smtp-service 465
            smtpmail-stream-type 'ssl
