@@ -277,9 +277,6 @@ _\\/_            |      o/      _\\/_
          display-line-numbers-mode
          whitespace-mode))
 
-(setup proced
-  (:global "C-c d" #'proced))
-
 (setup shr
   (:option shr-width 72
            shr-use-fonts nil))
