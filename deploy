@@ -13,7 +13,7 @@ _() {
 
 _handler() {
     case $1 in
-        desktop|laptop) _ emacs git shell ;;
+        desktop|laptop) _ emacs git shell x ;;
         *) echo "error: unknown computer \`$1'"; _die
     esac
 }
