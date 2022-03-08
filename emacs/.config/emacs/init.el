@@ -336,9 +336,6 @@ _\\/_            |      o/      _\\/_
   (:with-hook exwm-update-title-hook
     (:hook pt-desktop-rename-workspace-buffer))
   (:global "s-;" #'pt-desktop-wallpaper
-           "s-<left>" #'pt-desktop-previous-player
-           "s-<right>" #'pt-desktop-next-player
-           "s-SPC" #'pt-desktop-play-pause-player
            "s-<down>" #'pt-desktop-lower-volume
            "s-<up>" #'pt-desktop-raise-volume
            "s-m" #'pt-desktop-mute-volume

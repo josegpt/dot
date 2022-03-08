@@ -48,21 +48,6 @@
   (exwm-workspace-rename-buffer exwm-title))
 
 ;;;###autoload
-(defun pt-desktop-play-pause-player ()
-  (interactive)
-  (pt-desktop--run-command "playerctl play-pause"))
-
-;;;###autoload
-(defun pt-desktop-next-player ()
-  (interactive)
-  (pt-desktop--run-command "playerctl next"))
-
-;;;###autoload
-(defun pt-desktop-previous-player ()
-  (interactive)
-  (pt-desktop--run-command "playerctl previous"))
-
-;;;###autoload
 (defun pt-desktop-raise-volume ()
   (interactive)
   (pt-desktop--run-command "amixer set Master 10%+"))
