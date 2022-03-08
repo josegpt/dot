@@ -150,6 +150,86 @@ _\\/_            |      o/      _\\/_
            eww-header-line-format nil
            eww-search-prefix "https://duckduckgo.com/lite?q="))
 
+(setup (:package exwm)
+  (:global "C-q" #'exwm-input-send-next-key)
+  (:option exwm-workspace-number 1
+           exwm-workspace-warp-cursor t
+           exwm-input-prefix-keys '(?\C-x
+                                    ?\C-c
+                                    ?\C-u
+                                    ?\C-h
+                                    ?\C-g
+                                    ?\M-x
+                                    ?\M-:
+                                    ?\M-!
+                                    s-return
+                                    ?\s-0
+                                    ?\s-1
+                                    ?\s-2
+                                    ?\s-3
+                                    ?\s-o
+                                    ?\s-b
+                                    ?\s-f
+                                    ?\s-k
+                                    ?\s-p
+                                    ?\s-n
+                                    ?\s-a
+                                    ?\s- 
+                                    s-left
+                                    s-right
+                                    s-down
+                                    s-up
+                                    ?\s-m
+                                    S-s-down
+                                    S-s-up
+                                    ?\s-M
+                                    ?\s-+
+                                    ?\s-=)
+           exwm-input-global-keys
+           `(([?\s-w] . exwm-workspace-switch)
+             ([?\C-c ?\C-j] . exwm-reset)
+             ([?\s-&] . (lambda (command)
+                          (interactive (list (read-shell-command "$ ")))
+                          (start-process-shell-command command nil command))))
+           exwm-input-simulation-keys
+           '(([?\C-b] . [left])
+             ([?\C-f] . [right])
+             ([?\C-p] . [up])
+             ([?\C-n] . [down])
+             ([?\C-a] . [home])
+             ([?\C-e] . [end])
+             ([?\C-v] . [next])
+             ([?\M-v] . [prior])
+             ([?\M-b] . [C-left])
+             ([?\M-f] . [C-right])
+             ([?\M-p] . [M-up])
+             ([?\M-n] . [M-down])
+             ([?\M-<] . [home])
+             ([?\M->] . [end])
+             ([?\C-/] . [?\C-z])
+             ([?\C-w] . [?\C-x])
+             ([?\M-w] . [?\C-c])
+             ([?\C-y] . [?\C-v])
+             ([?\C-s] . [?\C-g])
+             ([?\C-r] . [C-S-g])
+             ([?\C-t] . [?\C-t])
+             ([?\C-j] . [?\C-k])
+             ([?\C-d] . [delete])
+             ([?\C-c ?r] . [?\C-r])
+             ([?\C-c ?s] . [?\C-f])
+             ([?\C-c ?f] . [?\C-l])
+             ([?\C-c ?h] . [?\C-a])
+             ([?\C-c ?k] . [?\C-w])
+             ([?\C-c ?/] . [C-S-z])
+             ([?\M-@] . [C-S-right])
+             ([?\C-c ?g] . [escape])
+             ([?\C-\M-b] . [M-left])
+             ([?\C-\M-f] . [M-right])
+             ([?\C-k] . [C-S-end ?\C-x])
+             ([?\M-d] . [C-S-right ?\C-x])
+             ([M-backspace] . [C-S-left ?\C-x])))
+  (exwm-enable))
+
 (setup flymake
   (:bind "M-g p" #'flymake-goto-prev-error
          "M-g n" #'flymake-goto-next-error
