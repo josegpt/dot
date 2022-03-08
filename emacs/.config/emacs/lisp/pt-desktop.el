@@ -50,32 +50,32 @@
 ;;;###autoload
 (defun pt-desktop-raise-volume ()
   (interactive)
-  (pt-desktop--run-command "amixer set Master 10%+"))
+  (pt-desktop--run-command "sndioctl output.level=+0.1"))
 
 ;;;###autoload
 (defun pt-desktop-lower-volume ()
   (interactive)
-  (pt-desktop--run-command "amixer set Master 10%-"))
+  (pt-desktop--run-command "sndioctl output.level=-0.1"))
 
 ;;;###autoload
 (defun pt-desktop-mute-volume ()
   (interactive)
-  (pt-desktop--run-command "amixer set Master toggle"))
+  (pt-desktop--run-command "sndioctl output.mute=!"))
 
 ;;;###autoload
 (defun pt-desktop-raise-mic-volume ()
   (interactive)
-  (pt-desktop--run-command "amixer set Capture 10%+"))
+  (pt-desktop--run-command "sndioctl input.level=+0.1"))
 
 ;;;###autoload
 (defun pt-desktop-lower-mic-volume ()
   (interactive)
-  (pt-desktop--run-command "amixer set Capture 10%-"))
+  (pt-desktop--run-command "sndioctl input.level=-0.1"))
 
 ;;;###autoload
 (defun pt-desktop-mute-mic-volume ()
   (interactive)
-  (pt-desktop--run-command "amixer set Capture toggle"))
+  (pt-desktop--run-command "sndioctl input.mute=!"))
 
 ;;;###autoload
 (defun pt-desktop-raise-brightness ()
