@@ -1,7 +1,7 @@
 alias ll ls -lh
 alias la ls -lah
 alias rb doas reboot
-alias sd doas halt -p
+alias po doas halt -p
 alias pa doas pkg_add $*
 alias pu doas pkg_add -u
 alias pr doas pkg_delete $*
