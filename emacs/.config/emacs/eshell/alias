@@ -9,4 +9,5 @@ alias pro doas pkg_delete -a
 alias pq pkg_info -Q $*
 alias pqi pkg_info -m
 alias pqd pkg_info -mz
+alias pc doas pkg_check -f
 alias sup doas sysupgrade -s
