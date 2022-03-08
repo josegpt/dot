@@ -1,13 +1,8 @@
-;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("cagebreak-config"
- (filename . "~/projects/dotfiles/w/.config/cagebreak/config")
- (front-context-string . "################")
- (rear-context-string)
- (position . 1))
-("deploy-sh"
+(("deploy-sh"
  (filename . "~/projects/dotfiles/deploy")
  (front-context-string . "#!/bin/sh\n\n_die(")
  (rear-context-string)
@@ -15,21 +10,6 @@
 ("git-config"
  (filename . "~/projects/dotfiles/git/.config/git/config")
  (front-context-string . "[user]\n  email =")
- (rear-context-string)
- (position . 1))
-(".inputrc"
- (filename . "~/projects/dotfiles/shell/.inputrc")
- (front-context-string . "# ~/.inputrc\n\n$i")
- (rear-context-string)
- (position . 1))
-(".bashrc"
- (filename . "~/projects/dotfiles/shell/.bashrc")
- (front-context-string . "# ~/.bashrc\n\n# I")
- (rear-context-string)
- (position . 1))
-(".bash_profile"
- (filename . "~/projects/dotfiles/shell/.bash_profile")
- (front-context-string . "# ~/.bash_profil")
  (rear-context-string)
  (position . 1))
 ("raspberry-ssh"
