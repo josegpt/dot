@@ -252,6 +252,24 @@ _\\/_            |      o/      _\\/_
                                      (?m "Magit" magit-project-status)
                                      (?b "Buffer" project-switch-to-buffer))))
 
+(setup (:require pt-desktop)
+  (:with-hook exwm-update-title-hook
+    (:hook pt-desktop-rename-workspace-buffer))
+  (:global "s-;" #'pt-desktop-wallpaper
+           "s-<left>" #'pt-desktop-previous-player
+           "s-<right>" #'pt-desktop-next-player
+           "s-SPC" #'pt-desktop-play-pause-player
+           "s-<down>" #'pt-desktop-lower-volume
+           "s-<up>" #'pt-desktop-raise-volume
+           "s-m" #'pt-desktop-mute-volume
+           "s-S-<down>" #'pt-desktop-lower-mic-volume
+           "s-S-<up>" #'pt-desktop-raise-mic-volume
+           "s-M" #'pt-desktop-mute-mic-volume
+           "s-+" #'pt-desktop-raise-brightness
+           "s-=" #'pt-desktop-lower-brightness
+           "s-a" #'pt-desktop-powersettings)
+  (pt-desktop-wallpaper))
+
 (setup (:package protobuf-mode)
   (:file-match "\\.proto\\'")
   (:hook subword-mode
