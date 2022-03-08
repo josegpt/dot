@@ -311,7 +311,7 @@ _\\/_            |      o/      _\\/_
 
 (setup (:package modus-themes)
   (:global "s-'" #'modus-themes-toggle)
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-operandi t))
 
 (setup (:package move-text)
   (:global "M-p" #'move-text-up
