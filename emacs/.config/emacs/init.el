@@ -347,7 +347,8 @@ _\\/_            |      o/      _\\/_
            "s-+" #'pt-desktop-raise-brightness
            "s-=" #'pt-desktop-lower-brightness
            "s-a" #'pt-desktop-powersettings)
-  (pt-desktop-wallpaper))
+  (pt-desktop-wallpaper)
+  (pt-desktop-sunrise-sunset-toggle-theme))
 
 (setup (:package protobuf-mode)
   (:file-match "\\.proto\\'")

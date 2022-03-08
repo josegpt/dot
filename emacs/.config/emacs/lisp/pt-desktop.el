@@ -39,6 +39,12 @@
   :type 'list
   :group 'application)
 
+(defun pt-desktop-sunrise-sunset-toggle-theme ()
+  (let ((calendar-time-display-form '(12-hours ":" minutes am-pm))
+        (l (solar-sunrise-sunset (calendar-current-date))))
+    (run-at-time (apply #'solar-time-string (car l)) nil #'modus-themes-load-operandi)
+    (run-at-time (apply #'solar-time-string (cadr l)) nil #'modus-themes-load-vivendi)))
+
 ;;;###autoload
 (defun pt-desktop--run-command (cmmd)
   (start-process-shell-command "pt-desktop" nil cmmd))
