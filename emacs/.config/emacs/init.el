@@ -387,7 +387,7 @@ _\\/_            |      o/      _\\/_
                                    (window-width . 0.45)
                                    (side . right)
                                    (slot . -1))
-                                  ("\\*\\(Help\\|eldoc.*\\|Ledger.*\\)\\*"
+                                  ("\\*\\(Help\\|eldoc.*\\|Man.*\\|Woman.*\\|Ledger.*\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
                                    (window-width . 0.45)
                                    (side . right)
