@@ -339,7 +339,9 @@ _\\/_            |      o/      _\\/_
 (setup (:require pt-desktop)
   (:with-hook exwm-update-title-hook
     (:hook pt-desktop-rename-workspace-buffer))
-  (:global "s-;" #'pt-desktop-wallpaper
+  (:global "s-p" #'pt-desktop-previous-workspace
+           "s-n" #'pt-desktop-next-workspace
+           "s-;" #'pt-desktop-wallpaper
            "s-<down>" #'pt-desktop-lower-volume
            "s-<up>" #'pt-desktop-raise-volume
            "s-m" #'pt-desktop-mute-volume

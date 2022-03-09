@@ -107,5 +107,19 @@
   (interactive)
   (pt-desktop--run-command "feh --randomize --bg-scale ~/.config/wallpapers/*"))
 
+;;;###autoload
+(defun pt-desktop-previous-workspace ()
+  (interactive)
+  (if (< 0 exwm-workspace-current-index)
+      (exwm-workspace-switch (1- exwm-workspace-current-index))
+    (exwm-workspace-switch (1- (exwm-workspace--count)))))
+
+;;;###autoload
+(defun pt-desktop-next-workspace ()
+  (interactive)
+  (if (> (1- (exwm-workspace--count)) exwm-workspace-current-index)
+      (exwm-workspace-switch (1+ exwm-workspace-current-index))
+    (exwm-workspace-switch 0)))
+
 (provide 'pt-desktop)
 ;;; pt-desktop.el ends here
