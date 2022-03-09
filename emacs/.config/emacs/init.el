@@ -156,7 +156,7 @@ _\\/_            |      o/      _\\/_
 
 (setup (:package exwm)
   (:global "C-q" #'exwm-input-send-next-key)
-  (:option exwm-workspace-number 1
+  (:option exwm-workspace-number 2
            exwm-workspace-warp-cursor t
            exwm-input-prefix-keys '(?\C-x
                                     ?\C-c
