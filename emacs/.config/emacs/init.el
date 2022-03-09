@@ -39,20 +39,22 @@
 (setup bookmark
   (:global "C-c b" #'bookmark-jump))
 
-(setup browse-url
-  (:option browse-url-browser-function 'eww-browse-url
-           browse-url-secondary-browser-function 'browse-url-default-browser
-           browse-url-handlers
-           '((".*[Gg]it\\([Hh]ub\\|[Ll]ab\\)" . browse-url-default-browser)
-             (".*\\([Yy]outube\\|[Tt]witch\\)" . browse-url-default-browser)
-             (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
-             (".*\\([Aa]mazon\\|[Ee]bay\\|[Gg]oogle\\)" . browse-url-default-browser))))
+;; emacs28
+;; (setup browse-url
+;;   (:option browse-url-browser-function 'eww-browse-url
+;;            browse-url-secondary-browser-function 'browse-url-default-browser
+;;            browse-url-handlers
+;;            '((".*[Gg]it\\([Hh]ub\\|[Ll]ab\\)" . browse-url-default-browser)
+;;              (".*\\([Yy]outube\\|[Tt]witch\\)" . browse-url-default-browser)
+;;              (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
+;;              (".*\\([Aa]mazon\\|[Ee]bay\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
 (setup (:require canales)
   (:global "C-c c" #'canales-watch))
 
-(setup compile
-  (:option compilation-scroll-output t))
+;; emacs29
+;; (setup compile
+;;   (:option compilation-scroll-output t))
 
 (setup css-mode
   (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
@@ -391,11 +393,12 @@ _\\/_            |      o/      _\\/_
          display-line-numbers-mode
          whitespace-mode))
 
-(setup tab-bar
-  (:option tab-bar-new-button-show nil
-           tab-bar-close-button-show nil
-           tab-bar-format '(tab-bar-format-global))
-  (tab-bar-mode))
+;; emacs28
+;; (setup tab-bar
+;;   (:option tab-bar-new-button-show nil
+;;            tab-bar-close-button-show nil
+;;            tab-bar-format '(tab-bar-format-global))
+;;   (tab-bar-mode))
 
 (setup time
   (:option display-time-format "%B %d %Y - %I:%M%P")
