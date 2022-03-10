@@ -493,7 +493,7 @@ _\\/_            |      o/      _\\/_
                                    (window-height . 0.40)
                                    (side . bottom)
                                    (slot . -1))
-                                  ("\\*\\(Help\\|eldoc.*\\|Man.*\\|Woman.*\\|Ledger.*\\)\\*"
+                                  ("\\*\\(Help\\|Man.*\\|Woman.*\\|Ledger.*\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
                                    (window-width . 0.45)
                                    (side . right)
