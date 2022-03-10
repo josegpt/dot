@@ -490,8 +490,8 @@ _\\/_            |      o/      _\\/_
                                    (slot . 1))
                                   ("\\*\\(Backtrace\\|Warnings\\|compilation\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                                   (window-width . 0.45)
-                                   (side . right)
+                                   (window-height . 0.40)
+                                   (side . bottom)
                                    (slot . -1))
                                   ("\\*\\(Help\\|eldoc.*\\|Man.*\\|Woman.*\\|Ledger.*\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
