@@ -337,6 +337,8 @@ _\\/_            |      o/      _\\/_
                                      (?b "Buffer" project-switch-to-buffer))))
 
 (setup (:require pt-desktop)
+  (:with-hook after-init-hook
+    (:hook #'pt-desktop-wallpaper))
   (:with-hook exwm-update-title-hook
     (:hook #'pt-desktop-rename-workspace-buffer))
   (:global "s-p" #'pt-desktop-previous-workspace
@@ -351,7 +353,6 @@ _\\/_            |      o/      _\\/_
            "s-+" #'pt-desktop-raise-brightness
            "s-=" #'pt-desktop-lower-brightness
            "s-a" #'pt-desktop-powersettings)
-  (pt-desktop-wallpaper)
   (pt-desktop-sunrise-sunset-toggle-theme))
 
 (setup (:package protobuf-mode)
