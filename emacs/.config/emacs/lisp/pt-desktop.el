@@ -49,7 +49,6 @@
 (defun pt-desktop--run-command (cmmd)
   (start-process-shell-command "pt-desktop" nil cmmd))
 
-;;;###autoload
 (defun pt-desktop-rename-workspace-buffer ()
   (exwm-workspace-rename-buffer exwm-title))
 
