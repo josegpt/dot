@@ -138,7 +138,6 @@ _\\/_            |      o/      _\\/_
            eww-search-prefix "https://duckduckgo.com/lite?q="))
 
 (setup (:package exwm)
-  (:global "C-q" #'exwm-input-send-next-key)
   (:option exwm-workspace-number 2
            exwm-workspace-warp-cursor t
            exwm-input-prefix-keys '(?\C-x
