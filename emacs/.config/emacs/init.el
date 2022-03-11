@@ -317,6 +317,8 @@ _\\/_            |      o/      _\\/_
 (setup (:require pt-desktop)
   (:with-hook after-init-hook
     (:hook #'pt-desktop-wallpaper))
+  (:with-hook exwm-manage-finish-hook
+    (:hook #'pt-desktop-move-to-workspace))
   (:with-hook exwm-update-title-hook
     (:hook #'pt-desktop-rename-workspace-buffer))
   (:global "s-p" #'pt-desktop-previous-workspace

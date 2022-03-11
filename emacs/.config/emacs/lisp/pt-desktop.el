@@ -45,12 +45,16 @@
     (run-at-time (apply #'solar-time-string (car l)) nil #'modus-themes-load-operandi)
     (run-at-time (apply #'solar-time-string (cadr l)) nil #'modus-themes-load-vivendi)))
 
-;;;###autoload
-(defun pt-desktop--run-command (cmmd)
-  (start-process-shell-command "pt-desktop" nil cmmd))
+(defun pt-desktop-move-to-workspace ()
+  (pcase exwm-class-name
+    ("Firefox" (exwm-workspace-move-window 1))))
 
 (defun pt-desktop-rename-workspace-buffer ()
   (exwm-workspace-rename-buffer exwm-title))
+
+;;;###autoload
+(defun pt-desktop--run-command (cmmd)
+  (start-process-shell-command "pt-desktop" nil cmmd))
 
 ;;;###autoload
 (defun pt-desktop-raise-volume ()
