@@ -473,7 +473,7 @@ _\\/_            |      o/      _\\/_
                                    (window-height . 0.40)
                                    (side . bottom)
                                    (slot . 1))
-                                  ("\\*\\(Backtrace\\|Warnings\\|compilation\\)\\*"
+                                  ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Gofmt.*\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
                                    (window-height . 0.40)
                                    (side . bottom)
