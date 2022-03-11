@@ -4,4 +4,6 @@
 
 pgrep -x picom > /dev/null || picom &
 
+xset b off
+
 exec emacs
