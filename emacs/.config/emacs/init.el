@@ -67,7 +67,7 @@
            calendar-location-name "Clifton, NJ")
   (display-sunrise-sunset-mode))
 
-(setup display-wttr
+(setup (:package display-wttr)
   (:option display-wttr-format "%C:+%t+%f+%w")
   (display-wttr-mode))
 
