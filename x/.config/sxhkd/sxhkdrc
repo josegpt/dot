@@ -27,13 +27,13 @@ super + semicolon
 super + Escape ; {r,q,k}
   {bspc wm -r,bspc quit,pkill -USR1 -x sxhkd}
 
-super + t
+super + s
   bspc node -s biggest.window
 
 super + {_,shift + }q
   bspc node -{c,k}
 
-super + s
+super + t
   bspc desktop -l next
 
 super + {p,n}
