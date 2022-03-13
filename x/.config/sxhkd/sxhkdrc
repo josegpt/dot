@@ -6,7 +6,7 @@ super + e
   emacsclient -a "" -c
 
 super + w
-  firefox
+  chrome
 
 super + {_,shift +}{m,Down,Up}
   sndioctl {output,input}.{mute=!,level=-0.1,level=+0.1}
