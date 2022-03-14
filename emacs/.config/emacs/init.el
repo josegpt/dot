@@ -36,9 +36,6 @@
   (:only-if (string= (system-name) "josegpt-laptop.lan"))
   (display-battery-mode))
 
-(setup bookmark
-  (:global "C-c b" #'bookmark-jump))
-
 ;; emacs28
 ;; (setup browse-url
 ;;   (:option browse-url-browser-function 'eww-browse-url
