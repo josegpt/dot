@@ -45,9 +45,8 @@
 ;;            browse-url-secondary-browser-function 'browse-url-default-browser
 ;;            browse-url-handlers
 ;;            '((".*[Gg]it\\([Hh]ub\\|[Ll]ab\\)" . browse-url-default-browser)
-;;              (".*\\([Yy]outube\\|[Tt]witch\\)" . browse-url-default-browser)
 ;;              (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
-;;              (".*\\([Aa]mazon\\|[Ee]bay\\|[Gg]oogle\\)" . browse-url-default-browser))))
+;;              (".*\\([Yy]outube\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
 (setup (:require canales)
   (:global "C-c c" #'canales-watch))
