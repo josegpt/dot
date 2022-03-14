@@ -268,14 +268,6 @@ _\\/_            |      o/      _\\/_
 (setup tooltip
   (:option tooltip-mode nil))
 
-(setup (:package vue-mode)
-  (:file-match "\\.vue\\'")
-  (:hook subword-mode
-         electric-pair-mode
-         show-paren-mode
-         display-line-numbers-mode
-         whitespace-mode))
-
 (setup vc
   (:option vc-follow-symlinks t))
 
