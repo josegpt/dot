@@ -217,14 +217,6 @@ _\\/_            |      o/      _\\/_
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
 
-(setup project
-  (:option project-switch-commands '((?d "Dired" project-dired)
-                                     (?e "Eshell" project-eshell)
-                                     (?f "File" project-find-file)
-                                     (?c "Compile" project-compile)
-                                     (?m "Magit" magit-project-status)
-                                     (?b "Buffer" project-switch-to-buffer))))
-
 (setup (:package protobuf-mode)
   (:file-match "\\.proto\\'")
   (:hook subword-mode
