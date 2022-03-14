@@ -307,13 +307,7 @@ _\\/_            |      o/      _\\/_
                            ("Google Photos" . "photos.google.com")
                            ("Google Drive" . "drive.google.com/drive/my-drive")
                            ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
-                           ("Amazon" . [simple-query "amazon.com" "amazon.com/s?k=" ""])
-                           ("Reddit Sub" . [simple-query "reddit.com" "reddit.com/r/" ""])
-                           ("Emacs Repository" . "http://git.savannah.gnu.org/cgit/emacs.git")
                            ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
-                           ("Ebay" . [simple-query "ebay.com" "ebay.com/sch/i.html?_nkw=" ""])
-                           ("Twitch" . [simple-query "twitch.tv" "twitch.tv/search?term=" ""])
-                           ("Reddit" . [simple-query "reddit.com" "reddit.com/search/?q=" ""])
                            ("Wikipedia" . [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""])
                            ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
                            ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
@@ -323,8 +317,7 @@ _\\/_            |      o/      _\\/_
                            ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
                            ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
                            ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
-                           ("Repology" . "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com")
-                           ("Void Packages" . [simple-query "voidlinux.org/packages/" "voidlinux.org/packages/?arch=x86_64&q=" ""]))))
+                           ("Repology" . "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com"))))
 
 (setup whitespace
   (:option whitespace-style '(face
