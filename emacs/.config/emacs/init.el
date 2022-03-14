@@ -214,6 +214,8 @@ _\\/_            |      o/      _\\/_
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
 
+(setup (:package project))
+
 (setup (:package protobuf-mode)
   (:file-match "\\.proto\\'")
   (:hook subword-mode
