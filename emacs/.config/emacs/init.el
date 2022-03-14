@@ -213,10 +213,6 @@ _\\/_            |      o/      _\\/_
 (setup (:package modus-themes)
   (load-theme 'modus-vivendi t))
 
-(setup (:package move-text)
-  (:global "M-p" #'move-text-up
-           "M-n" #'move-text-down))
-
 (setup (:require otaku)
   (:global "C-c o s" #'otaku-search-anime
            "C-c o r" #'otaku-recent-anime-episodes))
