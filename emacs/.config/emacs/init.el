@@ -244,13 +244,6 @@ _\\/_            |      o/      _\\/_
            smtpmail-default-smtp-server "smtp.gmail.com"
            message-send-mail-function 'smtpmail-send-it))
 
-(setup sh-mode
-  (:file-match "\\template\\'")
-  (:hook electric-pair-mode
-         show-paren-mode
-         display-line-numbers-mode
-         whitespace-mode))
-
 ;; emacs28
 ;; (setup tab-bar
 ;;   (:option tab-bar-new-button-show nil
