@@ -128,9 +128,6 @@ _\\/_            |      o/      _\\/_
       (set-face-attribute 'default nil :family "Iosevka" :height 100 :weight 'light)
     (set-face-attribute 'default nil :family "Iosevka" :height 140 :weight 'light)))
 
-(setup epg-config
-  (:option epg-pinentry-mode 'loopback))
-
 (setup eww
   (:option eww-auto-rename-buffer t
            eww-header-line-format nil
