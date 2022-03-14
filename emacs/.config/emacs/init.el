@@ -368,7 +368,7 @@ _\\/_            |      o/      _\\/_
                                    (window-height . 0.40)
                                    (side . bottom)
                                    (slot . -1))
-                                  ("\\*\\(Help\\|Man.*\\|Woman.*\\|Ledger.*\\)\\*"
+                                  ("\\*\\(Help\\|Man.*\\|Woman.*\\|Occur\\|Ledger.*\\)\\*"
                                    (display-buffer-reuse-mode-window display-buffer-in-side-window)
                                    (window-width . 0.45)
                                    (side . right)
