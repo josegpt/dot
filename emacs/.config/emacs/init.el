@@ -136,7 +136,7 @@ _\\/_            |      o/      _\\/_
 (setup (:package go-mode)
   (:file-match "\\.go\\'")
   (:option gofmt-command "goimports")
-  (:local-set compile-command "go build ")
+  (:local-set compile-command "go run ")
   (:local-hook before-save-hook #'gofmt-before-save)
   (:hook subword-mode
          electric-pair-mode
