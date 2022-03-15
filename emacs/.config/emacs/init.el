@@ -60,7 +60,9 @@
 (setup (:require display-sunrise-sunset)
   (:option calendar-latitude 40.86
            calendar-longitude -74.16
-           calendar-location-name "Clifton, NJ")
+           calendar-location-name "Clifton, NJ"
+           display-sunrise-sunset-run-at-sunrise #'modus-themes-load-operandi
+           display-sunrise-sunset-run-at-sunset #'modus-themes-load-vivendi)
   (display-sunrise-sunset-mode))
 
 (setup (:package display-wttr)
