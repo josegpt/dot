@@ -41,11 +41,32 @@
   "List of functions to be called when sunrise-sunset is updated in the mode line."
   :type 'hook)
 
+(defcustom display-sunrise-sunset-run-at-sunrise nil
+  "Run specified function at sunrise."
+  :type 'function)
+
+(defcustom display-sunrise-sunset-run-at-sunset nil
+  "Run specified function at sunset."
+  :type 'function)
+
 (defvar display-sunrise-sunset-string nil
   "String used in mode line to display sunrise sunset string.
 It should not be set directly, but is instead updated by the
 `display-sunrise-sunset' function.")
 ;;;###autoload(put 'display-sunrise-sunset-string 'risky-local-variable t)
+
+(defvar display-sunrise-sunset-run-at-sunrise-timer nil
+  "String used in mode line to display sunrise sunset string.
+It should not be set directly, but is instead updated by the
+`display-sunrise-sunset' function.")
+;;;###autoload(put 'display-sunrise-sunset-run-at-sunrise-timer 'risky-local-variable t)
+
+
+(defvar display-sunrise-sunset-run-at-sunset-timer nil
+  "String used in mode line to display sunrise sunset string.
+It should not be set directly, but is instead updated by the
+`display-sunrise-sunset' function.")
+;;;###autoload(put 'display-sunrise-sunset-run-at-sunset-timer 'risky-local-variable t)
 
 (defvar display-sunrise-sunset-timer nil
   "String used in mode line to display sunrise sunset string.
@@ -71,13 +92,23 @@ sunrise-sunset with the specified `display-sunrise-sunset-interval'"
 
 (defun display-sunrise-sunset-update ()
   "Update sunrise-sunset in mode line."
-  (let ((calendar-time-display-form '(12-hours ":" minutes am-pm))
-        (l (solar-sunrise-sunset (calendar-current-date))))
+  (and display-sunrise-sunset-run-at-sunrise-timer
+       (cancel-timer display-sunrise-sunset-run-at-sunrise-timer))
+  (and display-sunrise-sunset-run-at-sunset-timer
+       (cancel-timer display-sunrise-sunset-run-at-sunset-timer))
+  (let* ((calendar-time-display-form '(12-hours ":" minutes am-pm))
+         (l (solar-sunrise-sunset (calendar-current-date)))
+         (sunrise (apply #'solar-time-string (car l)))
+         (sunset (apply #'solar-time-string (cadr l))))
     (setq display-sunrise-sunset-string
-          (format "[↑%s ↓%s] "
-                  (apply #'solar-time-string (car l))
-                  (apply #'solar-time-string (cadr l))))
-    (run-hooks 'display-sunrise-sunset-hook))
+          (format "[↑%s ↓%s] " sunrise sunset))
+    (run-hooks 'display-sunrise-sunset-hook)
+    (and display-sunrise-sunset-run-at-sunrise
+         (setq display-sunrise-sunset-run-at-sunrise-timer
+               (run-at-time sunrise nil display-sunrise-sunset-run-at-sunrise)))
+    (and display-sunrise-sunset-run-at-sunset
+         (setq display-sunrise-sunset-run-at-sunset-timer
+               (run-at-time sunset nil display-sunrise-sunset-run-at-sunset))))
   (force-mode-line-update 'all))
 
 ;;;###autoload
@@ -97,6 +128,10 @@ customizing `display-sunrise-sunset-interval'"
   :global t
   :group 'display-sunrise-sunset
   (and display-sunrise-sunset-timer (cancel-timer display-sunrise-sunset-timer))
+  (and display-sunrise-sunset-run-at-sunrise-timer
+       (cancel-timer display-sunrise-sunset-run-at-sunrise-timer))
+  (and display-sunrise-sunset-run-at-sunset-timer
+       (cancel-timer display-sunrise-sunset-run-at-sunset-timer))
   (setq display-sunrise-sunset-string "")
   (or global-mode-string (setq global-mode-string '("")))
   (when display-sunrise-sunset-mode
