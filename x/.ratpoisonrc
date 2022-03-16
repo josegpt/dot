@@ -1,0 +1,42 @@
+###########
+# Autorun #
+###########
+
+exec xcompmgr -c -f -D 4 &
+exec feh --randomize --bg-scale ~/.config/wallpapers/* &
+
+##########
+# Config #
+##########
+
+gravity c
+set font "Iosevka:size=10:light"
+set wingravity c
+set bargravity c
+set transgravity c
+set maxsizegravity c
+set fgcolor "#ffffff"
+set bgcolor "#111111"
+
+###############
+# Keybindings #
+##############
+
+escape C-semicolon
+
+bind c exec emacsclient -a "" -c
+bind C-c exec emacsclient -a "" -c
+
+bind slash exec chrome
+bind C-slash exec chrome
+
+definekey top s-equal exec xbacklight -dec 10%
+definekey top s-plus exec xbacklight -inc 10%
+
+definekey top s-Down exec sndioctl output.level=-0.1
+definekey top s-Up exec sndioctl output.level=+0.1
+definekey top s-m exec sndioctl output.mute=!
+
+definekey top s-S-Down exec sndioctl input.level=-0.1
+definekey top s-S-Up exec sndioctl input.level=+0.1
+definekey top s-M exec sndioctl input.mute=!

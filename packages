@@ -1,4 +1,3 @@
-bspwm--
 chromium--
 emacs--gtk3%emacs
 entr--
@@ -8,7 +7,7 @@ git--
 go--
 iosevka--
 ledger--
-picom--
 protobuf--
 quirks--
+ratpoison--
 stow--
