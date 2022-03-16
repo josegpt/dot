@@ -29,7 +29,7 @@ addhook switchwin banish
 # Keybindings #
 ###############
 
-escape C-semicolon
+escape C-period
 
 bind c exec emacsclient -a "" -c
 bind C-c exec emacsclient -a "" -c
