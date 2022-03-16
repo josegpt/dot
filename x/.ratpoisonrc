@@ -31,8 +31,9 @@ addhook switchwin banish
 
 escape C-period
 
-bind c exec emacsclient -a "" -c
-bind C-c exec emacsclient -a "" -c
+alias emacs exec emacsclient -a "" -c
+bind c emacs
+bind C-c emacs
 
 bind slash exec chrome
 bind C-slash exec chrome
