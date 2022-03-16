@@ -27,7 +27,7 @@ addhook switchwin banish
 
 ###############
 # Keybindings #
-##############
+###############
 
 escape C-semicolon
 
