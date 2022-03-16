@@ -35,8 +35,9 @@ alias emacs exec emacsclient -a "" -c
 bind c emacs
 bind C-c emacs
 
-bind slash exec chrome
-bind C-slash exec chrome
+alias browser exec chrome
+bind slash browser
+bind C-slash browser
 
 definekey top s-equal exec xbacklight -dec 10%
 definekey top s-plus exec xbacklight -inc 10%
