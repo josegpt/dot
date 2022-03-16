@@ -10,7 +10,7 @@ exec feh --randomize --bg-scale ~/.config/wallpapers/* &
 ##########
 
 gravity c
-set font "Iosevka:size=10:light"
+set font "Iosevka:size=16:light"
 set wingravity c
 set bargravity c
 set transgravity c
