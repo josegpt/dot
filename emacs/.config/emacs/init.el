@@ -108,7 +108,8 @@ _\\/_            |      o/      _\\/_
            erc-kill-buffer-on-part t
            erc-server "irc.us.libera.chat"
            erc-user-full-name "Jose G Perez Taveras"
-           erc-autojoin-channels-alist '(("irc.libera.chat" "#openbsd" "#emacs" "#systemcrafters"))))
+           erc-autojoin-channels-alist
+           '(("irc.libera.chat" "#openbsd" "#emacs" "#systemcrafters"))))
 
 (setup emacs
   (:option tab-width 2
@@ -124,8 +125,14 @@ _\\/_            |      o/      _\\/_
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   (if (string= (system-name) "josegpt-laptop.lan")
-      (set-face-attribute 'default nil :family "Iosevka" :height 100 :weight 'light)
-    (set-face-attribute 'default nil :family "Iosevka" :height 140 :weight 'light)))
+      (set-face-attribute 'default nil
+                          :family "Iosevka"
+                          :height 100
+                          :weight 'light)
+    (set-face-attribute 'default nil
+                        :family "Iosevka"
+                        :height 140
+                        :weight 'light)))
 
 (setup eww
   (:option eww-auto-rename-buffer t
@@ -177,18 +184,20 @@ _\\/_            |      o/      _\\/_
   (:hook whitespace-mode)
   (:option ledger-complete-in-steps t
            ledger-clear-whole-transactions t
-           ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
-                            ("reg" "%(binary) -f %(ledger-file) reg")
-                            ("budget" "%(binary) -f %(ledger-file) bal --budget")
-                            ("account" "%(binary) -f %(ledger-file) reg %(account)")
-                            ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
-                            ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
+           ledger-reports
+           '(("bal" "%(binary) -f %(ledger-file) bal")
+             ("reg" "%(binary) -f %(ledger-file) reg")
+             ("budget" "%(binary) -f %(ledger-file) bal --budget")
+             ("account" "%(binary) -f %(ledger-file) reg %(account)")
+             ("net worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities")
+             ("cash flow" "%(binary) -f %(ledger-file) bal ^income ^equity ^expenses"))))
 
 (setup (:package magit)
   (:global "C-x p m" #'magit-project-status)
   (:hook electric-pair-mode)
   (:option magit-clone-default-directory "~/projects/"
-           magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+           magit-display-buffer-function
+           #'magit-display-buffer-same-window-except-diff-v1))
 
 (setup (:package markdown-mode)
   (:file-match "\\.md\\'"))
@@ -277,25 +286,39 @@ _\\/_            |      o/      _\\/_
 
 (setup webjump
   (:global "C-c j" #'webjump)
-  (:option webjump-sites '(("Jose G" . "josegpt.com")
-                           ("Gmail" . "mail.google.com")
-                           ("PTServer" . "ptserver.org")
-                           ("Discord" . "discord.com/app")
-                           ("WhatsApp" . "web.whatsapp.com")
-                           ("Google Photos" . "photos.google.com")
-                           ("Google Drive" . "drive.google.com/drive/my-drive")
-                           ("Melpa" . [simple-query "melpa.org" "melpa.org/#/?q=" ""])
-                           ("Github" . [simple-query "github.com" "github.com/search?q=" ""])
-                           ("Wikipedia" . [simple-query "wikipedia.org" "wikipedia.org/wiki/" ""])
-                           ("Gitlab" . [simple-query "gitlab.com" "gitlab.com/search?search=" ""])
-                           ("AnimeFLV" . [simple-query "animeflv.net" "animeflv.net/browse?q=" ""])
-                           ("Gitlab User & Repository" . [simple-query "gitlab.com" "gitlab.com/" ""])
-                           ("Github User & Repository" . [simple-query "github.com" "github.com/" ""])
-                           ("Youtube" . [simple-query "youtube.com" "youtube.com/results?search_query=" ""])
-                           ("Elpa" . [simple-query "elpa.gnu.org/packages/" "elpa.gnu.org/packages/" ".html"])
-                           ("Google" . [simple-query "google.com" "google.com/search?q=" "+-site:pinterest.com"])
-                           ("Youtube Music" . [simple-query "music.youtube.com" "music.youtube.com/search?q=" ""])
-                           ("Repology" . "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com"))))
+  (:option webjump-sites
+           '(("Jose G" . "josegpt.com")
+             ("Gmail" . "mail.google.com")
+             ("PTServer" . "ptserver.org")
+             ("Discord" . "discord.com/app")
+             ("WhatsApp" . "web.whatsapp.com")
+             ("Google Photos" . "photos.google.com")
+             ("Google Drive" . "drive.google.com/drive/my-drive")
+             ("Melpa" . [simple-query "melpa.org"
+                                      "melpa.org/#/?q=" ""])
+             ("Github" . [simple-query "github.com"
+                                       "github.com/search?q=" ""])
+             ("Wikipedia" . [simple-query "wikipedia.org"
+                                          "wikipedia.org/wiki/" ""])
+             ("AnimeFLV" . [simple-query "animeflv.net"
+                                         "animeflv.net/browse?q=" ""])
+             ("Gitlab" . [simple-query "gitlab.com"
+                                       "gitlab.com/search?search=" ""])
+             ("Elpa" . [simple-query "elpa.gnu.org/packages/"
+                                     "elpa.gnu.org/packages/" ".html"])
+             ("Gitlab User & Repository" . [simple-query "gitlab.com"
+                                                         "gitlab.com/" ""])
+             ("Github User & Repository" . [simple-query "github.com"
+                                                         "github.com/" ""])
+             ("Youtube Music" . [simple-query "music.youtube.com"
+                                              "music.youtube.com/search?q=" ""])
+             ("Youtube" . [simple-query "youtube.com"
+                                        "youtube.com/results?search_query=" ""])
+             ("Google" . [simple-query "google.com"
+                                       "google.com/search?q=" "+-site:pinterest.com"])
+
+             ("Repology" .
+              "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com"))))
 
 (setup whitespace
   (:option whitespace-style '(face
@@ -319,23 +342,24 @@ _\\/_            |      o/      _\\/_
            "s-b" #'previous-buffer
            "s-f" #'next-buffer
            "s-k" #'kill-current-buffer)
-  (:option display-buffer-alist '(("\\`\\*Async Shell Command\\*\\'"
-                                   (display-buffer-no-window))
-                                  ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
-                                   (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                                   (window-height . 0.30)
-                                   (side . bottom)
-                                   (slot . 1))
-                                  ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Gofmt.*\\)\\*"
-                                   (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                                   (window-width . 0.45)
-                                   (side . right)
-                                   (slot . -1))
-                                  ("\\*\\(Help\\|Man.*\\|Woman.*\\|Occur\\|Ledger.*\\)\\*"
-                                   (display-buffer-reuse-mode-window display-buffer-in-side-window)
-                                   (window-width . 0.45)
-                                   (side . right)
-                                   (slot . 0)))))
+  (:option display-buffer-alist
+           '(("\\`\\*Async Shell Command\\*\\'"
+              (display-buffer-no-window))
+             ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
+              (display-buffer-reuse-mode-window display-buffer-in-side-window)
+              (window-height . 0.30)
+              (side . bottom)
+              (slot . 1))
+             ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Gofmt.*\\)\\*"
+              (display-buffer-reuse-mode-window display-buffer-in-side-window)
+              (window-width . 0.50)
+              (side . right)
+              (slot . -1))
+             ("\\*\\(Help\\|Man.*\\|Woman.*\\|Occur\\|Ledger.*\\)\\*"
+              (display-buffer-reuse-mode-window display-buffer-in-side-window)
+              (window-width . 0.50)
+              (side . right)
+              (slot . 0)))))
 
 (setup (:package yaml-mode)
   (:file-match "\\.ya?ml\\'")
