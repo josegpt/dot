@@ -268,16 +268,6 @@ _\\/_            |      o/      _\\/_
   (:option display-time-format "%B %d %Y - %I:%M%P")
   (display-time-mode))
 
-(setup (:package typescript-mode)
-  (:file-match "\\.tsx?\\'")
-  (:option typescript-indent-level 2)
-  (:local-set compile-command "npm run ")
-  (:hook subword-mode
-         electric-pair-mode
-         show-paren-mode
-         display-line-numbers-mode
-         whitespace-mode))
-
 (setup tooltip
   (:option tooltip-mode nil))
 
