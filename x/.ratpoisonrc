@@ -19,12 +19,6 @@ set fgcolor "#ffffff"
 set bgcolor "#111111"
 set font "Iosevka:size=16:light"
 
-#########
-# Hooks #
-#########
-
-addhook switchwin banish
-
 ###############
 # Keybindings #
 ###############
