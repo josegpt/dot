@@ -41,8 +41,7 @@
 ;;   (:option browse-url-browser-function 'eww-browse-url
 ;;            browse-url-secondary-browser-function 'browse-url-default-browser
 ;;            browse-url-handlers
-;;            '((".*[Gg]it\\([Hh]ub\\|[Ll]ab\\)" . browse-url-default-browser)
-;;              (".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
+;;            '((".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
 ;;              (".*\\([Yy]outube\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
 (setup (:require canales)
@@ -303,18 +302,12 @@ _\\/_            |      o/      _\\/_
              ("Google Drive" . "drive.google.com/drive/my-drive")
              ("Melpa" . [simple-query "melpa.org"
                                       "melpa.org/#/?q=" ""])
-             ("Github" . [simple-query "github.com"
-                                       "github.com/search?q=" ""])
              ("Wikipedia" . [simple-query "wikipedia.org"
                                           "wikipedia.org/wiki/" ""])
              ("AnimeFLV" . [simple-query "animeflv.net"
                                          "animeflv.net/browse?q=" ""])
-             ("Gitlab" . [simple-query "gitlab.com"
-                                       "gitlab.com/search?search=" ""])
              ("Elpa" . [simple-query "elpa.gnu.org/packages/"
                                      "elpa.gnu.org/packages/" ".html"])
-             ("Gitlab User & Repository" . [simple-query "gitlab.com"
-                                                         "gitlab.com/" ""])
              ("Github User & Repository" . [simple-query "github.com"
                                                          "github.com/" ""])
              ("Youtube Music" . [simple-query "music.youtube.com"
@@ -323,7 +316,6 @@ _\\/_            |      o/      _\\/_
                                         "youtube.com/results?search_query=" ""])
              ("Google" . [simple-query "google.com"
                                        "google.com/search?q=" "+-site:pinterest.com"])
-
              ("Repology" .
               "https://repology.org/projects/?search=&maintainer=josegpt27%40gmail.com"))))
 
