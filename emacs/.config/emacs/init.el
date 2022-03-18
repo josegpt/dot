@@ -293,11 +293,14 @@ _\\/_            |      o/      _\\/_
 (setup webjump
   (:global "C-c j" #'webjump)
   (:option webjump-sites
-           '(("Jose G" . "josegpt.com")
+           '(("Sourcehut" . "sr.ht")
+             ("Jose G" . "josegpt.com")
              ("Gmail" . "mail.google.com")
              ("PTServer" . "ptserver.org")
+             ("Git Sourcehut" . "git.sr.ht")
              ("Discord" . "discord.com/app")
              ("WhatsApp" . "web.whatsapp.com")
+             ("Builds Sourcehut" . "builds.sr.ht")
              ("Google Photos" . "photos.google.com")
              ("Google Drive" . "drive.google.com/drive/my-drive")
              ("Melpa" . [simple-query "melpa.org"
