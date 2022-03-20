@@ -82,23 +82,6 @@
   (:option display-line-numbers-type 'relative
            display-line-numbers-current-absolute t))
 
-(setup (:package elfeed) (:require pt-elfeed)
-  (:global "C-c r" #'elfeed)
-  (:with-mode elfeed-search-mode
-    (:bind "w" #'pt-elfeed-mpv-watch))
-  (:option elfeed-use-curl t
-           elfeed-search-title-max-width 100
-           elfeed-search-title-min-width 100
-           elfeed-db-directory "~/.cache/elfeed"
-           elfeed-search-filter "@1-month-ago +unread"
-           elfeed-feeds '(("https://reddit.com/r/emacs.rss" emacs)
-                          ("https://reddit.com/r/openbsd.rss" linux openbsd)
-                          ("https://sachachua.com/blog/category/emacs-news/feed" emacs news)
-                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw" youtube)
-                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g" youtube)
-                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA" youtube)
-                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA" youtube))))
-
 (setup emacs-lisp-mode
   (:file-match "\\.el\\'")
   (:hook electric-pair-mode
