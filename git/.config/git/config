@@ -4,8 +4,6 @@
   editor = emacsclient -a "" -c
 [init]
   defaultBranch = main
-[commit]
-  template = ~/.config/git/template
 [merge]
   ff = only
 [pull]
