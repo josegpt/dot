@@ -19,9 +19,9 @@
                      (convert-standard-filename "lisp/")))
 
 ;; native-compile all Elisp files under a directory
-;; (native-compile-async
-;;  (concat user-emacs-directory
-;;          (convert-standard-filename "lisp/")) 'recursively)
+(native-compile-async
+ (concat user-emacs-directory
+         (convert-standard-filename "lisp/")) 'recursively)
 
 ;;; Packages
 
@@ -36,20 +36,18 @@
   (:only-if (string= (system-name) "josegpt-laptop.lan"))
   (display-battery-mode))
 
-;; emacs28
-;; (setup browse-url
-;;   (:option browse-url-browser-function 'eww-browse-url
-;;            browse-url-secondary-browser-function 'browse-url-default-browser
-;;            browse-url-handlers
-;;            '((".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
-;;              (".*\\([Yy]outube\\|[Gg]oogle\\)" . browse-url-default-browser))))
+(setup browse-url
+  (:option browse-url-browser-function 'eww-browse-url
+           browse-url-secondary-browser-function 'browse-url-default-browser
+           browse-url-handlers
+           '((".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
+             (".*\\([Yy]outube\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
 (setup (:require canales)
   (:global "C-c c" #'canales-watch))
 
-;; emacs29
-;; (setup compile
-;;   (:option compilation-scroll-output t))
+(setup compile
+  (:option compilation-scroll-output t))
 
 (setup css-mode
   (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
@@ -197,7 +195,12 @@ _\\/_            |      o/      _\\/_
   (:hook electric-pair-mode)
   (:option magit-clone-default-directory "~/projects/"
            magit-display-buffer-function
-           #'magit-display-buffer-same-window-except-diff-v1))
+           #'magit-display-buffer-same-window-except-diff-v1
+           magit-clone-url-format "git@%h:%n"
+           magit-clone-name-alist '(("\\`\\(?:github:\\|gh:\\)?\\([^:]+\\)\\'" "github.com" "github.user")
+                                    ("\\`\\(?:sourcehut:\\|sr:\\)?\\([^:]+\\)\\'" "git.sr.ht" "sourcehut.user"))))
+
+
 
 (setup (:package markdown-mode)
   (:file-match "\\.md\\'"))
@@ -214,7 +217,7 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
-(setup (:package modus-themes)
+(setup modus-themes
   (load-theme 'modus-vivendi t))
 
 (setup (:require otaku)
@@ -224,6 +227,14 @@ _\\/_            |      o/      _\\/_
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
+
+(setup sh-mode
+  (:file-match "\\APKBUILD\\'")
+  (:hook subword-mode
+         electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
 (setup (:package project))
 
@@ -257,12 +268,11 @@ _\\/_            |      o/      _\\/_
            smtpmail-default-smtp-server "smtp.gmail.com"
            message-send-mail-function 'smtpmail-send-it))
 
-;; emacs28
-;; (setup tab-bar
-;;   (:option tab-bar-new-button-show nil
-;;            tab-bar-close-button-show nil
-;;            tab-bar-format '(tab-bar-format-global))
-;;   (tab-bar-mode))
+(setup tab-bar
+  (:option tab-bar-new-button-show nil
+           tab-bar-close-button-show nil
+           tab-bar-format '(tab-bar-format-global))
+  (tab-bar-mode))
 
 (setup time
   (:option display-time-format "%B %d %Y - %I:%M%P")
@@ -356,3 +366,16 @@ _\\/_            |      o/      _\\/_
   (yas-global-mode))
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(yasnippet yaml-mode setup protobuf-mode project modus-themes markdown-mode magit ledger-mode go-mode exwm elfeed dockerfile-mode display-wttr)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

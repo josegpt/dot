@@ -2,17 +2,16 @@
 (setq package-enable-at-startup t)
 
 ;; Allow loading from the package cache
-;; (setq package-quickstart t)
+(setq package-quickstart t)
 
 ;; Set alias to y-or-n
-;; (setq use-short-answers t) ; emacs28
-(defalias 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 
 ;; Do not resize at early stage
 (setq frame-inhibit-implied-resize t)
 
 ;; Deferred native comp
-;; (setq native-comp-deferred-compilation t) ; emacs28
+(setq native-comp-deferred-compilation t)
 
 ;; Disable GUI elements
 (menu-bar-mode 0)
@@ -24,4 +23,4 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 (setq inhibit-startup-buffer-menu t)
-;; (setq native-comp-async-report-warnings-errors 'silent) ; emacs28
+(setq native-comp-async-report-warnings-errors 'silent)
