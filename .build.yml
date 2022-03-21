@@ -9,4 +9,4 @@ tasks:
   - mirror: |
       cd dotfiles
       git remote add mirror git@github.com:josegpt/dotfiles.git
-      git push mirror main
+      git push -f mirror main
