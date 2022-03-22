@@ -220,10 +220,6 @@ _\\/_            |      o/      _\\/_
 (setup modus-themes
   (load-theme 'modus-vivendi t))
 
-(setup (:require otaku)
-  (:global "C-c o s" #'otaku-search-anime
-           "C-c o r" #'otaku-recent-anime-episodes))
-
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
