@@ -74,7 +74,9 @@
 
 (setup (:package dockerfile-mode)
   (:file-match "\\Dockerfile\\'")
-  (:hook display-line-numbers-mode))
+  (:hook display-line-numbers-mode
+         whitespace-mode
+         display-line-numbers-mode))
 
 (setup display-line-numbers
   (:option display-line-numbers-type 'relative
