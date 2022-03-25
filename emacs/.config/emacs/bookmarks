@@ -12,16 +12,6 @@
  (front-context-string . "[user]\n  email =")
  (rear-context-string)
  (position . 1))
-("raspberry-ssh"
- (filename . "/ssh:pi@192.168.1.250:~/")
- (front-context-string . ".bash_history\n  ")
- (rear-context-string . "7K Dec 14 21:02 ")
- (position . 169))
-("ptserver-ssh"
- (filename . "/ssh:josegpt@ptserver.org:~/")
- (front-context-string . ".bash_logout\n  -")
- (rear-context-string . "20 Apr 18  2019 ")
- (position . 196))
 ("eshell-aliases"
  (filename . "~/projects/dotfiles/emacs/.config/emacs/eshell/alias")
  (front-context-string . "alias ll ls -lh\n")
