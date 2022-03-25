@@ -3,10 +3,10 @@
   name = Jose G Perez Taveras
   editor = emacsclient -a "" -c
 [init]
-  defaultBranch = main
+    defaultBranch = main
 [merge]
-  ff = only
+    ff = only
 [pull]
-  rebase = true
+    rebase = true
 [fetch]
-  prune = true
+    prune = true
