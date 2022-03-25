@@ -110,7 +110,7 @@ _\\/_            |      o/      _\\/_
            '(("irc.libera.chat" "#openbsd" "#emacs" "#systemcrafters"))))
 
 (setup emacs
-  (:option tab-width 2
+  (:option tab-width 4
            fill-column 72
            cursor-type 'bar
            indent-tabs-mode nil
