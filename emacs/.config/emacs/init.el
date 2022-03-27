@@ -362,16 +362,3 @@ _\\/_            |      o/      _\\/_
   (yas-global-mode))
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yasnippet yaml-mode setup protobuf-mode project modus-themes markdown-mode magit ledger-mode go-mode exwm elfeed dockerfile-mode display-wttr)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
