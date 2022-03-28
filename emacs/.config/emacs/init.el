@@ -140,6 +140,14 @@ _\\/_            |      o/      _\\/_
 (setup frame
   (:option blink-cursor-mode nil))
 
+(setup (:package graphql-mode)
+  (:file-match "\\.graphqls?\\'")
+  (:hook subword-mode
+         electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
+
 (setup (:package go-mode)
   (:file-match "\\.go\\'")
   (:option gofmt-command "goimports")
