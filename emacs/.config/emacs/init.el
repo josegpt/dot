@@ -19,9 +19,9 @@
                      (convert-standard-filename "lisp/")))
 
 ;; native-compile all Elisp files under a directory
-(native-compile-async
- (concat user-emacs-directory
-         (convert-standard-filename "lisp/")) 'recursively)
+;; (native-compile-async
+;;  (concat user-emacs-directory
+;;          (convert-standard-filename "lisp/")) 'recursively)
 
 ;;; Packages
 
