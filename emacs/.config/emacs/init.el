@@ -339,8 +339,6 @@ _\\/_            |      o/      _\\/_
            "s-2" #'split-window-below
            "s-3" #'split-window-right
            "s-o" #'other-window
-           "s-b" #'previous-buffer
-           "s-f" #'next-buffer
            "s-k" #'kill-current-buffer)
   (:option display-buffer-alist
            '(("\\`\\*Async Shell Command\\*\\'"
