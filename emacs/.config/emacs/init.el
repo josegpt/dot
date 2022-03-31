@@ -345,17 +345,17 @@ _\\/_            |      o/      _\\/_
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
               (window-height . 0.30)
               (side . bottom)
-              (slot . 1))
+              (slot . 0))
              ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Gofmt.*\\)\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (window-width . 0.50)
-              (side . right)
+              (window-height . 0.30)
+              (side . bottom)
               (slot . -1))
              ("\\*\\(Help\\|Man.*\\|Woman.*\\|Occur\\|Ledger.*\\)\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (window-width . 0.50)
-              (side . right)
-              (slot . 0)))))
+              (window-height . 0.30)
+              (side . bottom)
+              (slot . 1)))))
 
 (setup (:package yaml-mode)
   (:file-match "\\.ya?ml\\'")
