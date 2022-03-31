@@ -208,8 +208,6 @@ _\\/_            |      o/      _\\/_
            magit-clone-name-alist '(("\\`\\(?:github:\\|gh:\\)?\\([^:]+\\)\\'" "github.com" "github.user")
                                     ("\\`\\(?:sourcehut:\\|sr:\\)?\\([^:]+\\)\\'" "git.sr.ht" "sourcehut.user"))))
 
-
-
 (setup (:package markdown-mode)
   (:file-match "\\.md\\'"))
 
