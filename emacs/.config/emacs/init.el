@@ -277,7 +277,7 @@ _\\/_            |      o/      _\\/_
   (tab-bar-mode))
 
 (setup time
-  (:option display-time-format "%B %d %Y - %I:%M%P")
+  (:option display-time-format "%A, %B %d %Y - %I:%M %p")
   (display-time-mode))
 
 (setup tooltip
