@@ -122,15 +122,10 @@ _\\/_            |      o/      _\\/_
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-  (if (string= (system-name) "josegpt-laptop.lan")
-      (set-face-attribute 'default nil
-                          :family "Iosevka"
-                          :height 100
-                          :weight 'light)
-    (set-face-attribute 'default nil
-                        :family "Iosevka"
-                        :height 140
-                        :weight 'light)))
+  (set-face-attribute 'default nil
+                      :family "Iosevka"
+                      :height 140
+                      :weight 'light))
 
 (setup eww
   (:option eww-auto-rename-buffer t
