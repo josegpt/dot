@@ -107,7 +107,7 @@ _\\/_            |      o/      _\\/_
            erc-server "irc.us.libera.chat"
            erc-user-full-name "Jose G Perez Taveras"
            erc-autojoin-channels-alist
-           '(("irc.libera.chat" "#openbsd" "#emacs" "#systemcrafters"))))
+           '(("irc.libera.chat" "#openbsd" "#emacs"))))
 
 (setup emacs
   (:option tab-width 4
