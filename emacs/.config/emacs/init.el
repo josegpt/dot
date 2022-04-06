@@ -440,16 +440,21 @@ _\\/_            |      o/      _\\/_
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
               (window-height . 0.35)
               (side . bottom)
-              (slot . 0))
+              (slot . -1))
              ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Gofmt.*\\)\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (window-height . 0.35)
-              (side . bottom)
+              (window-width . 0.45)
+              (side . right)
+              (slot . 0))
+             ("\\(magit-diff\\)"
+              (display-buffer-reuse-mode-window display-buffer-in-side-window)
+              (window-width . 0.45)
+              (side . right)
               (slot . -1))
              ("\\*\\(Help\\|Man.*\\|Woman.*\\|Occur\\|Ledger.*\\)\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (window-height . 0.35)
-              (side . bottom)
+              (window-width . 0.45)
+              (side . right)
               (slot . 1)))))
 
 (setup (:package yaml-mode)
