@@ -2,4 +2,4 @@
 
 pgrep -x picom > /dev/null || picom &
 
-exec emacs
+exec emacsclient -a "" -c
