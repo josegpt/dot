@@ -132,81 +132,6 @@ _\\/_            |      o/      _\\/_
            eww-header-line-format nil
            eww-search-prefix "https://duckduckgo.com/lite?q="))
 
-(setup (:package exwm)
-  (:option exwm-workspace-number 2
-           exwm-workspace-warp-cursor t
-           exwm-input-prefix-keys '(?\C-x
-                                    ?\C-c
-                                    ?\C-u
-                                    ?\C-h
-                                    ?\C-g
-                                    ?\M-x
-                                    ?\M-:
-                                    ?\M-!
-                                    s-return
-                                    ?\s-0
-                                    ?\s-1
-                                    ?\s-2
-                                    ?\s-3
-                                    ?\s-o
-                                    ?\s-k
-                                    ?\s-p
-                                    ?\s-n
-                                    ?\s-a
-                                    ?\s- 
-                                    s-down
-                                    s-up
-                                    ?\s-m
-                                    S-s-down
-                                    S-s-up
-                                    ?\s-M
-                                    ?\s-+
-                                    ?\s-=)
-           exwm-input-global-keys
-           `(([?\s-w] . exwm-workspace-switch)
-             ([?\C-c ?\C-j] . exwm-reset)
-             ([?\s-&] . (lambda (command)
-                          (interactive (list (read-shell-command "$ ")))
-                          (start-process-shell-command command nil command))))
-           exwm-input-simulation-keys
-           '(([?\C-b] . [left])
-             ([?\C-f] . [right])
-             ([?\C-p] . [up])
-             ([?\C-n] . [down])
-             ([?\C-a] . [home])
-             ([?\C-e] . [end])
-             ([?\C-v] . [next])
-             ([?\M-v] . [prior])
-             ([?\M-b] . [C-left])
-             ([?\M-f] . [C-right])
-             ([?\M-p] . [M-up])
-             ([?\M-n] . [M-down])
-             ([?\M-<] . [home])
-             ([?\M->] . [end])
-             ([?\C-/] . [?\C-z])
-             ([?\C-w] . [?\C-x])
-             ([?\M-w] . [?\C-c])
-             ([?\C-y] . [?\C-v])
-             ([?\C-s] . [?\C-g])
-             ([?\C-r] . [C-S-g])
-             ([?\C-t] . [?\C-t])
-             ([?\C-j] . [?\C-k])
-             ([?\C-d] . [delete])
-             ([?\C-c ?r] . [?\C-r])
-             ([?\C-c ?s] . [?\C-f])
-             ([?\C-c ?f] . [?\C-l])
-             ([?\C-c ?h] . [?\C-a])
-             ([?\C-c ?k] . [?\C-w])
-             ([?\C-c ?/] . [C-S-z])
-             ([?\M-@] . [C-S-right])
-             ([?\C-c ?g] . [escape])
-             ([?\C-\M-b] . [M-left])
-             ([?\C-\M-f] . [M-right])
-             ([?\C-k] . [C-S-end ?\C-x])
-             ([?\M-d] . [C-S-right ?\C-x])
-             ([M-backspace] . [C-S-left ?\C-x])))
-  (exwm-enable))
-
 (setup frame
   (:option blink-cursor-mode nil))
 
@@ -308,26 +233,6 @@ _\\/_            |      o/      _\\/_
          display-line-numbers-mode
          whitespace-mode))
 
-(setup (:require pt-desktop)
-  (:with-hook after-init-hook
-    (:hook #'pt-desktop-wallpaper))
-  (:with-hook exwm-manage-finish-hook
-    (:hook #'pt-desktop-move-to-workspace))
-  (:with-hook exwm-update-title-hook
-    (:hook #'pt-desktop-rename-workspace-buffer))
-  (:global "s-p" #'pt-desktop-previous-workspace
-           "s-n" #'pt-desktop-next-workspace
-           "s-;" #'pt-desktop-wallpaper
-           "s-<down>" #'pt-desktop-lower-volume
-           "s-<up>" #'pt-desktop-raise-volume
-           "s-m" #'pt-desktop-mute-volume
-           "s-S-<down>" #'pt-desktop-lower-mic-volume
-           "s-S-<up>" #'pt-desktop-raise-mic-volume
-           "s-M" #'pt-desktop-mute-mic-volume
-           "s-+" #'pt-desktop-raise-brightness
-           "s-=" #'pt-desktop-lower-brightness
-           "s-a" #'pt-desktop-powersettings))
-
 (setup proced
   (:global "C-c d" #'proced))
 
@@ -337,10 +242,6 @@ _\\/_            |      o/      _\\/_
          electric-pair-mode
          display-line-numbers-mode
          whitespace-mode))
-
-(setup setup
-  (unless (server-running-p)
-    (server-start)))
 
 (setup shr
   (:option shr-width 72
