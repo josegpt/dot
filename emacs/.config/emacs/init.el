@@ -124,8 +124,7 @@ _\\/_            |      o/      _\\/_
   (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   (set-face-attribute 'default nil
                       :family "Iosevka"
-                      :height 140
-                      :weight 'light))
+                      :height 120))
 
 (setup eww
   (:option eww-auto-rename-buffer t
