@@ -242,20 +242,6 @@ _\\/_            |      o/      _\\/_
            "M-z" #'zap-to-char
            "M-Z" #'zap-up-to-char))
 
-(setup smtpmail
-  (:option smtpmail-smtp-service 465
-           smtpmail-stream-type 'ssl
-           message-signature "josegpt"
-           smtpmail-smtp-user "josegpt27"
-           mail-user-agent 'sendmail-user-agent
-           send-mail-function 'smtpmail-send-it
-           user-full-name "Jose G Perez Taveras"
-           smtpmail-smtp-server "smtp.gmail.com"
-           user-mail-address "josegpt27@gmail.com"
-           smtpmail-auth-credentials "~/.authinfo.gpg"
-           smtpmail-default-smtp-server "smtp.gmail.com"
-           message-send-mail-function 'smtpmail-send-it))
-
 (setup tab-bar
   (:option tab-bar-new-button-show nil
            tab-bar-close-button-show nil
