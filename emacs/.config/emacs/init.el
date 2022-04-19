@@ -208,8 +208,6 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
-(setup (:package modus-themes)
-  (load-theme 'modus-vivendi t))
 
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
