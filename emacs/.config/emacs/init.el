@@ -58,7 +58,7 @@
   (display-sunrise-sunset-mode))
 
 (setup (:package display-wttr)
-  (:option display-wttr-format "2")
+  (:option display-wttr-format "%C:+%t+%f+%w")
   (display-wttr-mode))
 
 (setup dired
