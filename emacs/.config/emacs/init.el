@@ -226,13 +226,6 @@ _\\/_            |      o/      _\\/_
 (setup proced
   (:global "C-c d" #'proced))
 
-(setup (:package protobuf-mode)
-  (:file-match "\\.proto\\'")
-  (:hook subword-mode
-         electric-pair-mode
-         display-line-numbers-mode
-         whitespace-mode))
-
 (setup shr
   (:option shr-width 72
            shr-use-fonts nil))
