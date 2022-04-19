@@ -133,6 +133,9 @@ _\\/_            |      o/      _\\/_
          display-line-numbers-mode
          whitespace-mode))
 
+(setup (:package gruvbox-theme)
+  (load-theme 'gruvbox-dark-hard t))
+
 (setup (:package go-mode)
   (:file-match "\\.go\\'")
   (:option gofmt-command "goimports")
