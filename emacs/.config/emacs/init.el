@@ -289,6 +289,26 @@ _\\/_            |      o/      _\\/_
 
 (setup (:package project))
 
+(setup (:require pt-desktop)
+  (:with-hook after-init-hook
+    (:hook #'pt-desktop-wallpaper))
+  (:with-hook exwm-manage-finish-hook
+    (:hook #'pt-desktop-move-to-workspace))
+  (:with-hook exwm-update-title-hook
+    (:hook #'pt-desktop-rename-workspace-buffer))
+  (:global "s-p" #'pt-desktop-previous-workspace
+           "s-n" #'pt-desktop-next-workspace
+           "s-;" #'pt-desktop-wallpaper
+           "s-<down>" #'pt-desktop-lower-volume
+           "s-<up>" #'pt-desktop-raise-volume
+           "s-m" #'pt-desktop-mute-volume
+           "s-S-<down>" #'pt-desktop-lower-mic-volume
+           "s-S-<up>" #'pt-desktop-raise-mic-volume
+           "s-M" #'pt-desktop-mute-mic-volume
+           "s-+" #'pt-desktop-raise-brightness
+           "s-=" #'pt-desktop-lower-brightness
+           "s-a" #'pt-desktop-powersettings))
+
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
