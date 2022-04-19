@@ -25,9 +25,6 @@
 
 ;;; Packages
 
-(setup auth-source-pass
-  (auth-source-pass-enable))
-
 (setup autorevert
   (:option global-auto-revert-non-file-buffers nil)
   (global-auto-revert-mode))
