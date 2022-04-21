@@ -71,6 +71,23 @@
   (:option display-line-numbers-type 'relative
            display-line-numbers-current-absolute t))
 
+(setup (:package eglot)
+  (:global "C-x p l" #'eglot)
+  (:with-hook eglot-managed-mode-hook
+    (:local-hook before-save-hook #'eglot-format))
+  (:bind "C-x p l r" #'eglot-rename
+         "C-x p l f" #'eglot-format
+         "C-x p l g" #'eglot-reconnect
+         "C-x p l h" #'display-local-help
+         "C-x p l k" #'eglot-shutdown-all
+         "C-x p l a" #'eglot-code-actions
+         [remap display-local-help] #'nil
+         "C-x p l d" #'eglot-find-declaration
+         "C-x p l t" #'eglot-find-typeDefinition
+         "C-x p l i" #'eglot-find-implementation
+         "C-x p l q" #'eglot-code-action-quickfix
+         "C-x p l o" #'eglot-code-action-organize-imports))
+
 (setup emacs-lisp-mode
   (:file-match "\\.el\\'")
   (:hook electric-pair-mode
