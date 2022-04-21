@@ -307,8 +307,6 @@ _\\/_            |      o/      _\\/_
 (setup (:package project))
 
 (setup (:require pt-desktop)
-  (:with-hook after-init-hook
-    (:hook #'pt-desktop-wallpaper))
   (:with-hook exwm-manage-finish-hook
     (:hook #'pt-desktop-move-to-workspace))
   (:with-hook exwm-update-title-hook
