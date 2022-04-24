@@ -39,7 +39,7 @@ definekey top s-equal exec light -U 10
 definekey top s-plus exec light -A 10
 
 definekey top s-Down exec amixer set Master 10%-
-definekey top s-Up exec amixer set Master 10%-
+definekey top s-Up exec amixer set Master 10%+
 definekey top s-m exec amixer set Master toggle
 
 definekey top s-S-Down exec amixer set Capture 10%-
