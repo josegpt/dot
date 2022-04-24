@@ -128,6 +128,8 @@ _\\/_            |      o/      _\\/_
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
+  (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   (set-face-attribute 'default nil
                       :family "Iosevka"
                       :height 140
@@ -137,81 +139,6 @@ _\\/_            |      o/      _\\/_
   (:option eww-auto-rename-buffer t
            eww-header-line-format nil
            eww-search-prefix "https://duckduckgo.com/lite?q="))
-
-(setup (:package exwm)
-  (:option exwm-workspace-number 2
-           exwm-workspace-warp-cursor t
-           exwm-input-prefix-keys '(?\C-x
-                                    ?\C-c
-                                    ?\C-u
-                                    ?\C-h
-                                    ?\C-g
-                                    ?\M-x
-                                    ?\M-:
-                                    ?\M-!
-                                    s-return
-                                    ?\s-0
-                                    ?\s-1
-                                    ?\s-2
-                                    ?\s-3
-                                    ?\s-o
-                                    ?\s-k
-                                    ?\s-p
-                                    ?\s-n
-                                    ?\s-a
-                                    ?\s- 
-                                    s-down
-                                    s-up
-                                    ?\s-m
-                                    S-s-down
-                                    S-s-up
-                                    ?\s-M
-                                    ?\s-+
-                                    ?\s-=)
-           exwm-input-global-keys
-           `(([?\s-w] . exwm-workspace-switch)
-             ([?\C-c ?\C-j] . exwm-reset)
-             ([?\s-&] . (lambda (command)
-                          (interactive (list (read-shell-command "$ ")))
-                          (start-process-shell-command command nil command))))
-           exwm-input-simulation-keys
-           '(([?\C-b] . [left])
-             ([?\C-f] . [right])
-             ([?\C-p] . [up])
-             ([?\C-n] . [down])
-             ([?\C-a] . [home])
-             ([?\C-e] . [end])
-             ([?\C-v] . [next])
-             ([?\M-v] . [prior])
-             ([?\M-b] . [C-left])
-             ([?\M-f] . [C-right])
-             ([?\M-p] . [M-up])
-             ([?\M-n] . [M-down])
-             ([?\M-<] . [home])
-             ([?\M->] . [end])
-             ([?\C-/] . [?\C-z])
-             ([?\C-w] . [?\C-x])
-             ([?\M-w] . [?\C-c])
-             ([?\C-y] . [?\C-v])
-             ([?\C-s] . [?\C-g])
-             ([?\C-r] . [C-S-g])
-             ([?\C-t] . [?\C-t])
-             ([?\C-j] . [?\C-k])
-             ([?\C-d] . [delete])
-             ([?\C-c ?r] . [?\C-r])
-             ([?\C-c ?s] . [?\C-f])
-             ([?\C-c ?f] . [?\C-l])
-             ([?\C-c ?h] . [?\C-a])
-             ([?\C-c ?k] . [?\C-w])
-             ([?\C-c ?/] . [C-S-z])
-             ([?\M-@] . [C-S-right])
-             ([?\C-c ?g] . [escape])
-             ([?\C-\M-b] . [M-left])
-             ([?\C-\M-f] . [M-right])
-             ([?\C-k] . [C-S-end ?\C-x])
-             ([?\M-d] . [C-S-right ?\C-x])
-             ([M-backspace] . [C-S-left ?\C-x])))
-  (exwm-enable))
 
 (setup frame
   (:option blink-cursor-mode nil))
@@ -301,24 +228,6 @@ _\\/_            |      o/      _\\/_
 
 (setup man
   (:global "C-c m" #'man))
-
-(setup (:require pt-desktop)
-  (:with-hook exwm-manage-finish-hook
-    (:hook #'pt-desktop-move-to-workspace))
-  (:with-hook exwm-update-title-hook
-    (:hook #'pt-desktop-rename-workspace-buffer))
-  (:global "s-p" #'pt-desktop-previous-workspace
-           "s-n" #'pt-desktop-next-workspace
-           "s-;" #'pt-desktop-wallpaper
-           "s-<down>" #'pt-desktop-lower-volume
-           "s-<up>" #'pt-desktop-raise-volume
-           "s-m" #'pt-desktop-mute-volume
-           "s-S-<down>" #'pt-desktop-lower-mic-volume
-           "s-S-<up>" #'pt-desktop-raise-mic-volume
-           "s-M" #'pt-desktop-mute-mic-volume
-           "s-+" #'pt-desktop-raise-brightness
-           "s-=" #'pt-desktop-lower-brightness
-           "s-a" #'pt-desktop-powersettings))
 
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
@@ -445,16 +354,3 @@ _\\/_            |      o/      _\\/_
   (yas-global-mode))
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(project yasnippet yaml-mode markdown-mode magit ledger-mode go-mode graphql-mode exwm eglot display-wttr setup)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

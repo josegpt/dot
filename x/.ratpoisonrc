@@ -1,0 +1,45 @@
+###########
+# Autorun #
+###########
+
+exec picom &
+exec ~/.fehbg
+
+##########
+# Config #
+##########
+
+gravity c
+set border 0
+set wingravity c
+set bargravity c
+set transgravity c
+set maxsizegravity c
+set fgcolor "#ffffff"
+set bgcolor "#323232"
+set font "Iosevka:size=14:light"
+
+###############
+# Keybindings #
+###############
+
+escape C-period
+
+alias emacs exec emacsclient -a "" -c
+bind c emacs
+bind C-c emacs
+
+alias browser exec firefox
+bind slash browser
+bind C-slash browser
+
+definekey top s-equal exec light -U 10
+definekey top s-plus exec light -A 10
+
+definekey top s-Down exec amixer set Master 10%-
+definekey top s-Up exec amixer set Master 10%-
+definekey top s-m exec amixer set Master toggle
+
+definekey top s-S-Down exec amixer set Capture 10%-
+definekey top s-S-Up exec amixer set Capture 10%+
+definekey top s-M exec amixer set Capture toggle

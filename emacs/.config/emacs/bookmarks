@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("git-config"
+((".ratpoisonrc"
+ (filename . "~/projects/dots/x/.ratpoisonrc")
+ (front-context-string . "###########\n# Au")
+ (rear-context-string)
+ (position . 1))
+("git-config"
  (filename . "~/projects/dots/git/.config/git/config")
  (front-context-string . "[user]\n  email =")
  (rear-context-string)
