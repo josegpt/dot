@@ -29,6 +29,8 @@ alias emacs exec emacsclient -a "" -c
 bind c emacs
 bind C-c emacs
 
+bind C-exclam exec
+
 alias browser exec firefox
 bind slash browser
 bind C-slash browser
