@@ -19,9 +19,9 @@
                      (convert-standard-filename "lisp/")))
 
 ;; native-compile all Elisp files under a directory
-;; (native-compile-async
-;;  (concat user-emacs-directory
-;;          (convert-standard-filename "lisp/")) 'recursively)
+(native-compile-async
+ (concat user-emacs-directory
+         (convert-standard-filename "lisp/")) 'recursively)
 
 ;;; Packages
 
@@ -128,8 +128,6 @@ _\\/_            |      o/      _\\/_
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (add-to-list 'default-frame-alist '(alpha . (85 . 85)))
-  (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
   (set-face-attribute 'default nil
                       :family "Iosevka"
                       :height 140
@@ -226,9 +224,6 @@ _\\/_            |      o/      _\\/_
          display-line-numbers-mode
          whitespace-mode))
 
-(setup (:package gruvbox-theme)
-  (load-theme 'gruvbox-dark-hard t))
-
 (setup (:package go-mode)
   (:file-match "\\.go\\'")
   (:option gofmt-command "goimports")
@@ -301,10 +296,11 @@ _\\/_            |      o/      _\\/_
            read-file-name-completion-ignore-case t
            completion-styles '(partial-completion substring)))
 
+(setup modus-themes
+  (load-theme 'modus-vivendi t))
+
 (setup man
   (:global "C-c m" #'man))
-
-(setup (:package project))
 
 (setup (:require pt-desktop)
   (:with-hook exwm-manage-finish-hook
@@ -449,3 +445,16 @@ _\\/_            |      o/      _\\/_
   (yas-global-mode))
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(project yasnippet yaml-mode markdown-mode magit ledger-mode go-mode graphql-mode exwm eglot display-wttr setup)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

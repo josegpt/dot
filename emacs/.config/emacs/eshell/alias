@@ -1,7 +1,7 @@
 alias ll ls -lh
 alias la ls -lah
-alias rb doas reboot
-alias po doas poweroff
+alias prb doas reboot
+alias pof doas poweroff
 alias aa doas apk add $*
 alias ad doas apk del $*
 alias au doas apk upgrade

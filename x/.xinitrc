@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec bspwm
+exec emacsclient -a "" -c

@@ -1,12 +1,8 @@
 ;; Initialise installed packages
 (setq package-enable-at-startup t)
 
-;; Allow loading from the package cache
-;;(setq package-quickstart t)
-
 ;; Set alias to y-or-n
 (setq use-short-answers t)
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Do not resize at early stage
 (setq frame-inhibit-implied-resize t)

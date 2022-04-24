@@ -34,14 +34,14 @@
   :group 'application)
 
 (defcustom pt-desktop-powersetting-commands '(("Reboot" . "prb")
-                                              ("Poweroff" . "pha"))
+                                              ("Poweroff" . "pof"))
   "Powersetting commands"
   :type 'list
   :group 'application)
 
 (defun pt-desktop-move-to-workspace ()
   (pcase exwm-class-name
-    ("Firefox" (exwm-workspace-move-window 1))))
+    ("firefox-default" (exwm-workspace-move-window 1))))
 
 (defun pt-desktop-rename-workspace-buffer ()
   (exwm-workspace-rename-buffer exwm-title))
@@ -53,42 +53,42 @@
 ;;;###autoload
 (defun pt-desktop-raise-volume ()
   (interactive)
-  (pt-desktop--run-command "sndioctl output.level=+0.1"))
+  (pt-desktop--run-command "amixer set Master 10%+"))
 
 ;;;###autoload
 (defun pt-desktop-lower-volume ()
   (interactive)
-  (pt-desktop--run-command "sndioctl output.level=-0.1"))
+  (pt-desktop--run-command "amixer set Master 10%-"))
 
 ;;;###autoload
 (defun pt-desktop-mute-volume ()
   (interactive)
-  (pt-desktop--run-command "sndioctl output.mute=!"))
+  (pt-desktop--run-command "amixer set Master toggle"))
 
 ;;;###autoload
 (defun pt-desktop-raise-mic-volume ()
   (interactive)
-  (pt-desktop--run-command "sndioctl input.level=+0.1"))
+  (pt-desktop--run-command "amixer set Capture 10%+"))
 
 ;;;###autoload
 (defun pt-desktop-lower-mic-volume ()
   (interactive)
-  (pt-desktop--run-command "sndioctl input.level=-0.1"))
+  (pt-desktop--run-command "amixer set Capture 10%-"))
 
 ;;;###autoload
 (defun pt-desktop-mute-mic-volume ()
   (interactive)
-  (pt-desktop--run-command "sndioctl input.mute=!"))
+  (pt-desktop--run-command "amixer set Capture toggle"))
 
 ;;;###autoload
 (defun pt-desktop-raise-brightness ()
   (interactive)
-  (pt-desktop--run-command "xbacklight -inc 10%"))
+  (pt-desktop--run-command "light -A 10"))
 
 ;;;###autoload
 (defun pt-desktop-lower-brightness ()
   (interactive)
-  (pt-desktop--run-command "xbacklight -dec 10%"))
+  (pt-desktop--run-command "light -U 10"))
 
 ;;;###autoload
 (defun pt-desktop-powersettings ()

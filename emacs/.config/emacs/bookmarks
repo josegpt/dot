@@ -3,22 +3,22 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("git-config"
- (filename . "~/projects/dotfiles/git/.config/git/config")
+ (filename . "~/projects/dots/git/.config/git/config")
  (front-context-string . "[user]\n  email =")
  (rear-context-string)
  (position . 1))
 ("eshell-aliases"
- (filename . "~/projects/dotfiles/emacs/.config/emacs/eshell/alias")
+ (filename . "~/projects/dots/emacs/.config/emacs/eshell/alias")
  (front-context-string . "alias ll ls -lh\n")
  (rear-context-string)
  (position . 1))
 ("emacs-early"
- (filename . "~/projects/dotfiles/emacs/.config/emacs/early-init.el")
+ (filename . "~/projects/dots/emacs/.config/emacs/early-init.el")
  (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
  (position . 1))
 ("emacs-config"
- (filename . "~/projects/dotfiles/emacs/.config/emacs/init.el")
+ (filename . "~/projects/dots/emacs/.config/emacs/init.el")
  (front-context-string . ";;   ___ _ __ __")
  (rear-context-string)
  (position . 1))
