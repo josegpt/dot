@@ -30,7 +30,7 @@
   (global-auto-revert-mode))
 
 (setup battery
-  (:only-if (string= (system-name) "josegpt-laptop.lan"))
+  (:only-if (string= (system-name) "josegpt-laptop"))
   (display-battery-mode))
 
 (setup browse-url
