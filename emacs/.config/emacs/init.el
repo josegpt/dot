@@ -164,14 +164,15 @@ _\\/_            |      o/      _\\/_
 
 (setup (:package go-mode)
   (:file-match "\\.go\\'")
-  (:option gofmt-command "goimports")
   (:local-set compile-command "go run ")
-  (:local-hook before-save-hook #'gofmt-before-save)
-  (:hook subword-mode
-         electric-pair-mode
+  (:local-hook before-save-hook #'eglot-format)
+  (:hook electric-pair-mode
+         subword-mode
          show-paren-mode
          display-line-numbers-mode
-         whitespace-mode))
+         whitespace-mode
+         eglot-ensure
+         corfu-mode))
 
 (setup html-mode
   (:file-match "\\.\\(html?\\|ejs\\)\\'")
