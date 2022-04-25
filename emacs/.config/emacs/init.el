@@ -144,6 +144,13 @@ _\\/_            |      o/      _\\/_
            eww-header-line-format nil
            eww-search-prefix "https://duckduckgo.com/lite?q="))
 
+
+(setup flymake
+  (:bind "M-g p" #'flymake-goto-prev-error
+         "M-g n" #'flymake-goto-next-error
+         "M-g M-p" #'flymake-goto-prev-error
+         "M-g M-n" #'flymake-goto-next-error))
+
 (setup frame
   (:option blink-cursor-mode nil))
 
