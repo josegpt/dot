@@ -229,6 +229,9 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
+(setup proced
+  (:global "C-c d" #'proced))
+
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
@@ -240,9 +243,6 @@ _\\/_            |      o/      _\\/_
          show-paren-mode
          display-line-numbers-mode
          whitespace-mode))
-
-(setup proced
-  (:global "C-c d" #'proced))
 
 (setup shr
   (:option shr-width 72
