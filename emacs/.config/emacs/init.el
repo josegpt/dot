@@ -42,7 +42,7 @@
   (:option compilation-scroll-output t))
 
 (setup css-mode
-  (:file-match "\\.\\(css\\|less\\|sass\\|scss\\|styl\\)\\'")
+  (:file-match "\\.\\(css\\|sass\\|scss\\)\\'")
   (:hook display-line-numbers-mode
          whitespace-mode))
 
