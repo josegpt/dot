@@ -240,7 +240,7 @@ _\\/_            |      o/      _\\/_
            show-paren-context-when-offscreen t))
 
 (setup sh-mode
-  (:file-match "\\APKBUILD\\'")
+  (:file-match "\\.sh\\'")
   (:hook subword-mode
          electric-pair-mode
          show-paren-mode
