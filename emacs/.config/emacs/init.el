@@ -236,9 +236,6 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
-(setup proced
-  (:global "C-c d" #'proced))
-
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
