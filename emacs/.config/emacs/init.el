@@ -169,7 +169,7 @@ _\\/_            |      o/      _\\/_
          corfu-mode))
 
 (setup html-mode
-  (:file-match "\\.\\(html?\\|ejs\\)\\'")
+  (:file-match "\\.html?\\'")
   (:hook show-paren-mode
          display-line-numbers-mode
          whitespace-mode))
