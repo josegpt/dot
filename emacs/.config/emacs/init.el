@@ -194,7 +194,7 @@ _\\/_            |      o/      _\\/_
          whitespace-mode))
 
 (setup (:package ledger-mode)
-  (:file-match "\\.\\(ledger\\|dat\\)\\'")
+  (:file-match "\\.ledger\\'")
   (:bind "C-M-i" #'completion-at-point)
   (:hook whitespace-mode)
   (:option ledger-complete-in-steps t
