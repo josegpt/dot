@@ -2,8 +2,8 @@
 # Autorun #
 ###########
 
-exec picom &
 exec ~/.fehbg
+exec xcompmgr -c -f -D 4 &
 
 ##########
 # Config #
