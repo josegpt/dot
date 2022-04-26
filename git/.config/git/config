@@ -1,7 +1,7 @@
 [user]
     email = josegpt27@gmail.com
     name = Jose G Perez Taveras
-    editor = emacsclient -a "" -c
+    editor = emacsclient -a "" -r
 [init]
     defaultBranch = main
 [merge]
