@@ -3,12 +3,11 @@ alias la ls -lah
 alias prb doas reboot
 alias pha doas halt -p
 alias pa doas pkg_add $*
-alias pu doas pkg_add -Uu
+alias pau doas pkg_add -Uu
 alias pd doas pkg_delete $*
 alias pda doas pkg_delete -a
-alias pc doas pkg_check -f
+alias pcf doas pkg_check -f
 alias pi pkg_info
 alias piq pkg_info -Q $1
-alias pii pkg_info -m
-alias pid pkg_info -mz
-alias sup doas sysupgrade -s
+alias pim pkg_info -m
+alias pimz pkg_info -mz
