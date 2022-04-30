@@ -229,7 +229,7 @@ _\\/_            |      o/      _\\/_
            read-file-name-completion-ignore-case t
            completion-styles '(partial-completion substring)))
 
-(setup modus-themes
+(setup (:package modus-themes)
   (load-theme 'modus-vivendi t))
 
 (setup man
