@@ -7,7 +7,7 @@ alias pau doas pkg_add -Uu
 alias pd doas pkg_delete $*
 alias pda doas pkg_delete -a
 alias pcf doas pkg_check -f
-alias pi pkg_info
+alias pi pkg_info $*
 alias piq pkg_info -Q $1
 alias pim pkg_info -m
 alias pimz pkg_info -mz
