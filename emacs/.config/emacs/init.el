@@ -125,6 +125,7 @@ _\\/_            |      o/      _\\/_
   (:option tab-width 4
            fill-column 72
            cursor-type 'bar
+           truncate-lines t
            indent-tabs-mode nil
            ring-bell-function 'ignore
            initial-major-mode #'fundamental-mode
