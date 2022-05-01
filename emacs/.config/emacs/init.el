@@ -74,6 +74,31 @@
   (:option display-line-numbers-type 'relative
            display-line-numbers-current-absolute t))
 
+(setup (:package elfeed)
+  (:require pt-elfeed)
+  (:global "C-c r" #'elfeed)
+  (:with-mode elfeed-search-mode
+    (:bind "w" #'pt-elfeed-mpv-watch))
+  (:option elfeed-use-curl t
+           elfeed-search-title-max-width 100
+           elfeed-search-title-min-width 100
+           elfeed-db-directory "~/.cache/elfeed"
+           elfeed-search-filter "@1-month-ago +unread"
+           elfeed-feeds '(("https://openports.se/rss/all" openbsd)
+                          ("https://lukesmith.xyz/rss.xml" blog linux)
+                          ("https://reddit.com/r/emacs.rss" blog emacs)
+                          ("https://reddit.com/r/openbsd.rss" blog openbsd)
+                          ("https://protesilaos.com/codelog.xml" blog emacs)
+                          ("https://drewdevault.com/blog/index.xml" blog devel)
+                          ("https://reddit.com/r/openbsd_gaming.rss" blogopenbsd)
+                          ("https://sachachua.com/blog/category/emacs-news/feed" blog emacs)
+                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g" emacs yt)
+                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCqGmpMaWCpLe7hpnNnU09TA" openbsd yt)
+                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw" linux vim yt)
+                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw" gaming fun yt)
+                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA" linux privacy yt)
+                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA" linux vim privacy yt))))
+
 (setup (:package eglot)
   (:global "C-x p l" #'eglot)
   (:with-hook eglot-managed-mode-hook
