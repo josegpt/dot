@@ -6,3 +6,5 @@ export LC_CTYPE="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_LANG="en_US.UTF-8"
 export PKG_PATH=http://ptserver.org/7.1/packages/:installpath
+export ENV=$HOME/.kshrc
+export TERM="screen-256color"
