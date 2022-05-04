@@ -4,4 +4,4 @@
 
 xset b off
 
-exec ratpoison
+exec dwm
