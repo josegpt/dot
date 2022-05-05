@@ -239,7 +239,7 @@ _\\/_            |      o/      _\\/_
            completion-styles '(partial-completion substring)))
 
 (setup (:package modus-themes)
-  (load-theme 'modus-operandi t))
+  (load-theme 'modus-vivendi t))
 
 (setup (:package minions)
   (minions-mode))

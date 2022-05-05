@@ -9,8 +9,8 @@ set bargravity c
 set resizeunit 20
 set transgravity c
 set maxsizegravity c
-set fgcolor "#000000"
-set bgcolor "#ffffff"
+set fgcolor "#ffffff"
+set bgcolor "#000000"
 set font "Iosevka:size=14:light"
 
 ###############
