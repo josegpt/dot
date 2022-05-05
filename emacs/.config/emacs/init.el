@@ -244,8 +244,6 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
-(setup (:package rainbow-mode))
-
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
