@@ -241,6 +241,9 @@ _\\/_            |      o/      _\\/_
 (setup (:package modus-themes)
   (load-theme 'modus-operandi t))
 
+(setup (:package minions)
+  (minions-mode))
+
 (setup man
   (:global "C-c m" #'man))
 
