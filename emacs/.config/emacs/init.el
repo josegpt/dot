@@ -157,8 +157,6 @@ _\\/_            |      o/      _\\/_
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (add-to-list 'default-frame-alist '(alpha . (70 . 65)))
-  (set-frame-parameter (selected-frame) 'alpha '(70 . 65))
   (set-face-attribute 'default nil
                       :family "Iosevka"
                       :height 140
@@ -261,10 +259,12 @@ _\\/_            |      o/      _\\/_
            completion-styles '(partial-completion substring)))
 
 (setup (:package modus-themes)
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-operandi t))
 
 (setup man
   (:global "C-c m" #'man))
+
+(setup (:package rainbow-mode))
 
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t

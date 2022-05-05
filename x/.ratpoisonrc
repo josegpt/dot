@@ -15,8 +15,8 @@ set wingravity c
 set bargravity c
 set transgravity c
 set maxsizegravity c
-set fgcolor "#ffffff"
-set bgcolor "#323232"
+set fgcolor "#000000"
+set bgcolor "#ffffff"
 set font "Iosevka:size=14:light"
 
 ###############
