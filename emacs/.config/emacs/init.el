@@ -52,8 +52,6 @@
   (:hook display-line-numbers-mode
          whitespace-mode))
 
-(setup (:package corfu)
-  (:option corfu-cycle t))
 
 (setup (:require display-sunrise-sunset)
   (:option calendar-latitude 40.86
