@@ -84,14 +84,14 @@
            elfeed-search-title-min-width 100
            elfeed-db-directory "~/.cache/elfeed"
            elfeed-search-filter "@1-month-ago +unread"
-           elfeed-feeds '(("https://openports.se/rss/all" openbsd)
-                          ("https://lukesmith.xyz/rss.xml" blog linux)
-                          ("https://reddit.com/r/emacs.rss" blog emacs)
-                          ("https://reddit.com/r/openbsd.rss" blog openbsd)
-                          ("https://protesilaos.com/codelog.xml" blog emacs)
-                          ("https://drewdevault.com/blog/index.xml" blog devel)
-                          ("https://reddit.com/r/openbsd_gaming.rss" blogopenbsd)
-                          ("https://sachachua.com/blog/category/emacs-news/feed" blog emacs)
+           elfeed-feeds '(("https://lukesmith.xyz/rss.xml" linux)
+                          ("https://reddit.com/r/emacs.rss" emacs)
+                          ("https://reddit.com/r/openbsd.rss" openbsd)
+                          ("https://openports.se/rss/all" ports openbsd)
+                          ("https://drewdevault.com/blog/index.xml" devel)
+                          ("https://protesilaos.com/codelog.xml" emacs devel)
+                          ("https://reddit.com/r/openbsd_gaming.rss" openbsd)
+                          ("https://sachachua.com/blog/category/emacs-news/feed" emacs)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g" emacs yt)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UCqGmpMaWCpLe7hpnNnU09TA" openbsd yt)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw" linux vim yt)
