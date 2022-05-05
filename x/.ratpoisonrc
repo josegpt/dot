@@ -6,6 +6,7 @@ gravity c
 set border 0
 set wingravity c
 set bargravity c
+set resizeunit 20
 set transgravity c
 set maxsizegravity c
 set fgcolor "#000000"
