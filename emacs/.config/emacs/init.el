@@ -268,6 +268,12 @@ _\\/_            |      o/      _\\/_
            "M-z" #'zap-to-char
            "M-Z" #'zap-up-to-char))
 
+(setup sql-mode
+  (:hook electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
+
 (setup tab-bar
   (:option tab-bar-new-button-show nil
            tab-bar-close-button-show nil
