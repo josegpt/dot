@@ -52,6 +52,12 @@
   (:hook display-line-numbers-mode
          whitespace-mode))
 
+(setup conf-mode
+  (:file-match "\\.conf\\'")
+  (:hook electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
 (setup (:require display-sunrise-sunset)
   (:option calendar-latitude 40.86
