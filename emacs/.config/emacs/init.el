@@ -59,6 +59,10 @@
          display-line-numbers-mode
          whitespace-mode))
 
+(setup (:package corfu)
+  (:option corfu-cycle t
+           corfu-auto t))
+
 (setup (:require display-sunrise-sunset)
   (:option calendar-latitude 40.86
            calendar-longitude -74.16
@@ -103,6 +107,23 @@
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw" gaming fun yt)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA" linux privacy yt)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA" linux vim privacy yt))))
+
+(setup (:package eglot)
+  (:global "C-x p l" #'eglot)
+  (:with-hook eglot-managed-mode-hook
+    (:local-hook before-save-hook #'eglot-format))
+  (:bind "C-x p l r" #'eglot-rename
+         "C-x p l f" #'eglot-format
+         "C-x p l g" #'eglot-reconnect
+         "C-x p l h" #'display-local-help
+         "C-x p l k" #'eglot-shutdown-all
+         "C-x p l a" #'eglot-code-actions
+         [remap display-local-help] #'nil
+         "C-x p l d" #'eglot-find-declaration
+         "C-x p l t" #'eglot-find-typeDefinition
+         "C-x p l i" #'eglot-find-implementation
+         "C-x p l q" #'eglot-code-action-quickfix
+         "C-x p l o" #'eglot-code-action-organize-imports))
 
 (setup emacs-lisp-mode
   (:file-match "\\.el\\'")
@@ -155,6 +176,12 @@ _\\/_            |      o/      _\\/_
            eww-header-line-format nil
            eww-search-prefix "https://duckduckgo.com/lite?q="))
 
+(setup flymake
+  (:bind "M-g p" #'flymake-goto-prev-error
+         "M-g n" #'flymake-goto-next-error
+         "M-g M-p" #'flymake-goto-prev-error
+         "M-g M-n" #'flymake-goto-next-error))
+
 (setup frame
   (:option blink-cursor-mode nil))
 
@@ -175,7 +202,9 @@ _\\/_            |      o/      _\\/_
          electric-pair-mode
          show-paren-mode
          display-line-numbers-mode
-         whitespace-mode))
+         whitespace-mode
+         corfu-mode
+         eglot-ensure))
 
 (setup html-mode
   (:file-match "\\.html?\\'")
