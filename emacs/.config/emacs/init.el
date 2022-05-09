@@ -146,7 +146,7 @@ _\\/_            |      o/      _\\/_
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (set-face-attribute 'default nil
-                      :family "Iosevka"
+                      :family "Iosevka Term"
                       :height 140
                       :weight 'light))
 
