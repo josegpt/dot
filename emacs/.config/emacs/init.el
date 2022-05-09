@@ -168,7 +168,7 @@ _\\/_            |      o/      _\\/_
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (set-face-attribute 'default nil
                       :family "Iosevka Term"
-                      :height 140
+                      :height (if (string= (system-name) "josegpt-laptop.lan") 140 160)
                       :weight 'light))
 
 (setup eww
