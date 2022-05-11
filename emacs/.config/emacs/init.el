@@ -318,12 +318,6 @@ _\\/_            |      o/      _\\/_
          display-line-numbers-mode
          whitespace-mode))
 
-(setup tab-bar
-  (:option tab-bar-new-button-show nil
-           tab-bar-close-button-show nil
-           tab-bar-format '(tab-bar-format-global))
-  (tab-bar-mode))
-
 (setup time
   (:option display-time-format "%A, %B %d %Y - %I:%M %p")
   (display-time-mode))
