@@ -283,6 +283,14 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
+(setup (:package protobuf-mode)
+  (:file-match "\\.proto\\'")
+  (:hook subword-mode
+         electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
+
 (setup show-paren-mode
   (:option show-paren-when-point-inside-paren t
            show-paren-context-when-offscreen t))
