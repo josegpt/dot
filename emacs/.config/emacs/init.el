@@ -35,7 +35,8 @@
            '((".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
              (".*\\([Yy]outube\\|[Gg]oogle\\)" . browse-url-default-browser))))
 
-(setup makefile-bsdmake-mode
+(setup c-mode
+  (:file-match "\\.c\\'")
   (:hook electric-pair-mode
          show-paren-mode
          display-line-numbers-mode
@@ -272,6 +273,12 @@ _\\/_            |      o/      _\\/_
 
 (setup (:package minions)
   (minions-mode))
+
+(setup makefile-bsdmake-mode
+  (:hook electric-pair-mode
+         show-paren-mode
+         display-line-numbers-mode
+         whitespace-mode))
 
 (setup man
   (:global "C-c m" #'man))
