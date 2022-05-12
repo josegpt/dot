@@ -284,6 +284,10 @@ _\\/_            |      o/      _\\/_
 (setup man
   (:global "C-c m" #'man))
 
+(setup (:require otaku)
+  (:global "C-c o s" #'otaku-search-anime
+           "C-c o r" #'otaku-recent-anime-episodes))
+
 (setup (:package protobuf-mode)
   (:file-match "\\.proto\\'")
   (:hook subword-mode
