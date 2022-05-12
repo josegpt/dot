@@ -102,6 +102,7 @@
                           ("https://protesilaos.com/codelog.xml" emacs devel)
                           ("https://reddit.com/r/openbsd_gaming.rss" openbsd)
                           ("https://sachachua.com/blog/category/emacs-news/feed" emacs)
+                          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg" linux yt)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g" emacs yt)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UCqGmpMaWCpLe7hpnNnU09TA" openbsd yt)
                           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw" linux vim yt)
