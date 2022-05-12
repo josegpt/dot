@@ -25,8 +25,6 @@
 
 ;;; Code:
 
-(require 'dash)
-
 (defgroup pt-elfeed ()
   "extra funtionality to elfeed.el."
   :prefix "pt-elfeed-"
@@ -40,7 +38,7 @@
   "Watch the selected feed items in mpv."
   (interactive)
   (let* ((entries (elfeed-search-selected))
-         (yt-entries (-filter (apply-partially #'elfeed-tagged-p 'yt) entries))
+         (yt-entries (seq-filter (apply-partially #'elfeed-tagged-p 'yt) entries))
          (titles (mapcar #'elfeed-entry-title yt-entries))
          (links (mapcar #'elfeed-entry-link yt-entries))
          (titles-str (mapconcat #'identity titles " | ")))
