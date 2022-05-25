@@ -405,17 +405,17 @@ _\\/_            |      o/      _\\/_
               (slot . -1))
              ("\\*\\(Backtrace\\|Warnings\\|compilation\\|Gofmt.*\\)\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (window-width . 0.45)
+              (window-width . 0.50)
               (side . right)
               (slot . 0))
              ("\\(magit-diff\\)"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (window-width . 0.45)
+              (window-width . 0.50)
               (side . right)
               (slot . -1))
              ("\\*\\(Help\\|Man.*\\|Woman.*\\|Occur\\|Ledger.*\\)\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (window-width . 0.45)
+              (window-width . 0.50)
               (side . right)
               (slot . 1)))))
 
