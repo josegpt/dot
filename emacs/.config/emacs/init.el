@@ -180,7 +180,7 @@ _\\/_            |      o/      _\\/_
   (set-frame-parameter (selected-frame) 'alpha '(85 . 70))
   (set-face-attribute 'default nil
                       :family "Iosevka Term"
-                      :height (if (string= (system-name) "josegpt-laptop.lan") 140 160)
+                      :height (if (string= (system-name) "josegpt-laptop.lan") 120 160)
                       :weight 'light))
 
 (setup eww
