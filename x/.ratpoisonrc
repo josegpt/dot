@@ -18,7 +18,7 @@ set transgravity c
 set maxsizegravity c
 set fgcolor "#ffffff"
 set bgcolor "#000000"
-set font "Iosevka:size=14:light"
+set font "Iosevka:size=16:light"
 
 ###############
 # Keybindings #
