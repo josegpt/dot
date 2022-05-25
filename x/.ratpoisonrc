@@ -36,6 +36,9 @@ alias browser exec firefox
 bind slash browser
 bind C-slash browser
 
+definekey top s-p prev
+definekey top s-n next
+
 definekey top s-equal exec xbacklight -dec 10%
 definekey top s-plus exec xbacklight -inc 10%
 
