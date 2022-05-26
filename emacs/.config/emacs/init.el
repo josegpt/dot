@@ -210,6 +210,8 @@ _\\/_            |      o/      _\\/_
                                     ?\s-n
                                     ?\s-a
                                     ?\s- 
+                                    s-left
+                                    s-right
                                     s-down
                                     s-up
                                     ?\s-m
