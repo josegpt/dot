@@ -339,8 +339,9 @@ _\\/_            |      o/      _\\/_
            magit-display-buffer-function
            #'magit-display-buffer-same-window-except-diff-v1
            magit-clone-url-format "git@%h:%n"
-           magit-clone-name-alist '(("\\`\\(?:github:\\|gh:\\)?\\([^:]+\\)\\'" "github.com" "github.user")
-                                    ("\\`\\(?:sourcehut:\\|sr:\\)?\\([^:]+\\)\\'" "git.sr.ht" "sourcehut.user"))))
+           magit-clone-name-alist '(("\\`\\(?:sourcehut:\\|sr:\\)?\\([^:]+\\)\\'" "git.sr.ht" "sourcehut.user")
+                                    ("\\`\\(?:github:\\|gh:\\)?\\([^:]+\\)\\'" "github.com" "github.user")
+                                    ("\\`\\(?:gitlab:\\|gl:\\)\\([^:]+\\)\\'" "gitlab.com" "gitlab.user"))))
 
 (setup (:package markdown-mode)
   (:file-match "\\.md\\'"))
