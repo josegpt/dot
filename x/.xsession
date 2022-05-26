@@ -4,6 +4,6 @@
 
 xset b off
 ~/.fehbg &
-xcompmgr -c -f -D 4 &
+xcompmgr -c -f -D 2 &
 
 exec emacsclient -a "" -c
