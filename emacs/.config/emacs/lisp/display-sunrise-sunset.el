@@ -41,6 +41,11 @@
   "List of functions to be called when sunrise-sunset is updated in the mode line."
   :type 'hook)
 
+
+(defcustom display-sunrise-sunset-toggle-theme nil
+  "Toggle theme between light or dark when enabled."
+  :type 'boolean)
+
 (defvar display-sunrise-sunset-string nil
   "String used in mode line to display sunrise sunset string.
 It should not be set directly, but is instead updated by the
@@ -75,8 +80,9 @@ sunrise-sunset with the specified `display-sunrise-sunset-interval'"
          (sunset (apply #'solar-time-string (cadr l))))
     (setq display-sunrise-sunset-string
           (format "[↑%s ↓%s] " sunrise sunset))
-    (run-at-time (apply #'solar-time-string (car l)) nil #'modus-themes-load-operandi)
-    (run-at-time (apply #'solar-time-string (cadr l)) nil #'modus-themes-load-vivendi)
+    (when display-sunrise-sunset-toggle-theme
+      (run-at-time (apply #'solar-time-string (car l)) nil #'modus-themes-load-operandi)
+      (run-at-time (apply #'solar-time-string (cadr l)) nil #'modus-themes-load-vivendi))
     (run-hooks 'display-sunrise-sunset-hook))
   (force-mode-line-update 'all))
 
