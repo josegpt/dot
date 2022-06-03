@@ -176,8 +176,8 @@ _\\/_            |      o/      _\\/_
            backup-directory-alist `((".*" . ,temporary-file-directory))
            ;; don't clutter with #files either
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (add-to-list 'default-frame-alist '(alpha . (85 . 70)))
-  (set-frame-parameter (selected-frame) 'alpha '(85 . 70))
+  (add-to-list 'default-frame-alist '(alpha . (75 . 70)))
+  (set-frame-parameter (selected-frame) 'alpha '(75 . 70))
   (set-face-attribute 'default nil
                       :family "Iosevka Term"
                       :height (if (string= (system-name) "josegpt-laptop.lan") 120 160)
