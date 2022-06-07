@@ -36,13 +36,6 @@
              (".*\\([Yy]outube\\|[Gg]oogle\\)" . browse-url-default-browser)
              (".*\\([Gg]ithub\\|[Aa]nimeflv\\|[Rr]epology\\)" . browse-url-default-browser))))
 
-(setup browse-url
-  (:option browse-url-browser-function 'eww-browse-url
-           browse-url-secondary-browser-function 'browse-url-default-browser
-           browse-url-handlers
-           '((".*\\([Ww]hatsapp\\|[Dd]iscord\\)" . browse-url-default-browser)
-             (".*\\([Yy]outube\\|[Gg]oogle\\)" . browse-url-default-browser))))
-
 (setup c-mode
   (:file-match "\\.c\\'")
   (:hook electric-pair-mode
