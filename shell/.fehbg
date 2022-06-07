@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/local/bin/feh --no-fehbg --bg-center '/home/josegpt/.config/wallpaper/current.jpg'
