@@ -489,7 +489,7 @@ _\\/_            |      o/      _\\/_
   (:option display-buffer-alist
            '(("\\`\\*Async Shell Command\\*\\'"
               (display-buffer-no-window))
-             ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\|magit-diff\\)\\*"
+             ("\\*\\(Calc\\|Process List\\|Proced\\|Buffer List\\)\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
               (window-height . 0.35)
               (side . bottom)
