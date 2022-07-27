@@ -1,6 +1,4 @@
 ;;; init.el --- description -*- lexical-binding: t -*-
-;;; Package.el
-
 (require 'package)
 
 (add-to-list 'package-archives
@@ -10,23 +8,19 @@
   (package-refresh-contents)
   (package-install 'setup))
 
-;;; the default is 800 kilobytes. measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
-;;; include custom elisp
 (add-to-list 'load-path
              (concat user-emacs-directory
                      (convert-standard-filename "lisp/")))
-
-;;; Packages
 
 (setup autorevert
   (:option global-auto-revert-non-file-buffers nil)
   (global-auto-revert-mode))
 
 (setup battery
-  (:only-if (string= (system-name) "josegpt-laptop.lan"))
-  (display-battery-mode))
+  (unless (string= (system-name) "josegpt-desktop.lan")
+    (display-battery-mode)))
 
 (setup browse-url
   (:option browse-url-browser-function 'eww-browse-url
@@ -171,92 +165,12 @@ _\\/_            |      o/      _\\/_
            auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (add-to-list 'default-frame-alist '(alpha . (75 . 70)))
   (set-frame-parameter (selected-frame) 'alpha '(75 . 70))
-  (set-face-attribute 'default nil
-                      :family "Iosevka Term"
-                      :height (if (string= (system-name) "josegpt-laptop.lan") 120 160)
-                      :weight 'light))
+  (set-face-attribute 'default nil :family "Iosevka Term" :height 140))
 
 (setup eww
   (:option eww-auto-rename-buffer t
            eww-header-line-format nil
            eww-search-prefix "https://duckduckgo.com/lite?q="))
-
-(setup (:package exwm)
-  (:option exwm-workspace-number 2
-           exwm-workspace-warp-cursor t
-           exwm-input-prefix-keys '(?\C-x
-                                    ?\C-c
-                                    ?\C-u
-                                    ?\C-h
-                                    ?\C-g
-                                    ?\M-x
-                                    ?\M-:
-                                    ?\M-!
-                                    s-return
-                                    ?\s-0
-                                    ?\s-1
-                                    ?\s-2
-                                    ?\s-3
-                                    ?\s-o
-                                    ?\s-k
-                                    ?\s-p
-                                    ?\s-n
-                                    ?\s-a
-                                    ?\s- 
-                                    s-left
-                                    s-right
-                                    s-down
-                                    s-up
-                                    ?\s-m
-                                    S-s-down
-                                    S-s-up
-                                    ?\s-M
-                                    ?\s-+
-                                    ?\s-=)
-           exwm-input-global-keys
-           `(([?\s-w] . exwm-workspace-switch)
-             ([?\C-c ?\C-j] . exwm-reset)
-             ([?\s-&] . (lambda (command)
-                          (interactive (list (read-shell-command "$ ")))
-                          (start-process-shell-command command nil command))))
-           exwm-input-simulation-keys
-           '(([?\C-b] . [left])
-             ([?\C-f] . [right])
-             ([?\C-p] . [up])
-             ([?\C-n] . [down])
-             ([?\C-a] . [home])
-             ([?\C-e] . [end])
-             ([?\C-v] . [next])
-             ([?\M-v] . [prior])
-             ([?\M-b] . [C-left])
-             ([?\M-f] . [C-right])
-             ([?\M-p] . [M-up])
-             ([?\M-n] . [M-down])
-             ([?\M-<] . [home])
-             ([?\M->] . [end])
-             ([?\C-/] . [?\C-z])
-             ([?\C-w] . [?\C-x])
-             ([?\M-w] . [?\C-c])
-             ([?\C-y] . [?\C-v])
-             ([?\C-s] . [?\C-g])
-             ([?\C-r] . [C-S-g])
-             ([?\C-t] . [?\C-t])
-             ([?\C-j] . [?\C-k])
-             ([?\C-d] . [delete])
-             ([?\C-c ?r] . [?\C-r])
-             ([?\C-c ?s] . [?\C-f])
-             ([?\C-c ?f] . [?\C-l])
-             ([?\C-c ?h] . [?\C-a])
-             ([?\C-c ?k] . [?\C-w])
-             ([?\C-c ?/] . [C-S-z])
-             ([?\M-@] . [C-S-right])
-             ([?\C-c ?g] . [escape])
-             ([?\C-\M-b] . [M-left])
-             ([?\C-\M-f] . [M-right])
-             ([?\C-k] . [C-S-end ?\C-x])
-             ([?\M-d] . [C-S-right ?\C-x])
-             ([M-backspace] . [C-S-left ?\C-x])))
-  (exwm-enable))
 
 (setup flymake
   (:bind "M-g p" #'flymake-goto-prev-error
@@ -364,26 +278,6 @@ _\\/_            |      o/      _\\/_
 
 (setup man
   (:global "C-c m" #'man))
-
-(setup (:require pt-desktop)
-  (:with-hook exwm-manage-finish-hook
-    (:hook #'pt-desktop-move-to-workspace))
-  (:with-hook exwm-update-title-hook
-    (:hook #'pt-desktop-rename-workspace-buffer))
-  (:global "s-p" #'pt-desktop-previous-workspace
-           "s-n" #'pt-desktop-next-workspace
-           "s-<left>" #'pt-desktop-previous-player
-           "s-<right>" #'pt-desktop-next-player
-           "s-SPC" #'pt-desktop-play-pause-player
-           "s-<down>" #'pt-desktop-lower-volume
-           "s-<up>" #'pt-desktop-raise-volume
-           "s-m" #'pt-desktop-mute-volume
-           "s-S-<down>" #'pt-desktop-lower-mic-volume
-           "s-S-<up>" #'pt-desktop-raise-mic-volume
-           "s-M" #'pt-desktop-mute-mic-volume
-           "s-+" #'pt-desktop-raise-brightness
-           "s-=" #'pt-desktop-lower-brightness
-           "s-a" #'pt-desktop-powersettings))
 
 (setup (:require otaku)
   (:global "C-c o s" #'otaku-search-anime
