@@ -1,0 +1,10 @@
+#!/bin/sh
+echo "$1"
+case "${1%%:*}" in
+	http|https)
+		exec firefox "$1"
+	;;
+	*)
+		exec vi "$1"
+	;;
+esac

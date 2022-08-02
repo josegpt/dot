@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: subtitle
-# key: subtitle
-# --
-${1:subtitle}
-${1:$(make-string (string-width yas-text) ?\-)}
-$0

@@ -1,0 +1,15 @@
+[core]
+	editor = vi
+[user]
+	email = josegpt27@gmail.com
+	name = Jose G Perez Taveras
+[init]
+	defaultBranch = main
+[commit]
+	verbose = yes
+[merge]
+	ff = only
+[pull]
+	rebase = true
+[fetch]
+	prune = true

@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: import { ... } from "..."
-# key: impn
-# --
-import { ${1:name} } from "$0"

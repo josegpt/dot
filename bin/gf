@@ -1,0 +1,12 @@
+#!/bin/sh
+
+_die() {
+	echo "$1" >&2
+	exit 1
+}
+
+[ $(git rev-parse --is-inside-work-tree) ] || _die "\`$(pwd)' is not a git directory"
+
+selected=$(git ls-files | fzy)
+[ -e ${selected:?"a file was not selected"} ] || _die "file \`$selected' does not exists"
+xdg-open $selected

@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: ifn ...
-# key: ifn
-# --
-#ifndef __${1:HEADER$(upcase yas-text)}_H_
-#define __$1_H_
-$0
-#endif // __$1_H_

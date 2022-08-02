@@ -1,0 +1,7 @@
+XTerm*loginShell: true
+XTerm*faceName: Tamsyn
+XTerm*faceSize: 10
+XTerm*scrollBar: false
+
+*background: #000000
+*foreground: #ffffff

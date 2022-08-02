@@ -1,0 +1,10 @@
+#!/bin/sh
+
+_die() {
+	echo "$1" >&2
+	exit 1
+}
+
+selected="$(find $HOME/projects -mindepth 1 -maxdepth 1 -type d | fzy)"
+[ -d ${selected:?"a project was not selected"} ] || _die "project \`$selected' does not exists"
+tmux new-session -s ${selected##*/} -c $selected

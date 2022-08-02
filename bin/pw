@@ -1,0 +1,13 @@
+#!/bin/sh
+selected=$(printf "Reboot\nPoweroff" | fzy)
+case $selected in
+	Reboot)
+		doas reboot
+	;;
+	Poweroff)
+		doas halt -p
+	;;
+	*)
+		echo "Unknown option \`$selected'"
+	;;
+esac
