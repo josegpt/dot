@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. utils
+
+selected="$(find $HOME/.config/snippets -type f | fzy)"
+[ -e ${selected:?"a project was not selected"} ] || _die "snippet \`$selected' does not exists"
+cat $selected
