@@ -3,5 +3,5 @@
 . utils
 
 selected="$(find $HOME/projects -mindepth 1 -maxdepth 1 -type d | fzy)"
-[ -d ${selected:?"a project was not selected"} ] || _die "project \`$selected' does not exists"
+[ -d ${selected:?"a project was not selected"} ] || _die "project \`$selected' does not exist"
 tmux new-session -s ${selected##*/} -c $selected

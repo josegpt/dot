@@ -3,5 +3,5 @@
 . utils
 
 selected="$(find $HOME/.config/snippets -type f | fzy)"
-[ -e ${selected:?"a snippet was not selected"} ] || _die "snippet \`$selected' does not exists"
+[ -e ${selected:?"a snippet was not selected"} ] || _die "snippet \`$selected' does not exist"
 cat $selected
