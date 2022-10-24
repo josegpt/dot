@@ -16,3 +16,7 @@
 	rebase = true
 [fetch]
 	prune = true
+[checkout]
+	defaultRemote = origin
+[sendemail]
+	annotate = true
