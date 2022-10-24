@@ -2,7 +2,7 @@
 echo "$1"
 case "${1%%:*}" in
 	http|https)
-		exec $BROWSER "$1"
+		exec $BROWSER "$1" &
 	;;
 	*)
 		echo "I do not how to handle $@" >&2
