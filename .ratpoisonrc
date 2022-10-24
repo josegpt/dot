@@ -1,6 +1,4 @@
-#############
-# Autostart #
-#############
+# Autostart
 
 exec ~/.config/feh/fehbg &
 
@@ -8,9 +6,7 @@ exec ~/.config/feh/fehbg &
 
 addhook switchwin info [%n] %t
 
-##########
-# Config #
-##########
+# Config
 
 gravity c
 set border 2
@@ -25,11 +21,9 @@ set bgcolor "#000000"
 set fwcolor "#d0021b"
 set bwcolor "#000000"
 set winfmt [%n] %s %t
-set font "Tamsyn:size=10"
+set font "spleen:size=10:antialias=false"
 
-###############
-# Keybindings #
-###############
+# Keybindings
 
 escape C-period
 

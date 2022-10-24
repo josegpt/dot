@@ -1,7 +1,7 @@
-XTerm*loginShell: true
-XTerm*faceName: Tamsyn
-XTerm*faceSize: 10
-XTerm*scrollBar: false
+XTerm*loginShell:  true
+XTerm*faceName:    spleen:antialias=false
+XTerm*faceSize:    10
+XTerm*scrollBar:   false
 
-*background: #000000
-*foreground: #ffffff
+*background:       #000000
+*foreground:       #ffffff
