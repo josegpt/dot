@@ -8,3 +8,8 @@ set tabstop=4
 set verbose
 set cedit=\	
 set filec=\	
+
+map gs :r!snippet
+map gd !'mtmux load-buffer -
+map gy !'mtmux load-buffer -u
+map gp :r!tmux show-buffer
