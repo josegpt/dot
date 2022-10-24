@@ -6,7 +6,7 @@
 [init]
 	defaultBranch = main
 [commit]
-	verbose = yes
+	verbose = true
 [merge]
 	ff = only
 [push]
