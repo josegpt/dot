@@ -1,10 +1,12 @@
 #!/bin/sh
-echo "$1"
+
+. utils
+
 case "${1%%:*}" in
 	http|https)
 		exec $BROWSER "$1" &
 	;;
 	*)
-		echo "I do not how to handle $@" >&2
+		_die "I do not how to handle $@"
 	;;
 esac
