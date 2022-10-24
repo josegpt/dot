@@ -1,7 +1,8 @@
-XTerm*loginShell:  true
-XTerm*faceName:    spleen:antialias=false
-XTerm*faceSize:    10
-XTerm*scrollBar:   false
+XTerm*loginShell:       true
+XTerm*faceName:         spleen:antialias=false
+XTerm*faceSize:         10
+XTerm*scrollBar:        false
+XTerm*metaSendsEscape:  true
 
-*background:       #000000
-*foreground:       #ffffff
+*background:            #000000
+*foreground:            #ffffff
