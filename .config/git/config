@@ -9,6 +9,9 @@
 	verbose = yes
 [merge]
 	ff = only
+[push]
+	default = simple
+	followTags = true
 [pull]
 	rebase = true
 [fetch]
