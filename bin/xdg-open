@@ -6,6 +6,9 @@ case "${1%%:*}" in
 	http|https)
 		exec $BROWSER "$1" &
 	;;
+	*.jpg)
+		exec feh "$1"
+	;;
 	*)
 		_die "I do not how to handle $@"
 	;;
