@@ -1,3 +1,3 @@
 #!/bin/sh
 selected=$(find . ${1+-name $1} -type f -not -path "*/\.git/*" | fzy)
-xdg-open ${selected:?"a file was not selected"}
+$EDITOR ${selected:?"a file was not selected"}

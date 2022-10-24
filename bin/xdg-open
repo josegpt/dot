@@ -2,9 +2,9 @@
 echo "$1"
 case "${1%%:*}" in
 	http|https)
-		exec firefox "$1"
+		exec $BROWSER "$1"
 	;;
 	*)
-		exec vi "$1"
+		echo "I do not how to handle $@" >&2
 	;;
 esac
