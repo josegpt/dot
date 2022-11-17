@@ -1,6 +1,6 @@
 XTerm*loginShell:       true
 XTerm*faceName:         Victor Mono
-XTerm*faceSize:         8
+XTerm*faceSize:         10
 XTerm*scrollBar:        false
 XTerm*metaSendsEscape:  true
 
