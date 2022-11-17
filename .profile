@@ -5,3 +5,5 @@ export LC_CTYPE="en_US.UTF-8"
 export PKG_PATH=https://ftp.ptserver.org/%m:installpath
 export TERM=screen-256color
 export ENV=$HOME/.env
+export LYNX_CFG=$HOME/.config/lynx/lynx.cfg
+export LYNX_LSS=$HOME/.config/lynx/lynx.lss
