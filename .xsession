@@ -1,12 +1,12 @@
 #!/bin/sh
 
-xset b off
-$HOME/.config/feh/fehbg
-
 case $(hostname) in
 	picua.lan) xrandr --output HDMI-A-0 --pos 0x0 \
 		--output DisplayPort-2 --pos 1920x0 --rotate left
 	;;
 esac
+
+xset b off
+$HOME/.config/feh/fehbg
 
 exec dwm
