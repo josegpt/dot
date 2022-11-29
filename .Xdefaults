@@ -4,38 +4,5 @@ XTerm*faceSize:         10
 XTerm*scrollBar:        false
 XTerm*metaSendsEscape:  true
 
-
-*background: #ECEFF4
-*foreground: #2E3440
-
-! Black + DarkGrey
-*color0:  #2E3440
-*color8:  #D8DEE9
-
-! DarkRed + Red
-*color1:  #BF616A
-*color9:  #BF616A
-
-! DarkGreen + Green
-*color2:  #A3BE8C
-*color10: #A3BE8C
-
-! DarkYellow + Yellow
-*color3:  #EBCB8B
-*color11: #EBCB8B
-
-! DarkBlue + Blue
-*color4:  #5E81AC
-*color12: #5E81AC
-
-! DarkMagenta + Magenta
-*color5:  #B48EAD
-*color13: #B48EAD
-
-! DarkCyan + Cyan
-*color6:  #88C0D0
-*color14: #88C0D0
-
-! LightGrey + White
-*color7:  #E5E9F0
-*color15: #ECEFF4
+*background:            #000000
+*foreground:            #FFFFFF
