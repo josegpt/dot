@@ -9,4 +9,4 @@ esac
 xset b off
 $HOME/.config/feh/fehbg
 
-exec dwm
+exec cwm
