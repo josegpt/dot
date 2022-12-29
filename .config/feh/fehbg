@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/local/bin/feh --no-fehbg --image-bg "white" --bg-center '/home/josegpt/.config/feh/current.jpg'
