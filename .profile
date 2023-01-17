@@ -7,3 +7,4 @@ export TERM=screen-256color
 export ENV=$HOME/.env
 export LYNX_CFG=$HOME/.config/lynx/lynx.cfg
 export LYNX_LSS=$HOME/.config/lynx/lynx.lss
+export GOPRIVATE=git.sr.ht
