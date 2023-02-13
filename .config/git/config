@@ -1,22 +1,22 @@
 [core]
-editor = vi
+	editor = vi
 [user]
-email = josegpt27@gmail.com
-name = Jose G Perez Taveras
+	email = josegpt27@gmail.com
+	name = Jose G Perez Taveras
 [init]
-defaultBranch = main
+	defaultBranch = main
 [commit]
-verbose = true
+	verbose = true
 [merge]
-ff = only
+	ff = only
 [push]
-default = simple
-followTags = true
+	default = simple
+	followTags = true
 [pull]
-rebase = true
+	rebase = true
 [fetch]
-prune = true
+	prune = true
 [checkout]
-defaultRemote = origin
+	defaultRemote = origin
 [sendemail]
-annotate = true
+	annotate = true
