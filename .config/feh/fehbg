@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/local/bin/feh --no-fehbg --bg-fill '/home/josegpt/.config/feh/current.jpg'
