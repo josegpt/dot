@@ -10,3 +10,5 @@ map gs :r!snippet
 map gf :%!fmt -72 -p -s
 map gc :!cargo-fmt
 map gr :%!rustfmt --force
+map gg :1
+map ZQ :q!
