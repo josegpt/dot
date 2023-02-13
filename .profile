@@ -1,10 +1,9 @@
 export EDITOR='vi'
 export VISUAL="$EDITOR"
-export PATH=$HOME/bin:$HOME/go/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games
+export PATH=$HOME/bin:$HOME/.cargo/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games
 export LC_CTYPE="en_US.UTF-8"
 export PKG_PATH=https://ftp.ptserver.org/%m:installpath
 export TERM=screen-256color
 export ENV=$HOME/.env
 export LYNX_CFG=$HOME/.config/lynx/lynx.cfg
 export LYNX_LSS=$HOME/.config/lynx/lynx.lss
-export GOPRIVATE=git.sr.ht

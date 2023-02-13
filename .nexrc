@@ -8,7 +8,5 @@ set filec=\
 
 map gs :r!snippet
 map gf :%!fmt -72 -p -s
-map go :%!goimports
-map gd !'mtmux load-buffer -
-map gy !'mtmux load-buffer -u
-map gp :r!tmux show-buffer
+map gc :!cargo-fmt
+map gr :%!rustfmt --force
