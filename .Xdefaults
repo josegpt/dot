@@ -1,5 +1,5 @@
 XTerm*loginShell:       true
-XTerm*faceName:         spleen:antialias=false
+XTerm*faceName:         Terminus
 XTerm*faceSize:         10
 XTerm*scrollBar:        false
 XTerm*metaSendsEscape:  true
