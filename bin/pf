@@ -1,4 +1,4 @@
 #!/bin/sh
 project=$(git rev-parse --show-toplevel)
 selected=$(find $project -type f -not -path "*/\.git/*" | fzy)
-$EDITOR ${selected:?"a file was not selected"}
+$VISUAL ${selected:?"a file was not selected"}
