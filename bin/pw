@@ -1,13 +1,10 @@
 #!/bin/sh
 selected=$(printf "Reboot\nPoweroff" | fzy)
-case $selected in
+case ${selected:?"An option must be selected"} in
 	Reboot)
 		doas reboot
 	;;
 	Poweroff)
 		doas halt -p
-	;;
-	*)
-		echo "Unknown option \`$selected'"
 	;;
 esac
