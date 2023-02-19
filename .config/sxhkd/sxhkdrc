@@ -1,7 +1,7 @@
 super + Return
 	xterm
 
-super + b
+super + w
 	firefox
 
 super + {_,shift + }equal
@@ -13,10 +13,10 @@ super + {_,shift + }m
 super + {_,shift + }{Down,Up}
 	sndioctl {output,input}.level={-,+}0.1
 
-super + alt + {q,r}
-	bspc {quit,wm -r}
+super + {@space,Left,Right}
+	playerctl {play-pause,previous,next}
 
-super + w ; {q,r,k}
+super + Escape ; {q,r,k}
 	{bspc quit,bspc wm -r,pkill -USR1 -x sxhkd}
 
 super + {_,shift + }q
