@@ -1,6 +1,6 @@
 XTerm*loginShell:       true
 XTerm*faceName:         tamsyn
-XTerm*faceSize:         8
+XTerm*faceSize:         10
 XTerm*scrollBar:        false
 XTerm*metaSendsEscape:  true
 XTerm*cursorColor:      #d0021b
