@@ -1,10 +1,8 @@
 #!/bin/sh
-selected=$(printf "Reboot\nPoweroff" | fzy)
-case ${selected:?"usage: ${0##*/}"} in
-	Reboot)
-		doas reboot
-	;;
-	Poweroff)
-		doas halt -p
-	;;
-esac
+
+select selected in "Reboot" "Poweroff"; do
+	case ${selected:?"usage: ${0##*/}"} in
+		Reboot) doas reboot ;;
+		Poweroff) doas halt -p ;;
+	esac
+done
