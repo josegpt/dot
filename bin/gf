@@ -1,9 +1,0 @@
-#!/bin/sh
-
-. utils
-
-[ $(git rev-parse --is-inside-work-tree) ] || _die "\`$(pwd)' is not a git directory"
-
-selected=$(git ls-files | fzy)
-[ -e ${selected:?"a file was not selected"} ] || _die "file \`$selected' does not exist"
-xdg-open $selected

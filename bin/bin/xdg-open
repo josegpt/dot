@@ -1,0 +1,14 @@
+#!/bin/sh
+
+die() {
+	echo "${1:-usage: ${0##*/}}" >&2
+	exit 1
+}
+
+case "${1%%:*}" in
+	http|https)
+		[ -z "$DISPLAY" ] && exec links "$1" || exec firefox --new-tab "$1" &
+	;;
+	*.jpg) exec feh "$1" ;;
+	*) die "I do not how to handle $@" ;;
+esac

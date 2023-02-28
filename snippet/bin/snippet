@@ -1,0 +1,6 @@
+#!/bin/sh
+
+select selected in $HOME/.config/snippet/*; do
+	[ -f "$selected" ] || continue
+	exec cat ${selected:?"You must select a valid snippet"}
+done

@@ -1,0 +1,22 @@
+[core]
+	editor = ed
+[user]
+	email = josegpt27@gmail.com
+	name = Jose G Perez Taveras
+[init]
+	defaultBranch = main
+[commit]
+	verbose = true
+[merge]
+	ff = only
+[push]
+	default = simple
+	followTags = true
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+[checkout]
+	defaultRemote = origin
+[sendemail]
+	annotate = true

@@ -1,7 +1,0 @@
-#!/bin/sh
-
-. utils
-
-selected="$(cat $HOME/.bookmarks | fzy)"
-[ -z $selected ] && _die "must select a bookmark"
-xdg-open ${selected#*\|}

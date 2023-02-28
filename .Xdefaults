@@ -1,8 +1,0 @@
-XTerm*loginShell:       true
-XTerm*faceName:         Terminus
-XTerm*faceSize:         10
-XTerm*scrollBar:        false
-XTerm*metaSendsEscape:  true
-
-*background:            #000000
-*foreground:            #FFFFFF

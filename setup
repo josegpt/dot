@@ -1,0 +1,18 @@
+#!/bin/sh
+
+die() {
+	echo "${1:-usage: ${0##*/} <laptop|desktop|server>}" >&2
+	exit 1
+}
+
+type stow > /dev/null 2>&1 ||
+	die "error: stow must be installed first"
+
+_()
+	stow -t ~ "$@"
+
+case $1 in
+	desktop|laptop) _ tmux git mail bmk bin shell snippet x ;;
+	server) _ tmux git mail bin shell snippet ;;
+	*) die
+esac
