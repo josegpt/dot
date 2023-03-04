@@ -1,9 +1,7 @@
-XTerm*loginShell:       true
-XTerm*faceName:         tamsyn
-XTerm*faceSize:         10
-XTerm*scrollBar:        false
-XTerm*metaSendsEscape:  true
-XTerm*cursorColor:      #d0021b
+XTerm*loginShell:	true
+XTerm*scrollBar:	false
+XTerm*metaSendsEscape:	true
+XTerm*cursorColor:	#d0021b
 
-*background: #ffffff
-*foreground: #000000
+*background:	#ffffff
+*foreground:	#000000
