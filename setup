@@ -8,8 +8,7 @@ die() {
 type stow > /dev/null 2>&1 ||
 	die "error: stow must be installed first"
 
-_()
-	stow -t ~ "$@"
+_() stow -t ~ "$@"
 
 case $1 in
 	desktop|laptop) _ tmux git mail bmk bin shell snippet x ;;
