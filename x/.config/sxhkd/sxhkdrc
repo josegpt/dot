@@ -4,6 +4,9 @@ super + Return
 super + w
 	firefox
 
+super + l
+	xlock -mode matrix
+
 super + {_,shift + }equal
 	xbacklight -{dec,inc} 10
 
