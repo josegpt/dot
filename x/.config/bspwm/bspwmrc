@@ -9,6 +9,6 @@ bspc config window_gap			12
 
 bspc config borderless_monocle		false
 bspc config gapless_monocle		false
-bspc config focused_border_color	"#d0021b"
+bspc config focused_border_color	"#282828"
 
 bspc desktop -l monocle
