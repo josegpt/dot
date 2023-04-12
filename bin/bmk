@@ -1,5 +1,0 @@
-#!/bin/sh
-
-select selected in $(cat $HOME/.config/bmk/list); do
-	exec xdg-open ${selected#*\|}
-done
