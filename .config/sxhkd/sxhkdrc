@@ -5,7 +5,7 @@ super + w
 	firefox
 
 super + l
-	xlock -mode matrix
+	xlock -bg white -fg black
 
 super + {_,shift + }equal
 	xbacklight -{dec,inc} 10
