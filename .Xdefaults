@@ -1,6 +1,4 @@
 XTerm*loginShell:	true
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
-XTerm*cursorColor:	brightgreen
-XTerm*foreground:	green
-XTerm*background:	black
+XTerm*cursorColor:	red
