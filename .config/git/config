@@ -3,6 +3,8 @@ editor = e
 [user]
 email = josegpt27@gmail.com
 name = Jose G Perez Taveras
+[color]
+ui = false
 [init]
 defaultBranch = main
 [commit]
