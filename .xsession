@@ -2,4 +2,4 @@
 
 xset b off
 
-exec bspwm
+exec ratpoison
