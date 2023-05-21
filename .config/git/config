@@ -1,5 +1,6 @@
 [core]
 editor = e
+pager = cat
 [user]
 email = josegpt27@gmail.com
 name = Jose G Perez Taveras
