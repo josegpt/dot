@@ -3,4 +3,6 @@ XTerm*faceName:		Dina
 XTerm*faceSize:		4
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
-XTerm*cursorColor:	red
+XTerm*cursorColor:	brightred
+XTerm*background:	black
+XTerm*foreground:	red
