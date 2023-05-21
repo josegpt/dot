@@ -1,4 +1,6 @@
 XTerm*loginShell:	true
+XTerm*faceName:		Dina
+XTerm*faceSize:		4
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
 XTerm*cursorColor:	red
