@@ -6,6 +6,12 @@ email = josegpt27@gmail.com
 name = Jose G Perez Taveras
 [color]
 ui = false
+branch = false
+diff = false
+interactive = false
+status = false
+log = false
+advice = false
 [init]
 defaultBranch = main
 [commit]
