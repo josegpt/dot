@@ -29,7 +29,5 @@ prune = true
 defaultRemote = origin
 [log]
 date = relative
-[format]
-pretty = format:%h %<(80)%s %<(25)%aN %cd
 [sendemail]
 annotate = true
