@@ -3,7 +3,7 @@ XTerm*faceName:		Dina
 XTerm*faceSize:		8
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
-XTerm*cursorColor:	brightred
-XTerm*background:	black
-XTerm*foreground:	red
+XTerm*cursorColor:	red
+XTerm*background:	white
+XTerm*foreground:	black
 Xft.dpi:		96
