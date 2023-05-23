@@ -12,8 +12,6 @@ interactive = false
 status = false
 log = false
 advice = false
-[init]
-defaultBranch = main
 [commit]
 verbose = true
 [merge]
