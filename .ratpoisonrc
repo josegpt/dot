@@ -11,10 +11,10 @@ set resizeunit 20
 set transgravity c
 set maxsizegravity c
 set startupmessage 0
-set fgcolor "#000000"
-set bgcolor "#ffffff"
-set fwcolor "#ff0000"
-set bwcolor "#ffffff"
+set fgcolor "#00ff00"
+set bgcolor "#000000"
+set fwcolor "#00ff00"
+set bwcolor "#000000"
 set winfmt [%n] %s %t
 set font "Dina:size=8"
 
