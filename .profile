@@ -1,5 +1,5 @@
-export EDITOR="e"
-export VISUAL="e"
+export EDITOR="ed"
+export VISUAL="ed"
 export ENV=$HOME/.env
 export TERM=screen-256color
 export LC_CTYPE="en_US.UTF-8"
