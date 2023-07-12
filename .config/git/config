@@ -1,33 +1,35 @@
 [core]
-editor = ed
-pager = cat
+	editor = ed
+	pager = cat
 [user]
-email = josegpt27@gmail.com
-name = Jose G Perez Taveras
+	email = josegpt27@gmail.com
+	name = Jose G Perez Taveras
+[init]
+	defaultBranch = master
 [color]
-ui = false
-branch = false
-diff = false
-interactive = false
-status = false
-log = false
-advice = false
+	ui = false
+	branch = false
+	diff = false
+	interactive = false
+	status = false
+	log = false
+	advice = false
 [commit]
-verbose = true
+	verbose = true
 [merge]
-ff = only
+	ff = only
 [push]
-default = simple
-followTags = true
+	default = simple
+	followTags = true
 [status]
-short = true
+	short = true
 [pull]
-rebase = true
+	rebase = true
 [fetch]
-prune = true
+	prune = true
 [checkout]
-defaultRemote = origin
+	defaultRemote = origin
 [log]
-date = relative
+	date = relative
 [sendemail]
-annotate = true
+	annotate = true
