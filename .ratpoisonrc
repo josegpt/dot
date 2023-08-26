@@ -11,19 +11,19 @@ set resizeunit 20
 set transgravity c
 set maxsizegravity c
 set startupmessage 0
-set fgcolor "#00ff00"
-set bgcolor "#000000"
-set fwcolor "#00ff00"
-set bwcolor "#000000"
+set fgcolor "red"
+set bgcolor "white"
+set fwcolor "red"
+set bwcolor "white"
 set winfmt [%n] %s %t
-set font "Dina:size=8"
+set font "monospace:size=8"
 
 # keybindings
 escape C-period
 alias browser exec firefox
 bind slash browser
 bind C-slash browser
-definekey top s-l exec xlock -mode matrix
+definekey top s-l exec xlock -bg white -fg red
 definekey top s-equal exec xbacklight -dec 10%
 definekey top s-plus exec xbacklight -inc 10%
 definekey top s-Down exec sndioctl output.level=-0.1

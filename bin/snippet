@@ -1,6 +1,4 @@
 #!/bin/sh
 
-select selected in $HOME/.config/snippet/*; do
-	[ -f "$selected" ] || continue
-	exec cat ${selected:?"You must select a valid snippet"}
-done
+selected="$(find $HOME/.config/snippet -type f | fzy)"
+exec cat ${selected:?"a snippet was not selected"}

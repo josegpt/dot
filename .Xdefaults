@@ -1,9 +1,13 @@
 XTerm*loginShell:	true
-XTerm*faceName:		Dina
+XTerm*faceName:		monospace
 XTerm*faceSize:		8
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
-XTerm*cursorColor:	brightgreen
-XTerm*background:	black
-XTerm*foreground:	green
-Xft.dpi:		96
+XTerm*cursorColor:	brightred
+*.saveLines:		5000
+*.background:		white
+*.foreground:		red
+
+#ifdef HIDPI
+Xft.dpi:		112
+#endif
