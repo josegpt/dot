@@ -1,12 +1,13 @@
 XTerm*loginShell:	true
-XTerm*faceName:		monospace
+XTerm*faceName:		Fixed
 XTerm*faceSize:		8
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
-XTerm*cursorColor:	brightred
-*.saveLines:		5000
-*.background:		white
-*.foreground:		red
+XTerm*saveLines:	5000
+XTerm*cursorShape:	underline
+XTerm*cursorColor:	red
+XTerm*background:	black
+XTerm*foreground:	white
 
 #ifdef HIDPI
 Xft.dpi:		112
