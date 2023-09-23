@@ -1,0 +1,5 @@
+#!/bin/sh
+
+exec pkg_sign -s signify2 -s /etc/signify/my-pkg.sec \
+	-o /var/www/pub/OpenBSD/$(uname -r)/packages/amd64 \
+	-S /usr/ports/packages/$(uname -p)/all
