@@ -1,5 +1,9 @@
 #!/bin/sh
 
-exec pkg_sign -s signify2 -s /etc/signify/my-pkg.sec \
+PACKAGE_DIR=/usr/ports/packages/$(uname -p)/all
+
+doas pkg_sign -s signify2 -s /etc/signify/my-pkg.sec \
 	-o /var/www/pub/OpenBSD/$(uname -r)/packages/amd64 \
-	-S /usr/ports/packages/$(uname -p)/all
+	-S $PACKAGE_DIR
+
+doas rm -f $PACKAGE_DIR/*
