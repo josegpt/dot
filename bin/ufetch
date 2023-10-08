@@ -1,0 +1,63 @@
+#!/bin/sh
+# Copyright (c) 2018, 2019, 2020 Joe Schillinger <me@schil.li>
+# Copyright (c) 2023 Jose G Perez Taveras <josegpt27@gmail.com>
+# ufetch-openbsd - tiny system info for openbsd
+
+_wm()
+{
+    id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)
+    id=${id##* }
+    wm=$(xprop -id "$id" -notype -len 25 -f _NET_WM_NAME 8t)
+    wm=${wm##*_NET_WM_NAME = \"}
+    echo ${wm%%\"*}
+}
+
+_packages()
+{
+    count=$(pkg_info | wc -l)
+    echo ${count##[:space:]*}
+}
+
+_uptime()
+{
+    up=$(uptime)
+    up=${up##*up }
+    echo ${up%%,*}
+}
+
+_shell()
+{
+    echo ${SHELL##*/}
+}
+
+host="$(hostname)"
+os="$(uname -sr)"
+kernel="$(uname -v)"
+uptime="$(_uptime)"
+packages="$(_packages)"
+shell="$(_shell)"
+wm="$(_wm)"
+
+bold="\033[1;31m"
+yellow="\033[0;33m"
+white="\033[0;37m"
+reset="\033[0m"
+
+lc="${reset}${bold}${yellow}" # labels
+nc="${reset}${bold}${yellow}" # user and hostname
+ic="${reset}${bold}${white}"  # info
+c0="${reset}${yellow}"        # first color
+c1="${reset}${white}"         # second color
+c2="${reset}${bold}${yellow}" # third color
+
+## OUTPUT
+
+echo "
+${c0}       _____      ${nc}${USER}${ic}@${nc}${host}${reset}
+${c0}     \-     -/    ${lc}OS:        ${ic}${os}${reset}
+${c0}  \_/         \   ${lc}KERNEL:    ${ic}${kernel}${reset}
+${c0}  |        ${c1}O O ${c0}|  ${lc}UPTIME:    ${ic}${uptime}${reset}
+${c0}  |_  ${c2}<   ${c0})  ${c2}3 ${c0})  ${lc}PACKAGES:  ${ic}${packages}${reset}
+${c0}  / \         /   ${lc}SHELL:     ${ic}${shell}${reset}
+${c0}     /-_____-\    ${lc}WM:        ${ic}${wm}${reset}
+"
