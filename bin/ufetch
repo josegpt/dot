@@ -50,10 +50,7 @@ c0="${reset}${yellow}"        # first color
 c1="${reset}${white}"         # second color
 c2="${reset}${bold}${yellow}" # third color
 
-## OUTPUT
-
-echo "
-${c0}       _____      ${nc}${USER}${ic}@${nc}${host}${reset}
+echo "${c0}       _____      ${nc}${USER}${ic}@${nc}${host}${reset}
 ${c0}     \-     -/    ${lc}OS:        ${ic}${os}${reset}
 ${c0}  \_/         \   ${lc}KERNEL:    ${ic}${kernel}${reset}
 ${c0}  |        ${c1}O O ${c0}|  ${lc}UPTIME:    ${ic}${uptime}${reset}
