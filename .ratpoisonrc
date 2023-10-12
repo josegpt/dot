@@ -48,3 +48,4 @@ definekey top s-1 only
 definekey top s-2 vsplit
 definekey top s-3 hsplit
 definekey top s-period curframe
+definekey top s-Return exec /usr/X11R6/bin/xterm
