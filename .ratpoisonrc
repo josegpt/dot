@@ -39,7 +39,7 @@ definekey top s-M exec sndioctl input.mute=!
 # easier keybindings
 definekey top s-n next
 definekey top s-p prev
-definekey top s-k kill
+definekey top s-k delete
 definekey top s-o focus
 definekey top s-f fselect
 definekey top s-w select
