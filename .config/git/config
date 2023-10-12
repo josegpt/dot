@@ -1,5 +1,5 @@
 [core]
-	editor = ed
+	editor = mg
 	pager = cat
 [user]
 	email = josegpt27@gmail.com

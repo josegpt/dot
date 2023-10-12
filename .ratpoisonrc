@@ -1,0 +1,50 @@
+# hooks
+addhook switchwin info [%n] %t
+
+# config
+gravity c
+set border 1
+set barborder 1
+set wingravity c
+set bargravity c
+set resizeunit 20
+set transgravity c
+set maxsizegravity c
+set startupmessage 0
+set fgcolor "black"
+set bgcolor "white"
+set fwcolor "red"
+set bwcolor "white"
+set winfmt [%n] %s %t
+set font "Fixed:size=8"
+
+# aliases
+alias browser exec ungoogled-chromium
+
+# keybindings
+bind slash browser
+bind C-slash browser
+bind C-slash browser
+definekey top s-slash browser
+definekey top s-l exec xlock -bg white -fg black
+definekey top s-equal exec xbacklight -dec 10%
+definekey top s-plus exec xbacklight -inc 10%
+definekey top s-Down exec sndioctl output.level=-0.1
+definekey top s-Up exec sndioctl output.level=+0.1
+definekey top s-m exec sndioctl output.mute=!
+definekey top s-S-Down exec sndioctl input.level=-0.1
+definekey top s-S-Up exec sndioctl input.level=+0.1
+definekey top s-M exec sndioctl input.mute=!
+
+# easier keybindings
+definekey top s-n next
+definekey top s-p prev
+definekey top s-k kill
+definekey top s-o focus
+definekey top s-f fselect
+definekey top s-w select
+definekey top s-0 remove
+definekey top s-1 only
+definekey top s-2 vsplit
+definekey top s-3 hsplit
+definekey top s-period curframe
