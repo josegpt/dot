@@ -1,6 +1,5 @@
 # hooks
 addhook switchwin info [%n] %t
-addhook switchwin banish
 
 # config
 gravity c
