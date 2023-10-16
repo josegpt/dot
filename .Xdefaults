@@ -5,8 +5,8 @@ XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
 XTerm*saveLines:	5000
 XTerm*cursorColor:	red
-XTerm*background:	white
-XTerm*foreground:	black
+XTerm*background:	black
+XTerm*foreground:	white
 
 #ifdef HIDPI
 Xft.dpi:		112

@@ -30,14 +30,14 @@ shell="$(_shell)"
 
 bold="\033[1;31m"
 yellow="\033[0;33m"
-black="\033[0;30m"
+white="\033[0;37m"
 reset="\033[0m"
 
 lc="${reset}${bold}${yellow}" # labels
 nc="${reset}${bold}${yellow}" # user and hostname
-ic="${reset}${bold}${black}"  # info
+ic="${reset}${bold}${white}"  # info
 c0="${reset}${yellow}"        # first color
-c1="${reset}${black}"         # second color
+c1="${reset}${white}"         # second color
 c2="${reset}${bold}${yellow}" # third color
 
 echo "${c0}       _____
