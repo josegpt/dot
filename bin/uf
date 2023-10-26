@@ -1,0 +1,31 @@
+#!/bin/sh
+# Copyright (c) 2018, 2019, 2020 Joe Schillinger <me@schil.li>
+# Copyright (c) 2023 Jose G Perez Taveras <josegpt27@gmail.com>
+# ufetch-openbsd - tiny system info for openbsd
+
+_packages()
+{
+    count=$(pkg_info | wc -l)
+    echo ${count##[:space:]*}
+}
+
+_uptime()
+{
+    up=$(uptime)
+    up=${up##*up }
+    echo ${up%%,*}
+}
+
+_shell()
+{
+    echo ${SHELL##*/}
+}
+
+echo "       _____
+     \-     -/    HOST:      $USER@$(hostname)
+  \_/         \   OS:        $(uname -sr)
+  |        O O |  KERNEL:    $(uname -v)
+  |_  <   )  3 )  UPTIME:    $(_uptime)
+  / \         /   PACKAGES:  $(_packages)
+     /-_____-\    SHELL:     $(_shell)
+"
