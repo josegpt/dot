@@ -1,5 +1,5 @@
 [core]
-	editor = vi
+	editor = ed
 	pager = cat
 [user]
 	email = josegpt27@gmail.com

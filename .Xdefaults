@@ -4,10 +4,7 @@ XTerm*faceSize:		8
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
 XTerm*saveLines:	5000
-XTerm*cursorColor:	brightgreen
-XTerm*background:	black
-XTerm*foreground:	green
-
-#ifdef HIDPI
+XTerm*cursorColor:	red
+XTerm*background:	white
+XTerm*foreground:	black
 Xft.dpi:		112
-#endif

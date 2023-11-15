@@ -1,4 +1,0 @@
-#!/bin/sh
-
-selected="$(find $HOME/.config/snippet -type f | fzy)"
-exec cat ${selected:?"a snippet was not selected"}
