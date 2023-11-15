@@ -1,0 +1,6 @@
+#!/bin/sh
+
+select selected in $HOME/lc/*; do
+	[ -f "$selected" ] || continue
+	exec cat "$selected"
+done
