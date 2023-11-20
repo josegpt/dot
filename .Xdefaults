@@ -4,7 +4,7 @@ XTerm*faceSize:		8
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
 XTerm*saveLines:	5000
-XTerm*cursorColor:	red
+XTerm*cursorColor:	#d0021b
 XTerm*background:	white
 XTerm*foreground:	black
 Xft.dpi:		112

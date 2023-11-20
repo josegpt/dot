@@ -1,5 +1,9 @@
 #!/bin/sh
 
-xset b off
+[ -f $HOME/.profile ] && . $HOME/.profile
+[ -f $HOME/.feh ] && $HOME/.feh
 
-exec cwm
+xset b off
+xsetroot -name "Now shut up and hack"
+
+exec dwm
