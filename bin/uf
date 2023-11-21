@@ -22,7 +22,7 @@ _shell()
 }
 
 echo "       _____
-     \-     -/    host:      $USER@$(hostname)
+     \-     -/    host:      $(hostname)
   \_/         \   os:        $(uname -sr)
   |        O O |  kernel:    $(uname -v)
   |_  <   )  3 )  uptime:    $(_uptime)
