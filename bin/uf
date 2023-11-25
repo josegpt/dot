@@ -5,7 +5,7 @@
 
 _packages()
 {
-    count=$(pkg_info | wc -l)
+    count=$(ls /var/db/pkg | wc -l)
     echo ${count##[:space:]*}
 }
 
