@@ -1,6 +1,6 @@
 #!/bin/sh
 
-select selected in $HOME/prjs/*/; do
+select selected in $HOME/projects/*/; do
 	[ -d "$selected" ] || continue
 	base=${selected%${selected##*[!/]}}
 	exec tmux new-session -s ${base##*/} -c $selected
