@@ -1,0 +1,18 @@
+#!/bin/sh
+
+_die()
+{
+	echo "$1"
+	exit 1
+}
+
+dir="$HOME/tt"
+lang=${1:?"must provide tt lang"}
+
+[[ ! -d "$dir/$lang" ]] && _die "you don't have tt for \`$lang'"
+
+t=${2:?"must provide t for \`$lang"}
+
+[[ ! -f "$dir/$lang/$t" ]] && _die "you don't have t \`$t' for lang \`$lang'"
+
+exec cat "$dir/$lang/$t"
