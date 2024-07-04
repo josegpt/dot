@@ -5,4 +5,3 @@ map gg :1
 map ZQ :q!
 map gt :r!t
 map gf :%!fmt -72 -p -s
-map gc :%!indent
