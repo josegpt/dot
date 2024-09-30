@@ -1,0 +1,19 @@
+htile 50
+vtile 50
+sticky yes
+snapdist 4
+gap 0 0 0 0
+moveamount 4
+color font black
+color menufg black
+color menubg white
+color selfont white
+fontname "Fixed:size=8"
+color activeborder gray
+color inactiveborder white
+
+command browser chrome
+command top "xterm -e top"
+
+autogroup 0 "xterm,XTerm"
+autogroup 1 "chromium-browser,Chromium-browser"
