@@ -3,29 +3,25 @@
 # Copyright (c) 2023 Jose G Perez Taveras <josegpt27@gmail.com>
 # ufetch-openbsd - tiny system info for openbsd
 
-_packages()
+_pkgs()
 {
     count=$(ls /var/db/pkg | wc -l)
     echo ${count##[:space:]*}
 }
 
-_uptime()
+_up()
 {
     up=$(uptime)
     up=${up##*up }
     echo ${up%%,*}
 }
 
-_shell()
-{
-    echo ${SHELL##*/}
-}
-
-echo "       _____
-     \-     -/    host:      $(hostname)
-  \_/         \   os:        $(uname -sr)
-  |        O O |  kernel:    $(uname -v)
-  |_  <   )  3 )  uptime:    $(_uptime)
-  / \         /   packages:  $(_packages)
-     /-_____-\    shell:     $(_shell)
-"
+cat <<EOF
+       _____
+     \-     -/    $(hostname)
+  \_/         \   $(uname -sr)
+  |        O O |  $(uname -v)
+  |_  <   )  3 )  $(_up)
+  / \         /   $(_pkgs) pkgs
+     /-_____-\    ${SHELL##*/}
+EOF
