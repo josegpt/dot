@@ -1,19 +1,21 @@
 htile 50
 vtile 50
 sticky yes
-snapdist 4
+snapdist 12
 gap 0 0 0 0
-moveamount 4
-color font black
+moveamount 12
+borderwidth 24
+color font gray
 color menufg black
-color menubg white
-color selfont white
-fontname "Fixed:size=8"
-color activeborder gray
-color inactiveborder white
+color menubg black
+color selfont red
+fontname "spleen:pixelsize=12:antialias=false"
+color activeborder black
+color inactiveborder black
 
-command browser chrome
+command browser firefox
 command top "xterm -e top"
+command break "xlock -mode bat"
 
 autogroup 0 "xterm,XTerm"
-autogroup 1 "chromium-browser,Chromium-browser"
+autogroup 1 "Navigator,firefox"

@@ -1,8 +1,9 @@
 XTerm*loginShell:	true
-XTerm*faceName:		Fixed
-XTerm*faceSize:		8
+XTerm*faceName:		spleen:pixelsize=12:antialias=false
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
 XTerm*saveLines:	5000
+XTerm*background:	black
+XTerm*foreground:	gray
 XTerm*cursorColor:	red
 Xft.dpi:		112
