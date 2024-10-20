@@ -1,5 +1,6 @@
 export EDITOR=ed
 export VISUAL=vi
+export NO_COLOR=yes
 export ENV=$HOME/.env
 export LC_CTYPE=en_US.UTF-8
 export PKG_PATH=https://pkg.exor.dev/%m:installpath
