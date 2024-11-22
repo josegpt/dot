@@ -9,7 +9,7 @@ color font gray
 color menufg black
 color menubg black
 color selfont red
-fontname "spleen:pixelsize=12:antialias=false"
+fontname "Fixed:size=8"
 color activeborder black
 color inactiveborder black
 

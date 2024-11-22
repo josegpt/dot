@@ -1,5 +1,6 @@
 XTerm*loginShell:	true
-XTerm*faceName:		spleen:pixelsize=12:antialias=false
+XTerm*faceName:		Fixed
+XTerm*faceSize:		8
 XTerm*scrollBar:	false
 XTerm*metaSendsEscape:	true
 XTerm*saveLines:	5000
